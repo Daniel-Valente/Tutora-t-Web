@@ -1,38 +1,211 @@
-.App {
-  text-align: center;
+.search{
+  background-color: #F0F2F5;
+    border-radius: 30px;
+    height: 40px;
+    border: none;
+    width: 50%;
+    font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
+    color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    top: 15px;
+    left: 250px;
+    position: absolute;
+}
+.search-input{
+  position: absolute;
+  background: none;
+    height: 40px;
+    border: none;
+    width: 80%;
+    font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
+    color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    left: 30px;
+    bottom: 0px;
+    
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.search-icon{
+  position:absolute;
+  width: 25px;
+  background: none;
+  border: none;
+  color: #6B6B6B;
+  left: 30px;
+  top: 8px;
+}
+.search-imag{
+  width: 20px;
+}
+.search-input{
+  outline: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.boton-circular{
+  background-color: #F0F2F5;
+  border-radius: 25px;
+  width:50px;
+  height:50px;
+  border: none;
+  font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-right: 1rem;
+  float: right;
+}
+.boton-circular-volteado{
+  background-color: #F0F2F5;
+  border-radius: 25px;
+  width:50px;
+  height:50px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 2rem;
+  float: left;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.boton-circular-volteado-2{
+  background-color: #F0F2F5;
+  border-radius: 25px;
+  width:50px;
+  height:50px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 2rem;
+  margin-top: 15px;
+  float: left;
 }
 
-.App-link {
-  color: #61dafb;
+.boton-circular-volteado-3{
+  background-color: #F0F2F5;
+  border-radius: 20px;
+  width:40px;
+  height:40px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.name{
+  position: absolute;
+  top: 5px;
+  left: 100px;
+}
+.boton-circular:hover{
+  background-color: #cacaca;
+}
+
+.boton-circular-volteado:hover{
+  background-color: #cacaca;
+}
+.boton-circular-volteado-3:hover{
+  background-color: #cacaca;
+}
+.boton-circular-volteado-2:hover{
+  background-color: #cacaca;
+}
+
+.icon{
+  width: 20px;
+}
+.margins{
+  margin-left: 45px;
+  margin-right: 45px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.star{
+  width: 25px;
+}
+
+
+
+.inputCom{
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #A2A2A2;
+  height: 40px;
+  width: 530px;
+  font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.inputCom-2{
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #A2A2A2;
+  height: 40px;
+  width: 330px;
+  font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bolder;
+  position: absolute;
+  top: 500px;
+  right: -70px;
+}
+.send{
+  width: 25px;
+  position: absolute;
+  right: 55px;
+  top: 557px;
+}
+
+.send-2{
+  width: 25px;
+  position: absolute;
+  right: 55px;
+  top: 840%;
+  right: 0;
+}
+.titulo{
+  float: right;
+  margin-left: 10px;
+}
+.panelDerecho{
+  position: absolute;
+  top: 0;
+  right: 70px;
+}
+
+.linea-acostada-2{
+  width: 44%;
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  background-color: #d4d4d4;
+  height: 1px;
+}
+
+.linea-acostada-3{
+  width: 44%;
+  position: absolute;
+  top: 380px;
+  right: 0px;
+  background-color: #d4d4d4;
+  height: 1px;
+}
+
+
+.messangerSinFondo-2{
+  border: none;
+  width: 35px;
+  float: right;
+  background-color: #ffffff;
+  color: #ffffff;
+}
+
+.sinF{
+  width: 25px;
 }
