@@ -27,7 +27,7 @@ function App() {
     setIsHovering(true);
   }
   return (
-    <div>
+    <div style={{backgroundColor: '#000000'}}>
       <header className="principal-header">
         <a className='logo-link' href='/'>tutorate</a>
         <div className='search'>
@@ -46,7 +46,7 @@ function App() {
         <Post>
           <button className='boton-circular-volteado' onClick={toggle}> <img className='icon' src={user} /> </button>
           <h3 className='name'>Mara Alessandra Ruiz Gonzalez</h3>
-          <img style={{ width: '700px', marginTop: '10px' }} src={imagen1} />
+          <img style={{ width: '50vw', marginTop: '10px' }} src={imagen1} />
           <div className='margins'>
             <img className='star' src={star} />
             <button onClick={toggleComments} className='messangerSinFondo-2'><img className='sinF'  src={messangerSinFondo} /></button>
@@ -55,7 +55,7 @@ function App() {
           <div className='linea-acostada' />
 
           <button className='boton-circular-volteado-2' onClick={toggle}> <img className='icon' src={user} /> </button>
-          <p style={{position:'absolute', top:'475px', left:'80px', color:'#858585'}}>1</p>
+          <p style={{position:'absolute', top:'64.8vh', left:'80px', color:'#858585'}}>1</p>
           <input type="text" className='inputCom' placeholder='¿Que opinas?...'></input>
           <img className='send' src={send} onMouseEnter={handleMouseEnter} />
         </Post>
@@ -63,16 +63,16 @@ function App() {
         <div className='linea-acostada-2' />
         <div className='linea-acostada-3' />
           <div>
-            <img style={{ width: '500px', height: '550px', marginTop: '10px' }} src={imagen1} />
+            <img style={{ width: '43vw', height: '91.6vh' }} src={imagen1} />
           </div>
           <div className='panelDerecho'>
           <button className='boton-circular-volteado-3' onClick={toggle}> <img className='icon' src={user} /> </button>
             <h3 className='titulo'>Mara Alessandra Ruiz Gonzalez</h3>
            
             <div className='meGusta'>
-              <img className='star' style={{position:'absolute', top:'400px', left:'10px'}} src={star} />
-              <p style={{position:'absolute', top:'388px', left:'50px', color: '#858585'}}>1</p>
-              <p style={{position:'absolute', top:'460px', left:'10px', color: '#858585'}}>Hace 1 hora</p>
+              <img className='star' style={{position:'absolute', top:'70vh', left:'0'}} src={star} />
+              <p style={{position:'absolute', top:'68.7vh', left:'2vw', color: '#858585'}}>1</p>
+              <p style={{position:'absolute', top:'72.5vh', left:'0', color: '#858585'}}>Hace 1 hora</p>
               <input type="text" className='inputCom-2' placeholder='¿Que opinas?...'></input><img className='send-2' src={send} />
             </div>
           </div>

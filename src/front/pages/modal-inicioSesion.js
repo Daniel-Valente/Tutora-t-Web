@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import PortalComments from './portal-comments';
+import PortalInicioSesion from './portal-inicioSesion';
 
-export default class Comments extends Component{
+export default class ModalInicioSesion extends Component{
     render(){
         
-        const {children, toggle, active} = this.props;
-        return(
-            <PortalComments>
+       const {children, toggle, active} = this.props;
+       return(
+        <PortalInicioSesion>
             {active &&  (
                 <div style={styles.wrapper}>
                     <div style={styles.window}>
@@ -17,10 +17,10 @@ export default class Comments extends Component{
                 </div>
             )
             }
-        </PortalComments>
-        )
-         
-     }
+        </PortalInicioSesion>
+       )   
+        
+    }
 }
 
 const styles = {
@@ -40,12 +40,12 @@ const styles = {
         position: 'relative',
         background: '#fff',
         borderRadius: 10,
-        paddingBottom:15, 
+        padding: 15, 
         boxShadow: '2px 2px 10px  rgba(0,0,0,0.3)',
         zIndex:10,
-        top: 40,
-        minWidth: '80vw',
-        height: '90vh'
+        top: 90,
+        minWidth: 400,
+        height: '45vh',
         
     },
     closeBtn: {

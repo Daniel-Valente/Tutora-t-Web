@@ -5,17 +5,17 @@
 
 .boton-circular-perfil{
     background-color: #a0a0a0;
-    border-radius: 100px;
-    width:200px;
-    height:200px;
+    border-radius: 10vw;
+    width:20vw;
+    height:20vw;
     border: none;
     font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
     color: #ffffff;
     font-size: 17px;
     font-weight: bold;
     position: absolute;
-    top:350px;
-    left: 600px;
+    top:30%;
+    left: 10%;
 
   
 }
