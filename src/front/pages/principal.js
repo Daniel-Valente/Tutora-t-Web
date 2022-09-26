@@ -6,6 +6,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import React, { useState } from "react"
 import Select from 'react-select';
+import ModalRegistro from './modal-registro';
+import ModalInicioSesion from './modal-inicioSesion';
 function Principal() {
     const [password, setPassword] = useState(false);
     const [active, setActive] = useState(false);
@@ -72,7 +74,7 @@ function Principal() {
                     <p className='aviso-privacidad'>Al continuar, tu estas aceptas los términos y condiciones<br/>
                         y el aviso de privacidad.</p>
                 </Modal>
-                <Modal active={activeS} toggle={toggleIniciarSesion}>
+                <ModalInicioSesion active={activeS} toggle={toggleIniciarSesion}>
                     <h1 style={{ textAlign:'center'}}>Iniciar Sesion</h1>
                     <h5 style={{ textAlign:'center', color: '#828181' }}>Inicia sesion con tu correo electronico aqui.</h5>
                     <input type="email" placeholder='Correo electronico'></input>
@@ -88,8 +90,8 @@ function Principal() {
                         y el aviso de privacidad.</p>
                         <div className='linea-acostada'/>
                     <button className='boton-sin-fondo'>¿Olvidaste tu contraseña? </button>
-                </Modal>
-                <Modal active={activeRC} toggle={toggleRegistrarteCorreo}>
+                </ModalInicioSesion> 
+                <ModalRegistro active={activeRC} toggle={toggleRegistrarteCorreo}>
                     <h1 style={{ textAlign:'center'}}>Registrate</h1>
                     <h5 style={{ textAlign:'center', color: '#828181' }}>Crea una cuenta con tu correo electronico.</h5>
                     <input type="text" placeholder='Nombre completo'></input>
@@ -105,7 +107,7 @@ function Principal() {
                     <button className='boton-crea'>Crea tu cuenta</button>
                     <p className='aviso-privacidad'>Al continuar, tu estas aceptas los términos y condiciones<br/>
                         y el aviso de privacidad.</p>
-                </Modal>
+                </ModalRegistro>
 
             </body>
         </div>

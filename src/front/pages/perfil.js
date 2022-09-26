@@ -26,7 +26,7 @@ function Perfil() {
       <body className='principal-body'>
         <img className="fondo" src={fondo} />
         <button className='boton-circular-perfil'> <img className='icon-perfil' src={user} /> </button>
-        <h1 style={{textAlign:'center', marginTop:'100px'}}>Mara Alessandra Ruiz Gonzalez</h1>
+        <label style={{textAlign:'left', marginTop:'5%', marginLeft:'33%', fontSize:'300%', fontFamily:'Segoe UI Emoji'}}>Mara Alessandra Ruiz Gonzalez</label>
       </body>
 
     </div>

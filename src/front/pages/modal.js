@@ -28,11 +28,13 @@ const styles = {
         position: 'absolute',
         top: 0,
         left: 0,
-        width: '100%',
-        hight: '100%',
+        width: '100vw',
+        height: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItem: 'center',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        minWidth: '100vw',
     },
     window: {
         position: 'relative',
@@ -43,6 +45,7 @@ const styles = {
         zIndex:10,
         top: 90,
         minWidth: 400,
+        height: '35vh',
         
     },
     closeBtn: {

@@ -1,3 +1,4 @@
+
 .search{
   background-color: #F0F2F5;
     border-radius: 30px;
@@ -134,7 +135,7 @@
   border-radius: 30px;
   border: 1px solid #A2A2A2;
   height: 40px;
-  width: 530px;
+  width: 82%;
   font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
   color: #000000;
   font-size: 15px;
@@ -152,22 +153,21 @@
   font-size: 15px;
   font-weight: bolder;
   position: absolute;
-  top: 500px;
-  right: -70px;
+  top: 82vh;
+  left: -1vw;
 }
 .send{
   width: 25px;
   position: absolute;
   right: 55px;
-  top: 557px;
+  top: 93%;
 }
 
 .send-2{
   width: 25px;
   position: absolute;
-  right: 55px;
-  top: 840%;
-  right: 0;
+  top: 84.5vh;
+  left: 16vw;
 }
 .titulo{
   float: right;
@@ -176,11 +176,11 @@
 .panelDerecho{
   position: absolute;
   top: 0;
-  right: 70px;
+  right: 18vw;
 }
 
 .linea-acostada-2{
-  width: 44%;
+  width: 46.2%;
   position: absolute;
   top: 60px;
   right: 0px;
@@ -189,9 +189,9 @@
 }
 
 .linea-acostada-3{
-  width: 44%;
+  width: 46.2%;
   position: absolute;
-  top: 380px;
+  top: 67vh;
   right: 0px;
   background-color: #d4d4d4;
   height: 1px;
@@ -209,3 +209,10 @@
 .sinF{
   width: 25px;
 }
+.screen{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 100;
+  background-color: #000000;
+} 

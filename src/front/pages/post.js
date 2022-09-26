@@ -43,7 +43,7 @@ const styles = {
         boxShadow: '2px 2px 10px  rgba(0,0,0,0.3)',
         zIndex:10,
         top: 0,
-        maxWidth: 700,
+        width: '50vw',
         
     }
 };
