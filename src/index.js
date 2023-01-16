@@ -7,6 +7,7 @@ import Principal from './front/pages/principal';
 import Perfil from './front/pages/perfil';
 
 import { Routes ,Route, BrowserRouter } from 'react-router-dom';
+import Configuracion from './front/pages/configuracion';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ root.render(
           <Route exact path="/" element={<App/>}/>
           <Route exact path="/principal" element={<Principal/>}/>
           <Route exact path="/perfil" element={<Perfil/>}/>
+          <Route exact path="/configuracion" element={<Configuracion/>}/>
         </Routes>
     </BrowserRouter>
 );

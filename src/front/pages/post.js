@@ -25,8 +25,8 @@ export default class Post extends Component{
 
 const styles = {
     wrapper: {
-        position: 'absolute',
-        top: 100,
+       
+        top: 0,
         left: 0,
         width: '100%',
         hight: '100%',
@@ -39,9 +39,8 @@ const styles = {
         background: '#fff',
         borderRadius: 10,
         paddingTop: 15, 
-        paddingBottom: 15, 
+        marginTop: 45, 
         boxShadow: '2px 2px 10px  rgba(0,0,0,0.3)',
-        zIndex:10,
         top: 0,
         width: '50vw',
         

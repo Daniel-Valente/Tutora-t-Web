@@ -39,7 +39,7 @@ function Principal() {
     return (
         <div>
             <header>
-                <a className='logo-link' href='/'>tutorate</a>
+                <a className='logo-link'>tutorate</a>
 
                 <button className='button-without-background' onClick={toggle}>Iniciar sesion</button>
                 <button className='button-shape' onClick={toggleRegister}>Registrate</button>
