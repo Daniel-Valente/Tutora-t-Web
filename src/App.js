@@ -52,10 +52,13 @@ function App() {
     setActiveP(!activeP);
   }
   const toggle = () => {
-    window.location.href = "/perfil"
+    window.location.href = "/perfil";
+  }
+  const toggleConfig = () => {
+    window.location.href = "/configuracion";
   }
   const toggleOut = () => {
-    window.location.href = "/principal"
+    window.location.href = "/principal";
   }
   function handleMouseEnter(e){
     setIsHovering(true);
@@ -80,9 +83,9 @@ function App() {
       </header>
       <body className='principal-body'>
         <User  active={activeU} toggle={toggleUser}>
-          <h4 style={{textAlign:'center', padding:'2rem'}}>Mara Alessandra Ruiz Gonzalez</h4>
+          <h4 style={{textAlign:'center', padding:'2rem'}} onClick={toggle}>Mara Alessandra Ruiz Gonzalez</h4>
          
-          <button className='boton-cuadrado'><img className='icon-2' src={Configuracion} />Configuracion</button>
+          <button className='boton-cuadrado' onClick={toggleConfig}><img className='icon-2' src={Configuracion} />Configuracion</button>
           <button className='boton-cuadrado' onClick={toggleOut}><img className='icon-2' src={salir} />Salir</button>
           <br/>
           <br/>
