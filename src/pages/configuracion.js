@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import '../css/principal.css'
-import search from '../../image/search.png';
-import Configuracion2 from '../../image/configuracion.png';
-import salir from '../../image/salida-de-emergencia.png';
-import messanger from '../../image/messanger.png';
-import user from '../../image/user.png';
-import notifications from '../../image/notifications.png';
+import search from '../image/search.png';
+import Configuracion2 from '../image/configuracion.png';
+import salir from '../image/salida-de-emergencia.png';
+import messanger from '../image/messanger.png';
+import user from '../image/user.png';
+import notifications from '../image/notifications.png';
 import User from './user';
 import Notificaciones from './notificaciones';
 import ModalPublicacion from './modal-publicacion';

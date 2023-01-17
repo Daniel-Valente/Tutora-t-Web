@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import '../css/perfil.css'
-import user from '../../image/user.png';
-import notifications from '../../image/notifications.png';
-import search from '../../image/search.png';
-import messanger from '../../image/messanger.png';
-import fondo from '../../image/fondo-3.jpg';
+import user from '../image/user.png';
+import notifications from '../image/notifications.png';
+import search from '../image/search.png';
+import messanger from '../image/messanger.png';
+import fondo from '../image/fondo-3.jpg';
 
 
 function Perfil() {

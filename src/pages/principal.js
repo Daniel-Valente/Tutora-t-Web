@@ -1,7 +1,7 @@
 import '../css/principal.css'
-import CUCEI from '../../image/CUCEI.png'
+import CUCEI from '../image/CUCEI.png'
 import Modal from './modal'
-import googleIcon from '../../image/googleIcon.png'
+import googleIcon from '../image/googleIcon.png'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import React, { useState } from "react"
