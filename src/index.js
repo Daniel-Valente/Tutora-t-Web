@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Principal from './front/pages/principal';
-import Perfil from './front/pages/perfil';
+import Principal from './pages/principal';
+import Perfil from './pages/perfil';
 
 import { Routes ,Route, BrowserRouter } from 'react-router-dom';
-import Configuracion from './front/pages/configuracion';
+import Configuracion from './pages/configuracion';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>

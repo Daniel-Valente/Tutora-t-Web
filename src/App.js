@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from "react"
-import './front/css/principal.css'
+import './css/principal.css'
 import search from './image/search.png';
 import Configuracion from './image/configuracion.png';
 import salir from './image/salida-de-emergencia.png';
