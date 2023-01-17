@@ -1,24 +1,23 @@
 import './App.css';
 import React, { useState } from "react"
 import './front/css/principal.css'
-import ChatBot from './components/ChatBot';
-import search from './media/search.png';
-import Configuracion from './media/configuracion.png';
-import salir from './media/salida-de-emergencia.png';
-import imagen1 from './media/Imagen1.png';
-import messanger from './media/messanger.png';
-import messangerSinFondo from './media/messangerSinFondo.png';
-import star from './media/star.png';
-import send from './media/send.png';
-import user from './media/user.png';
-import notifications from './media/notifications.png';
-import Post from './front/pages/post';
-import Comments from './front/pages/comments';
-import User from './front/pages/user'
+import search from './image/search.png';
+import Configuracion from './image/configuracion.png';
+import salir from './image/salida-de-emergencia.png';
+import imagen1 from './image/Imagen1.png';
+import messanger from './image/messanger.png';
+import messangerSinFondo from './image/messangerSinFondo.png';
+import star from './image/star.png';
+import send from './image/send.png';
+import user from './image/user.png';
+import notifications from './image/notifications.png';
+import Post from './pages/post';
+import Comments from './pages/comments';
+import User from './pages/user'
 import { handleBreakpoints } from '@mui/system';
-import Notificaciones from './front/pages/notificaciones';
+import Notificaciones from './pages/notificaciones';
 import { useEffect } from 'react';
-import ModalPublicacion from './front/pages/modal-publicacion';
+import ModalPublicacion from './pages/modal-publicacion';
 function App() {
 
   const [activeC, setActiveC] = useState(false);
@@ -177,7 +176,6 @@ function App() {
           </div>
         </Comments>
       </body>
-      <ChatBot />
     </div>
   );
 }
