@@ -1,22 +1,26 @@
 import React from 'react';
 
+import { 
+    Configuracion, 
+    imagen1, 
+    messangerSinFondo, 
+    star, 
+    salir, 
+    user,
+    send
+   } from '../../helpers/ExpoImage';
+
 export const Body = ({
     activeC,
     activeN,
     activeNN,
     activeP,
     activeU,
-    Configuracion,
     Comments,
     handleMouseEnter,
-    imagen1,
-    messangerSinFondo,
     ModalPublicacion,
     Notificaciones,
     Post,
-    salir,
-    send,
-    star,
     toggle,
     toggleComments,
     toggleConfig,
@@ -26,7 +30,6 @@ export const Body = ({
     toggleP,
     toggleUser,
     User,
-    user,
 }) => {
   return (
     <div className='principal-body'>

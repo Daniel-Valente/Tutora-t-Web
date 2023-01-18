@@ -1,10 +1,13 @@
-import React from 'react'
+import React from 'react';
+
+import { 
+  messanger,  
+  notifications, 
+  search,
+  user
+ } from '../../helpers/ExpoImage';
 
 export const Header = ({
-    user,
-    notifications,
-    messanger,
-    search,
     toggleUser,
     toggleNotificaciones,
     toggleNotificaciones2

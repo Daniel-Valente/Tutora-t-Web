@@ -8,12 +8,17 @@ import React, { useState } from "react"
 import Select from 'react-select';
 import ModalRegistro from './modal-registro';
 import ModalInicioSesion from './modal-inicioSesion';
+
+import { endPointApi } from '../Api/endPointApi';
+import { useEffect } from 'react';
 function Principal() {
     const [password, setPassword] = useState(false);
     const [active, setActive] = useState(false);
     const [activeR, setActiveR] = useState(false);
     const [activeS, setActiveS] = useState(false);
     const [activeRC, setActiveRC] = useState(false);
+    const [options, setOptions] = useState([]);
+    
     const toggle = () => {
         setActive(!active);
     }
@@ -30,11 +35,20 @@ function Principal() {
         setActiveR(false);
         setActiveRC(!activeRC);
     }
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
+    
+    const setCareers = async() => {
+        const { data } = await endPointApi.get(`/json/careers`);
+
+        data.map( (data) => {
+            const { id, name } = data;
+            setOptions((options) => [...options, { value: id, label: name }]);
+        } );
+    }
+
+    useEffect(() => {
+        setCareers();
+    }, [])
+    
 
     return (
         <div>

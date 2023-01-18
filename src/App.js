@@ -10,19 +10,6 @@ import Comments from './pages/comments';
 import Notificaciones from './pages/notificaciones';
 import ModalPublicacion from './pages/modal-publicacion';
 
-import { 
-  Configuracion, 
-  imagen1, 
-  messanger, 
-  messangerSinFondo, 
-  notifications, 
-  star, 
-  salir, 
-  search,
-  user,
-  send
- } from './helpers/ExpoImage';
-
 import './App.css';
 import './css/principal.css';
 
@@ -76,10 +63,6 @@ function App() {
     <div style={{backgroundColor: '#000000'}}>
       <header >
         <Header
-          user={ user }
-          notifications={ notifications }
-          messanger={ messanger }
-          search={ search }
           toggleUser={ toggleUser }
           toggleNotificaciones={ toggleNotificaciones }
           toggleNotificaciones2={ toggleNotificaciones2 }
@@ -92,17 +75,11 @@ function App() {
           activeNN={activeNN}
           activeP={activeP}
           activeU={activeU}
-          Configuracion={Configuracion}
           Comments={Comments}
           handleMouseEnter={handleMouseEnter}
-          imagen1={imagen1}
-          messangerSinFondo={messangerSinFondo}
           ModalPublicacion={ModalPublicacion}
           Notificaciones={Notificaciones}
           Post={Post}
-          salir={salir}
-          send={send}
-          star={star}
           toggle={toggle}
           toggleComments={toggleComments}
           toggleConfig={toggleConfig}
@@ -112,7 +89,6 @@ function App() {
           toggleP={toggleP}
           toggleUser={toggleUser}
           User={User}
-          user={user}
         />
       </body>
     </div>
