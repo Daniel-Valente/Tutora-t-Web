@@ -1,7 +1,12 @@
-import { Modal } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+import { isLoginModal, isLoginWithEmail } from '../../helpers/utils';
+import { googleIcon } from '../../images';
 import LogInModal from '../modals/LogInModal';
+import Modal from '../modals/Modal';
 
 const Login = () => {
   const [password, setPassword] = useState(false);
@@ -10,6 +15,8 @@ const Login = () => {
     password: ''
   });
 
+  const { value: loginModal } = useSelector(state => state.loginModal);
+  const { value: loginWitnEmail } = useSelector(state => state.loginWitnEmail);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -17,13 +24,11 @@ const Login = () => {
   }
 
   const handleSubmit = () => {
-    console.log(loginValue);
-    loginUser(loginValue);
   }
-
+console.log(loginModal);
   return (
     <div>
-      <Modal active={} toggle={ } dispatch={dispatch}>
+      <Modal active={ loginModal } toggle={ isLoginModal } dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Bienvenido de vuelta!</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Inicia sesion con tu correo electrónico o con Google.
@@ -31,7 +36,7 @@ const Login = () => {
         <button className="boton-google">Ingresar con Google</button>
         <img src={googleIcon} className="google-icon"></img>
         <br />
-        <button className="boton-correo" onClick={() => console.log('hola')}>
+        <button className="boton-correo" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
           Ingresa con correo electronico
         </button>
         <br />
@@ -41,7 +46,7 @@ const Login = () => {
         </p>
       </Modal>
 
-      <LogInModal active={ } toggle={ } dispatch={dispatch}>
+      <LogInModal active={ loginWitnEmail } toggle={ isLoginWithEmail } dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Iniciar Sesion</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Inicia sesion con tu correo electronico aqui.

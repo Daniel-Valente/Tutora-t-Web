@@ -4,13 +4,13 @@ import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 
-import isLoginReducer from '../reducers/auth/isLoginSlice';
+import isLoginReducer from '../reducers/auth/isLogInSlice';
 import logInModalReducer from '../reducers/auth/logInModalSlice';
 import logInWithEmailReducer from '../reducers/auth/loginWithEmailSlice';
 import registerModalReducer from '../reducers/auth/registerModalSlice';
 import registerWithEmailReducer from '../reducers/auth/registerWithEmailSlice';
 import isHoveringReducer from '../reducers/hover/isHoveringSlice';
-import commentModalReducer from '../reducers/comments/logInModalSlice';
+import commentModalReducer from '../reducers/comments/commentModalSlice';
 import chatModalReducer from '../reducers/chats/chatModalSlice';
 import notificationModalReducer from '../reducers/notifications/notificationModalSlice';
 import alertReducer from '../reducers/notifications/alertSlice';
@@ -25,13 +25,13 @@ const reducers = combineReducers({
     registerModal: registerModalReducer,
     registerWithEmail: registerWithEmailReducer,
     isHovering: isHoveringReducer,
-    commentModal, commentModalReducer,
     chatModal: chatModalReducer,
     notificationModal: notificationModalReducer,
     alert: alertReducer,
     publicationModal: publicationModalReducer,
     userModal: userModalReducer,
     user: userReducer,
+    commentModal: commentModalReducer,
 });
 
 const persistConfig = {

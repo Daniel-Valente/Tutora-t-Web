@@ -1,3 +1,4 @@
+export { sessionState } from "./auth/isLogInSlice";
 
 export { userModalState } from "./users/userModalSlice";
 
@@ -11,7 +12,7 @@ export { notificationModalState } from "./notifications/notificationModalSlice";
 
 export { chatModalState } from "./chats/chatModalSlice";
 
-export { commentModalState } from "./comments/logInModalSlice";
+export { commentModalState } from "./comments/commentModalSlice";
 
 export { hoveringState } from "./hover/isHoveringSlice";
 
@@ -22,5 +23,3 @@ export { registerModalState } from "./auth/registerModalSlice";
 export { loginWithEmailState } from "./auth/loginWithEmailSlice";
 
 export { logInModalState } from "./auth/logInModalSlice";
-
-export { sessionState } from "./auth/isLoginSlice";

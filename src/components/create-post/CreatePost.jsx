@@ -1,11 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { isPublicationModal } from '../../helpers/utils';
 
 import { user } from '../../images';
 import PublicationModal from '../modals/PublicationModal';
 
 const CreatePost = () => {
+  const { value: publicationModal } = useSelector(state => state.publicationModal);
   const dispatch = useDispatch();
 
   return (
@@ -13,7 +15,7 @@ const CreatePost = () => {
       <div className='wrapper'>
         <div className='windows'>
           <div className='col-3'>
-            <Link to={`/perfil/${}`} style={{ textDecoration: 'none' }}>
+            <Link to={``} style={{ textDecoration: 'none' }}>
               <div className='boton-circular-volteado-4'><img className='icon-user' src={user} /></div>
             </Link>
           </div>
@@ -26,9 +28,9 @@ const CreatePost = () => {
         </div>
       </div>
 
-      <PublicationModal active={} toggle={} dispatch={dispatch}>
+      <PublicationModal active={publicationModal} toggle={ isPublicationModal } dispatch={dispatch}>
         <h2 style={{ textAlign: 'center' }}>Crear publicacion</h2>
-        <textarea className='inp' placeholder={`¿Que tienes en mente ${} ?...`}></textarea>
+        <textarea className='inp' placeholder={`¿Que tienes en mente  ?...`}></textarea>
       </PublicationModal>
     </div>
   )

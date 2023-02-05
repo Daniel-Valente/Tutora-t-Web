@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { alertState } from '../../reducers';
 
 const Notification = () => {
     const alert = useSelector(state => state.alert);
@@ -9,7 +10,7 @@ const Notification = () => {
     const handleClose = ( event, reason ) => {
         if( reason === 'clickaway' ) return;
        
-        dispatch( viewAlert({
+        dispatch( alertState({
             ...alert,
             isOpen: false
         }))

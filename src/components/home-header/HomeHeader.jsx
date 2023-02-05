@@ -6,15 +6,19 @@ import MessageModal from '../modals/MessageModal';
 import NotificationModal from '../modals/NotificationModal';
 import UserModal from '../modals/UserModal';
 
-import { exit, messangesBlack, notifications, settings, user } from '../../images';
+import { exit, messangesBlack, notifications, search, settings, user } from '../../images';
+import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
 
 const HomeHeader = () => {
+  const { value: userModal } = useSelector(state => state.userModal);
+  const { value: chatModal } = useSelector(state => state.chatModal);
+  const { value: notificationModal } = useSelector(state => state.notificationModal);
+  const userInfo = useSelector(state => state.user);
+
   const [ chatWithLimit, setChatWithLimit ] = useState();
   const [first, setfirst] = useState([0,1,2,3,4]);
-  
-  
 
-
+  const dispatch = useDispatch();
 
   return (
     <div className="principal-header header">
@@ -40,30 +44,30 @@ const HomeHeader = () => {
       </button>
       <div className='linea' />
     
-      <UserModal  active={} toggle={} dispatch={dispatch}>
+      <UserModal  active={userModal} toggle={ isUserModal } dispatch={dispatch}>
         <div className='row'>
-          <Link to={`/perfil/${}`}  style={{ textDecoration: 'none' }}>
+          <Link to={`/perfil/`}  style={{ textDecoration: 'none' }}>
             <h4 style={{textAlign:'center', padding:'2rem'}}>
               { userInfo.name }
             </h4>
           </Link>
         </div>
         <div className='row'>
-          <Link  to={`/configuracion/${}`}  style={{ textDecoration: 'none' }}>
+          <Link  to={`/configuracion/`}  style={{ textDecoration: 'none' }}>
             <button className='boton-cuadrado'>
               <img className='icon-2' src={ settings }/>Configuracion
             </button>  
           </Link>
         </div>
         <div className='row'>
-          <button className='boton-cuadrado' onClick={ () => console.log('hola') } >
+          <button className='boton-cuadrado' onClick={ () => isOut(dispatch) } >
             <img className='icon-2' src={ exit } />Salir
           </button>
         </div>
         <br/>
       </UserModal>
 
-      <NotificationModal active={} toggle={} dispatch={dispatch}>
+      <NotificationModal active={ notificationModal } toggle={ isNotificationModal } dispatch={dispatch}>
         <h2 style={{textAlign: 'center', paddingTop:'2rem'}}>Notificaciones</h2>
         {
           first.map((element, index) => {
@@ -78,14 +82,14 @@ const HomeHeader = () => {
           })
         }
         <div className='row'>  
-          <Link  to={`/configuracion/${}`}  style={{ textDecoration: 'none'}}>
+          <Link  to={`/configuracion/`}  style={{ textDecoration: 'none'}}>
             <button className='boton-cuadrado' style={{ fontSize:'17px', textAlign: 'center' }}>Ver más</button>  
           </Link>
         </div> 
         <br />
       </NotificationModal>
 
-      <MessageModal active={} toggle={} dispatch={dispatch}>
+      <MessageModal active={ chatModal } toggle={ isChatModal } dispatch={dispatch}>
         <h2 style={{textAlign: 'center', paddingTop:'2rem'}}>Mensajes</h2>
         {
           chatWithLimit.map((element, index) => {
@@ -110,7 +114,7 @@ const HomeHeader = () => {
           })
         }
         <div className='row'>  
-          <Link  to={`/chats`}  style={{ textDecoration: 'none'}}>
+          <Link  to={``}  style={{ textDecoration: 'none'}}>
             <button className='boton-cuadrado' style={{ fontSize:'17px', textAlign: 'center' }}>Ver más</button>  
           </Link>
         </div>

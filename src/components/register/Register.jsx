@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from '../modals/modal';
+import { isRegisterModal, isRegisterWithEmail, ValidateData } from '../../helpers/utils';
+import { googleIcon } from '../../images';
+import { alertState } from '../../reducers';
+import Modal from '../modals/Modal';
 
 import RegisterModal from '../modals/RegisterModal';
 import Notification from '../notification/Notification';
 import RegisterForm from './RegisterForm';
 
 const Register = () => {
-  const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerListSelect();
-  const [careerSelect, setCareerSelect] = useState(dataCareers);
+  // const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerListSelect();
+  const [careerSelect, setCareerSelect] = useState('');
   const [values, setValues] = useState({
     username: '',
     nombre: '',
@@ -20,14 +23,14 @@ const Register = () => {
   });
 
   const { value: registerModal } = useSelector(state => state.registerModal);
-  const { value: registerWithEmailModal } = useSelector(state => state.registerWithEmailModal);
+  const { value: registerWithEmail } = useSelector(state => state.registerWithEmail);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
     const validation = ValidateData(e.target, values);
 
     if (!validation.confirm) {
-      dispatch(viewAlert({
+      dispatch(alertState({
         isOpen: true,
         message: validation.errorMessage,
         type: 'error'
@@ -50,13 +53,13 @@ const Register = () => {
     });
   }
 
-  useEffect(() => {
-    !fetchingCareers && dataCareers.length > 0 && setCareerSelect(dataCareers);
-  }, [dataCareers]);
+  // useEffect(() => {
+  //   !fetchingCareers && dataCareers.length > 0 && setCareerSelect(dataCareers);
+  // }, [dataCareers]);
 
   return (
     <div>
-      <Modal active={} toggle={} dispatch={dispatch}>
+      <Modal active={ registerModal } toggle={ isRegisterModal } dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Registrate</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Crea una cuenta con tu correo electrónico o con Google.
@@ -66,7 +69,7 @@ const Register = () => {
         <br />
         <button
           className="boton-correo"
-          onClick={() => console.log('hola') }>
+          onClick={() => isRegisterWithEmail(dispatch, registerWithEmail) }>
           Registrate con correo electronico
         </button>
         <br />
@@ -76,7 +79,7 @@ const Register = () => {
         </p>
       </Modal>
 
-      <RegisterModal active={} toggle={} dispatch={dispatch}>
+      <RegisterModal active={ registerWithEmail } toggle={ isRegisterWithEmail } dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Registrate</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Crea una cuenta con tu correo electronico.

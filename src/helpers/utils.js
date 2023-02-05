@@ -1,3 +1,29 @@
+import {
+    chatModalState, commentModalState, hoveringState,
+    logInModalState, loginWithEmailState, notificationModalState,
+    publicationState, registerModalState, registerWithEmailState,
+    sessionState, userModalState
+} from "../reducers";
+
+
+export const isLoginModal = (dispatch, sessionModal) => {
+    dispatch(logInModalState(!sessionModal));
+}
+
+export const isLoginWithEmail = (dispatch, loginModal) => {
+    dispatch(logInModalState(false));
+    dispatch(loginWithEmailState(!loginModal));
+}
+
+export const isRegisterModal = (dispatch, registerModal) => {
+    dispatch(registerModalState(!registerModal));
+}
+
+export const isRegisterWithEmail = (dispatch, registerWithEmailModal) => {
+    dispatch(registerModalState(false));
+    dispatch(registerWithEmailState(!registerWithEmailModal));
+}
+
 export const ValidateData = (target, value) => {
     if (target) {
         switch (target.name) {
@@ -50,3 +76,49 @@ export const ValidateData = (target, value) => {
 }
 
 export const fortmatResponse = (res) => JSON.stringify(res, null, 2);
+
+
+export const isNotificationModal = (dispatch, activeNotifications) => {
+    dispatch(chatModalState(false));
+    dispatch(notificationModalState(!activeNotifications));
+    dispatch(userModalState(false));
+}
+
+export const isUserModal = (dispatch, activeUsers) => {
+    dispatch(userModalState(!activeUsers));
+    dispatch(notificationModalState(false));
+    dispatch(chatModalState(false));
+}
+
+export const isChatModal = (dispatch, activeMessages) => {
+    dispatch(userModalState(false));
+    dispatch(notificationModalState(false));
+    dispatch(chatModalState(!activeMessages));
+}
+
+export const isCommentModal = (dispatch, activeComments) => {
+    window.scrollTo(0, 0);
+    dispatch(commentModalState(!activeComments));
+}
+
+export const isPublicationModal = (dispatch, activePublications) => {
+    document.body.overflow = 'hidden';
+    dispatch(publicationState(!activePublications));
+}
+
+export const isLogIn = (dispatch) => {
+    loginWithEmailState(dispatch, true);
+    registerWithEmailState(dispatch, true);
+    dispatch(sessionState(true));
+    window.location.href = "/home";
+}
+
+export const isOut = (dispatch) => {
+    userModalState(dispatch, true);
+    dispatch(sessionState(false));
+    window.location.href = "/";
+}
+
+export const handleMouseEnter = (dispatch) => {
+    dispatch(hoveringState(true));
+}
