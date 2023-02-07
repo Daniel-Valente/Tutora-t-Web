@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import HomeHeader from './components/home-header/HomeHeader';
 import MainHeader from './components/main-header/MainHeader';
+
 import AppRouter from './routers/AppRouter';
 
 const App = () => {
