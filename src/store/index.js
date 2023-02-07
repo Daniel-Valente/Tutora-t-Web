@@ -38,7 +38,8 @@ const persistConfig = {
     key: 'redux',
     storage,
     whilelist: ['sessionActive', 'isHovering', 'user'],
-    blacklist: ['loginModal', 'loginWitnEmail', 'registerModal',
+    blacklist: [
+        'loginModal', 'loginWitnEmail', 'registerModal',
         'registerWithEmail', 'commentModal', 'chatModal',
         'notificationModal', 'alert', 'publicationModal',
         'userModal']

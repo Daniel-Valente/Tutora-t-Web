@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isRegisterModal, isRegisterWithEmail, ValidateData } from '../../helpers/utils';
+import { useCareerList } from '../../hooks';
 import { googleIcon } from '../../images';
 import { alertState } from '../../reducers';
 import Modal from '../modals/Modal';
@@ -10,8 +11,8 @@ import Notification from '../notification/Notification';
 import RegisterForm from './RegisterForm';
 
 const Register = () => {
-  // const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerListSelect();
-  const [careerSelect, setCareerSelect] = useState('');
+  const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
+  const [career, setCareer] = useState(dataCareers);
   const [values, setValues] = useState({
     username: '',
     nombre: '',
@@ -53,9 +54,9 @@ const Register = () => {
     });
   }
 
-  // useEffect(() => {
-  //   !fetchingCareers && dataCareers.length > 0 && setCareerSelect(dataCareers);
-  // }, [dataCareers]);
+  useEffect(() => {
+    !fetchingCareers && dataCareers.length > 0 && setCareer(dataCareers);
+  }, [dataCareers]);
 
   return (
     <div>
@@ -87,7 +88,7 @@ const Register = () => {
         <RegisterForm
           values={values}
           onChange={onChange}
-          options={careerSelect}
+          options={career}
         />
         <br />
         <button className="boton-crea" onClick={handleSubmit}>Crea tu cuenta</button>
