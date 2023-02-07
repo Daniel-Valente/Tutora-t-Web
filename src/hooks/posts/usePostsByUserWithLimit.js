@@ -9,7 +9,7 @@ const getPostsByUserWithLimit = async ({ queryKey }) => {
     return data;
 }
 
-export const usePostsByUserWithLimit = (uid_user) => {
+export const usePostsByUserWithLimit = (uid_user, limit) => {
     const query = useQuery(
         ['posts', uid_user, 'limit', limit],
         getPostsByUserWithLimit, {
