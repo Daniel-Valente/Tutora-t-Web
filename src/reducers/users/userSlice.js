@@ -8,8 +8,10 @@ const initialState = {
     phone:'',
     password: '',
     career: '',
-    imagePerfil:'',
-    imagePortada:''
+    imagePortadaName:'',
+    imagePortadaUrl:'',
+    imgName:'',
+    imgUrl:'',
 }
 
 const userSlice = createSlice({
@@ -17,7 +19,17 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         userInfo: ( state, action ) => {
-            state = {...action.payload};
+            state.uid_user = action.payload.uid_user;
+            state.name = action.payload.name;
+            state.username = action.payload.username;
+            state.email = action.payload.email;
+            state.phone = action.payload.phone;
+            state.password = action.payload.password;
+            state.career = action.payload.career;
+            state.imagePortadaName = action.payload.imagePortadaName;
+            state.imagePortadaUrl = action.payload.imagePortadaUrl;
+            state.imgName = action.payload.imgName;
+            state.imgUrl = action.payload.imgUrl;
         }
     }
 });

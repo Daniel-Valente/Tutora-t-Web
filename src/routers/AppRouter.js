@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import ChatsView from '../views/ChatsView';
+import Chat from '../components/chats/Chat';
 import HomeView from '../views/HomeView';
 import MainView from '../views/MainView';
 import PerfilView from '../views/PerfilView';
@@ -26,6 +27,7 @@ const AppRouter = () => {
               <Route path='/perfil/:uid_user' element={ <PerfilView/> } />
               <Route path='/configuracion/:uid_user' element={ <SettingsView/> }/>
               <Route path='/chats/:uid_user' element={ <ChatsView/> } />
+              <Route path='/chat/:uid_user/to/:uid_userChat' element={ <Chat/> } />
             </>
           ) :
           (
@@ -35,6 +37,7 @@ const AppRouter = () => {
               <Route path='/perfil/:uid_user' element={ <MainView/> } />
               <Route path='/configuracion/:uid_user' element={ <MainView/> }/>
               <Route path='/chats/:uid_user' element={ <MainView/> } />
+              <Route path='/chat/:uid_user/to/:uid_userChat' element={ <MainView/> } />
             </>
           )
         }

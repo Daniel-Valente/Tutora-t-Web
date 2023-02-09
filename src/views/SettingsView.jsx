@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { fondo } from "../images";
+
+import { useSelector } from "react-redux";
+import { user, fondo } from "../images";
 
 const SettingsView = () => {
+  const userInfo = useSelector(state => state.user);
   const [value, setValue] = useState("");
 
   const onChange = (e) => {};
@@ -15,11 +18,15 @@ const SettingsView = () => {
         <p>
           <b>Imagen de perfil</b>
         </p>
-        <img className="icon-perfil-setting" src={fondo} />
+        <img className="icon-perfil-setting"
+          src={`${ userInfo.imgUrl ? userInfo.imgUrl : user }`} 
+          alt={ userInfo.username}/>
         <p>
           <b>Imagen de portada</b>
         </p>
-        <img className="circular-portada" src={fondo} />
+        <img className="circular-portada"
+          src={`${ userInfo.imgUrl ? userInfo.imgUrl : fondo }`} 
+          alt={ userInfo.username}/>
         <br />
         <br />
         <p>

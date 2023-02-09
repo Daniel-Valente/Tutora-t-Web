@@ -1,11 +1,27 @@
-import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
-import { user } from "../../images";
+import { Link, useParams } from "react-router-dom";
+import { useUserById } from "../../hooks";
+import { useChatsListToUser } from "../../hooks/chats/useChatsListToUser";
+
+import ChatMessage from "./ChatMessage";
 
 const Chat = () => {
-  const [chatByUser, setChatByUser] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5,6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2]);
+  const userInfo = useSelector(state => state.user);
+  const { uid_userChat } = useParams();
+
+  const { data: dataChatListToUser = [], isFetching: fetchingChatListToUser } = useChatsListToUser(userInfo.uid_user, uid_userChat);
+  const [chatToUser, setChatToUser] = useState(dataChatListToUser);
+
+  const { data: dataUserChat = [], isFetching: fetchingUserChat } = useUserById(uid_userChat);
+  const [userChat, setUserChat] = useState(dataUserChat);
+
   const [formValue, setFormValue] = useState("");
+
+  useEffect(() => {
+    !fetchingChatListToUser && chatToUser.length > 0 && setChatToUser(dataChatListToUser);
+  }, [dataChatListToUser]);
 
   const dummy = useRef();
 
@@ -21,21 +37,9 @@ const Chat = () => {
         <div className="sidebar-messages main-message">
           <div className="scrollbox">
             <div className="scrollbox-inner">
-              {chatByUser.map((chat, index) => {
-                return (
-                  <div className="row" key={`${index}-${chat}-n`}>
-                    <Link to="">
-                      <div className="boton-circular-volteado-5">
-                        <img
-                          className="icon-user-message"
-                          src={user}
-                          alt="user-image"
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })}
+              {
+                chatToUser && chatToUser.map( (chat) => <ChatMessage chat key={ chat.id } userChat /> ) 
+              }
               <span></span>
             </div>
           </div>

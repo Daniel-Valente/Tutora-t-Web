@@ -3,12 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import { isLoginModal, isLoginWithEmail } from '../../helpers/utils';
+import { isLogIn, isLoginModal, isLoginWithEmail, ValidateData } from '../../helpers/utils';
 import { googleIcon } from '../../images';
 import LogInModal from '../modals/LogInModal';
 import Modal from '../modals/Modal';
+import { alertState, userInfo } from '../../reducers';
+import Notification from '../notification/Notification';
+import { useLogIn } from '../../hooks';
 
 const Login = () => {
+  const { mutate: logIn } = useLogIn();
+
   const [password, setPassword] = useState(false);
   const [loginValue, setLoginValue] = useState({
     email: '',
@@ -20,12 +25,52 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
+    const validation = ValidateData(event.target, loginValue);
+    if (!validation.confirm) {
+      dispatch(
+        alertState({
+          isOpen: true,
+          message: validation.errorMessage,
+          type: "error",
+        })
+      );
+    }
+
     setLoginValue({ ...loginValue, [event.target.name]: event.target.value })
   }
 
   const handleSubmit = () => {
+    logIn(loginValue, {
+      onSuccess: (response) => {
+        dispatch(userInfo(response.data));
+        isLogIn(dispatch);
+
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: "Welcome!!!",
+            type: "success",
+          })
+        );
+
+        isLoginWithEmail(dispatch, loginWitnEmail);
+      },
+      onError: ({ response }) => {
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: response.data.error,
+            type: "error",
+          })
+        );
+      }
+    });
+    setLoginValue({
+      email: '',
+      password: ''
+    });
   }
-console.log(loginModal);
+
   return (
     <div>
       <Modal active={ loginModal } toggle={ isLoginModal } dispatch={dispatch}>
@@ -80,6 +125,8 @@ console.log(loginModal);
         <div className="linea-acostada" />
         <button className="boton-sin-fondo">¿Olvidaste tu contraseña? </button>
       </LogInModal>
+
+      <Notification />
     </div>
   )
 }

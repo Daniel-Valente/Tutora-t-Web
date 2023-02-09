@@ -8,18 +8,46 @@ import UserModal from '../modals/UserModal';
 
 import { exit, messangesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
+import { useChatsListWithLimit, useLogOut } from '../../hooks';
+import Message from '../message/Message';
 
 const HomeHeader = () => {
+  const userInfo = useSelector(state => state.user);
+  
+  const { data: dataChatsWithLimit = [], isFetching: fetchingChatsWithLimit } = useChatsListWithLimit(userInfo.uid_user, 5);
+  const { mutate: logOut } = useLogOut();
+
+  const [ chatsWithLimit, setChatsWithLimit ] = useState(dataChatsWithLimit);
+  const [first, setfirst] = useState([0,1,2,3,4]);
+  
   const { value: userModal } = useSelector(state => state.userModal);
   const { value: chatModal } = useSelector(state => state.chatModal);
   const { value: notificationModal } = useSelector(state => state.notificationModal);
-  const userInfo = useSelector(state => state.user);
-
-  const [ chatWithLimit, setChatWithLimit ] = useState();
-  const [first, setfirst] = useState([0,1,2,3,4]);
 
   const dispatch = useDispatch();
 
+  const handleSubmit = () => {
+    dispatch(userInfo({
+      uid_user:'',
+      name: '',
+      username:'',
+      email: '',
+      phone:'',
+      password: '',
+      career: '',
+      imagePortadaName:'',
+      imagePortadaUrl:'',
+      imgName:'',
+      imgUrl:'',
+    }));
+    logOut();
+    isOut(dispatch);
+  }
+
+  useEffect(() => {
+    !fetchingChatsWithLimit && chatsWithLimit.length > 0 && setChatsWithLimit(dataChatsWithLimit);
+  }, [dataChatsWithLimit]);
+  
   return (
     <div className="principal-header header">
       <a className='logo-link' href='/home'>tutorate</a>
@@ -31,36 +59,36 @@ const HomeHeader = () => {
       </div>
 
       <button className='boton-circular' 
-        onClick={() => console.log('hola')}> 
+        onClick={() => isUserModal(dispatch, userModal) }> 
         <img className='icon' src={user} />
       </button>
       <button className='boton-circular' 
-        onClick={() => console.log('hola')}>
+        onClick={() => isNotificationModal(dispatch, notificationModal) }>
           <img className='icon' src={notifications} />
       </button>
       <button className='boton-circular' 
-        onClick={() => console.log('hola')}> 
+        onClick={() => isChatModal(dispatch, chatModal) }> 
         <img className='icon' src={messangesBlack} />
       </button>
       <div className='linea' />
     
       <UserModal  active={userModal} toggle={ isUserModal } dispatch={dispatch}>
         <div className='row'>
-          <Link to={`/perfil/`}  style={{ textDecoration: 'none' }}>
+          <Link to={`/perfil/${ userInfo.uid_user }`}  style={{ textDecoration: 'none' }}>
             <h4 style={{textAlign:'center', padding:'2rem'}}>
               { userInfo.name }
             </h4>
           </Link>
         </div>
         <div className='row'>
-          <Link  to={`/configuracion/`}  style={{ textDecoration: 'none' }}>
+          <Link  to={`/configuracion/${ userInfo.uid_user }`}  style={{ textDecoration: 'none' }}>
             <button className='boton-cuadrado'>
               <img className='icon-2' src={ settings }/>Configuracion
             </button>  
           </Link>
         </div>
         <div className='row'>
-          <button className='boton-cuadrado' onClick={ () => isOut(dispatch) } >
+          <button className='boton-cuadrado' onClick={ handleSubmit } >
             <img className='icon-2' src={ exit } />Salir
           </button>
         </div>
@@ -92,29 +120,16 @@ const HomeHeader = () => {
       <MessageModal active={ chatModal } toggle={ isChatModal } dispatch={dispatch}>
         <h2 style={{textAlign: 'center', paddingTop:'2rem'}}>Mensajes</h2>
         {
-          chatWithLimit.map((element, index) => {
+          chatsWithLimit.map((chat, index) => {
             return (
-              <div className='row' key={`${index}-${element}-n`}>
-                <div className='col-3'>
-                  <Link to=''>
-                    <div className='boton-circular-volteado-5'>
-                      <img className='icon-user-message' src={ user } />
-                    </div>
-                  </Link>
-                </div>
-                <div className='col-9'>
-                  <p style={{marginLeft:'10%', marginTop: '25px'}}>
-                    <label style={{fontSize:'20px'}}> <b>Henry Cavil</b> </label>
-                    <br/>
-                    este es un borrador
-                  </p>
-                </div>
-              </div>
+              <Message
+                chat
+              />
             )
           })
         }
         <div className='row'>  
-          <Link  to={``}  style={{ textDecoration: 'none'}}>
+          <Link  to={`/chat/${ userInfo.uid_user }`}  style={{ textDecoration: 'none'}}>
             <button className='boton-cuadrado' style={{ fontSize:'17px', textAlign: 'center' }}>Ver más</button>  
           </Link>
         </div>

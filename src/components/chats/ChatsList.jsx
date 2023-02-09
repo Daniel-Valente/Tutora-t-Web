@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { search, user } from '../../images';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import { useChatsList } from "../../hooks";
+import { search } from "../../images";
+import Message from "../message/Message";
 
 const ChatsList = () => {
-    const [chats, setChats] = useState([1,2,3,4,5,65,7,8,90,0,7,6,5,4,3,2,11,,1,2,34,5,6,1]);
-    
+    const userInfo = useSelector(state => state.user);
+
+    const { data: dataChatsList = [], isFetching: fetchingChatsList } = useChatsList(userInfo.uid_user);
+    const [chats, setChats] = useState(dataChatsList);
+
+    useEffect(() => {
+        !fetchingChatsList && chats.length > 0 && setChats(dataChatsList);
+    }, [dataChatsList]);
+
     return (
         <div>
             <div className="search-message">
@@ -23,38 +33,12 @@ const ChatsList = () => {
             <div className="sidebar-chat-list">
                 <div className="scrollbox">
                     <div className="scrollbox-inner">
-                        {
-                            chats.map((chat, index) => {
-                                return (
-                                    <div className="row" key={`${index}-${chat}-n`}>
-                                        <div className="col-3">
-                                            <Link to="">
-                                                <div className="boton-circular-volteado-5">
-                                                    <img
-                                                        className="icon-user-message"
-                                                        src={user}
-                                                        alt="user-image"
-                                                    />
-                                                </div>
-                                            </Link>
-                                        </div>
-                                        <div className="col-9">
-                                            <p style={{ marginLeft: "10%", marginTop: "25px" }}>
-                                                <label style={{ fontSize: "20px" }}>
-                                                    <b>Henry Cavil</b>
-                                                </label>
-                                                <br />
-                                                este es un borrador
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                        { chats.map( ( chat, index ) => <Message chat /> ) }
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default ChatsList;

@@ -11,7 +11,7 @@ const RegisterForm = (pops) => {
   const [confirmPasswordView, setConfirmPasswordView] = useState(false);
 
   return (
-    <div>
+    <>
       <input
         type="text"
         placeholder="Nombre completo"
@@ -86,7 +86,7 @@ const RegisterForm = (pops) => {
       >
         {confirmPasswordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
       </button>
-    </div>
+    </>
   )
 }
 
