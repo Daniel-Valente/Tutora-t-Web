@@ -10,11 +10,12 @@ import { exit, messangesBlack, notifications, search, settings, user } from '../
 import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
 import { useChatsListWithLimit, useLogOut } from '../../hooks';
 import Message from '../message/Message';
+import { userInfo } from '../../reducers';
 
 const HomeHeader = () => {
-  const userInfo = useSelector(state => state.user);
+  const userInfoPerfil = useSelector(state => state.user);
   
-  const { data: dataChatsWithLimit = [], isFetching: fetchingChatsWithLimit } = useChatsListWithLimit(userInfo.uid_user, 5);
+  const { data: dataChatsWithLimit = [], isFetching: fetchingChatsWithLimit } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
   const { mutate: logOut } = useLogOut();
 
   const [ chatsWithLimit, setChatsWithLimit ] = useState(dataChatsWithLimit);
@@ -74,14 +75,14 @@ const HomeHeader = () => {
     
       <UserModal  active={userModal} toggle={ isUserModal } dispatch={dispatch}>
         <div className='row'>
-          <Link to={`/perfil/${ userInfo.uid_user }`}  style={{ textDecoration: 'none' }}>
+          <Link to={`/perfil/${ userInfoPerfil.uid_user }`}  style={{ textDecoration: 'none' }}>
             <h4 style={{textAlign:'center', padding:'2rem'}}>
-              { userInfo.name }
+              { userInfoPerfil.name }
             </h4>
           </Link>
         </div>
         <div className='row'>
-          <Link  to={`/configuracion/${ userInfo.uid_user }`}  style={{ textDecoration: 'none' }}>
+          <Link  to={`/configuracion/${ userInfoPerfil.uid_user }`}  style={{ textDecoration: 'none' }}>
             <button className='boton-cuadrado'>
               <img className='icon-2' src={ settings }/>Configuracion
             </button>  
@@ -129,7 +130,7 @@ const HomeHeader = () => {
           })
         }
         <div className='row'>  
-          <Link  to={`/chat/${ userInfo.uid_user }`}  style={{ textDecoration: 'none'}}>
+          <Link  to={`/chat/${ userInfoPerfil.uid_user }`}  style={{ textDecoration: 'none'}}>
             <button className='boton-cuadrado' style={{ fontSize:'17px', textAlign: 'center' }}>Ver más</button>  
           </Link>
         </div>
