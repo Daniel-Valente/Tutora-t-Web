@@ -7,7 +7,7 @@ import { isLogIn, isLoginModal, isLoginWithEmail, ValidateData } from '../../hel
 import { googleIcon } from '../../images';
 import LogInModal from '../modals/LogInModal';
 import Modal from '../modals/Modal';
-import { alertState, userInfo } from '../../reducers';
+import { alertState, userLogInState } from '../../reducers';
 import Notification from '../notification/Notification';
 import { useLogIn } from '../../hooks';
 
@@ -42,17 +42,16 @@ const Login = () => {
   const handleSubmit = () => {
     logIn(loginValue, {
       onSuccess: (response) => {
-        dispatch(userInfo(response.data));
-        isLogIn(dispatch);
-
         dispatch(
           alertState({
             isOpen: true,
             message: "Welcome!!!",
             type: "success",
           })
-        );
-
+          );
+          
+        dispatch(userLogInState(response.data));
+        isLogIn(dispatch);
         isLoginWithEmail(dispatch, loginWitnEmail);
       },
       onError: ({ response }) => {

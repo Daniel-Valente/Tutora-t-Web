@@ -4,6 +4,9 @@ import httpClient from "../../https/httpClient";
 
 const getUserByUsername = async ({ queryKey }) => {
     const [ , username ] = queryKey;
+    
+    if( !username ) return [];
+    
     const { data = [] } = await httpClient.get(`/users/${ username }`);
 
     return data;
@@ -11,9 +14,10 @@ const getUserByUsername = async ({ queryKey }) => {
 
 export const useUserByUsername = (username) => {
     const query = useQuery(
-        ['users', username],
+        username !== null ? ['users', username] : [],
         getUserByUsername, {
             refetchOnWindowFocus: false,
+            enabled: username !== null,
             retry: false
         }
     );

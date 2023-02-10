@@ -17,6 +17,7 @@ import alertReducer from '../reducers/notifications/alertSlice';
 import publicationModalReducer from '../reducers/publications/publicationModalSlice';
 import userModalReducer from '../reducers/users/userModalSlice';
 import userReducer from '../reducers/users/userSlice';
+import userLogInReducer from '../reducers/users/userLogInSlice';
 
 const reducers = combineReducers({
     sessionActive: isLoginReducer,
@@ -31,13 +32,14 @@ const reducers = combineReducers({
     publicationModal: publicationModalReducer,
     userModal: userModalReducer,
     user: userReducer,
+    userLogIn: userLogInReducer,
     commentModal: commentModalReducer,
 });
 
 const persistConfig = {
     key: 'redux',
     storage,
-    whilelist: ['sessionActive', 'isHovering', 'user'],
+    whilelist: ['sessionActive', 'isHovering', 'user', 'userLogIn'],
     blacklist: [
         'loginModal', 'loginWitnEmail', 'registerModal',
         'registerWithEmail', 'commentModal', 'chatModal',

@@ -1,3 +1,5 @@
+export { userLogInState } from "./users/userLogInSlice";
+
 export { sessionState } from "./auth/isLogInSlice";
 
 export { userModalState } from "./users/userModalSlice";
@@ -23,3 +25,4 @@ export { registerModalState } from "./auth/registerModalSlice";
 export { loginWithEmailState } from "./auth/loginWithEmailSlice";
 
 export { logInModalState } from "./auth/logInModalSlice";
+
