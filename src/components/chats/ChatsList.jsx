@@ -14,7 +14,7 @@ const ChatsList = () => {
     useEffect(() => {
         !fetchingChatsList && chats.length > 0 && setChats(dataChatsList);
     }, [dataChatsList]);
-
+    
     return (
         <div>
             <div className="search-message">

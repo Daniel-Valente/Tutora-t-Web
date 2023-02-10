@@ -130,7 +130,7 @@ const HomeHeader = () => {
           })
         }
         <div className='row'>  
-          <Link  to={`/chat/${ userInfoPerfil.uid_user }`}  style={{ textDecoration: 'none'}}>
+          <Link  to={`/chats/${ userInfoPerfil.uid_user }`}  style={{ textDecoration: 'none'}}>
             <button className='boton-cuadrado' style={{ fontSize:'17px', textAlign: 'center' }}>Ver más</button>  
           </Link>
         </div>
