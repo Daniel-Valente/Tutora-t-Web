@@ -1,0 +1,15 @@
+@import './index.css';
+
+@import './App.css';
+
+/* cores */
+@import './core/grid.css';
+@import './core/button.css';
+@import './core/input.css';
+
+/* compoents */
+
+/* views */
+@import './views/MainView.css';
+@import './views/PerfilView.css';
+@import './views/ChatsView.css';

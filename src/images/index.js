@@ -1,0 +1,16 @@
+export { default as CUCEI } from './CUCEI.png';
+export { default as exit } from './exit.png';
+export { default as exitBlack } from './exitBlack.png';
+export { default as eye } from './eye.png';
+export { default as googleIcon } from './googleIcon.png';
+export { default as messanges } from './messanges.png';
+export { default as messangesBlack } from './messangesBlack.png';
+export { default as notifications } from './notifications.png';
+export { default as search } from './search.png';
+export { default as send } from './send.png';
+export { default as settings } from './settings.png';
+export { default as settingsBlack } from './settingsBlack.png';
+export { default as star } from './star.png';
+export { default as user } from './user.png';
+export { default as fondo } from './fondo-2.jpg';
+export { default as imagen1 } from './Imagen1.png';

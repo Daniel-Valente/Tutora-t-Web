@@ -1,0 +1,79 @@
+.search-input-2:hover {
+  background-color: #e2e6eb;
+}
+
+.search-input {
+  position: absolute;
+  background: none;
+  height: 40px;
+  border: none;
+  width: 80%;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 17px;
+  font-weight: bold;
+  left: 30px;
+  bottom: 0px;
+}
+
+.search-input-2 {
+  background-color: #f0f2f5;
+  border-radius: 30px;
+  height: 5%;
+
+  border: none;
+  width: 42%;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 17px;
+  font-weight: bold;
+  position: absolute;
+  top: 16%;
+  left: 29%;
+  padding-right: 30%;
+}
+
+.search-input {
+  outline: none;
+}
+
+.inputCom {
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #a2a2a2;
+  height: 40px;
+  width: 80%;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bolder;
+  margin-bottom: 5%;
+}
+
+.inputCom-2 {
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #a2a2a2;
+  height: 40px;
+  width: 31vw;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bolder;
+  position: absolute;
+  top: 82vh;
+  left: -1vw;
+}
+
+.inp {
+  border: none;
+  outline: none;
+  position: relative;
+  width: 95%;
+  height: 15vh;
+  resize: none;
+}
+.inp::placeholder {
+  font-size: 1em;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+}

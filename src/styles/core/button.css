@@ -1,0 +1,110 @@
+.boton-circular {
+  background-color: #f0f2f5;
+  border-radius: 25px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-right: 1rem;
+  float: right;
+}
+.boton-circular-volteado {
+  background-color: #f0f2f5;
+  border-radius: 25px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.boton-circular-volteado-2 {
+  background-color: #f0f2f5;
+  border-radius: 25px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 2rem;
+  margin-top: 15px;
+  float: left;
+}
+
+.boton-circular-volteado-3 {
+  background-color: #f0f2f5;
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.boton-circular-volteado-4 {
+  background-color: #f0f2f5;
+  border-radius: 25px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 22px;
+  margin-left: 20px;
+}
+
+.boton-circular-volteado-5 {
+  background-color: #f0f2f5;
+  border-radius: 40px;
+  width: 80px;
+  height: 80px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-left: 20px;
+  margin-bottom: 4%;
+}
+
+.boton-circular-volteado-4:hover {
+  background-color: #e2e6eb;
+}
+
+.boton-circular:hover {
+  background-color: #e2e6eb;
+}
+
+.boton-circular-volteado:hover {
+  background-color: #e2e6eb;
+}
+.boton-circular-volteado-3:hover {
+  background-color: #e2e6eb;
+}
+.boton-circular-volteado-2:hover {
+  background-color: #e2e6eb;
+}
+
+.boton-cuadrado {
+  width: 100%;
+  background-color: #ffffff;
+  border-width: 1px;
+  height: 6vh;
+  padding-left: 3vw;
+  text-align: left;
+  border-style: none;
+}
+
+.boton-cuadrado:hover {
+  background-color: #e2e2e2;
+}
