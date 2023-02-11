@@ -1,13 +1,61 @@
 import React, { useState } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Notification from "../components/notification/Notification";
+import { useUpdateUser } from "../hooks";
 import { user, fondo } from "../images";
+import { alertState } from "../reducers";
 
 const SettingsView = () => {
+  const { mutate: updateUser } = useUpdateUser();
   const userInfo = useSelector(state => state.user);
-  const [value, setValue] = useState("");
+  const [ configValue, setConfigValue ] = useState({
+    uid_user: userInfo.uid_user,
+    imgName: '',
+    imgPortadaName: '',
+    nombre: userInfo.name,
+    telefono: userInfo.phone,
+    password: userInfo.password,
+    username: userInfo.username,
+    carrera: userInfo.career
+  });
+  const [ images, setImages ] = useState({ imgName: '', imgPortadaName: '' });
 
-  const onChange = (e) => {};
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    if(e.target.files) {
+      console.log(e.target.files[0]);
+      setImages({ ...images, [e.target.name]: e.target.files[0].name });
+      setConfigValue({ ...configValue, [e.target.name]: e.target.files[0] });
+    }
+    else {
+      setConfigValue({ ...configValue, [e.target.name]: e.target.value });
+    }
+  };
+
+  const handleSubmit = () => {
+    if( configValue.nombre === userInfo.name ) configValue.nombre = '';
+    if( configValue.telefono === userInfo.phone ) configValue.telefono = '';
+    if( configValue.password === userInfo.password ) configValue.password = '';
+    if( configValue.carrera === userInfo.career ) configValue.carrera = '';
+    if( configValue.username === userInfo.username ) configValue.username = '';
+
+    updateUser(configValue, {
+      onSuccess: (response) => {
+        console.log(response);
+      },
+      onError: (response) => {
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: response.data.error,
+            type: "error",
+          })
+        );
+      }
+    });
+  };
 
   return (
     <div>
@@ -25,12 +73,16 @@ const SettingsView = () => {
           <b>Imagen de portada</b>
         </p>
         <img className="circular-portada"
-          src={`${ userInfo.imgUrl ? userInfo.imgUrl : fondo }`} 
+          src={`${ userInfo.imgPortadaUrl ? userInfo.imgPortadaUrl : fondo }`} 
           alt={ userInfo.username}/>
         <br />
         <br />
         <p>
           <b>Nombre completo</b>
+        </p>
+        <br />
+        <p>
+          <b>Nombre de usuario</b>
         </p>
         <br />
         <p>
@@ -51,8 +103,8 @@ const SettingsView = () => {
           </button>
           <br />
           <br />
-          <input type="text" readOnly value={value} />
-          <input className="upload-file-buton" type="file" accept="image/*" />
+          <input type="text" readOnly value={ images.imgName }/>
+          <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
         </div>
 
         <br />
@@ -67,40 +119,53 @@ const SettingsView = () => {
           </button>
           <br />
           <br />
-          <input type="text" readOnly value={value} />
-          <input className="upload-file-buton" type="file" accept="image/*" />
+          <input type="text" readOnly value={ images.imgPortadaName }/>
+          <input className="upload-file-buton" name="imgPortadaName" type="file" accept="image/*" />
         </div>
 
         <br />
 
         <div style={{ marginTop: "12%" }}>
           <input
+            onChange={ onChange }
             type="text"
             placeholder="Nombre completo"
             name="nombre"
-            pattern="^[A-Za-z]"
+            value={ configValue.nombre }
           />
         </div>
         <div style={{ marginTop: "2%" }}>
           <input
+            onChange={ onChange }
             type="text"
-            placeholder="Teléfono"
+            placeholder="username"
+            name="username"
+            value={ configValue.username }
+          />
+        </div>
+        <div style={{ marginTop: "2%" }}>
+          <input
+            onChange={ onChange }
+            type="text"
+            placeholder="Telefono"
             name="telefono"
-            pattern="^[0-9]{10}$"
+            value={ configValue.telefono }
           />
         </div>
         <div style={{ marginTop: "2%" }}>
           <input
-            type="text"
+            onChange={ onChange }
+            type="password"
             placeholder="Nueva contraseña"
             name="password"
-            pattern="^[a-zA-Z0-9!@#$%^&*]{8,20}$"
+            value={ configValue.password }
           />
         </div>
 
         <br />
-        <button style={{ marginTop: "3%" }}>Guardar</button>
+        <button style={{ marginTop: "3%" }} onClick={ handleSubmit }>Guardar</button>
       </div>
+      <Notification />
     </div>
   );
 };

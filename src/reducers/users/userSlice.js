@@ -8,8 +8,8 @@ const initialState = {
     phone:'',
     password: '',
     career: '',
-    imagePortadaName:'',
-    imagePortadaUrl:'',
+    imgPortadaName:'',
+    imgPortadaUrl:'',
     imgName:'',
     imgUrl:'',
 }
@@ -26,8 +26,8 @@ const userSlice = createSlice({
             state.phone = action.payload.phone;
             state.password = action.payload.password;
             state.career = action.payload.career;
-            state.imagePortadaName = action.payload.imagePortadaName;
-            state.imagePortadaUrl = action.payload.imagePortadaUrl;
+            state.imgPortadaName = action.payload.imgPortadaName;
+            state.imgPortadaUrl = action.payload.imgPortadaUrl;
             state.imgName = action.payload.imgName;
             state.imgUrl = action.payload.imgUrl;
         }

@@ -11,7 +11,7 @@ const ChatsView = () => {
         <ChatsList />
       </div>
       <div className="col-9">
-        <Chat />
+        {/* <Chat /> */}
       </div>
     </div>
   );

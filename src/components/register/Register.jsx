@@ -32,7 +32,6 @@ const Register = () => {
     confirmPassword: "",
     carrera: "",
   });
-  const [invalidInput, setInvalidInput] = useState(false);
 
   const { value: registerModal } = useSelector((state) => state.registerModal);
   const { value: registerWithEmail } = useSelector((state) => state.registerWithEmail);
@@ -56,46 +55,32 @@ const Register = () => {
   };
 
   const handleSubmit = () => {
-    setInvalidInput(values.username.length > 0 &&
-      values.nombre.length > 0 &&
-      values.email.length > 0 &&
-      values.telefono.length > 0 &&
-      values.password.length > 0 &&
-      values.carrera.length > 0);
 
-    invalidInput
-      ? addUser(values, {
-        onSuccess: (response) => {
-          dispatch(userInfo(response.data));
-          isLogIn(dispatch);
+    addUser(values, {
+      onSuccess: (response) => {
+        dispatch(userInfo(response.data));
+        isLogIn(dispatch);
 
-          dispatch(
-            alertState({
-              isOpen: true,
-              message: "User was successfully created",
-              type: "success",
-            })
-          );
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: "User was successfully created",
+            type: "success",
+          })
+        );
 
-          isRegisterWithEmail(dispatch, registerWithEmail);
-        },
-        onError: ({ response }) => {
-          dispatch(
-            alertState({
-              isOpen: true,
-              message: response.data.error,
-              type: "error",
-            })
-          );
-        },
-      })
-      : dispatch(
-        alertState({
-          isOpen: true,
-          message: "Faltan campos por completar",
-          type: "error",
-        })
-      );
+        isRegisterWithEmail(dispatch, registerWithEmail);
+      },
+      onError: ({ response }) => {
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: response.data.error,
+            type: "error",
+          })
+        );
+      },
+    });
 
     setValues({
       username: "",
