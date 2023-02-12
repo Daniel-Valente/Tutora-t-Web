@@ -12,9 +12,9 @@ const ChatsList = () => {
     const [chats, setChats] = useState(dataChatsList);
 
     useEffect(() => {
-        !fetchingChatsList && chats.length > 0 && setChats(dataChatsList);
+        !fetchingChatsList && dataChatsList && setChats(dataChatsList);
     }, [dataChatsList]);
-    
+
     return (
         <div>
             <div className="search-message">
@@ -33,7 +33,7 @@ const ChatsList = () => {
             <div className="sidebar-chat-list">
                 <div className="scrollbox">
                     <div className="scrollbox-inner">
-                        { chats.map( ( chat, index ) => <Message chat /> ) }
+                        { chats.map( ( chat, index ) => <Message chat={chat} key={chat.id_Message} /> ) }
                     </div>
                 </div>
             </div>

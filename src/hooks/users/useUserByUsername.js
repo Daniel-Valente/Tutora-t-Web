@@ -7,14 +7,14 @@ const getUserByUsername = async ({ queryKey }) => {
     
     if( !username ) return [];
     
-    const { data = [] } = await httpClient.get(`/users/${ username }`);
+    const { data } = await httpClient.get(`/users/${ username }`);
 
     return data;
 }
 
 export const useUserByUsername = (username) => {
     const query = useQuery(
-        username !== null ? ['users', username] : [],
+        username ? ['users', username] : [],
         getUserByUsername, {
             refetchOnWindowFocus: false,
             enabled: username !== null,

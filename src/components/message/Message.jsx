@@ -11,11 +11,11 @@ const Message = (props) => {
     const [ userChat, setUserChat ] = useState(dataUserChat);
 
   useEffect(() => {
-    !fetchingUserChat && userChat.length > 0 && setUserChat(dataUserChat);
+    !fetchingUserChat && dataUserChat && setUserChat(dataUserChat);
   }, [dataUserChat]);
 
     return (
-        <div className='row' key={chat.id_Message}>
+        <div className='row'>
             <div className='col-3'>
                 <Link to={`/perfil/${ userChat.uid_user }`}>
                     <div className='boton-circular-volteado-5'>

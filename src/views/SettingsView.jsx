@@ -44,6 +44,7 @@ const SettingsView = () => {
     updateUser(configValue, {
       onSuccess: (response) => {
         console.log(response);
+        window.location.href = "/home";
       },
       onError: (response) => {
         dispatch(

@@ -3,15 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const getPostsByUserWithLimit = async ({ queryKey }) => {
-    const [ , uid_user, limit ] = queryKey;
-    const { data = [] } = await httpClient.get(`/posts/${ uid_user }/${limit}`);
+    const [ , uid_user ] = queryKey;
+    if(!uid_user) return [];
+
+    const { data } = await httpClient.get(`/posts/${ uid_user }/5`);
 
     return data;
 }
 
-export const usePostsByUserWithLimit = (uid_user, limit) => {
+export const usePostsByUserWithLimit = (uid_user) => {
     const query = useQuery(
-        ['posts', uid_user, 'limit', limit],
+        uid_user ? ['posts', uid_user, 'limit', '5'] : [],
         getPostsByUserWithLimit, {
             refetchOnWindowFocus: false,
             retry: false

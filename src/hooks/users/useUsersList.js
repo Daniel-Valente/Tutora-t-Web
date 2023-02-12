@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const getUsersList = async () => {
-    const { data = [] } = await httpClient.get(`/users`);
+    const { data } = await httpClient.get(`/users`);
 
     return data;
 }

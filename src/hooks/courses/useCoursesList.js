@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const getCoursesList = async () => {
-    const { data = [] } = await httpClient.get('/courses');
+    const { data } = await httpClient.get('/courses');
 
     return data;
 }

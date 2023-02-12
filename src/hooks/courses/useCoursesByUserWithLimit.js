@@ -4,7 +4,7 @@ import httpClient from "../../https/httpClient";
 
 const getCoursesByUserWithLimit = async ({ queryKey }) => {
     const [ , uid_user, limit ] = queryKey;
-    const { data = [] } = await httpClient.get(`/courses/${ uid_user }/${ limit }`);
+    const { data } = await httpClient.get(`/courses/${ uid_user }/${ limit }`);
 
     return data;
 }

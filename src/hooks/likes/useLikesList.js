@@ -4,7 +4,7 @@ import httpClient from "../../https/httpClient";
 
 const getLikesList = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
-    const { data = [] } = await httpClient.get(`/likes/${ id_Post }`);
+    const { data } = await httpClient.get(`/likes/${ id_Post }`);
 
     return data;
 }
