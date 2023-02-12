@@ -15,7 +15,7 @@ const updateUser = async (user) => {
     formData.append('username',username);
     formData.append('carrera',carrera);
 
-    return axios.put(`https://tutora-t-rest-api-git-user-daniel-valente.vercel.app/users/${ uid_user }`, formData, {
+    return httpClient.put(`/users/${ uid_user }`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }
