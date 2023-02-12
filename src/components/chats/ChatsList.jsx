@@ -33,7 +33,7 @@ const ChatsList = () => {
             <div className="sidebar-chat-list">
                 <div className="scrollbox">
                     <div className="scrollbox-inner">
-                        { chats.map( ( chat, index ) => <Message chat /> ) }
+                        { chats.map( ( chat, index ) => <Message chat={chat} /> ) }
                     </div>
                 </div>
             </div>

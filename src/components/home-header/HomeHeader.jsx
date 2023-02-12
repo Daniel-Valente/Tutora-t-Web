@@ -6,7 +6,7 @@ import MessageModal from '../modals/MessageModal';
 import NotificationModal from '../modals/NotificationModal';
 import UserModal from '../modals/UserModal';
 
-import { exit, messangesBlack, notifications, search, settings, user } from '../../images';
+import { exit, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
 import { useChatsListWithLimit, useLogOut } from '../../hooks';
 import Message from '../message/Message';
@@ -69,7 +69,7 @@ const HomeHeader = () => {
       </button>
       <button className='boton-circular' 
         onClick={() => isChatModal(dispatch, chatModal) }> 
-        <img className='icon' src={messangesBlack} />
+        <img className='icon' src={messagesBlack} />
       </button>
       <div className='linea' />
     

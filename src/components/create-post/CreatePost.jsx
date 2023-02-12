@@ -20,7 +20,7 @@ const CreatePost = () => {
             <Link to={`/perfil/${ userInfo.uid_user }`} style={{ textDecoration: 'none' }}>
               <div className='boton-circular-volteado-4'>
                 <img className='icon-user' 
-                  src={`${ userInfo.imgUrl ? userInfo.imgUrl : user }`} 
+                  src={ userInfo.imgName ? userInfo.imgUrl : user } 
                   alt={ userInfo.username }/>
               </div>
             </Link>
