@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUserById } from "../../hooks";
 import { useChatsListToUser } from "../../hooks/chats/useChatsListToUser";
 
@@ -11,16 +11,16 @@ const Chat = () => {
   const userInfo = useSelector(state => state.user);
   const { uid_userChat } = useParams();
 
-  const { data: dataChatListToUser = [], isFetching: fetchingChatListToUser } = useChatsListToUser(userInfo.uid_user, uid_userChat);
+  const { data: dataChatListToUser = [] } = useChatsListToUser(userInfo.uid_user, uid_userChat);
   const [chatToUser, setChatToUser] = useState(dataChatListToUser);
 
-  const { data: dataUserChat = [], isFetching: fetchingUserChat } = useUserById(uid_userChat);
+  const { data: dataUserChat = [] } = useUserById(uid_userChat);
   const [userChat, setUserChat] = useState(dataUserChat);
 
   const [formValue, setFormValue] = useState("");
 
   useEffect(() => {
-    !fetchingChatListToUser && chatToUser.length > 0 && setChatToUser(dataChatListToUser);
+    setChatToUser(dataChatListToUser);
   }, [dataChatListToUser]);
 
   const dummy = useRef();
@@ -38,7 +38,7 @@ const Chat = () => {
           <div className="scrollbox">
             <div className="scrollbox-inner">
               {
-                chatToUser && chatToUser.map( (chat) => <ChatMessage chat key={ chat.id } userChat /> ) 
+                chatToUser && chatToUser.map( (chat) => <ChatMessage key={ chat.id } chat={chat} userChat={chat} /> ) 
               }
               <span></span>
             </div>

@@ -5,8 +5,7 @@ import httpClient from "../../https/httpClient";
 const getChatsList = async ({ queryKey }) => {
     const [ , uid_user ] = queryKey;
 
-    const { data = [] } = await httpClient.get(`/chats/${ uid_user }`);
-
+    const { data } = await httpClient.get(`/chats/${ uid_user }`);
     return data;
 }
 

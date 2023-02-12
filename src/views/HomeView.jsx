@@ -11,7 +11,7 @@ const HomeView = () => {
   const userLogIn = useSelector(state => state.userLogIn);
   const dispatch = useDispatch();
 
-  const { data: dataPostsList = [], isFetching: fetchingPostsList } = usePostsList();
+  const { data: dataPostsList = [], isLoading: loadingPosts } = usePostsList();
   const [ posts, setPosts ] = useState(dataPostsList);
 
   const { data: dataUser = [], isFetching: fetchingUser } = useUserByUsername(userLogIn.displayName);
@@ -21,8 +21,16 @@ const HomeView = () => {
   });
   
   useEffect(() => {
-    !fetchingPostsList && posts.length > 0 && setPosts(dataPostsList);
+    setPosts(dataPostsList);
   }, [ dataPostsList ]);
+
+  if(loadingPosts) {
+    return (
+      <div className='parent'>
+        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+    )
+  }
 
   return (
     <div className="principal-body">
@@ -30,7 +38,7 @@ const HomeView = () => {
       <CreatePost />
       <br />
       {
-        posts.map( ( post, index ) => <Post post={post} /> )
+        posts.map( ( post, index ) => <Post post={post}  key={ post.id_Post } /> )
       }
     </div>
   );

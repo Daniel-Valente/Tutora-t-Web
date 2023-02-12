@@ -4,7 +4,7 @@ import httpClient from "../../https/httpClient";
 
 const getPostsByUser = async ({ queryKey }) => {
     const [ , uid_user ] = queryKey;
-    const { data = [] } = await httpClient.get(`/posts/${ uid_user }`);
+    const { data } = await httpClient.get(`/posts/${ uid_user }`);
 
     return data;
 }

@@ -8,17 +8,17 @@ import UserModal from '../modals/UserModal';
 
 import { exit, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
-import { useChatsListWithLimit, useLogOut } from '../../hooks';
+import { useChatsList, useChatsListWithLimit, useLogOut } from '../../hooks';
 import Message from '../message/Message';
 import { userInfo } from '../../reducers';
 
 const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
-  
-  const { data: dataChatsWithLimit = [], isFetching: fetchingChatsWithLimit } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
   const { mutate: logOut } = useLogOut();
-
+  
+  const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user);
   const [ chatsWithLimit, setChatsWithLimit ] = useState(dataChatsWithLimit);
+
   const [first, setfirst] = useState([0,1,2,3,4]);
   
   const { value: userModal } = useSelector(state => state.userModal);
@@ -46,30 +46,30 @@ const HomeHeader = () => {
   }
 
   useEffect(() => {
-    !fetchingChatsWithLimit && chatsWithLimit.length > 0 && setChatsWithLimit(dataChatsWithLimit);
+    setChatsWithLimit(dataChatsWithLimit);
   }, [dataChatsWithLimit]);
   
   return (
     <div className="principal-header header">
-      <a className='logo-link' href='/home'>tutorate</a>
+      <Link className='logo-link' to={`/home`}>tutorate</Link>
       <div className='search'>
         <input className='search-input' placeholder='Buscar...' type="text"></input>
         <button className='search-icon'>
-          <img className='search-imag' src={search} />
+          <img className='search-imag' src={search} alt="search" />
         </button>
       </div>
 
       <button className='boton-circular' 
         onClick={() => isUserModal(dispatch, userModal) }> 
-        <img className='icon' src={user} />
+        <img className='icon' src={user} alt="user" />
       </button>
       <button className='boton-circular' 
         onClick={() => isNotificationModal(dispatch, notificationModal) }>
-          <img className='icon' src={notifications} />
+          <img className='icon' src={notifications} alt="notifications" />
       </button>
       <button className='boton-circular' 
         onClick={() => isChatModal(dispatch, chatModal) }> 
-        <img className='icon' src={messagesBlack} />
+        <img className='icon' src={messagesBlack} alt="messagesBlack" />
       </button>
       <div className='linea' />
     
@@ -84,13 +84,13 @@ const HomeHeader = () => {
         <div className='row'>
           <Link  to={`/configuracion/${ userInfoPerfil.uid_user }`}  style={{ textDecoration: 'none' }}>
             <button className='boton-cuadrado'>
-              <img className='icon-2' src={ settings }/>Configuracion
+              <img className='icon-2' src={ settings } alt="settings" />Configuracion
             </button>  
           </Link>
         </div>
         <div className='row'>
           <button className='boton-cuadrado' onClick={ handleSubmit } >
-            <img className='icon-2' src={ exit } />Salir
+            <img className='icon-2' src={ exit } alt="exit" />Salir
           </button>
         </div>
         <br/>
@@ -121,13 +121,7 @@ const HomeHeader = () => {
       <MessageModal active={ chatModal } toggle={ isChatModal } dispatch={dispatch}>
         <h2 style={{textAlign: 'center', paddingTop:'2rem'}}>Mensajes</h2>
         {
-          chatsWithLimit.map((chat, index) => {
-            return (
-              <Message
-                chat
-              />
-            )
-          })
+          chatsWithLimit.map((chat, index) => <Message chat={chat} key={chat.id_Message} />)
         }
         <div className='row'>  
           <Link  to={`/chats/${ userInfoPerfil.uid_user }`}  style={{ textDecoration: 'none'}}>

@@ -5,7 +5,7 @@ import httpClient from "../../https/httpClient";
 const getCommentList = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
 
-    const { data = [] } = await httpClient.get(`/comments/${ id_Post }`);
+    const { data } = await httpClient.get(`/comments/${ id_Post }`);
 
     return data;
 }

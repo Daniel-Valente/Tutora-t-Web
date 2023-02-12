@@ -10,10 +10,10 @@ import PostModal from '../modals/PostModal';
 const Post = (props) => {
     const { post } = props;
 
-    const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById( post.uid_user );
+    const { data: dataUserPost } = useUserById( post.uid_user );
     const [ postUser, setPostUser ] = useState(dataUserPost);
 
-    const { data: dataLikePost = [], isFetching: fetchingLikePost } = useLikesList(post.id_Post);
+    const { data: dataLikePost } = useLikesList(post.id_Post);
     const [ likePost, setLikePost ] = useState(dataLikePost);
 
     const userInfo = useSelector(state => state.user);
@@ -21,15 +21,15 @@ const Post = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        !fetchingUserPost && postUser.length > 0 && setPostUser(dataUserPost);
+        setPostUser(dataUserPost);
     }, [ dataUserPost ]);
 
     useEffect(() => {
-        !fetchingLikePost && likePost.length > 0 && setLikePost(dataLikePost);
+        setLikePost(dataLikePost);
     }, [ dataLikePost ]);
 
   return (
-    <div className='row' key={ post.id_Post }>
+    <div className='row'>
         <PostModal active={ commentModal } dispatch={dispatch } >
             <Link to={`/perfil/${ post.uid_user }`}>
                 <div className='boton-circular-volteado'>
@@ -66,7 +66,7 @@ const Post = (props) => {
                 top: "65.5vh",
                 left: "80px",
                 color: "#858585"
-            }}>{ dataLikePost.total_like }</p>
+            }}>{ likePost.total_like }</p>
             <input className='inputCom' type="text" placeholder='¿Qué opinas?... ' />
             <img className='send' src={ send } alt='send' />
         </PostModal>
@@ -113,7 +113,7 @@ const Post = (props) => {
                         left: '2vw',
                         color: '#858585'
                     }}>
-                        { dataLikePost.total_like }
+                        { likePost.total_like }
                     </p>
                     <p style={{
                         position: 'absolute',

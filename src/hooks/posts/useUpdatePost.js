@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import httpClient from "../../https/httpClient";
 
@@ -8,4 +8,12 @@ const updatePost = async (post) => {
     return httpClient.put(`/posts/${ uid_user }/${ id_Post }`, post);
 }
 
-export const useUpdatePost = ( ) => useMutation(updatePost);
+export const useUpdatePost = ( ) => {
+    const queryClient = useQueryClient();
+
+    return useMutation(updatePost, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['posts']);
+        }
+    });
+}

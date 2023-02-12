@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import httpClient from "../../https/httpClient";
 
@@ -8,4 +8,12 @@ const deletePost = async (post) => {
     return httpClient.delete(`/posts/${ uid_user }/${ id_Post }`);
 }
 
-export const useDeletePost = ( ) => useMutation(deletePost);
+export const useDeletePost = ( ) => {
+    const queryClient = useQueryClient();
+
+    return useMutation(deletePost, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['posts']);
+        }
+    });
+}

@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-
 import httpClient from "../../https/httpClient";
 
 const updateUser = async (user) => {
@@ -22,4 +20,11 @@ const updateUser = async (user) => {
     });
 }
 
-export const useUpdateUser = () => useMutation(updateUser);
+export const useUpdateUser = () => {
+    const queryClient = useQueryClient();
+    return useMutation(updateUser, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['users']);
+        }
+    });
+};

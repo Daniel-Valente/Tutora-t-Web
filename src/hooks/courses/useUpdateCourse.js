@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import httpClient from "../../https/httpClient";
 
@@ -8,4 +8,12 @@ const updateCourse = async (course) => {
     return httpClient.put(`/courses/${ uid_user }/${ id_Course }`, course);
 }
 
-export const useUpdateCourse = ( ) => useMutation(updateCourse);
+export const useUpdateCourse = ( ) => {
+    const queryClient = useQueryClient();
+
+    return useMutation(updateCourse, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['courses']);
+        }
+    });
+}
