@@ -26,8 +26,8 @@ const Message = (props) => {
                     </div>
                 </Link>
             </div>
-            <div className='col-9'>
-                <p style={{ marginLeft: '10%', marginTop: '25px' }}>
+            <div className='col-7'>
+                <p style={{ marginLeft: '1%', marginTop: '25px' }}>
                     <label style={{ fontSize: '20px' }}> <b>{ userChat.username }</b> </label>
                     <br />
                     { chat.message }

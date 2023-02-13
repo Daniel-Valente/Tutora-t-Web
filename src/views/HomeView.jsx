@@ -36,10 +36,16 @@ const HomeView = () => {
   return (
     <div className="principal-body">
       <div className="linea-acostada" />
-      <CreatePost />
-      {
-        posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} path='perfil' />)
-      }
+      <div className="row">
+        <div className="col-2">a</div>
+        <div className="col-7">
+          <CreatePost />
+          {
+            posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} path='perfil' />)
+          }
+        </div>
+        <div className="col-2">a</div>
+      </div>
     </div>
   );
 };

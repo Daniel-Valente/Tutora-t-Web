@@ -5,7 +5,7 @@ import { isPublicationModal } from '../../helpers/utils';
 
 import { user } from '../../images';
 import PublicationModal from '../modals/PublicationModal';
-
+ 
 const CreatePost = () => {
   const userInfo = useSelector(state => state.user);
 

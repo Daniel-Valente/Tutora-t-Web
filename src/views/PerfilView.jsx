@@ -38,25 +38,37 @@ const PerfilView = () => {
 
   return (
     <div className='principal-body'>
-      <img className="fondo"
-        src={userPerfil.imgPortadaUrl ? userPerfil.imgPortadaUrl : fondo}
-        alt={'user-portada'} />
-      <img className='boton-circular-perfil icon-perfil'
-        src={userPerfil.imgUrl ? userPerfil.imgUrl : user}
-        alt={'user-perfil'} />
-      <label style={{ textAlign: 'left', marginTop: '5%', marginLeft: '27%', fontSize: '300%', fontFamily: 'Segoe UI Emoji' }}>
-        {userPerfil.name}
-      </label>
-      <br />
-      <br />
-      {
-        userInfoPerfil.uid_user === userPerfil.uid_user
-          ? <div>hola</div>
-          : <div>Enviar mensaje</div>
-      }
-      {
-        posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} />)
-      }
+      <div className='row'>
+        <img className="fondo"
+          src={userPerfil.imgPortadaUrl ? userPerfil.imgPortadaUrl : fondo}
+          alt={'user-portada'} />
+        <img className='boton-circular-perfil icon-perfil'
+          src={userPerfil.imgUrl ? userPerfil.imgUrl : user}
+          alt={'user-perfil'} />
+        <label style={{ textAlign: 'left', marginTop: '5%', marginLeft: '27%', fontSize: '300%', fontFamily: 'Segoe UI Emoji' }}>
+          {userPerfil.name}
+        </label>
+      </div>
+      <div className='row'>
+        <div className='col-2'>
+          <br />
+          <br />
+          {
+            userInfoPerfil.uid_user === userPerfil.uid_user
+              ? <div>hola</div>
+              : <div>Enviar mensaje</div>
+          }
+        </div>
+        <div className='col-7'>
+          <br />
+          {
+            posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} />)
+          }
+        </div>
+        <div className='col-2'>
+          <br />
+          <br /></div>
+      </div>
     </div>
   )
 }

@@ -27,7 +27,7 @@ const PostModal = (props) => {
   };
 
   return (
-    <PostPortal>
+    <>
       {
         <div style={styles.wrapper}>
           <div style={styles.window}>
@@ -35,7 +35,7 @@ const PostModal = (props) => {
           </div>
         </div>
       }
-    </PostPortal>
+    </>
   );
 };
 
