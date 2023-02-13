@@ -4,6 +4,9 @@ import httpClient from "../../https/httpClient";
 
 const getPostById = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
+
+    if(!id_Post) return [];
+
     const { data } = await httpClient.get(`/posts/${ id_Post }`);
 
     return data;
@@ -11,7 +14,7 @@ const getPostById = async ({ queryKey }) => {
 
 export const usePostById = (id_Post) => {
     const query = useQuery(
-        ['posts', id_Post],
+        id_Post ? ['posts', id_Post ] : [],
         getPostById, {
             refetchOnWindowFocus: false,
             retry: false
