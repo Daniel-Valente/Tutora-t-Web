@@ -4,7 +4,7 @@ import httpClient from "../../https/httpClient";
 
 const getCareerById = async ({ queryKey }) => {
     const [ , id ] = queryKey;
-    const { data = [] } = await httpClient.get(`/json/careers/${ id }`);
+    const { data } = await httpClient.get(`/json/careers/${ id }`);
 
     return data;
 }

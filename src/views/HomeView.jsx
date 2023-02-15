@@ -9,22 +9,23 @@ import { userInfo } from "../reducers";
 const HomeView = () => {
 
   const userLogIn = useSelector(state => state.userLogIn);
+  const { value: commentModal } = useSelector(state => state.commentModal);
   const dispatch = useDispatch();
 
-  const { data: dataPostsList = [], isLoading: loadingPosts } = usePostsList();
-  const [ posts, setPosts ] = useState(dataPostsList);
+  const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsList();
+  const [posts, setPosts] = useState(dataPostsList);
 
   const { data: dataUser = [], isFetching: fetchingUser } = useUserByUsername(userLogIn.displayName);
-  
-  useEffect(() => {
-    dispatch( userInfo(dataUser) );
-  });
-  
-  useEffect(() => {
-    setPosts(dataPostsList);
-  }, [ dataPostsList ]);
 
-  if(loadingPosts) {
+  useEffect(() => {
+    !fetchingUser && dataUser && dispatch(userInfo(dataUser));
+  }, [dataUser]);
+
+  useEffect(() => {
+    !fetchingPostsList && dataPostsList && posts.length > -1 && setPosts(dataPostsList);
+  }, [dataPostsList]);
+
+  if (loadingPosts) {
     return (
       <div className='parent'>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -35,11 +36,16 @@ const HomeView = () => {
   return (
     <div className="principal-body">
       <div className="linea-acostada" />
-      <CreatePost />
-      <br />
-      {
-        posts.map( ( post, index ) => <Post post={post}  key={ post.id_Post } /> )
-      }
+      <div className="row">
+        <div className="col-2">a</div>
+        <div className="col-7">
+          <CreatePost />
+          {
+            posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} path='perfil' />)
+          }
+        </div>
+        <div className="col-2">a</div>
+      </div>
     </div>
   );
 };

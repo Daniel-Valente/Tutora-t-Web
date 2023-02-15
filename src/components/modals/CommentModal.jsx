@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CommentPortal from "../portals/CommentPortal";
 
 const CommentModal = (props) => {
-  const { children, toggle, active, dispatch } = props;
+  const { children, toggle, active, dispatch, prevPath } = props;
 
   const styles = {
     wrapper: {
@@ -45,7 +46,9 @@ const CommentModal = (props) => {
       {active && (
         <div style={styles.wrapper}>
           <div style={styles.window}>
-            <button style={styles.closeBtn} onClick={() => toggle(dispatch, active)}>X</button>
+            <button style={styles.closeBtn} onClick={() => toggle(dispatch, active)}>
+              <Link to={prevPath} style={{ textDecoration: 'none'}} >X</Link>
+            </button>
             <div>{children}</div>
           </div>
         </div>

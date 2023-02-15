@@ -14,3 +14,4 @@ export { default as star } from './star.png';
 export { default as user } from './user.png';
 export { default as fondo } from './fondo-2.jpg';
 export { default as imagen1 } from './Imagen1.png';
+export { default as starSinF } from './starSinF.png';

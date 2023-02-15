@@ -59,7 +59,7 @@ export const ValidateData = (target, value) => {
                 }
             case 'confirmPassword':
                 return {
-                    confirm: value.password == value.confirmPassword,
+                    confirm: value.password === value.confirmPassword,
                     errorMessage: `Passwords don't match!`
                 }
             default:
@@ -97,7 +97,6 @@ export const isChatModal = (dispatch, activeMessages) => {
 }
 
 export const isCommentModal = (dispatch, activeComments) => {
-    window.scrollTo(0, 0);
     dispatch(commentModalState(!activeComments));
 }
 

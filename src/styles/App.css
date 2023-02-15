@@ -39,14 +39,14 @@
 
 .name {
   position: absolute;
-  top: 15px;
-  left: 70px;
+  top: 20px;
+  left: 82px;
 }
 
 .name-comments-public {
   position: absolute;
-  top: 5px;
-  margin-left: 2.5rem;
+  top: 0.5vh;
+  left: 8vh;
 }
 
 .icon {
@@ -77,6 +77,14 @@
   margin: 0 auto;
 }
 
+.icon-user-comment {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
 .icon-2 {
   width: 20px;
   right: 11vw;
@@ -94,9 +102,7 @@
 
 .send {
   width: 25px;
-  position: absolute;
-  right: 9%;
-  top: 90%;
+  position: relative;
 }
 
 .p-1 {
@@ -109,21 +115,27 @@
   top: 84.5vh;
   left: 30vw;
 }
+
+.send-comment {
+  width: 25px;
+  position: absolute;
+  left: 28.2vw;
+}
+
 .titulo {
   float: right;
   margin-left: 10px;
 }
 .panelDerecho {
   position: absolute;
-  top: 0;
-  right: 18vw;
+  top: 2vh;
+  left: 57%;
 }
 
 .linea-acostada-2 {
-  width: 46.2%;
+  width: 100%;
   position: absolute;
-  top: 60px;
-  right: 0px;
+  right: 5%;
   background-color: #d4d4d4;
   height: 1px;
 }
@@ -131,7 +143,7 @@
 .linea-acostada-3 {
   width: 46.2%;
   position: absolute;
-  top: 67vh;
+  top: 74vh;
   right: 0px;
   background-color: #d4d4d4;
   height: 1px;
@@ -146,7 +158,9 @@
 }
 
 .sinF {
+  position: absolute;
   width: 25px;
+  right: 30px;
 }
 .screen {
   width: 100%;
@@ -195,4 +209,34 @@
 .scrollbox-inner,
 .scrollbox:hover {
   visibility: visible;
+}
+
+.textarea-comment-disabled {
+  outline: none;
+  border-radius: 10px;
+  border: 0px solid #a2a2a2;
+  min-height: 1em;
+  width: 415px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  padding: 5px;
+  resize: none;
+  text-align: justify;
+  white-space: normal;
+}
+
+.textarea-comment {
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid #a2a2a2;
+  min-height: 1em;
+  width: 415px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  padding: 5px;
+  resize: none;
+  text-align: justify;
+  white-space: normal;
 }
