@@ -47,7 +47,7 @@ const CommentModal = (props) => {
         <div style={styles.wrapper}>
           <div style={styles.window}>
             <button style={styles.closeBtn} onClick={() => toggle(dispatch, active)}>
-              <Link to={prevPath} style={{ textDecoration: 'none' }} >X</Link>
+              <Link to={prevPath} style={{ textDecoration: 'none'}} >X</Link>
             </button>
             <div>{children}</div>
           </div>

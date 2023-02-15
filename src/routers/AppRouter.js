@@ -11,7 +11,7 @@ const HomeView = lazy(() => import('../views/HomeView'));
 const MainView = lazy(() => import('../views/MainView'));
 const PerfilView = lazy(() => import('../views/PerfilView'));
 const SettingsView = lazy(() => import('../views/SettingsView'));
-const Comment = lazy(() => import('../components/Comment/Comment'));
+const PostPanel = lazy(() => import('../components/post-panel/PostPanel'));
 
 const AppRouter = () => {
   const { active: sessionActive } = useSelector(state => state.sessionActive);
@@ -23,11 +23,11 @@ const AppRouter = () => {
           (
             <>
               <Route path='/' element={<HomeView />}/>
-              <Route path='/:id_Post' element={<Comment />} />
+              <Route path='/:id_Post' element={<PostPanel />} />
               <Route path='/home' element={<HomeView />}/>
-              <Route path='/home/:id_Post' element={<Comment />} />
+              <Route path='/home/:id_Post' element={<PostPanel />} />
               <Route path='/perfil/:uid_user' element={<PerfilView />} />
-              <Route path='/perfil/:uid_user/:id_Post' element={<Comment />} />
+              <Route path='/perfil/:uid_user/:id_Post' element={<PostPanel />} />
               <Route path='/configuracion/:uid_user' element={<SettingsView />} />
               <Route path='/chats/:uid_user' element={<ChatsView />}/>
               <Route path='/chats/:uid_user/to/:uid_userChat' element={<Chat />} />

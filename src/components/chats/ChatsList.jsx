@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Scrollbars from "react-custom-scrollbars-2";
 import { useSelector } from "react-redux";
 
 import { useChatsList } from "../../hooks";
@@ -30,13 +31,9 @@ const ChatsList = () => {
             <br />
             <br />
             <div className="linea-acostada" />
-            <div className="sidebar-chat-list">
-                <div className="scrollbox">
-                    <div className="scrollbox-inner">
-                        { chats.map( ( chat, index ) => <Message chat={chat} key={chat.id_Message} /> ) }
-                    </div>
-                </div>
-            </div>
+            <Scrollbars  style={{ width: 480, height: 731 }}>
+                { chats.map( ( chat, index ) => <Message chat={chat} key={chat.id_Message} /> ) }
+            </Scrollbars>
         </div>
     );
 };

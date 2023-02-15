@@ -17,9 +17,10 @@ export { useUpdatePost } from "./posts/useUpdatePost";
 export { useLogIn } from "./logIn/useLogIn";
 export { useLogOut } from "./LogOut/useLogOut";
 
-export { useAddLike } from "./likes/useAddLike";
-export { useDeleteLike } from "./likes/useDeleteLike";
 export { useLikesList } from "./likes/useLikesList";
+export { useLikeByUser } from "./likes/useLikeByUser";
+export { useUpdateLike } from "./likes/useUpdateLike";
+
 
 export { useAddCourse } from "./courses/useAddCourse";
 export { useCourseById } from "./courses/useCourseById";

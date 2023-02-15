@@ -9,6 +9,7 @@
 @import './core/spinner.css';
 
 /* compoents */
+@import './components/Post/Post.css';
 
 /* views */
 @import './views/MainView.css';

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
 import Post from '../components/Post/Post';
 import { usePostsByUser } from '../hooks';
-
 import { useUserById } from '../hooks/users/userUserById';
 import { fondo, user } from '../images';
 
@@ -25,10 +25,10 @@ const PerfilView = () => {
   }, [dataUserPerfil]);
 
   useEffect(() => {
-    !fetchingPostsList && dataPostsList && posts.length > -1 && setPosts(dataPostsList);
+    setPosts(dataPostsList);
   }, [dataPostsList]);
 
-  if (lodingUserPerfil && loadingPosts) {
+  if (lodingUserPerfil || loadingPosts) {
     return (
       <div className='parent'>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>

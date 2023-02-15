@@ -137,9 +137,7 @@ const HomeHeader = () => {
 
       <MessageModal active={chatModal} toggle={isChatModal} dispatch={dispatch}>
         <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Mensajes</h2>
-        {
-          chatsWithLimit.map((chat, index) => <Message chat={chat} key={chat.id_Message} />)
-        }
+        { chatsWithLimit.map((chat, index) => <Message chat={chat} key={chat.id_Message} />) }
         <div className='row'>
           <Link to={`/chats/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
             <button className='boton-cuadrado' style={{ fontSize: '17px', textAlign: 'center' }}>Ver más</button>
