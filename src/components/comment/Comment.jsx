@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import { useUpdateComment, useUserById } from '../../hooks';
@@ -6,7 +6,7 @@ import { send, user } from '../../images';
 
 const Comment = (props) => {
     const { userInfoPerfil, comment } = props;
-    const { mutate: updateComment } = useUpdateComment();
+    const { mutate: updateComment } = useUpdateComment(comment.id_Post);
 
     const { data: dataUserComment = [], isFetching: fetchingUserComment } = useUserById(comment.uid_user);
     const [userComment, setUserComment] = useState(dataUserComment);
@@ -18,21 +18,20 @@ const Comment = (props) => {
     };
 
     const handleChange = (e) => {
-        console.log(e.target.value);
         setCommentValue(e.target.value);
     };
 
-    const handleSubmit = () => {
+    const handleSubmitEdit = () => {
         const comments = { uid_user: userInfoPerfil.uid_user, id_Post: comment.id_Post, id_comment: comment._id, comment: commentValue  };
-        updateComment(comments, {
+        commentValue ? updateComment(comments, {
             onSuccess: (response) => {
-                setEdit(!edit);
                 console.log(response);
             },
             onError: (repsonse) => {
-                setEdit(!edit);
+                console.log(repsonse);
             }
-        });
+        }) : setCommentValue(comment.comment);
+        setEdit(!edit)
     }
 
     useEffect(() => {
@@ -64,7 +63,7 @@ const Comment = (props) => {
                     >
                     </textarea>
                     {
-                        !edit && <img className='send-comment' src={send} alt="send" onClick={ handleSubmit } />
+                        !edit && <img className='send-comment' src={send} alt="send" onClick={ handleSubmitEdit } />
                     }
                 </p>
             </div>

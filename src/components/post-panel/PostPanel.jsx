@@ -4,17 +4,19 @@ import { Link, useLocation } from 'react-router-dom';
 import {Scrollbars } from 'react-custom-scrollbars-2';
 
 import { isCommentModal } from '../../helpers/utils';
-import { useCommentList, useLikeByUser, useLikesList, useUpdateLike } from '../../hooks';
+import { useAddComment, useCommentList, useLikeByUser, useLikesList, useUpdateLike } from '../../hooks';
 import { send, star, starSinF, user } from '../../images';
 import CommentModal from '../modals/CommentModal';
 import Comment from '../comment/Comment';
 
 const PostPanel = () => {
     const location = useLocation();
-    const userInfoPerfil = useSelector(state => state.user);
-    const { mutate: updateLike } = useUpdateLike();
-
     const { commentModal = false, post = {}, userPost = {}, prevPath = '' } = location.state || [];
+    const userInfoPerfil = useSelector(state => state.user);
+    const { mutate: updateLike } = useUpdateLike(post._id);
+    const { mutate: addComment } = useAddComment(post._id);
+
+    const [ commentValue, setCommentValue ] = useState('');
 
     const dispatch = useDispatch();
 
@@ -37,20 +39,35 @@ const PostPanel = () => {
             }
         });
     }
+    
+    const handleChange = (e) => {
+        setCommentValue(e.target.value);
+    };
+
+    const handleSubmit = () => {
+        const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue  };
+        setCommentValue('');
+        commentValue.length > 0 ? addComment(comments, {
+            onSuccess: (response) => {
+                console.log(response);
+            }
+        })
+        : console.log('no');
+    }
 
     useEffect(() => {
         !fetchingLike && setLikes(dataLikeList);
     }, [dataLikeList]);
 
     useEffect(() => {
-        !fetchingLikeByUser && setStarActive(dataLikeByUser);
+        !fetchingLikeByUser && dataLikeByUser && setStarActive(dataLikeByUser);
     }, [dataLikeByUser]);
 
     useEffect(() => {
-        !fetchingCommentsList && setComments(dataCommentsList);
+        !fetchingCommentsList && dataCommentsList && comments.length > -1 && setComments(dataCommentsList);
     }, [ dataCommentsList ]);
 
-    if (loadingLike || loadingLikeByUser) {
+    if (loadingLike || loadingLikeByUser || loadingCommentsList) {
         return (
             <div className='parent'>
                 <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -91,7 +108,7 @@ const PostPanel = () => {
                                 <h4>{post.title}</h4>
                                 <p>
                                     <a style={{ textDecoration: 'none' }}>{userPost.username}: </a>
-                                    {post.description} hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola
+                                    {post.description}
                                 </p>
                             </div>
                         </Scrollbars>
@@ -128,8 +145,8 @@ const PostPanel = () => {
                                 color: '#858585'
                             }}
                             > {formatDate()} </p>
-                            <input className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' />
-                            <img className='send-2' src={send} alt="send" />
+                            <input className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
+                            <img className='send-2' src={send} alt="send" onClick={ handleSubmit } />
                         </div>
                     </div>
                 </div>

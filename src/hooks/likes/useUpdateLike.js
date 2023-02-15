@@ -8,12 +8,12 @@ const updateLike = async (likes) => {
     return httpClient.put(`/likes/${uid_user}/${ id_Post }`);
 }
 
-export const useUpdateLike = ( ) => {
+export const useUpdateLike = ( id_Post ) => {
     const queryClient = useQueryClient(); 
     
     return useMutation(updateLike, {
         onSuccess: () => {
-            queryClient.invalidateQueries(['likes']);
+            queryClient.invalidateQueries(['likes', id_Post]);
         }
 
     });

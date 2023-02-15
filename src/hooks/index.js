@@ -45,7 +45,6 @@ export { useUpdateChatToUser } from "./chats/useUpdateChatToUser";
 
 export { useAddMessageByChatBot } from "./chatBot/useAddMessageByChatBot";
 
-export { useCareerByClave } from "./careers/useCareerByClave";
 export { useCareerById } from "./careers/useCareerById";
 export { useCareersList } from "./careers/useCareersList";
 export { useCareerList } from "./careers/useCareerList";

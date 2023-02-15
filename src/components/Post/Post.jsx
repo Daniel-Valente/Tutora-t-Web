@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter } from '../../helpers/utils';
-import { useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
+import { useAddComment, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
 import { messages, send, star, starSinF, user } from '../../images';
 import PostModal from '../modals/PostModal';
 
@@ -11,7 +11,10 @@ const Post = (props) => {
     const { post, commentModal } = props;
     const location = useLocation();
     const userInfoPerfil = useSelector(state => state.user);
-    const { mutate: updateLike } = useUpdateLike();
+    const { mutate: updateLike } = useUpdateLike(post._id);
+    const { mutate: addComment } = useAddComment(post._id);
+
+    const [ commentValue, setCommentValue ] = useState('');
 
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
@@ -32,6 +35,21 @@ const Post = (props) => {
                 setStarActive(data);
             }
         });
+    }
+    
+    const handleChange = (e) => {
+        setCommentValue(e.target.value);
+    };
+
+    const handleSubmit = () => {
+        const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue  };
+        setCommentValue('');
+        commentValue.length > 0 ? addComment(comments, {
+            onSuccess: (response) => {
+                console.log(response);
+            }
+        })
+        : console.log('no');
     }
 
     useEffect(() => {
@@ -118,11 +136,11 @@ const Post = (props) => {
                         </Link>
                     </div>
                     <div className='col-8'>
-                        <input className='inputCom' type="text" placeholder='¿Qué opinas?... ' />
+                        <input className='inputCom' type="text" placeholder='¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
                     </div>
                     <br />
                     <div className='col-1'>
-                        <img className='send' src={send} alt='send' onMouseEnter={() => handleMouseEnter(dispatch)} />
+                        <img className='send' src={send} alt='send' onClick={ handleSubmit } onMouseEnter={() => handleMouseEnter(dispatch)} />
                     </div>
                 </div>
                 

@@ -56,10 +56,7 @@ const Register = () => {
   const handleSubmit = () => {
 
     addUser(values, {
-      onSuccess: (response) => {
-        dispatch(userInfo(response.data));
-        isLogIn(dispatch);
-
+      onSuccess: ({data}) => {
         dispatch(
           alertState({
             isOpen: true,

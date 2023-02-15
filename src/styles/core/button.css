@@ -120,3 +120,46 @@
 .boton-cuadrado:hover {
   background-color: #e2e2e2;
 }
+
+.button-follow {
+  background-color: #1492e6;
+  border-radius: 10px;
+  height: 40px;
+  border: none;
+  width: 15%;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-right: 100px;
+  margin-left: 100px;
+  position: absolute;
+  left: 0;
+}
+
+.button-follow:hover {
+  background-color: #1492e6;
+  color: #f0f2f5;
+}
+
+.button-message {
+  background-color: #ff0096;
+  border-radius: 10px;
+  height: 40px;
+  border: none;
+  width: 15%;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-right: 100px;
+  margin-left: 100px;
+  position: absolute;
+  top: 71%;
+  left: 0;
+}
+
+.button-message:hover {
+  background-color: #db188a;
+  color: #f0f2f5;
+}
