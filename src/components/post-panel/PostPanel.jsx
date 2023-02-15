@@ -4,9 +4,10 @@ import { Link, useLocation } from 'react-router-dom';
 import {Scrollbars } from 'react-custom-scrollbars-2';
 
 import { isCommentModal } from '../../helpers/utils';
-import { useLikeByUser, useLikesList, useUpdateLike } from '../../hooks';
+import { useCommentList, useLikeByUser, useLikesList, useUpdateLike } from '../../hooks';
 import { send, star, starSinF, user } from '../../images';
 import CommentModal from '../modals/CommentModal';
+import Comment from '../comment/Comment';
 
 const PostPanel = () => {
     const location = useLocation();
@@ -22,6 +23,9 @@ const PostPanel = () => {
 
     const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
     const [starActive, setStarActive] = useState(dataLikeByUser);
+
+    const { data: dataCommentsList = [], isFetching: fetchingCommentsList, isLoading: loadingCommentsList } = useCommentList(post._id);
+    const [ comments, setComments ] = useState(dataCommentsList);
 
     const formatDate = () => new Date(post.createdAt).toDateString();
 
@@ -41,6 +45,10 @@ const PostPanel = () => {
     useEffect(() => {
         !fetchingLikeByUser && setStarActive(dataLikeByUser);
     }, [dataLikeByUser]);
+
+    useEffect(() => {
+        !fetchingCommentsList && setComments(dataCommentsList);
+    }, [ dataCommentsList ]);
 
     if (loadingLike || loadingLikeByUser) {
         return (
@@ -83,7 +91,7 @@ const PostPanel = () => {
                                 <h4>{post.title}</h4>
                                 <p>
                                     <a style={{ textDecoration: 'none' }}>{userPost.username}: </a>
-                                    {post.description}
+                                    {post.description} hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola
                                 </p>
                             </div>
                         </Scrollbars>
@@ -92,6 +100,7 @@ const PostPanel = () => {
                     <div className='row'>
                         <Scrollbars style={{ width: 659, height: 270 }}>
                             <div className='col-11'>
+                            { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } /> ) }
                             </div>
                         </Scrollbars>
                     </div>

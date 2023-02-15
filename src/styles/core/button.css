@@ -75,6 +75,20 @@
   margin-bottom: 4%;
 }
 
+.boton-circular-volteado-6 {
+  background-color: #f0f2f5;
+  border-radius: 40px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-left: 20px;
+  margin-bottom: 4%;
+}
+
 .boton-circular-volteado-4:hover {
   background-color: #e2e6eb;
 }

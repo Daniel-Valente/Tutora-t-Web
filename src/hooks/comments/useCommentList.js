@@ -6,8 +6,9 @@ const getCommentList = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
 
     const { data } = await httpClient.get(`/comments/${ id_Post }`);
+    const { result } = data;
 
-    return data;
+    return result;
 }
 
 export const useCommentList = (id_Post) => {
