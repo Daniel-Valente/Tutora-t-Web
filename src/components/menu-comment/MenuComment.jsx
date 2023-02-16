@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const MenuComment = ({ x, y, showMenu, userComment, userPost, handleEdit, handleDelete }) => {
@@ -23,7 +23,8 @@ const MenuComment = ({ x, y, showMenu, userComment, userPost, handleEdit, handle
   return (
     <div style={style()}>
         { userInfoPerfil.uid_user === userComment.uid_user && <button style={ styles.div } onClick={handleEdit}>Editar</button> }
-        { userInfoPerfil.uid_user === userPost.uid_user || userInfoPerfil.uid_user === userComment.uid_user && <button style={ styles.div } onClick={handleDelete}>Eliminar</button> }
+        { userInfoPerfil.uid_user === userPost.uid_user ? <button style={ styles.div } onClick={handleDelete}>Eliminar</button> 
+        : userInfoPerfil.uid_user === userComment.uid_user && <button style={ styles.div } onClick={handleDelete}>Eliminar</button> }
     </div>
   );
 };

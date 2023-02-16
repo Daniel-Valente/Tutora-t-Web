@@ -27,6 +27,7 @@ const Comment = (props) => {
     };
 
     const handleChange = (e) => {
+        menu && setMenu(!menu);
         setCommentValue(e.target.value);
     };
 
@@ -101,8 +102,10 @@ const Comment = (props) => {
                 </p>
             </div>
             <div className='col-1'>
-                <button className='button-comments-options' ref={buttonMenuRef} onClick={ handleMenu } >...</button>
-                <MenuComment x={x} y={y} showMenu={menu} userComment={userComment} userPost={userPost} handleEdit={handleEdit} handleDelete={handleDelete} />
+                { userInfoPerfil.uid_user === userComment.uid_user 
+                ? <button className='button-comments-options' ref={buttonMenuRef} onClick={ handleMenu } >...</button>
+                : userInfoPerfil.uid_user === userPost.uid_user && <button className='button-comments-options' ref={buttonMenuRef} onClick={ handleMenu } >...</button> }
+                <MenuComment x={x} y={y} showMenu={menu} userComment={userComment} userPost={userPost} handleEdit={handleEdit} handleDelete={handleDelete}/>
             </div>
         </div>
     )
