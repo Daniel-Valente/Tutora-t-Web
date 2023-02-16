@@ -1,0 +1,10 @@
+.button-options {
+    position: absolute;
+    left: 96%;
+    top: 1.5%;
+    transform: rotate(90deg);
+}
+
+.button-comments-options {
+    transform: rotate(90deg);
+}

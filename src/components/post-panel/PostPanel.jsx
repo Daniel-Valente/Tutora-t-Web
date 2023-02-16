@@ -103,7 +103,7 @@ const PostPanel = () => {
                     </div>
                     <div className='linea-acostada-2' />
                     <div className='row'>
-                        <Scrollbars style={{ width: 659, height: 300 }}>
+                        <Scrollbars autoHeight autoHeightMax={300} style={{ width: 659 }}>
                             <div className='col-11'>
                                 <h4>{post.title}</h4>
                                 <p>
@@ -115,9 +115,9 @@ const PostPanel = () => {
                     </div>
 
                     <div className='row'>
-                        <Scrollbars style={{ width: 659, height: 270 }}>
+                        <Scrollbars autoHeight autoHeightMax={265} style={{ width: 659 }}>
                             <div className='col-11'>
-                            { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } /> ) }
+                            { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) }
                             </div>
                         </Scrollbars>
                     </div>
