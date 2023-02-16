@@ -51,7 +51,7 @@ const Comment = (props) => {
                 console.log(repsonse);
             }
         }) : setCommentValue(comment.comment);
-        edit && setEdit(!edit);
+        setEdit(!edit);
     }
 
     const handleDelete = () => {
