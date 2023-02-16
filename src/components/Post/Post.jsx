@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter } from '../../helpers/utils';
-import { useAddComment, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
+import { useAddComment, useCommentList, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
 import { messages, send, star, starSinF, user } from '../../images';
 import MenuPost from '../menu-post/MenuPost';
 import PostModal from '../modals/PostModal';
@@ -25,6 +25,9 @@ const Post = (props) => {
 
     const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike  } = useLikesList(post._id);
     const [ likes, setLikes ] = useState(dataLikeList);
+
+    const { data: dataCommentList = [], isFetching: fetchingCommentList, isLoading: loadingCommentList  } = useCommentList(post._id);
+    const [ commentList, setCommentList ] = useState(dataCommentList);
 
     const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
     const [ starActive, setStarActive ] = useState(dataLikeByUser);
@@ -80,7 +83,11 @@ const Post = (props) => {
         !fetchingLikeByUser && setStarActive(dataLikeByUser);
     }, [dataLikeByUser]);
 
-    if (loadingLike || loadingLikeByUser) {
+    useEffect(() => {
+        !fetchingCommentList && setCommentList(dataCommentList);
+    }, [dataCommentList]);
+    
+    if (loadingLike || loadingLikeByUser || loadingCommentList ) {
         return (
             <div className='parent'>
                 <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -133,6 +140,13 @@ const Post = (props) => {
                         <Link to={post._id} state={{ commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
                             <img className='sinF' src={messages} alt="comments" />
                         </Link>
+                        <p style={{
+                            position: "absolute",
+                            left: "92%",
+                            color: "#858585"
+                        }}>
+                            {commentList.length}
+                        </p>
                     </div>
                 </div>
                 <div className='row'>

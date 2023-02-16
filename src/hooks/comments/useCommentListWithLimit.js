@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const getCommentListWithLimit = async ({ queryKey }) => {
-    const [ , id_Post ] = queryKey;
+    const [ , id_Post, , limit ] = queryKey;
 
     if(!id_Post) return [];
 
@@ -12,9 +12,9 @@ const getCommentListWithLimit = async ({ queryKey }) => {
     return data;
 }
 
-export const useCommentListWithLimit = (id_Post) => {
+export const useCommentListWithLimit = (id_Post, limit) => {
     const query = useQuery(
-        id_Post ? ['post', id_Post, 'comments', 'limit', '5'] : [],
+        id_Post ? ['post', id_Post, 'comments', 'limit', limit] : [],
         getCommentListWithLimit, {
             refetchOnWindowFocus: false,
             retry: false
