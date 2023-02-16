@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter } from '../../helpers/utils';
 import { useAddComment, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
 import { messages, send, star, starSinF, user } from '../../images';
+import MenuPost from '../menu-post/MenuPost';
 import PostModal from '../modals/PostModal';
 
 const Post = (props) => {
@@ -15,6 +16,9 @@ const Post = (props) => {
     const { mutate: addComment } = useAddComment(post._id);
 
     const [ commentValue, setCommentValue ] = useState('');
+    const [ x, setX ] = useState('');
+    const [ y, setY ] = useState('');
+    const [ menu, setMenu ] = useState(false);
 
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
@@ -28,6 +32,8 @@ const Post = (props) => {
     const userInfo = useSelector(state => state.user);
     const dispatch = useDispatch();
 
+    const buttonMenuRef = useRef();
+
     const handleStar = () => {
         const likeUser = { uid_user: userInfoPerfil.uid_user, id_Post: post._id };
         updateLike(likeUser, {
@@ -40,6 +46,16 @@ const Post = (props) => {
     const handleChange = (e) => {
         setCommentValue(e.target.value);
     };
+
+    const handleMenu = () => {
+        const x = buttonMenuRef.current.offsetLeft + 15 + 'px';
+        setX(x);
+    
+        const y = buttonMenuRef.current.offsetTop + 15 + 'px';
+        setY(y);
+        
+        setMenu(!menu);
+    }
 
     const handleSubmit = () => {
         const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue  };
@@ -86,8 +102,12 @@ const Post = (props) => {
                             </div>
                         </Link>
                     </div>
-                    <div className='col-2'>
+                    <div className='col-8'>
                         <h3 className='name'> {userPost.name} </h3>
+                    </div>
+                    <div className='col-1'>
+                        <button className='button-options' ref={buttonMenuRef} onClick={ handleMenu }>...</button>
+                        <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} />
                     </div>
                 </div>
                 <div className='row'>
