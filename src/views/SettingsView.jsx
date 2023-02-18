@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { decode } from "string-encode-decode";
 import Notification from "../components/notification/Notification";
 import { useUpdateUser } from "../hooks";
 import { user, fondo } from "../images";
@@ -16,7 +15,7 @@ const SettingsView = () => {
     imgPortadaName: '',
     nombre: userInfo.name,
     telefono: userInfo.phone,
-    password: decode( userInfo.password ),
+    password: userInfo.password,
     username: userInfo.username,
     carrera: userInfo.career
   });
@@ -58,7 +57,7 @@ const SettingsView = () => {
       }
     });
   };
-  
+
   return (
     <div>
       <div className="linea-acostada" />
