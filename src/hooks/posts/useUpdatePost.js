@@ -18,12 +18,13 @@ const updatePost = async (post) => {
     });
 }
 
-export const useUpdatePost = ( ) => {
+export const useUpdatePost = ( id_Post ) => {
     const queryClient = useQueryClient();
 
     return useMutation(updatePost, {
         onSuccess: () => {
             queryClient.invalidateQueries(['posts']);
+            queryClient.invalidateQueries(['posts', id_Post]);
         }
     });
 }

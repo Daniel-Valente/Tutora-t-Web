@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PublicationPortal from "../portals/PublicationPortal";
 
 const PublicationModal = (props) => {
-  const { children, toggle, active, dispatch } = props;
+  const { children, toggle, active, dispatch, toggleLock } = props;
 
   const styles = {
     wrapper: {
@@ -24,9 +25,9 @@ const PublicationModal = (props) => {
       padding: 15,
       boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
       zIndex: 10,
-      top: "20vh",
-      minWidth: 400,
-      height: "45vh",
+      top: "15vh",
+      minWidth: 700,
+      height: "70vh",
     },
     closeBtn: {
       position: "absolute",
@@ -43,22 +44,22 @@ const PublicationModal = (props) => {
       left: 0,
     },
   };
+
+  const handleClose = () => {
+    toggleLock();
+    toggle(dispatch, active);
+  }
   
   return (
     <PublicationPortal>
       {active && (
         <div style={styles.wrapper}>
           <div style={styles.window}>
-            <button
-              style={styles.closeBtn}
-              onClick={() => toggle(dispatch, active)}
-            >
-              X
-            </button>
+          <button style={styles.closeBtn} onClick={handleClose}>X</button>
             <div> {children} </div>
           </div>
           <div
-            onClick={() => toggle(dispatch, active)}
+            onClick={handleClose}
             style={styles.background}
           />
         </div>

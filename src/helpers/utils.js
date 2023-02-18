@@ -1,5 +1,5 @@
 import {
-    chatModalState, commentModalState, hoveringState,
+    chatModalState, commentModalState, editPublicationState, hoveringState,
     logInModalState, loginWithEmailState, notificationModalState,
     publicationState, registerModalState, registerWithEmailState,
     sessionState, userModalState
@@ -103,6 +103,11 @@ export const isCommentModal = (dispatch, activeComments) => {
 export const isPublicationModal = (dispatch, activePublications) => {
     document.body.overflow = 'hidden';
     dispatch(publicationState(!activePublications));
+}
+
+export const isEditPublicationModal = (dispatch, activePublications) => {
+    document.body.overflow = 'hidden';
+    dispatch(editPublicationState(!activePublications));
 }
 
 export const isLogIn = (dispatch) => {

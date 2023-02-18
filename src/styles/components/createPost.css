@@ -1,0 +1,35 @@
+.title-post {
+    width: 65vh;
+}
+
+.inp {
+    width: 99%;
+    height: 15vh;
+    resize: none;
+}
+
+.upload-post {
+    top: 15vh;
+    left: 26vh;
+    position: relative;
+}
+
+.upload-image-post {
+    height: 240px;
+    position: relative;
+    border: 3px dotted #a2a2a2;
+    z-index: -1;
+}
+
+.image-post {
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+}
+
+.send-post {
+    width: 25px;
+    top: 2vh;
+    left: 71vh;
+    position: relative;
+}

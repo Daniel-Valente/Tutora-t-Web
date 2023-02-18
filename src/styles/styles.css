@@ -10,6 +10,7 @@
 
 /* compoents */
 @import './components/post.css';
+@import './components/createPost.css';
 
 /* views */
 @import './views/MainView.css';

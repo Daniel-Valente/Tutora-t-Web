@@ -1,3 +1,5 @@
+export { useBodyScrollLock } from "./scroll/useBodyScrollLock";
+
 export { useAddUser } from "./users/useAddUser";
 export { useDeleteUser } from "./users/useDeleteUser";
 export { useUserById } from "./users/userUserById";

@@ -15,6 +15,7 @@ import chatModalReducer from '../reducers/chats/chatModalSlice';
 import notificationModalReducer from '../reducers/notifications/notificationModalSlice';
 import alertReducer from '../reducers/notifications/alertSlice';
 import publicationModalReducer from '../reducers/publications/publicationModalSlice';
+import editPublicationModalReducer from '../reducers/publications/editPublicationModalSlice';
 import userModalReducer from '../reducers/users/userModalSlice';
 import userReducer from '../reducers/users/userSlice';
 import userLogInReducer from '../reducers/users/userLogInSlice';
@@ -30,6 +31,7 @@ const reducers = combineReducers({
     notificationModal: notificationModalReducer,
     alert: alertReducer,
     publicationModal: publicationModalReducer,
+    editPublicationModal: editPublicationModalReducer,
     userModal: userModalReducer,
     user: userReducer,
     userLogIn: userLogInReducer,
@@ -44,7 +46,7 @@ const persistConfig = {
         'loginModal', 'loginWitnEmail', 'registerModal',
         'registerWithEmail', 'commentModal', 'chatModal',
         'notificationModal', 'alert', 'publicationModal',
-        'userModal']
+        'userModal', 'editPublicationModal']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

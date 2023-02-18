@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
-const MenuPost = ({ x, y, showMenu, userPost }) => {
+const MenuPost = ({ x, y, showMenu, userPost, handleDelete, post, prevUrl }) => {
     const userInfoPerfil = useSelector(state => state.user);
+    const location = useLocation();
 
     const style = () => {
         return {
@@ -16,18 +18,24 @@ const MenuPost = ({ x, y, showMenu, userPost }) => {
             left: x,
             boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
             position: 'absolute',
-            display: showMenu ? "flex" : 'none',   
+            display: showMenu ? "flex" : 'none',
         };
     };
 
-  return (
-    <div style={style()}>
-        { userInfoPerfil.uid_user === userPost.uid_user && <button style={ styles.div } >Editar</button> }
-        <button style={ styles.div } >Ocultar</button>
-        <button style={ styles.div } >Guardar</button>
-        { userInfoPerfil.uid_user === userPost.uid_user && <button style={ styles.div } >Eliminar</button> }
-    </div>
-  );
+    return (
+        <div style={style()}>
+            {userInfoPerfil.uid_user === userPost.uid_user && 
+            <Link to={`${prevUrl}/edit/${post._id}`} 
+                style={{ textDecoration: 'none' }}
+                state={{ editPublicationModal: true, post: post, prevPath: location.pathname }}>
+                <button style={styles.div}>Editar</button>
+            </Link>
+            }
+            <button style={styles.div} >Ocultar</button>
+            <button style={styles.div} >Guardar</button>
+            {userInfoPerfil.uid_user === userPost.uid_user && <button style={styles.div} onClick={handleDelete}>Eliminar</button>}
+        </div>
+    );
 };
 
 const styles = {
