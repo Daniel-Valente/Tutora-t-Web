@@ -8,7 +8,7 @@ import {
 } from "../../helpers/utils";
 import { useCareerList } from "../../hooks";
 import { googleIcon } from "../../images";
-import { alertState, userInfo } from "../../reducers";
+import { alertState, userInfo, userLogInState } from "../../reducers";
 import Modal from "../modals/Modal";
 
 import RegisterModal from "../modals/RegisterModal";
@@ -64,7 +64,8 @@ const Register = () => {
             type: "success",
           })
         );
-
+        dispatch(userLogInState(data));
+        isLogIn(dispatch);
         isRegisterWithEmail(dispatch, registerWithEmail);
       },
       onError: ({ response }) => {
