@@ -65,14 +65,6 @@
   left: -1vw;
 }
 
-.inp {
-  border: none;
-  outline: none;
-  position: relative;
-  width: 95%;
-  height: 15vh;
-  resize: none;
-}
 .inp::placeholder {
   font-size: 1em;
   font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;

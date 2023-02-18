@@ -3,34 +3,39 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter } from '../../helpers/utils';
-import { useAddComment, useCommentList, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
+import { useAddComment, useCommentList, useDeletePost, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
 import { messages, send, star, starSinF, user } from '../../images';
+import { alertState } from '../../reducers';
 import MenuPost from '../menu-post/MenuPost';
 import PostModal from '../modals/PostModal';
+import Notification from '../notification/Notification';
 
 const Post = (props) => {
-    const { post, commentModal } = props;
+    const { post, commentModal, handleEdit } = props;
     const location = useLocation();
+
     const userInfoPerfil = useSelector(state => state.user);
+
     const { mutate: updateLike } = useUpdateLike(post._id);
     const { mutate: addComment } = useAddComment(post._id);
+    const { mutate: deletePost } = useDeletePost();
 
-    const [ commentValue, setCommentValue ] = useState('');
-    const [ x, setX ] = useState('');
-    const [ y, setY ] = useState('');
-    const [ menu, setMenu ] = useState(false);
+    const [commentValue, setCommentValue] = useState('');
+    const [x, setX] = useState('');
+    const [y, setY] = useState('');
+    const [menu, setMenu] = useState(false);
 
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
 
-    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike  } = useLikesList(post._id);
-    const [ likes, setLikes ] = useState(dataLikeList);
+    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
+    const [likes, setLikes] = useState(dataLikeList);
 
-    const { data: dataCommentList = [], isFetching: fetchingCommentList, isLoading: loadingCommentList  } = useCommentList(post._id);
-    const [ commentList, setCommentList ] = useState(dataCommentList);
+    const { data: dataCommentList = [], isFetching: fetchingCommentList, isLoading: loadingCommentList } = useCommentList(post._id);
+    const [commentList, setCommentList] = useState(dataCommentList);
 
     const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
-    const [ starActive, setStarActive ] = useState(dataLikeByUser);
+    const [starActive, setStarActive] = useState(dataLikeByUser);
 
     const userInfo = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -40,12 +45,12 @@ const Post = (props) => {
     const handleStar = () => {
         const likeUser = { uid_user: userInfoPerfil.uid_user, id_Post: post._id };
         updateLike(likeUser, {
-            onSuccess: ({data}) => {
+            onSuccess: ({ data }) => {
                 setStarActive(data);
             }
         });
     }
-    
+
     const handleChange = (e) => {
         setCommentValue(e.target.value);
     };
@@ -53,22 +58,48 @@ const Post = (props) => {
     const handleMenu = () => {
         const x = buttonMenuRef.current.offsetLeft + 15 + 'px';
         setX(x);
-    
+
         const y = buttonMenuRef.current.offsetTop + 15 + 'px';
         setY(y);
-        
+
         setMenu(!menu);
     }
 
+    const handleDelete = () => {
+        !!menu && setMenu(!menu);
+        const posts = { uid_user: userInfoPerfil.uid_user, id_Post: post._id };
+        deletePost(posts, {
+            onSuccess: (response) => {
+                dispatch(
+                    alertState({
+                        isOpen: true,
+                        message: 'Post eliminado con exito',
+                        type: "success",
+                    })
+                );
+            },
+            onError: (response) => {
+                console.log(response);
+                dispatch(
+                    alertState({
+                        isOpen: true,
+                        message: response,
+                        type: "success",
+                    })
+                );
+            }
+        });
+    }
+
     const handleSubmit = () => {
-        const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue  };
+        const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue };
         setCommentValue('');
         commentValue.length > 0 ? addComment(comments, {
             onSuccess: (response) => {
                 console.log(response);
             }
         })
-        : console.log('no');
+            : console.log('no');
     }
 
     useEffect(() => {
@@ -86,8 +117,8 @@ const Post = (props) => {
     useEffect(() => {
         !fetchingCommentList && setCommentList(dataCommentList);
     }, [dataCommentList]);
-    
-    if (loadingLike || loadingLikeByUser || loadingCommentList ) {
+
+    if (loadingLike || loadingLikeByUser || loadingCommentList) {
         return (
             <div className='parent'>
                 <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -113,19 +144,19 @@ const Post = (props) => {
                         <h3 className='name'> {userPost.name} </h3>
                     </div>
                     <div className='col-1'>
-                        <button className='button-options' ref={buttonMenuRef} onClick={ handleMenu }>...</button>
-                        <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} />
+                        <button className='button-options' ref={buttonMenuRef} onClick={handleMenu}>...</button>
+                        <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} handleDelete={handleDelete} post={post} prevUrl={location.pathname} />
                     </div>
                 </div>
                 <div className='row'>
                     <img
                         style={{ width: "50vw", marginTop: "10px" }}
-                        src={post.imgUrl} alt={post.imgName}
+                        src={post.imgUrl} alt={`${post.imgName} refresh the page`}
                     />
                 </div>
                 <div className='row'>
                     <div className='col-1'>
-                        <img className='star' onClick={ handleStar } src={ starActive ? star : starSinF } alt="star" />
+                        <img className='star' onClick={handleStar} src={starActive ? star : starSinF} alt="star" />
                     </div>
                     <div className='col-2'>
                         <p style={{
@@ -170,15 +201,15 @@ const Post = (props) => {
                         </Link>
                     </div>
                     <div className='col-8'>
-                        <input className='inputCom' type="text" placeholder='¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
+                        <input className='inputCom' type="text" placeholder='¿Qué opinas?... ' value={commentValue} onChange={handleChange} />
                     </div>
                     <br />
                     <div className='col-1'>
-                        <img className='send' src={send} alt='send' onClick={ handleSubmit } onMouseEnter={() => handleMouseEnter(dispatch)} />
+                        <img className='send' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
                     </div>
                 </div>
-                
             </PostModal>
+            <Notification />
         </div>
     )
 }

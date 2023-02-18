@@ -9,7 +9,7 @@ const addPost = async (post) => {
     formData.append('title', title);
     formData.append('description', description);
     formData.append('id_Course', id_Course);
-    formData.append('imgName', imgPost);
+    formData.append('imgPost', imgPost);
 
     return httpClient.post(`/posts/${ uid_user }`, formData, {
         headers: {

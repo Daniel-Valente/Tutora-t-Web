@@ -9,7 +9,7 @@ import { alertState } from "../reducers";
 const SettingsView = () => {
   const { mutate: updateUser } = useUpdateUser();
   const userInfo = useSelector(state => state.user);
-  const [ configValue, setConfigValue ] = useState({
+  const [configValue, setConfigValue] = useState({
     uid_user: userInfo.uid_user,
     imgName: '',
     imgPortadaName: '',
@@ -19,12 +19,12 @@ const SettingsView = () => {
     username: userInfo.username,
     carrera: userInfo.career
   });
-  const [ images, setImages ] = useState({ imgName: '', imgPortadaName: '' });
+  const [images, setImages] = useState({ imgName: '', imgPortadaName: '' });
 
   const dispatch = useDispatch();
 
   const onChange = (e) => {
-    if(e.target.files) {
+    if (e.target.files) {
       console.log(e.target.files[0]);
       setImages({ ...images, [e.target.name]: e.target.files[0].name });
       setConfigValue({ ...configValue, [e.target.name]: e.target.files[0] });
@@ -35,11 +35,11 @@ const SettingsView = () => {
   };
 
   const handleSubmit = () => {
-    if( configValue.nombre === userInfo.name ) configValue.nombre = '';
-    if( configValue.telefono === userInfo.phone ) configValue.telefono = '';
-    if( configValue.password === userInfo.password ) configValue.password = '';
-    if( configValue.carrera === userInfo.career ) configValue.carrera = '';
-    if( configValue.username === userInfo.username ) configValue.username = '';
+    if (configValue.nombre === userInfo.name) configValue.nombre = '';
+    if (configValue.telefono === userInfo.phone) configValue.telefono = '';
+    if (configValue.password === userInfo.password) configValue.password = '';
+    if (configValue.carrera === userInfo.career) configValue.carrera = '';
+    if (configValue.username === userInfo.username) configValue.username = '';
 
     updateUser(configValue, {
       onSuccess: (response) => {
@@ -68,14 +68,14 @@ const SettingsView = () => {
           <b>Imagen de perfil</b>
         </p>
         <img className="icon-perfil-setting"
-          src={`${ userInfo.imgUrl ? userInfo.imgUrl : user }`} 
-          alt={ userInfo.username}/>
+          src={`${userInfo.imgUrl ? userInfo.imgUrl : user}`}
+          alt={userInfo.username} />
         <p>
           <b>Imagen de portada</b>
         </p>
         <img className="circular-portada"
-          src={`${ userInfo.imgPortadaUrl ? userInfo.imgPortadaUrl : fondo }`} 
-          alt={ userInfo.username}/>
+          src={`${userInfo.imgPortadaUrl ? userInfo.imgPortadaUrl : fondo}`}
+          alt={userInfo.username} />
         <br />
         <br />
         <p>
@@ -104,7 +104,7 @@ const SettingsView = () => {
           </button>
           <br />
           <br />
-          <input type="text" readOnly value={ images.imgName }/>
+          <input type="text" readOnly value={images.imgName} />
           <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
         </div>
 
@@ -120,7 +120,7 @@ const SettingsView = () => {
           </button>
           <br />
           <br />
-          <input type="text" readOnly value={ images.imgPortadaName }/>
+          <input type="text" readOnly value={images.imgPortadaName} />
           <input className="upload-file-buton" name="imgPortadaName" type="file" accept="image/*" />
         </div>
 
@@ -128,43 +128,43 @@ const SettingsView = () => {
 
         <div style={{ marginTop: "12%" }}>
           <input
-            onChange={ onChange }
+            onChange={onChange}
             type="text"
             placeholder="Nombre completo"
             name="nombre"
-            value={ configValue.nombre }
+            value={configValue.nombre}
           />
         </div>
         <div style={{ marginTop: "2%" }}>
           <input
-            onChange={ onChange }
+            onChange={onChange}
             type="text"
             placeholder="username"
             name="username"
-            value={ configValue.username }
+            value={configValue.username}
           />
         </div>
         <div style={{ marginTop: "2%" }}>
           <input
-            onChange={ onChange }
+            onChange={onChange}
             type="text"
             placeholder="Telefono"
             name="telefono"
-            value={ configValue.telefono }
+            value={configValue.telefono}
           />
         </div>
         <div style={{ marginTop: "2%" }}>
           <input
-            onChange={ onChange }
+            onChange={onChange}
             type="password"
             placeholder="Nueva contraseña"
             name="password"
-            value={ configValue.password }
+            value={configValue.password}
           />
         </div>
 
         <br />
-        <button style={{ marginTop: "3%" }} onClick={ handleSubmit }>Guardar</button>
+        <button style={{ marginTop: "3%" }} onClick={handleSubmit}>Guardar</button>
       </div>
       <Notification />
     </div>

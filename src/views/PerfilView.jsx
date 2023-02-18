@@ -83,7 +83,7 @@ const PerfilView = () => {
         <div className='col-7'>
           <br />
           {
-            posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} />)
+            posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id}/>)
           }
         </div>
         <div className='col-2'>

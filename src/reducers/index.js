@@ -8,6 +8,8 @@ export { userInfo } from "./users/userSlice";
 
 export { publicationState } from "./publications/publicationModalSlice";
 
+export { editPublicationState } from "./publications/editPublicationModalSlice";
+
 export { alertState } from "./notifications/alertSlice";
 
 export { notificationModalState } from "./notifications/notificationModalSlice";
