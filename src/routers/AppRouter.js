@@ -8,6 +8,7 @@ import {
 const ChatsView = lazy(() => import('../views/ChatsView'));
 const ChatPanel = lazy(() => import('../components/chats/Chat'));
 const HomeView = lazy(() => import('../views/HomeView'));
+const CourseView = lazy(() => import('../views/CourseView'));
 const MainView = lazy(() => import('../views/MainView'));
 const PerfilView = lazy(() => import('../views/PerfilView'));
 const SettingsView = lazy(() => import('../views/SettingsView'));
@@ -29,6 +30,10 @@ const AppRouter = () => {
               <Route path='/home' element={<HomeView />}/>
               <Route path='/home/:id_Post' element={<PostPanel />} />
               <Route path='/home/edit/:id_Post' element={<EditPostPanel />} />
+              {/* Courses */}
+              <Route path='/course/:id_Course' element={<CourseView />} />
+              <Route path='/course/:id_Course/:id_Post' element={<PostPanel />} />
+              <Route path='/course/:id_Course/edit/:id_Post' element={<EditPostPanel />} />
               {/* USER */}
               <Route path='/perfil/:uid_user' element={<PerfilView />} />
               <Route path='/perfil/:uid_user/:id_Post' element={<PostPanel />} />

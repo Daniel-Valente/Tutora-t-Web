@@ -142,6 +142,57 @@
   color: #f0f2f5;
 }
 
+.button-join {
+  background-color: #1492e6;
+  border-radius: 10px;
+  height: 40px;
+  border: none;
+  width: 15vh;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-right: 1vh;
+}
+
+.button-join:hover {
+  background-color: #1492e6;
+  color: #f0f2f5;
+}
+
+.button-left {
+  background-color: #ff0096;
+  border-radius: 10px;
+  height: 40px;
+  border: none;
+  width: 15vh;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-right: 1vh;
+}
+
+.button-left:hover {
+  background-color: #ff0096;
+  color: #f0f2f5;
+}
+.button-option-course {
+  left: 96%;
+  top: 1.5%;
+  transform: rotate(90deg);
+  width: 3vh;
+  height: 3vh;
+}
+
+.button-new-course {
+  width: 20px;
+  height: 20px;
+  bottom: 0.3vh;
+  right: 18vh;
+  position: absolute;
+}
+
 .button-message {
   background-color: #ff0096;
   border-radius: 10px;

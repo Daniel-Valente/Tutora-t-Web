@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-import { send, user } from '../../images';
+import { fondo, send, user } from '../../images';
 import { handleMouseEnter, isPublicationModal } from '../../helpers/utils';
 import PublicationModal from '../modals/PublicationModal';
 import { useAddPost, useBodyScrollLock } from '../../hooks';
@@ -11,7 +11,8 @@ import Notification from '../notification/Notification';
 
 const CreatePost = () => {
   const userInfo = useSelector(state => state.user);
-  const [ , toggle ] = useBodyScrollLock();
+  const { id_Course } = useParams();
+  const [, toggle] = useBodyScrollLock();
   const { mutate: addPost } = useAddPost();
 
   const { value: publicationModal } = useSelector(state => state.publicationModal);
@@ -21,7 +22,7 @@ const CreatePost = () => {
     title: '',
     description: '',
     imgPost: '',
-    id_Course: '',
+    id_Course: id_Course ? id_Course : '',
     uid_user: userInfo.uid_user,
   });
 
@@ -43,25 +44,36 @@ const CreatePost = () => {
   };
 
   const handleSubmit = () => {
-    addPost(newPost,{
+    addPost(newPost, {
       onSuccess: (response) => {
-          toggle();
-          dispatch(
-            alertState({
-              isOpen: true,
-              message: 'Post creado con exito',
-              type: "success",
-            })
-          );
-          isPublicationModal(dispatch, publicationModal);
-        }
+        toggle();
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: 'Post creado con exito',
+            type: "success",
+          })
+        );
+        isPublicationModal(dispatch, publicationModal);
+      },
+      onError: ({ response }) => {
+        toggle();
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: 'No puede existir ningún campo vacio',
+            type: "error",
+          })
+        );
+        isPublicationModal(dispatch, publicationModal);
+      }
     });
-  }
+  };
 
   return (
     <div>
       <div className='wrapper'>
-        <div className='windows'>
+        <div className='windows parent'>
           <div className='col-3'>
             <Link to={`/perfil/${userInfo.uid_user}`} style={{ textDecoration: 'none' }}>
               <div className='boton-circular-volteado-4'>
@@ -73,7 +85,7 @@ const CreatePost = () => {
           </div>
           <div className='col-9'>
             <button className='search-input-2'
-              onClick={ openModalHandler } >
+              onClick={openModalHandler} >
               ¿Que tienes en mente?...
             </button>
           </div>
@@ -94,9 +106,9 @@ const CreatePost = () => {
           </div>
         </div>
         <div className='upload-image-post'>
-          <img src={imagePreview} alt="" className='image-post' onChange={handleChange} />
+          <img src={imagePreview ? imagePreview : fondo} alt="" className='image-post' onChange={handleChange} />
         </div>
-        <img className='send-post' src={send} alt='send' onClick={ handleSubmit } onMouseEnter={() => handleMouseEnter(dispatch)} />
+        <img className='send-post' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
       </PublicationModal>
       <Notification />
     </div>

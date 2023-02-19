@@ -41,7 +41,7 @@ const HomeView = () => {
         <div className="col-7">
           <CreatePost />
           {
-            posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id}/>)
+            posts.map((post, index) => post.visible && <Post post={post} commentModal={commentModal} key={post._id}/>)
           }
         </div>
         <div className="col-2">a</div>

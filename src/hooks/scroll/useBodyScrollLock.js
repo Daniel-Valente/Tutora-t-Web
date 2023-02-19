@@ -9,10 +9,7 @@ export const useBodyScrollLock = () => {
         bodyStyle.overflowY = isLocked ? 'hidden' : 'auto';
     } , [ isLocked, bodyStyle ]);
 
-    const toggle = () => {
-        console.log('hola');
-        setIsLocked(!isLocked);
-    }
+    const toggle = () => setIsLocked(!isLocked);
 
     return [ isLocked, toggle ]
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import { handleMouseEnter, isEditPublicationModal } from '../../helpers/utils';
 import { useUpdatePost } from '../../hooks';
@@ -12,6 +12,7 @@ import Notification from '../notification/Notification';
 
 const EditPostPanel = () => {
     const location = useLocation();
+    const { id_Course } = useParams();
     const { editPublicationModal = false, post = {}, prevPath = '' } = location.state || [];
     const { mutate: updatePost } = useUpdatePost(post._id);
 
@@ -22,7 +23,7 @@ const EditPostPanel = () => {
         title: post ? post.title : '',
         description: post ? post.description : '',
         imgPost: '',
-        id_Course: '',
+        id_Course: id_Course ? id_Course : '',
         uid_user: userInfoPerfil.uid_user,
         id_Post: post._id
     });

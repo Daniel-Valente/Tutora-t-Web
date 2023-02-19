@@ -12,6 +12,8 @@ export { default as settings } from './settings.png';
 export { default as settingsBlack } from './settingsBlack.png';
 export { default as star } from './star.png';
 export { default as user } from './user.png';
-export { default as fondo } from './fondo-2.jpg';
+export { default as fondo } from './fondo.png';
 export { default as imagen1 } from './Imagen1.png';
 export { default as starSinF } from './starSinF.png';
+export { default as newButtton } from './new.png'
+export { default as newFocus } from './new-focus.png'
