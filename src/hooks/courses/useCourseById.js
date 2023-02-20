@@ -4,6 +4,9 @@ import httpClient from "../../https/httpClient";
 
 const getCourseById = async ({ queryKey }) => {
     const [ , id_Course ] = queryKey;
+    
+    if(!id_Course) return [];
+
     const { data } = await httpClient.get(`/courses/${ id_Course }`);
     const [ result ] = data;
 
@@ -12,7 +15,7 @@ const getCourseById = async ({ queryKey }) => {
 
 export const useCourseById = ( id_Course ) => {
     const query = useQuery(
-        ['courses', id_Course],
+        id_Course ? ['courses', id_Course] : [],
         getCourseById, {
             refetchOnWindowFocus: false,
             retry: false

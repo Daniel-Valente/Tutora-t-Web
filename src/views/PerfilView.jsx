@@ -43,7 +43,7 @@ const PerfilView = () => {
   const { data: dataCareer, isFetching: fetchingCareer, isLoading: loadingCareer } = useCareerById(userInfoPerfil.career);
   const [userCareer, setUserCareer] = useState(dataCareer);
 
-  const { data: dataPostsList = [], isFetching: fetchingPostsList, isLoading: loadingPosts } = usePostsByUser(uid_user);
+  const { data: dataPostsList = [], isLoading: loadingPosts } = usePostsByUser(uid_user);
   const [posts, setPosts] = useState(dataPostsList);
 
   const { data: dataCoursesList = [], isFetching: fetchingCoursesList, isLoading: loadingCourses } = useCoursesByUser(uid_user);
@@ -100,6 +100,17 @@ const PerfilView = () => {
         );
         isPublicationModal(dispatch, publicationModal);
       }
+    });
+
+    setNewCourse({
+      title: '',
+      description: '',
+      dates: '',
+      hours: '',
+      site: '',
+      career: '',
+      imgCourse: '',
+      uid_user: userInfoPerfil.uid_user,
     });
   };
 

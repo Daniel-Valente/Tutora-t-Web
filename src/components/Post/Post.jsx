@@ -125,7 +125,7 @@ const Post = (props) => {
         !fetchingCourse && dataCourse && setCourse(dataCourse);
       }, [dataCourse]);
 
-    if (loadingLike || loadingLikeByUser || loadingCommentList) {
+    if (loadingLike || loadingLikeByUser || loadingCommentList || loadingCourse) {
         return (
             <div className='parent'>
                 <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -151,7 +151,7 @@ const Post = (props) => {
                         <h3 className='name'>
                             {`${userPost.name} ${ post.id_Course &&  ' > '}`}
                             {
-                                post.id_Course ?
+                                post.id_Course && course ?
                                 <Link to={`/course/${ course._id }`}
                                 style={{ textDecoration: 'none' }}>
                                     { course.title }

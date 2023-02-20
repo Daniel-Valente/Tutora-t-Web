@@ -86,7 +86,14 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .site-course {
-  width: 45vh;
+  width: 30vh;
+}
+
+.visible-course {
+  width: 15vh;
+  height: 3vh;
+  bottom: 5vh;
+  left: 115vh;
 }
 
 .inp-course {
