@@ -101,6 +101,7 @@ export const isCommentModal = (dispatch, activeComments) => {
 }
 
 export const isPublicationModal = (dispatch, activePublications) => {
+    !activePublications && window.scrollTo(0, 0);
     document.body.overflow = 'hidden';
     dispatch(publicationState(!activePublications));
 }

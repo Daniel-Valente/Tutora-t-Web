@@ -18,10 +18,11 @@ import RegisterForm from "./RegisterForm";
 import { useAddUser } from "../../hooks";
 
 const Register = () => {
-  const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
   const { mutate: addUser } = useAddUser();
 
+  const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
   const [career, setCareer] = useState(dataCareers);
+  
   const [values, setValues] = useState({
     username: "",
     nombre: "",

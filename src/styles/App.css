@@ -126,6 +126,7 @@
   float: right;
   margin-left: 10px;
 }
+
 .panelDerecho {
   position: absolute;
   top: 2vh;
@@ -169,6 +170,7 @@
   top: 100;
   background-color: #000000;
 }
+
 .windows {
   background-color: rgb(255, 255, 255);
   border-radius: 5px;

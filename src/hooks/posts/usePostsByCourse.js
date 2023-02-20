@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const getPostsByCourse = async ({ queryKey }) => {
-    const [ , id_Course ] = queryKey;
-    const { data } = await httpClient.get(`/posts/course/${ id_Course }`);
+    const [ , , id_Course ] = queryKey;
+    const { data } = await httpClient.get(`/posts/${ id_Course }`);
 
     return data;
 }

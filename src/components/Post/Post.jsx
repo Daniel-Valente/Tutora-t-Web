@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter } from '../../helpers/utils';
-import { useAddComment, useCommentList, useDeletePost, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
+import { useAddComment, useCommentList, useCourseById, useDeletePost, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
 import { messages, send, star, starSinF, user } from '../../images';
 import { alertState } from '../../reducers';
 import MenuPost from '../menu-post/MenuPost';
@@ -36,6 +36,9 @@ const Post = (props) => {
 
     const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
     const [starActive, setStarActive] = useState(dataLikeByUser);
+
+    const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse  } = useCourseById(post.id_Course);
+    const [course, setCourse] = useState(dataCourse);
 
     const userInfo = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -118,7 +121,11 @@ const Post = (props) => {
         !fetchingCommentList && setCommentList(dataCommentList);
     }, [dataCommentList]);
 
-    if (loadingLike || loadingLikeByUser || loadingCommentList) {
+    useEffect(() => {
+        !fetchingCourse && dataCourse && setCourse(dataCourse);
+      }, [dataCourse]);
+
+    if (loadingLike || loadingLikeByUser || loadingCommentList || loadingCourse) {
         return (
             <div className='parent'>
                 <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -141,7 +148,17 @@ const Post = (props) => {
                         </Link>
                     </div>
                     <div className='col-8'>
-                        <h3 className='name'> {userPost.name} </h3>
+                        <h3 className='name'>
+                            {`${userPost.name} ${ post.id_Course &&  ' > '}`}
+                            {
+                                post.id_Course && course ?
+                                <Link to={`/course/${ course._id }`}
+                                style={{ textDecoration: 'none' }}>
+                                    { course.title }
+                                </Link>  
+                                : ''
+                            }
+                        </h3>
                     </div>
                     <div className='col-1'>
                         <button className='button-options' ref={buttonMenuRef} onClick={handleMenu}>...</button>

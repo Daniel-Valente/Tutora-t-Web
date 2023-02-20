@@ -32,6 +32,7 @@ export { useCoursesList } from "./courses/useCoursesList";
 export { useDeleteCourse } from "./courses/useDeleteCourse";
 export { useRegistrationUser } from "./courses/useRegistrationUser";
 export { useUpdateCourse } from "./courses/useUpdateCourse";
+export { useRegistrationByUser } from "./courses/useRegistrationByUser";
 
 export { useAddComment } from "./comments/useAddComment";
 export { useCommentList } from "./comments/useCommentList";

@@ -80,3 +80,62 @@ input[type="file"]::-webkit-file-upload-button {
   color: white;
   background-color: rgb(245, 61, 58);
 }
+
+.title-course {
+  width: 65vh;
+}
+
+.site-course {
+  width: 30vh;
+}
+
+.visible-course {
+  width: 15vh;
+  height: 3vh;
+  bottom: 5vh;
+  left: 115vh;
+}
+
+.inp-course {
+  width: 99%;
+  height: 15vh;
+  resize: none;
+}
+
+.upload-course {
+  bottom: 16vh;
+  left: 56vh;
+  position: absolute;
+}
+
+.upload-image-course {
+  height: 240px;
+  position: relative;
+  border: 3px dotted #a2a2a2;
+  z-index: -1;
+}
+
+.image-course {
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+}
+
+.send-course {
+  width: 25px;
+  bottom: 1vh;
+  right: 1vh;
+  position: absolute;
+}
+
+.input-course {
+  border-color: #e7e7e7;
+  border-radius: 15px;
+  width: 370px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bolder;
+  margin-top: 1rem;
+  right: 4vh;
+}
