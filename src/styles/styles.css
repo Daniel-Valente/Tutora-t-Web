@@ -11,6 +11,7 @@
 /* compoents */
 @import './components/post.css';
 @import './components/createPost.css';
+@import './components/course.css';
 
 /* views */
 @import './views/MainView.css';

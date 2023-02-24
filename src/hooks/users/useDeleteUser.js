@@ -13,7 +13,7 @@ export const useDeleteUser = ( ) => {
     
     return useMutation(deleteUser, {
         onSuccess: () => {
-            queryClient.invalidateQueries(['users']);
+            queryClient.clear();
         }
     });
 }

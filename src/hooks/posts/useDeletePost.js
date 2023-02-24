@@ -8,12 +8,14 @@ const deletePost = async (post) => {
     return httpClient.delete(`/posts/${ uid_user }/${ id_Post }`);
 }
 
-export const useDeletePost = ( ) => {
+export const useDeletePost = ( id_Post ) => {
     const queryClient = useQueryClient();
 
     return useMutation(deletePost, {
         onSuccess: () => {
-            queryClient.invalidateQueries(['posts']);
+            queryClient.invalidateQueries(["posts"]);
+            queryClient.removeQueries(['likes', id_Post]);
+            queryClient.removeQueries(['post', id_Post, 'comments']);
         }
     });
 }

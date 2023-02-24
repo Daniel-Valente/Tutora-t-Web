@@ -5,7 +5,7 @@ import Select from 'react-select';
 
 import Post from '../components/Post/Post';
 import { handleMouseEnter, isPublicationModal } from '../helpers/utils';
-import { useAddCourse, useBodyScrollLock, useCareerById, useCareerList, useCoursesByUser, useCoursesList, usePostsByUser } from '../hooks';
+import { useAddCourse, useBodyScrollLock, useCareerById, useCareerList, useCoursesByUser, useCoursesList, useHidePostList, usePostsByUser } from '../hooks';
 import { useUserById } from '../hooks/users/userUserById';
 import { fondo, newButtton, newFocus, send, user } from '../images';
 import CourseModal from '../components/modals/CourseModal';
@@ -51,6 +51,9 @@ const PerfilView = () => {
 
   const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
+
+  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList( userInfoPerfil.uid_user );
+  const [ hidePost, setHidePost ] = useState(dataHidePost);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
   const [career, setCareer] = useState(dataCareers);
@@ -138,7 +141,12 @@ const PerfilView = () => {
     !fetchingCareers && dataCareers.length > 0 && setCareer(dataCareers);
   }, [dataCareers]);
 
-  if (lodingUserPerfil || loadingPosts || loadingCareer || loadingCourses || loadingCoursesInscripto) {
+  useEffect(() => {
+    !fetchingHidePost && hidePost && setHidePost(dataHidePost);
+  }, [ dataHidePost ]);
+
+
+  if (lodingUserPerfil || loadingPosts || loadingCareer || loadingCourses || loadingCoursesInscripto || loadingHidePost) {
     return (
       <div className='parent'>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -186,7 +194,9 @@ const PerfilView = () => {
         <div className='col-7'>
           <br />
           {
-            posts.map((post, index) => post.visible && <Post post={post} commentModal={commentModal} key={post._id} />)
+            posts.map((post, index) => post.visible 
+            && !hidePost.includes(post._id) 
+            && <Post post={post} commentModal={commentModal} key={post._id} />)
           }
         </div>
         <div className='col-2'>

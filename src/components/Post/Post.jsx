@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter } from '../../helpers/utils';
-import { useAddComment, useCommentList, useCourseById, useDeletePost, useLikeByUser, useLikesList, useUpdateLike, useUserById } from '../../hooks';
+import {
+    useAddComment, useCommentList, useCourseById,
+    useDeletePost, useHidePost, useLikeByUser,
+    useLikesList, useSavePost, useUpdateLike,
+    useUserById
+} from '../../hooks';
 import { messages, send, star, starSinF, user } from '../../images';
 import { alertState } from '../../reducers';
 import MenuPost from '../menu-post/MenuPost';
@@ -11,14 +16,16 @@ import PostModal from '../modals/PostModal';
 import Notification from '../notification/Notification';
 
 const Post = (props) => {
-    const { post, commentModal, handleEdit } = props;
+    const { post, commentModal } = props;
     const location = useLocation();
 
     const userInfoPerfil = useSelector(state => state.user);
 
     const { mutate: updateLike } = useUpdateLike(post._id);
     const { mutate: addComment } = useAddComment(post._id);
-    const { mutate: deletePost } = useDeletePost();
+    const { mutate: deletePost } = useDeletePost(post._id);
+    const { mutate: savePost } = useSavePost(userInfoPerfil.uid_user);
+    const { mutate: hidePost } = useHidePost(userInfoPerfil.uid_user);
 
     const [commentValue, setCommentValue] = useState('');
     const [x, setX] = useState('');
@@ -37,7 +44,7 @@ const Post = (props) => {
     const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
     const [starActive, setStarActive] = useState(dataLikeByUser);
 
-    const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse  } = useCourseById(post.id_Course);
+    const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse } = useCourseById(post.id_Course);
     const [course, setCourse] = useState(dataCourse);
 
     const userInfo = useSelector(state => state.user);
@@ -52,7 +59,7 @@ const Post = (props) => {
                 setStarActive(data);
             }
         });
-    }
+    };
 
     const handleChange = (e) => {
         setCommentValue(e.target.value);
@@ -66,7 +73,7 @@ const Post = (props) => {
         setY(y);
 
         setMenu(!menu);
-    }
+    };
 
     const handleDelete = () => {
         !!menu && setMenu(!menu);
@@ -92,7 +99,39 @@ const Post = (props) => {
                 );
             }
         });
-    }
+    };
+
+    const handleHide = () => {
+        !!menu && setMenu(!menu);
+        hidePost({ uid_user: userInfoPerfil.uid_user, 
+            id_Post: post._id }, {
+            onSuccess: (response) => {
+                dispatch(
+                    alertState({
+                        isOpen: true,
+                        message: 'Post ocultado',
+                        type: "success",
+                    })
+                );
+            }
+        });
+    };
+
+    const handleSave = () => {
+        !!menu && setMenu(!menu);
+        savePost({ uid_user: userInfoPerfil.uid_user, 
+            id_Post: post._id }, {
+            onSuccess: (response) => {
+                dispatch(
+                    alertState({
+                        isOpen: true,
+                        message: 'Post guardado',
+                        type: "success",
+                    })
+                );
+            }
+        });
+    };
 
     const handleSubmit = () => {
         const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue };
@@ -103,27 +142,32 @@ const Post = (props) => {
             }
         })
             : console.log('no');
-    }
+    };
 
     useEffect(() => {
         !fetchingUserPost && dataUserPost && userPost.length > -1 && setUserPost(dataUserPost);
+        // eslint-disable-next-line
     }, [dataUserPost]);
 
     useEffect(() => {
         !fetchingLike && setLikes(dataLikeList);
+        // eslint-disable-next-line
     }, [dataLikeList]);
 
     useEffect(() => {
         !fetchingLikeByUser && setStarActive(dataLikeByUser);
+        // eslint-disable-next-line
     }, [dataLikeByUser]);
 
     useEffect(() => {
         !fetchingCommentList && setCommentList(dataCommentList);
+        // eslint-disable-next-line
     }, [dataCommentList]);
 
     useEffect(() => {
         !fetchingCourse && dataCourse && setCourse(dataCourse);
-      }, [dataCourse]);
+        // eslint-disable-next-line
+    }, [dataCourse]);
 
     if (loadingLike || loadingLikeByUser || loadingCommentList || loadingCourse) {
         return (
@@ -149,20 +193,20 @@ const Post = (props) => {
                     </div>
                     <div className='col-8'>
                         <h3 className='name'>
-                            {`${userPost.name} ${ post.id_Course &&  ' > '}`}
+                            {`${userPost.name} ${post.id_Course && ' > '}`}
                             {
                                 post.id_Course && course ?
-                                <Link to={`/course/${ course._id }`}
-                                style={{ textDecoration: 'none' }}>
-                                    { course.title }
-                                </Link>  
-                                : ''
+                                    <Link to={`/course/${course._id}`}
+                                        style={{ textDecoration: 'none' }}>
+                                        {course.title}
+                                    </Link>
+                                    : ''
                             }
                         </h3>
                     </div>
                     <div className='col-1'>
                         <button className='button-options' ref={buttonMenuRef} onClick={handleMenu}>...</button>
-                        <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} handleDelete={handleDelete} post={post} prevUrl={location.pathname} />
+                        <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} handleDelete={handleDelete} handleHide={handleHide} handleSave={handleSave} post={post} prevUrl={location.pathname} />
                     </div>
                 </div>
                 <div className='row'>

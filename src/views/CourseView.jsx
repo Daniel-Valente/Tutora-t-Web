@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
 import CreatePost from '../components/create-post/CreatePost';
+import MenuCourse from '../components/menu-course/MenuCourse';
 import CourseModal from '../components/modals/CourseModal';
 import Notification from '../components/notification/Notification';
 import Post from '../components/Post/Post';
 import { handleMouseEnter, isEditPublicationModal } from '../helpers/utils';
-import { useBodyScrollLock, useCareerList, useCourseById, usePostsByCourse, useRegistrationByUser, 
-  useRegistrationUser, useUpdateCourse, useUsersList } from '../hooks';
+import {
+  useBodyScrollLock, useCareerList, useCourseById, useDeleteCourse, usePostsByCourse, useRegistrationByUser,
+  useRegistrationUser, useUpdateCourse, useUsersList
+} from '../hooks';
 
 import { send, user } from '../images';
 import { alertState } from '../reducers';
@@ -24,12 +27,18 @@ const CourseView = () => {
 
   const [, toggle] = useBodyScrollLock();
   const { mutate: updateCourse } = useUpdateCourse();
-  
-  const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse  } = useCourseById(id_Course);
+  const { mutate: deleteCourse } = useDeleteCourse(id_Course);
+
+  const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse, remove } = useCourseById(id_Course);
   const [course, setCourse] = useState(dataCourse);
 
+  const [x, setX] = useState('');
+  const [y, setY] = useState('');
+  const [menu, setMenu] = useState(false);
+  const buttonMenuRef = useRef();
+
   const [imagePreview, setImagePreview] = useState('');
-  const [ privacidad, setPrivacidad ] = useState([
+  const [privacidad, setPrivacidad] = useState([
     {
       value: true,
       label: 'Público'
@@ -53,22 +62,43 @@ const CourseView = () => {
   });
 
   const { mutate: userRegister } = useRegistrationUser(id_Course, userInfo.uid_user);
-  
+
 
   const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsByCourse(id_Course);
   const [posts, setPosts] = useState(dataPostsList);
 
   const { data: dataUsersList = [], isFetching: fetchingUsersList, isLoading: loadingUsersList } = useUsersList();
-  const [ users, setUsers ] = useState(dataUsersList);
+  const [users, setUsers] = useState(dataUsersList);
 
   const { data: dataUserRegister, isLoading: loadingUserRegister } = useRegistrationByUser(id_Course, userInfo.uid_user);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
   const [career, setCareer] = useState(dataCareers);
-  
+
   const createCourseHandler = () => {
     isEditPublicationModal(dispatch, editPublicationModal);
     toggle();
+  }
+
+  const handleMenu = () => {
+    const x = buttonMenuRef.current.offsetLeft + 15 + 'px';
+    setX(x);
+
+    const y = buttonMenuRef.current.offsetTop + 15 + 'px';
+    setY(y);
+
+    setMenu(!menu);
+  }
+
+  const handleDelete = () => {
+    !!menu && setMenu(!menu);
+    const courseDelete = { uid_user: course.uid_user, id_Course: course._id };
+    remove();
+    deleteCourse(courseDelete, {
+      onSuccess: (response) => {
+        window.location.href = "/home";
+      }
+    });
   }
 
   const handleChange = (e) => {
@@ -83,10 +113,9 @@ const CourseView = () => {
     }
     else {
       e.label === 'Público' || e.label === 'Privado' ?
-      setEditCourse({ ...editCourse, ["visible"]: e.value })
-      : setEditCourse({ ...editCourse, ["career"]: e.value });
+        setEditCourse({ ...editCourse, ["visible"]: e.value })
+        : setEditCourse({ ...editCourse, ["career"]: e.value });
     }
-    console.log(editCourse);
   }
 
   const handleSubmit = () => {
@@ -123,7 +152,7 @@ const CourseView = () => {
   useEffect(() => {
     !fetchingPostsList && dataPostsList && posts.length > -1 && setPosts(dataPostsList);
   }, [dataPostsList]);
-  
+
   useEffect(() => {
     !fetchingUsersList && dataUsersList && users.length > -1 && setUsers(dataUsersList);
   }, [dataUsersList]);
@@ -156,7 +185,7 @@ const CourseView = () => {
           src={course.imgUrl}
           alt={'user-portada'} />
         <label style={{ textAlign: 'left', marginTop: '5%', fontWeight: 'bold', marginLeft: '27%', fontSize: '300%', fontFamily: 'Segoe UI Emoji' }}>
-          { course.title }
+          {course.title}
         </label>
         <br />
         <div className='row'>
@@ -164,15 +193,16 @@ const CourseView = () => {
           <div className='col-2' style={{ marginLeft: '3%' }}>
             {
               userInfo.uid_user !== course.uid_user &&
-              <button className={`${ dataUserRegister ? 'button-left' : 'button-join' }`} onClick={ handleRegister }>
-                {dataUserRegister ? 'Salirse' : 'Unirse' }
+              <button className={`${dataUserRegister ? 'button-left' : 'button-join'}`} onClick={handleRegister}>
+                {dataUserRegister ? 'Salirse' : 'Unirse'}
               </button>
             }
             {
               userInfo.uid_user === course.uid_user &&
               <div>
                 <button className='button-join' onClick={createCourseHandler}>Editar</button>
-                <button className='button-option-course'>{'>'}</button>
+                <button className='button-option-course' ref={buttonMenuRef} onClick={handleMenu}>{'>'}</button>
+                <MenuCourse x={x} y={y} showMenu={menu} handleDelete={handleDelete}/>
               </div>
             }
           </div>
@@ -184,11 +214,11 @@ const CourseView = () => {
             <b>Información:</b>
           </label>
           <br />
-          <b>Descripción:</b> { course.description } <br />
-          <b>Días:</b> { course.dates } <br />
-          <b>Horario:</b> { course.hours } <br />
-          <b>Lugar:</b> { course.site } <br />
-          <b>Privacidad del curso:</b> { course.visible ? 'Público' : 'Privado' } <br />
+          <b>Descripción:</b> {course.description} <br />
+          <b>Días:</b> {course.dates} <br />
+          <b>Horario:</b> {course.hours} <br />
+          <b>Lugar:</b> {course.site} <br />
+          <b>Privacidad del curso:</b> {course.visible ? 'Público' : 'Privado'} <br />
         </div>
         <div className='col-7'>
           <div className='row'>
@@ -210,14 +240,14 @@ const CourseView = () => {
             </div> */}
           </div>
           {
-            dataUserRegister ? <CreatePost/> : userInfo.uid_user === course.uid_user && <CreatePost/>
+            dataUserRegister ? <CreatePost /> : userInfo.uid_user === course.uid_user && <CreatePost />
           }
           {
-            course.visible 
-            ? posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id}/>)
-            : dataUserRegister 
-              ? course.uid_user && posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id}/>)
-              : userInfo.uid_user === course.uid_user && posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id}/>)
+            course.visible
+              ? posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} />)
+              : dataUserRegister
+                ? course.uid_user && posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} />)
+                : userInfo.uid_user === course.uid_user && posts.map((post, index) => <Post post={post} commentModal={commentModal} key={post._id} />)
           }
         </div>
         <div className='col-2'>
@@ -227,8 +257,8 @@ const CourseView = () => {
           <div className='row'>
             {
               course && users.map((userParticipant, index) => {
-                if(course.participants.includes(userParticipant.uid_user)) {
-                  return <div className='col-2' key={ userParticipant.uid_user }>
+                if ( course && course.participants.includes(userParticipant.uid_user)) {
+                  return <div className='col-2' key={userParticipant.uid_user}>
                     <Link to={`/perfil/${userParticipant.uid_user}`} style={{ textDecoration: 'none' }}>
                       <div className='boton-circular-volteado-4'>
                         <img className='icon-user'
@@ -243,17 +273,17 @@ const CourseView = () => {
           </div>
         </div>
       </div>
-      
+
       <CourseModal active={editPublicationModal} toggle={isEditPublicationModal} dispatch={dispatch} toggleLock={toggle}>
         <h2 style={{ textAlign: 'center' }}>Editar curso</h2>
         <input className='title-course' type="text" placeholder='Titulo' name='title' value={editCourse.title} onChange={handleChange} />
         <input className='site-course' type="text" name="site" placeholder='Lugar' value={editCourse.site} onChange={handleChange} />
         <Select className='visible-course'
-          defaultValue={ privacidad[privacidad.findIndex( pri => pri.value === course.visible )] }
+          defaultValue={privacidad[privacidad.findIndex(pri => pri.value === course.visible)]}
           placeholder='Privacidad'
           name='visible'
           options={privacidad}
-          onChange={ handleChange }
+          onChange={handleChange}
         />
         <textarea className='inp' placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={editCourse.description} onChange={handleChange}></textarea>
         <div className='row'>
@@ -265,7 +295,7 @@ const CourseView = () => {
           </div>
           <div className='col-2'>
             <Select
-              defaultValue={ career[career.findIndex( career => career.value === course.career )] }
+              defaultValue={career[career.findIndex(career => career.value === course.career)]}
               placeholder='carrera'
               name="career"
               options={career}
@@ -287,7 +317,7 @@ const CourseView = () => {
         <img className='send-course' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
       </CourseModal>
 
-      <Notification/>
+      <Notification />
     </div>
   )
 }
