@@ -8,12 +8,12 @@ const deleteCourse = async (course) => {
     return httpClient.delete(`/courses/${ uid_user }/${ id_Course }`);
 }
 
-export const useDeleteCourse = ( ) => {
+export const useDeleteCourse = ( id_Course ) => {
     const queryClient = useQueryClient();
 
     return useMutation(deleteCourse, {
         onSuccess: () => {
-            queryClient.invalidateQueries(['courses']);
+            queryClient.clear();
         }
     });
 }

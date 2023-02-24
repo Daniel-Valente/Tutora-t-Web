@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-const MenuPost = ({ x, y, showMenu, userPost, handleDelete, post, prevUrl }) => {
+const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSave, post, prevUrl }) => {
     const userInfoPerfil = useSelector(state => state.user);
     const location = useLocation();
 
@@ -28,11 +28,11 @@ const MenuPost = ({ x, y, showMenu, userPost, handleDelete, post, prevUrl }) => 
             <Link to={`${prevUrl}/edit/${post._id}`} 
                 style={{ textDecoration: 'none' }}
                 state={{ editPublicationModal: true, post: post, prevPath: location.pathname }}>
-                <button style={styles.div}>Editar</button>
+                <button style={ styles.div }>Editar</button>
             </Link>
             }
-            <button style={styles.div} >Ocultar</button>
-            <button style={styles.div} >Guardar</button>
+            <button style={styles.div} onClick={ handleHide } >Ocultar</button>
+            <button style={styles.div} onClick={ handleSave } >Guardar</button>
             {userInfoPerfil.uid_user === userPost.uid_user && <button style={styles.div} onClick={handleDelete}>Eliminar</button>}
         </div>
     );
@@ -41,6 +41,7 @@ const MenuPost = ({ x, y, showMenu, userPost, handleDelete, post, prevUrl }) => 
 const styles = {
     div: {
         flex: 1,
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         fontWeight: 'bold',

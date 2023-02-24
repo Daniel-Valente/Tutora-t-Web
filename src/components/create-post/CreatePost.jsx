@@ -13,7 +13,7 @@ const CreatePost = () => {
   const userInfo = useSelector(state => state.user);
   const { id_Course } = useParams();
   const [, toggle] = useBodyScrollLock();
-  const { mutate: addPost } = useAddPost();
+  const { mutate: addPost } = useAddPost(id_Course);
 
   const { value: publicationModal } = useSelector(state => state.publicationModal);
   const dispatch = useDispatch();
@@ -67,6 +67,15 @@ const CreatePost = () => {
         );
         isPublicationModal(dispatch, publicationModal);
       }
+    });
+    
+    setImagePreview('');
+    setNewPost({
+      title: '',
+      description: '',
+      imgPost: '',
+      id_Course: id_Course ? id_Course : '',
+      uid_user: userInfo.uid_user,
     });
   };
 

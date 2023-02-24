@@ -107,6 +107,7 @@ export const isPublicationModal = (dispatch, activePublications) => {
 }
 
 export const isEditPublicationModal = (dispatch, activePublications) => {
+    !activePublications && window.scrollTo(0, 0);
     document.body.overflow = 'hidden';
     dispatch(editPublicationState(!activePublications));
 }

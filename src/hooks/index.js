@@ -7,12 +7,18 @@ export { useUpdateUser } from "./users/useUpdateUser";
 export { useUserByUsername } from "./users/useUserByUsername";
 export { useUsersList } from "./users/useUsersList";
 
+export { useHidePost } from "./interaction/useHidePost";
+export { useHidePostList } from "./interaction/useHidePostList";
+export { useSavePost } from "./interaction/useSavePost";
+export { useSavePostList } from "./interaction/useSavePostList";
+
 export { useAddPost } from "./posts/useAddPost";
 export { useDeletePost } from "./posts/useDeletePost";
 export { usePostById } from "./posts/usePostById";
 export { usePostsByCourse } from "./posts/usePostsByCourse";
 export { usePostsByUser } from "./posts/usePostsByUser";
 export { usePostsByUserWithLimit } from "./posts/usePostsByUserWithLimit";
+export { usePostsWithLimit } from "./posts/usePostsWithLimit";
 export { usePostsList } from "./posts/usePostsList";
 export { useUpdatePost } from "./posts/useUpdatePost";
 
