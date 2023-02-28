@@ -4,7 +4,7 @@ import Course from "../components/course/Course";
 
 import CreatePost from "../components/create-post/CreatePost";
 import Post from "../components/Post/Post";
-import { useCoursesList, useHidePostList, usePostsList, useUserByUsername } from "../hooks";
+import { useCoursesList, useHidePostList, usePostsList, useSavePostList, useUserByUsername } from "../hooks";
 import { userInfo } from "../reducers";
 
 const HomeView = () => {
@@ -24,24 +24,36 @@ const HomeView = () => {
   
   const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList( dataUser.uid_user );
   const [ hidePost, setHidePost ] = useState(dataHidePost);
+  
+  const { data: dataSavePost = [], isFetching: fetchingSavePost, isLoading: loadingSavePost } = useSavePostList( dataUser.uid_user );
+  const [ savePost, setSavePost ] = useState(dataSavePost);
 
   useEffect(() => {
     !fetchingUser && dataUser && dispatch(userInfo(dataUser));
+    // eslint-disable-next-line
   }, [dataUser]);
 
   useEffect(() => {
     !fetchingPostsList && dataPostsList && posts.length > -1 && setPosts(dataPostsList);
+    // eslint-disable-next-line
   }, [dataPostsList]);
 
   useEffect(() => {
     !fetchingCoursesInscripto && dataCoursesInscripto && setCoursesInscripto(dataCoursesInscripto);
+    // eslint-disable-next-line
   }, [dataCoursesInscripto]);
 
   useEffect(() => {
-    !fetchingHidePost && hidePost && setHidePost(dataHidePost);
+    !fetchingHidePost && dataHidePost && setHidePost(dataHidePost);
+    // eslint-disable-next-line
   }, [ dataHidePost ]);
+  
+  useEffect(() => {
+    !fetchingSavePost && dataSavePost && setSavePost(dataSavePost);
+    // eslint-disable-next-line
+  }, [ dataSavePost ]);
 
-  if (loadingPosts || loadingUser || loadingCoursesInscripto || loadingHidePost) {
+  if (loadingPosts || loadingUser || loadingCoursesInscripto || loadingHidePost || loadingSavePost) {
     return (
       <div className='parent'>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -59,7 +71,7 @@ const HomeView = () => {
           {
             posts.map((post, index) => post.visible 
             && !hidePost.includes(post._id) 
-            && <Post post={post} commentModal={commentModal} key={post._id}/>)
+            && <Post post={post} commentModal={commentModal} key={post._id} hide={hidePost.includes(post._id)} save={ savePost.includes(post._id) }/>)
           }
         </div>
         <div className="col-2">

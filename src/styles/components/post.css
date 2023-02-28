@@ -2,9 +2,15 @@
     position: absolute;
     left: 96%;
     top: 1.5%;
+    border: 0;
+    font-size: 2vh;
+    background: #fff;
     transform: rotate(90deg);
 }
 
 .button-comments-options {
     transform: rotate(90deg);
+    font-size: 2vh;
+    background: #fff;
+    border: 0;
 }

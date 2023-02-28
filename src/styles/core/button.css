@@ -183,6 +183,9 @@
   transform: rotate(90deg);
   width: 3vh;
   height: 3vh;
+  font-size: 2vh;
+  border: 0;
+  background-color: #fff;
 }
 
 .button-new-course {

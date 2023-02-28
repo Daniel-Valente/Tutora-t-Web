@@ -17,3 +17,5 @@ export { default as imagen1 } from './Imagen1.png';
 export { default as starSinF } from './starSinF.png';
 export { default as newButtton } from './new.png'
 export { default as newFocus } from './new-focus.png'
+export { default as allPosts } from './allPosts.png'
+export { default as save } from './save.png'
