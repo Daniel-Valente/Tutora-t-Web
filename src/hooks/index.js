@@ -1,3 +1,4 @@
+
 export { useBodyScrollLock } from "./scroll/useBodyScrollLock";
 
 export { useAddUser } from "./users/useAddUser";
@@ -11,6 +12,8 @@ export { useHidePost } from "./interaction/useHidePost";
 export { useHidePostList } from "./interaction/useHidePostList";
 export { useSavePost } from "./interaction/useSavePost";
 export { useSavePostList } from "./interaction/useSavePostList";
+export { useFollower } from "./interaction/useFollower";
+export { useFollowersList } from "./interaction/useFollowersList";
 
 export { useAddPost } from "./posts/useAddPost";
 export { useDeletePost } from "./posts/useDeletePost";

@@ -32,6 +32,9 @@ const styles = {
         fontWeight: 'bold',
         cursor: 'pointer',
         height: '1000',
+        border: '0',
+        backgroundColor: '#fff',
+        margin: '0.5vh'
     },
     margin: {
         margin: '10px, 0',

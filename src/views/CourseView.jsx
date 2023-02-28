@@ -147,6 +147,7 @@ const CourseView = () => {
 
   useEffect(() => {
     !fetchingCourse && dataCourse && setCourse(dataCourse);
+    // eslint-disable-next-line
   }, [dataCourse]);
 
   useEffect(() => {

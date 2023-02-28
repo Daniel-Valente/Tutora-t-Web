@@ -16,7 +16,7 @@ import PostModal from '../modals/PostModal';
 import Notification from '../notification/Notification';
 
 const Post = (props) => {
-    const { post, commentModal } = props;
+    const { post, commentModal, hide = false, save=false } = props;
     const location = useLocation();
 
     const userInfoPerfil = useSelector(state => state.user);
@@ -109,7 +109,7 @@ const Post = (props) => {
                 dispatch(
                     alertState({
                         isOpen: true,
-                        message: 'Post ocultado',
+                        message: !hide ? 'Post ocultado' : 'Post mostrado',
                         type: "success",
                     })
                 );
@@ -125,7 +125,7 @@ const Post = (props) => {
                 dispatch(
                     alertState({
                         isOpen: true,
-                        message: 'Post guardado',
+                        message: !save ? 'Post guardado' : 'Post quitado en guardados',
                         type: "success",
                     })
                 );
@@ -206,7 +206,7 @@ const Post = (props) => {
                     </div>
                     <div className='col-1'>
                         <button className='button-options' ref={buttonMenuRef} onClick={handleMenu}>...</button>
-                        <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} handleDelete={handleDelete} handleHide={handleHide} handleSave={handleSave} post={post} prevUrl={location.pathname} />
+                        <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} handleDelete={handleDelete} handleHide={handleHide} handleSave={handleSave} post={post} hide={ hide } save={ save } prevUrl={location.pathname} />
                     </div>
                 </div>
                 <div className='row'>

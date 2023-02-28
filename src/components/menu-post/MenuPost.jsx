@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSave, post, prevUrl }) => {
+const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSave, post, hide, save, prevUrl }) => {
     const userInfoPerfil = useSelector(state => state.user);
     const location = useLocation();
 
@@ -31,8 +31,8 @@ const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSa
                 <button style={ styles.div }>Editar</button>
             </Link>
             }
-            <button style={styles.div} onClick={ handleHide } >Ocultar</button>
-            <button style={styles.div} onClick={ handleSave } >Guardar</button>
+            <button style={styles.div} onClick={ handleHide } >{ !hide ? 'Ocultar' : 'Mostrar'  }</button>
+            <button style={styles.div} onClick={ handleSave } >{ !save ? 'Guardar' : 'Quitar'  }</button>
             {userInfoPerfil.uid_user === userPost.uid_user && <button style={styles.div} onClick={handleDelete}>Eliminar</button>}
         </div>
     );
@@ -47,6 +47,9 @@ const styles = {
         fontWeight: 'bold',
         cursor: 'pointer',
         height: '1000',
+        border: '0',
+        backgroundColor: '#fff',
+        margin: '0.5vh'
     },
     margin: {
         margin: '10px, 0',
