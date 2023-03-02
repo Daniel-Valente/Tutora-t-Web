@@ -1,26 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 
-import { useUserById } from '../../hooks';
+import { useUpdateChatToUser, useUserById } from '../../hooks';
 import { user } from '../../images';
 
 const Message = (props) => {
-    const { chat } = props;
+    const location = useLocation();
 
-    const { data: dataUserChat = [], isFetching: fetchingUserChat } = useUserById(chat.uid_userChat);
+    const { chat, input = '' } = props;
+    const userInfoPerfil = useSelector(state => state.user);
+    const { mutate: updateSeen } = useUpdateChatToUser();
+
+    const { data: dataUserChat = [], isFetching: fetchingUserChat, isLoading: loadingUserChat } = useUserById(chat.uid_userChat);
     const [userChat, setUserChat] = useState(dataUserChat);
 
+    const { data: dataUser = [], isFetching: fetchingUser, isLoading: loadingUser } = useUserById(chat.uid_user);
+    const [userPefil, setUserPerfil] = useState(dataUser);
+
+    const seenHandle = () => {
+        updateSeen({ uid_user: chat.uid_user, uid_userChat: chat.uid_userChat }, {
+            onSuccess: (response) => {
+                console.log(response);
+            }
+        });
+    }
+
     useEffect(() => {
-        !fetchingUserChat && dataUserChat && setUserChat(dataUserChat);
+        !fetchingUserChat && dataUserChat && userChat.length > -1  && setUserChat(dataUserChat);
     }, [dataUserChat]);
 
+    useEffect(() => {
+        !fetchingUser && dataUser && userPefil.length > -1 && setUserPerfil(userPefil);
+    }, [dataUser]);
+
+    const filter = input && userPefil.username.toLowerCase().includes(input.toLowerCase()) || chat.message.toLowerCase().includes(input.toLowerCase());
+
+    if (loadingUserChat || loadingUser) {
+        return (
+            <div className='parent'>
+                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        )
+    }
+
     return (
-        <div className='row'>
+        filter && input ? <div className={`row ${ !chat.seen && chat.uid_user !== userInfoPerfil.uid_user  ? 'message-not-view' : '' }`} onClick={ () => console.log('hola') }>
+            <Outlet />
             <div className='col-3'>
-                <Link to={`/perfil/${userChat.uid_user}`}>
+                <Link to={`/perfil/${userInfoPerfil.uid_user === chat.uid_user ? userChat.uid_user : userPefil.uid_user}`}>
                     <div className='boton-circular-volteado-5'>
                         <img className='icon-user-message'
-                            src={`${userChat.imgUrl ? userChat.imgUrl : user}`}
+                            src={`${userInfoPerfil.uid_user === chat.uid_user ? userChat.imgUrl : userPefil.imgUrl ? userPefil.imgUrl : user}`}
                             alt={userChat.username}
                         />
                     </div>
@@ -28,12 +59,41 @@ const Message = (props) => {
             </div>
             <div className='col-7'>
                 <p style={{ marginLeft: '1%', marginTop: '25px' }}>
-                    <label style={{ fontSize: '20px' }}> <b>{userChat.username}</b> </label>
+                    <label style={{ fontSize: '20px' }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
                     <br />
-                    {chat.message}
+                    {userInfoPerfil.uid_user === chat.uid_user ? 'Tú: ' + chat.message : chat.message}
                 </p>
             </div>
+            <div className='linea-acostada' />
         </div>
+            : !input &&
+            <div className={`row ${ !chat.seen && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : '' }`}>
+                
+                <Outlet />
+                <div className='col-3'>
+                    <Link to={`/perfil/${userInfoPerfil.uid_user === chat.uid_user ? userChat.uid_user : userPefil.uid_user}`}>
+                        <div className='boton-circular-volteado-5'>
+                            <img className='icon-user-message'
+                                src={`${userInfoPerfil.uid_user === chat.uid_user ? userChat.imgUrl : userPefil.imgUrl ? userPefil.imgUrl : user}`}
+                                alt={userChat.username}
+                            />
+                        </div>
+                    </Link>
+                </div>
+                <div className='col-7'>
+                    <Link to={`/chats/${ userInfoPerfil.uid_user }/to/${ userInfoPerfil.uid_user !== chat.uid_user ? chat.uid_user : chat.uid_userChat  }`} 
+                    state={{ background: location }}
+                    onClick={ () => !chat.seen && seenHandle } 
+                    style={{ textDecoration: 'none', color: 'black' }}>
+                    <p style={{ marginLeft: '1%', marginTop: '25px' }}>
+                        <label style={{ fontSize: '20px' }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
+                        <br />
+                        {userInfoPerfil.uid_user === chat.uid_user ? 'Tú: ' + chat.message : chat.message}
+                    </p>
+                    </Link>
+                </div>
+                <div className='linea-acostada' />
+            </div>
     )
 }
 

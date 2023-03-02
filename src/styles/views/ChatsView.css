@@ -29,8 +29,8 @@
 .header-chat {
   background-color: #f0f2f5;
   border-radius: 30px;
-  height: 40px;
-  width: 99%;
+  height: 5.8vh;
+  width: 100%;
   top: 25px;
   position: relative;
 }
@@ -49,7 +49,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 75vh;
+  min-height: 71vh;
 }
 
 .main-message {
@@ -69,8 +69,9 @@
 .form-chat {
   height: 8vh;
   position: fixed;
+  display: block;
   bottom: 0;
-  background-color: #1492e676;
+  background-color: #e7e7e757;
   width: 100%;
   display: flex;
   font-size: 1.5rem;
@@ -83,8 +84,8 @@
 
 .input-message {
   line-height: 1.5;
-  width: 67%;
-  background: #fbeff6;
+  width: 65%;
+  background: #ffb1de;
   color: rgb(0, 0, 0);
   outline: none;
   border: none;
@@ -145,4 +146,26 @@
   height: 40px;
   border-radius: 50%;
   margin: 2px 5px;
+}
+
+.message-not-view {
+  background-color: rgb(227, 242, 254);
+}
+
+.modalDiv {
+  width: 74.2%;
+  height: 92.3%;
+  position: absolute;
+  top: 7.7%;
+  display: flex;
+  justify-content: center;
+  left: 25.7%;
+  align-items: center;
+}
+.modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  position: absolute;
 }
