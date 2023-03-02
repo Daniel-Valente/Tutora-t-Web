@@ -13,7 +13,7 @@ const ChatMessage = (props) => {
 
     return (
         <div className={`message ${messageClass}`}>
-            <Link to={`/perfil/${ userInfo.uid_user }`} style={{ textDecoration: 'none' }}>
+            <Link to={`/perfil/${ uid_user === userInfo.uid_user ? uid_user : userChat.uid_user }`} style={{ textDecoration: 'none' }}>
               <div className='boton-circular-volteado-5'>
               <img className='icon-user-message'
                 src={`

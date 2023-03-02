@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const getChatsListToUser = async ({ queryKey }) => {
-    const [ , uid_user, uid_userChat ] = queryKey;
+    const [ , uid_user, , uid_userChat ] = queryKey;
 
-    const { data } = await httpClient.get(`/chats/${ uid_user }/to/${ uid_userChat }`);
+    const { data } = await httpClient.get(`/chats/${uid_user}/to/${ uid_userChat }`);
 
     return data;
 }

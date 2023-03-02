@@ -16,7 +16,7 @@ const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
   const { mutate: logOut } = useLogOut();
 
-  const { data: dataChatsWithLimit = [] } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
+  const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
   const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);
 
   const [first, setfirst] = useState([0, 1, 2, 3, 4]);
@@ -63,7 +63,7 @@ const HomeHeader = () => {
   }
 
   useEffect(() => {
-    setChatsWithLimit(dataChatsWithLimit);
+    !fetchingChats && dataChatsWithLimit && setChatsWithLimit(dataChatsWithLimit);
   }, [dataChatsWithLimit]);
 
   return (

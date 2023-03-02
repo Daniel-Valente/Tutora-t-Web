@@ -1,11 +1,21 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import httpClient from "../../https/httpClient";
 
 const addChatToUser = async (messages) => {
     const { uid_user, uid_userChat, message } = messages;
 
-    return httpClient.post(`/chats/${ uid_user }/to/${ uid_userChat }`, message);
+    return httpClient.post(`/chats/${ uid_user }/to/${ uid_userChat }`, {message});
 }
 
-export const useAddChatToUser = ( ) => useMutation(addChatToUser);
+export const useAddChatToUser = ( uid_user, uid_userChat ) => {
+    const queryClient = useQueryClient();
+    
+    return useMutation(addChatToUser, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['chats', uid_user, 'to user', uid_userChat]);
+            queryClient.invalidateQueries(['chats', uid_userChat , 'to user', uid_user]);
+        }
+
+    });
+}

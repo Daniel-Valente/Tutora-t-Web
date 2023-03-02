@@ -2,7 +2,8 @@ import React, { lazy } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Route,
-  Routes
+  Routes,
+  useLocation
 } from 'react-router-dom';
 
 const ChatsView = lazy(() => import('../views/ChatsView'));
@@ -17,17 +18,19 @@ const EditPostPanel = lazy(() => import('../components/edit-post-panel/EditPostP
 
 const AppRouter = () => {
   const { active: sessionActive } = useSelector(state => state.sessionActive);
+  const location = useLocation();
+  const background = location.state && location.state.background;
 
   return (
-    <Routes>
+    <div>
       {
-        sessionActive ?
-          (
-            <>
-              <Route path='/' element={<HomeView />}/>
+        sessionActive ? (
+          <>
+            <Routes location={background || location}>
+              <Route path='/' element={<HomeView />} />
               <Route path='/:id_Post' element={<PostPanel />} />
               {/* HOME */}
-              <Route path='/home' element={<HomeView />}/>
+              <Route path='/home' element={<HomeView />} />
               <Route path='/home/:id_Post' element={<PostPanel />} />
               <Route path='/home/edit/:id_Post' element={<EditPostPanel />} />
               {/* Courses */}
@@ -40,18 +43,26 @@ const AppRouter = () => {
               <Route path='/perfil/:uid_user/edit/:id_Post' element={<EditPostPanel />} />
               <Route path='/configuracion/:uid_user' element={<SettingsView />} />
               {/* CHAT */}
-              <Route path='/chats/:uid_user' element={<ChatsView />}/>
+              <Route path='/chats/:uid_user' element={<ChatsView />} />
               <Route path='/chats/:uid_user/to/:uid_userChat' element={<ChatPanel />} />
-            </>
-          ) :
-          (
-            <>
-              <Route path='/' element={<MainView />}/>
-              <Route path='/:uid_user' element={<MainView />}/>
+            </Routes>
+            {
+              background && (
+                <Routes>
+                  <Route path='/chats/:uid_user/to/:uid_userChat' element={<ChatPanel />} />
+                </Routes>
+              )
+            }
+          </>
+        )
+          : <>
+            <Routes>
+              <Route path='/' element={<MainView />} />
+              <Route path='/:uid_user' element={<MainView />} />
               <Route path='/:id_Post' element={<MainView />} />
               {/* HOME */}
-              <Route path='/home' element={<MainView />}/>
-              <Route path='/home/:uid_user' element={<MainView />}/>
+              <Route path='/home' element={<MainView />} />
+              <Route path='/home/:uid_user' element={<MainView />} />
               <Route path='/home/:id_Post' element={<MainView />} />
               <Route path='/home/:uid_user/edit/:id_Post' element={<MainView />} />
               {/* USER */}
@@ -60,12 +71,12 @@ const AppRouter = () => {
               <Route path='/perfil/:uid_user/edit/:id_Post' element={<MainView />} />
               <Route path='/configuracion/:uid_user' element={<MainView />} />
               {/* CHAT */}
-              <Route path='/chats/:uid_user' element={<MainView />}/>
+              <Route path='/chats/:uid_user' element={<MainView />} />
               <Route path='/chats/:uid_user/to/:uid_userChat' element={<MainView />} />
-            </>
-          )
+            </Routes>
+          </>
       }
-    </Routes>
+    </div>
   )
 }
 
