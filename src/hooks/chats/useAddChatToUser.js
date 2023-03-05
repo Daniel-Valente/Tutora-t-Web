@@ -13,6 +13,8 @@ export const useAddChatToUser = ( uid_user, uid_userChat ) => {
     
     return useMutation(addChatToUser, {
         onSuccess: () => {
+            queryClient.invalidateQueries(['chats', uid_user]);
+            queryClient.invalidateQueries(['chats', uid_user, 'limit', '5']);
             queryClient.invalidateQueries(['chats', uid_user, 'to user', uid_userChat]);
             queryClient.invalidateQueries(['chats', uid_userChat , 'to user', uid_user]);
         }

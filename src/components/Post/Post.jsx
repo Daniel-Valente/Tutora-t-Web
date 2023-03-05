@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter } from '../../helpers/utils';
 import {
-    useAddComment, useCommentList, useCourseById,
+    useAddComment, useBodyScrollLock, useCommentList, useCourseById,
     useDeletePost, useHidePost, useLikeByUser,
     useLikesList, useSavePost, useUpdateLike,
     useUserById
@@ -31,6 +31,7 @@ const Post = (props) => {
     const [x, setX] = useState('');
     const [y, setY] = useState('');
     const [menu, setMenu] = useState(false);
+    const [, toggle] = useBodyScrollLock();
 
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
@@ -229,8 +230,8 @@ const Post = (props) => {
                         </p>
                     </div>
                     <div className='col-3'>
-                        <Link to={post._id} state={{ commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
-                            <img className='sinF' src={messages} alt="comments" />
+                        <Link to={post._id} state={{ background: location, commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
+                            <img className='sinF' src={messages} alt="comments"/>
                         </Link>
                         <p style={{
                             position: "absolute",
@@ -247,6 +248,8 @@ const Post = (props) => {
                         <p>
                             <a>{userPost.username}: </a>
                             {post.description}
+                            <br />
+                            <span className='hashtag-post'>#{post.career}</span>
                         </p>
                     </div>
                 </div>

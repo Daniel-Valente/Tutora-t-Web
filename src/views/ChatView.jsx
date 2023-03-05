@@ -1,21 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 
-import { useParams } from "react-router-dom";
-import { useAddChatToUser, useChatsListToUser, useUserById } from "../../hooks";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { useAddChatToUser, useChatsListToUser, useUserById } from "../hooks";
 
-import ChatMessage from "./ChatMessage";
+import ChatMessage from "../components/chats/ChatMessage";
 
-const Chat = () => {
+const ChatView = () => {
   const { uid_user, uid_userChat } = useParams();
+  const location = useLocation();
+  const { prevPath = '' } = location.state || [];
 
   const scrollRef = useRef('null');
 
-  const { data: dataChat, isRefetching: fetchingChat } = useChatsListToUser(uid_user, uid_userChat);
+  const { data: dataChat } = useChatsListToUser(uid_user, uid_userChat);
   const [chatMessages, setChatMessage] = useState(dataChat);
   const { mutate: sendMessage } = useAddChatToUser(uid_user, uid_userChat);
 
-  const { data: dataUserChat = [], isFetching: fetchingUserChat } = useUserById(uid_userChat);
+  const { data: dataUserChat = [] } = useUserById(uid_userChat);
   const [userChat, setUserChat] = useState(dataUserChat);
 
   const [formValue, setFormValue] = useState("");
@@ -51,39 +53,36 @@ const Chat = () => {
   const dummy = useRef();
 
   return (
-    <div className="modalDiv">
-      <div className="modal">
+    <div className="modalDiv-chat">
+      <div className="modal-chat">
         <div className="header-chat">
-          <div className="name-user-header">{userChat.name}</div>
+          <button className="close-panel">
+            <Link  to={prevPath} style={{ textDecoration: 'none'}} >X</Link>
+          </button>
+          <div className="name-user-header-chat">{userChat.name}</div>
         </div>
+        <br /><br />
+        <div className="linea-acostada"/>
         <br />
-        <br />
-        <div className="linea-acostada" />
-        <br />
-        <div className="section-message">
-          <div className="sidebar-messages main-message">
-            <Scrollbars style={{ width: '99%', height: 731 }} ref={scrollRef}>
+        <div className="section-message-chat">
+          <div className="sidebar-messages-chat main-message-chat">
+            <Scrollbars style={{ width: '99%', height: '42vh' }} ref={scrollRef}>
               {
                 chatMessages && chatMessages.map((chat, index) => <ChatMessage key={index} chat={chat} userChat={userChat} />)
               }
             </Scrollbars>
-            <div className="scrollbox">
-              <div className="scrollbox-inner">
-                <span></span>
-              </div>
-            </div>
           </div>
 
-          <div className="form-chat">
+          <div className="form-chats">
             <input
-              className="input-message"
+              className="input-message-chat"
               value={formValue}
               onChange={(e) => setFormValue(e.target.value)}
               placeholder="say something nice"
             />
 
             <button
-              className="form-button-message send-button-message"
+              className="form-button-message-chat send-button-message-chat"
               type="submit"
               onClick={submitHandle}
               disabled={!formValue}
@@ -97,4 +96,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatView;

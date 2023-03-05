@@ -189,7 +189,7 @@ input:invalid[focused="true"] ~ span {
   margin-right: 1.5rem;
   margin-top: 1.5rem;
 }
-
+ 
 .boton-crea {
   background-color: #ff0096;
   border-radius: 15px;

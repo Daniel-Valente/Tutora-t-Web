@@ -7,7 +7,7 @@ const EditPublicationModal = (props) => {
 
     const styles = {
         wrapper: {
-            position: "absolute",
+            position: "fixed",
             top: 0,
             left: 0,
             width: "100vw",
@@ -54,13 +54,13 @@ const EditPublicationModal = (props) => {
             {active && (
                 <div style={styles.wrapper}>
                     <div style={styles.window}>
-                        <button style={styles.closeBtn} onClick={handleClose}>
-                            <Link to={prevPath} style={{ textDecoration: 'none' }} >X</Link>
+                        <button style={styles.closeBtn}>
+                            <Link to={prevPath} style={{ textDecoration: 'none' }} onClick={handleClose}>X</Link>
                         </button>
                         <div> {children} </div>
                     </div>
                     <div
-                        onClick={handleClose}
+                        onClick={ toggle(dispatch, active)}
                         style={styles.background}
                     />
                 </div>

@@ -12,8 +12,10 @@
 @import './components/post.css';
 @import './components/createPost.css';
 @import './components/course.css';
+@import './components/CardCareer.css';
 
 /* views */
 @import './views/MainView.css';
 @import './views/PerfilView.css';
 @import './views/ChatsView.css';
+@import './views/ChatView.css';

@@ -70,6 +70,7 @@ const Comment = (props) => {
 
     useEffect(() => {
         !fetchingUserComment && dataUserComment && userComment.length > -1 && setUserComment(dataUserComment);
+        // eslint-disable-next-line
     }, [dataUserComment]);
 
     return (

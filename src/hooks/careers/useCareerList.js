@@ -5,7 +5,9 @@ import httpClient from "../../https/httpClient";
 const getCareerList = async () => {
     const { data = [] } = await httpClient.get('/json/careers');
 
-    const node = data.map(( element, index ) => ({
+    const career = data.filter( element => element.clave !== 'Todos' );
+
+    const node = career.map(( element, index ) => ({
         value: element.clave,
         label: element.name
     }));
@@ -15,7 +17,7 @@ const getCareerList = async () => {
 
 export const useCareerList = () => {
     const query = useQuery(
-        ['careers'],
+        ['careers-list'],
         getCareerList, {
             refetchOnWindowFocus: false,
             retry: false

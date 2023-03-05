@@ -170,7 +170,8 @@
 }
 
 .button-join:hover {
-  background-color: #1492e6;
+  cursor: pointer;
+  background-color: #ff0096;
   color: #f0f2f5;
 }
 
@@ -188,7 +189,8 @@
 }
 
 .button-left:hover {
-  background-color: #ff0096;
+  cursor: pointer;
+  background-color: #1492e6;
   color: #f0f2f5;
 }
 .button-option-course {
@@ -206,7 +208,7 @@
   width: 20px;
   height: 20px;
   bottom: 0.3vh;
-  right: 18vh;
+  right: 16vh;
   position: absolute;
 }
 

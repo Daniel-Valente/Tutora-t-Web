@@ -152,10 +152,12 @@ const CourseView = () => {
 
   useEffect(() => {
     !fetchingPostsList && dataPostsList && posts.length > -1 && setPosts(dataPostsList);
+    // eslint-disable-next-line
   }, [dataPostsList]);
 
   useEffect(() => {
     !fetchingUsersList && dataUsersList && users.length > -1 && setUsers(dataUsersList);
+    // eslint-disable-next-line
   }, [dataUsersList]);
 
   useEffect(() => {
@@ -241,7 +243,7 @@ const CourseView = () => {
             </div> */}
           </div>
           {
-            dataUserRegister ? <CreatePost /> : userInfo.uid_user === course.uid_user && <CreatePost />
+            dataUserRegister ? <CreatePost isDisabled={true} value={course.career}/> : userInfo.uid_user === course.uid_user && <CreatePost  isDisabled={true} value={course.career}/>
           }
           {
             course.visible

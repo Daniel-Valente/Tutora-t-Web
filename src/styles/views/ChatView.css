@@ -1,0 +1,129 @@
+.sidebar-chat-list-chat {
+  position: fixed;
+  width: 24%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 5px 0 20px;
+}
+
+.header-chats {
+  background-color: #f0f2f5;
+  border-radius: 30px;
+  height: 5.8vh;
+  width: 40vh;
+  top: 25px;
+  position: relative;
+}
+
+.name-user-header-chat {
+  height: 40px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 2.5vh;
+  font-weight: bold;
+  left: 6vh;
+  top: 1.5vh;
+  position: absolute;
+}
+
+.section-message-chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 69vh;
+}
+
+.main-message-chat {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-messages-chat {
+  position: fixed;
+  width: 42vh;
+  height: 73%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5px 0 20px;
+}
+
+.form-chats {
+  height: 8vh;
+  position: fixed;
+  display: block;
+  bottom: 0;
+  width: 50vh;
+  display: flex;
+  font-size: 1.5rem;
+}
+
+.form-button-message-chat {
+  width: 5%;
+  background-color: #db188a;
+}
+
+.input-message-chat {
+  line-height: 1.5;
+  width: 65%;
+  background: #ffb1de;
+  color: rgb(0, 0, 0);
+  outline: none;
+  border: none;
+  left: -1vh;
+  position: absolute;
+}
+
+.send-button-message-chat {
+  background-color: #db188a;
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.25rem;
+  border-radius: 100%;
+  position: absolute;
+  right: 6vh;
+  top: 1vh;
+}
+
+.send-button-message-chat:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modalDiv-chat {
+  width: 45vh;
+  height: 60vh;
+  position: fixed;
+  right: 2vh;
+  bottom: 0vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-behavior: auto;
+}
+
+.modal-chat {
+  width: 45vh;
+  height: 60vh;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  bottom: 0vh;
+  position: absolute;
+  border-top: solid 1px rgb(0, 0, 0);
+  border-left: solid 1px rgb(0, 0, 0);
+  border-right: solid 1px rgb(0, 0, 0);
+}
+
+.close-panel {
+  position: absolute;
+  right: 1vh;
+  top: -2vh;
+  border: 0;
+  background-color: #fff;
+}

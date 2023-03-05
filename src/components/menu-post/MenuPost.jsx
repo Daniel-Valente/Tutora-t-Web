@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { useBodyScrollLock } from '../../hooks';
 
 const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSave, post, hide, save, prevUrl }) => {
     const userInfoPerfil = useSelector(state => state.user);
     const location = useLocation();
+    const [, toggle] = useBodyScrollLock();
 
     const style = () => {
         return {
@@ -27,7 +29,7 @@ const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSa
             {userInfoPerfil.uid_user === userPost.uid_user && 
             <Link to={`${prevUrl}/edit/${post._id}`} 
                 style={{ textDecoration: 'none' }}
-                state={{ editPublicationModal: true, post: post, prevPath: location.pathname }}>
+                state={{ background: location, editPublicationModal: true, post: post, prevPath: location.pathname }}>
                 <button style={ styles.div }>Editar</button>
             </Link>
             }
