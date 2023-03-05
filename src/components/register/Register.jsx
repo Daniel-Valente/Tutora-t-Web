@@ -8,7 +8,7 @@ import {
 } from "../../helpers/utils";
 import { useCareerList } from "../../hooks";
 import { googleIcon } from "../../images";
-import { alertState, userInfo, userLogInState } from "../../reducers";
+import { alertState, userLogInState } from "../../reducers";
 import Modal from "../modals/Modal";
 
 import RegisterModal from "../modals/RegisterModal";
@@ -51,7 +51,7 @@ const Register = () => {
 
     e.target
       ? setValues({ ...values, [e.target.name]: e.target.value })
-      : setValues({ ...values, ["carrera"]: e.value });
+      : setValues({ ...values, "carrera": e.value });
   };
 
   const handleSubmit = () => {
@@ -93,6 +93,7 @@ const Register = () => {
 
   useEffect(() => {
     !fetchingCareers && dataCareers.length > 0 && setCareer(dataCareers);
+    // eslint-disable-next-line
   }, [dataCareers]);
 
   return (
@@ -107,7 +108,7 @@ const Register = () => {
           Crea una cuenta con tu correo electrónico o con Google.
         </h5>
         <button className="boton-google">Registrate con Google</button>
-        <img src={googleIcon} className="google-icon"></img>
+        <img src={googleIcon} alt="google" className="google-icon"></img>
         <br />
         <button
           className="boton-correo"

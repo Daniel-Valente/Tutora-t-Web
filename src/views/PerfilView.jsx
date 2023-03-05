@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
 import Post from '../components/Post/Post';
@@ -19,8 +19,9 @@ import Notification from '../components/notification/Notification';
 import UserCard from '../components/user-card/UserCard';
 
 const PerfilView = () => {
-
   const { uid_user } = useParams();
+  const location = useLocation();
+
   const userInfoPerfil = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
   const { value: publicationModal } = useSelector(state => state.publicationModal);
@@ -57,19 +58,19 @@ const PerfilView = () => {
   const { data: dataPosts = [], isLoading: loadingPosts } = usePostsList();
   const [postsList, setPostsList] = useState(dataPosts);
 
-  const { data: dataCoursesList = [], isFetching: fetchingCoursesList, isLoading: loadingCourses } = useCoursesByUser(uid_user);
+  const { data: dataCoursesList = [], isLoading: loadingCourses } = useCoursesByUser(uid_user);
   const [courses, setCourses] = useState(dataCoursesList);
 
-  const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
+  const { data: dataCoursesInscripto = [], isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
 
   const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userInfoPerfil.uid_user);
   const [hidePost, setHidePost] = useState(dataHidePost);
 
-  const { data: dataSavePost = [], isFetching: fetchingSavePost, isLoading: loadingSavePost } = useSavePostList(userInfoPerfil.uid_user);
+  const { data: dataSavePost = [], isFetching: fetchingSavePost } = useSavePostList(userInfoPerfil.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
 
-  const { data: dataFollowers = [], isFetching: fetchingFollowers, isLoading: loadingFollowers } = useFollowersList(uid_user);
+  const { data: dataFollowers = [], isLoading: loadingFollowers } = useFollowersList(uid_user);
   const [followers, setFollowers] = useState(dataFollowers);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
@@ -91,8 +92,7 @@ const PerfilView = () => {
       }
     }
     else {
-      console.log(e.value);
-      setNewCourse({ ...newCourse, ["career"]: e.value });
+      setNewCourse({ ...newCourse, "career": e.value });
     }
   }
 
@@ -149,7 +149,7 @@ const PerfilView = () => {
   };
 
   useEffect(() => {
-    setUserPerfil(dataUserPerfil);
+    dataUserPerfil && setUserPerfil(dataUserPerfil);
     // eslint-disable-next-line
   }, [dataUserPerfil]);
 
@@ -250,7 +250,12 @@ const PerfilView = () => {
                   }
                 </button>
                 <button className='button-message'>
-                  Enviar mensaje
+                  <Link 
+                    to={`${ location.pathname.split('/', 2)[0] }/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
+                    state={{ background: location, prevPath: location.pathname }}
+                    style={{ textDecoration: 'none', color: 'white' }}>
+                    Enviar mensaje
+                  </Link>
                 </button>
               </div>
           }
@@ -317,7 +322,7 @@ const PerfilView = () => {
           <br />
           <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
             <b>
-              {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis cursos' : 'Cursos creados'}
+              {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
             </b>
             <div className='parent'>
               {
@@ -352,7 +357,7 @@ const PerfilView = () => {
           }
           <br />
           <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
-            <b>Cursos inscrito</b>
+            <b>Tutorías inscritas</b>
           </label>
           {
             coursesInscripto.map((course, index) => {
@@ -373,6 +378,7 @@ const PerfilView = () => {
                   </div>
                 )
               }
+              else return []
             })
           }
         </div>

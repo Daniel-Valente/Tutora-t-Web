@@ -10,6 +10,7 @@ const UserCard = (props) => {
 
     useEffect(() => {
         !fetchingUser && dataUser && userImg.length > -1 && setUserImg(dataUser);
+        // eslint-disable-next-line
     }, [dataUser]);
 
     if (loadingUser) {

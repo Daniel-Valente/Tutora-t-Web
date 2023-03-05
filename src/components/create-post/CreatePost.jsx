@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import Select from 'react-select';
 
 import { fondo, send, user } from '../../images';
 import { handleMouseEnter, isPublicationModal } from '../../helpers/utils';
 import PublicationModal from '../modals/PublicationModal';
-import { useAddPost, useBodyScrollLock } from '../../hooks';
+import { useAddPost, useBodyScrollLock, useCareerList } from '../../hooks';
 import { alertState } from '../../reducers';
 import Notification from '../notification/Notification';
 
-const CreatePost = () => {
+const CreatePost = ({ isDisabled = false, value = '' }) => {
   const userInfo = useSelector(state => state.user);
   const { id_Course } = useParams();
   const [, toggle] = useBodyScrollLock();
@@ -18,12 +19,16 @@ const CreatePost = () => {
   const { value: publicationModal } = useSelector(state => state.publicationModal);
   const dispatch = useDispatch();
 
+  const { data: dataCareersList = [], isFetching: fetchingCareersList } = useCareerList();
+  const [careerList, setCareerList] = useState(dataCareersList);
+
   const [newPost, setNewPost] = useState({
     title: '',
     description: '',
     imgPost: '',
     id_Course: id_Course ? id_Course : '',
     uid_user: userInfo.uid_user,
+    career: isDisabled ? value : ''
   });
 
   const [imagePreview, setImagePreview] = useState('');
@@ -34,12 +39,17 @@ const CreatePost = () => {
   }
 
   const handleChange = (e) => {
-    if (e.target.files) {
-      setImagePreview(URL.createObjectURL(e.target.files[0]));
-      setNewPost({ ...newPost, [e.target.name]: e.target.files[0] });
+    if(e.target) {
+      if (e.target.files) {
+        setImagePreview(URL.createObjectURL(e.target.files[0]));
+        setNewPost({ ...newPost, [e.target.name]: e.target.files[0] });
+      }
+      else {
+        setNewPost({ ...newPost, [e.target.name]: e.target.value });
+      }
     }
     else {
-      setNewPost({ ...newPost, [e.target.name]: e.target.value });
+      setNewPost({ ...newPost, 'career': e.value });
     }
   };
 
@@ -68,7 +78,7 @@ const CreatePost = () => {
         isPublicationModal(dispatch, publicationModal);
       }
     });
-    
+
     setImagePreview('');
     setNewPost({
       title: '',
@@ -78,6 +88,11 @@ const CreatePost = () => {
       uid_user: userInfo.uid_user,
     });
   };
+
+  useEffect(() => {
+    !fetchingCareersList && dataCareersList.length > 0 && setCareerList(dataCareersList);
+    // eslint-disable-next-line
+  }, [dataCareersList]);
 
   return (
     <div>
@@ -103,8 +118,22 @@ const CreatePost = () => {
 
       <PublicationModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
         <h2 style={{ textAlign: 'center' }}>Crear publicacion</h2>
-        <input className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
-        <br /><br /><br />
+        <div className='row'>
+          <div className='col-6'>
+            <input className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
+          </div>
+          <div className='col-4'>
+            <Select 
+              className='select-career' 
+              placeholder='carrera'
+              name="career"
+              isDisabled={isDisabled}
+              options={careerList}
+              defaultValue={isDisabled ? careerList[ careerList.findIndex(career => career.value === value) ] : ''}
+              onChange={handleChange}/>
+          </div>
+        </div>
+        <br />
         <textarea className='inp' placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
         <div className='upload-post'>
           <div className="upload-btn-wrapper" onChange={handleChange}>

@@ -3,13 +3,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const addPost = async (post) => {
-    const { uid_user, title, description, id_Course, imgPost } = post;
+    const { uid_user, title, description, career, id_Course, imgPost } = post;
     const formData = new FormData();
 
     formData.append('title', title);
     formData.append('description', description);
     formData.append('id_Course', id_Course);
     formData.append('imgPost', imgPost);
+    formData.append('career', career);
 
     return httpClient.post(`/posts/${ uid_user }`, formData, {
         headers: {

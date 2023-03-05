@@ -1,4 +1,3 @@
-
 export { useBodyScrollLock } from "./scroll/useBodyScrollLock";
 
 export { useAddUser } from "./users/useAddUser";
@@ -60,3 +59,4 @@ export { useAddMessageByChatBot } from "./chatBot/useAddMessageByChatBot";
 export { useCareerById } from "./careers/useCareerById";
 export { useCareersList } from "./careers/useCareersList";
 export { useCareerList } from "./careers/useCareerList";
+export { useDivision } from "./divisions/useDivision";

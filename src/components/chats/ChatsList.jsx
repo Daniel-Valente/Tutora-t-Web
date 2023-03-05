@@ -18,6 +18,7 @@ const ChatsList = ({ openHandle }) => {
 
     useEffect(() => {
         !fetchingChatsList && dataChatsList && setChats(dataChatsList);
+        // eslint-disable-next-line
     }, [dataChatsList]);
 
     if (loadingChatsList) {

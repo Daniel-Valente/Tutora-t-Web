@@ -9,8 +9,8 @@ import UserModal from '../modals/UserModal';
 import { exit, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
 import { useChatsListWithLimit, useLogOut } from '../../hooks';
-import Message from '../message/Message';
 import { userInfo, userLogInState } from '../../reducers';
+import CardMessage from '../card-message/CardMessage';
 
 const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
@@ -64,6 +64,7 @@ const HomeHeader = () => {
 
   useEffect(() => {
     !fetchingChats && dataChatsWithLimit && setChatsWithLimit(dataChatsWithLimit);
+    // eslint-disable-next-line
   }, [dataChatsWithLimit]);
 
   return (
@@ -137,7 +138,7 @@ const HomeHeader = () => {
 
       <MessageModal active={chatModal} toggle={isChatModal} dispatch={dispatch}>
         <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Mensajes</h2>
-        { chatsWithLimit.map((chat, index) => <Message chat={chat} key={chat.id_Message} />) }
+        { chatsWithLimit.map((chat, index) => <CardMessage chat={chat} key={chat.id_Message} />) }
         <div className='row'>
           <Link to={`/chats/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
             <button className='boton-cuadrado' style={{ fontSize: '17px', textAlign: 'center' }}>Ver más</button>

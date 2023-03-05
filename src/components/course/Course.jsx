@@ -13,10 +13,12 @@ const Course = (props) => {
 
     useEffect(() => {
         !fetchingPost && dataPost && post.length > -1 && setPost(dataPost);
+        // eslint-disable-next-line
     }, [dataPost]);
 
     useEffect(() => {
         !fetchingUserPost && dataUserPost && userPost.length > -1 && setUserPost(dataUserPost);
+        // eslint-disable-next-line
     }, [dataUserPost]);
     
     if (loadingPostsWithLimit) {
@@ -26,6 +28,9 @@ const Course = (props) => {
             </div>
         )
     }
+
+    if(post.length === 0)
+        return <div></div>
 
     return (
         <>
