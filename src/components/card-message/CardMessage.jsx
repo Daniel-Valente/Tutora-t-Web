@@ -45,7 +45,7 @@ const CardMessage = (props) => {
     }
 
     return (
-        <div className={`row ${!chat.seen && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : ''}`}>
+        <div className={`row ${chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : ''}`}>
 
             <Outlet />
             <div className='col-3'>
@@ -59,7 +59,7 @@ const CardMessage = (props) => {
                 </Link>
             </div>
             <div className='col-7'>
-                <Link to={`${location.pathname.split('/', 3)[2] != "chats" && location.pathname.split('/', 2)[1] === 'course' ? location.pathname : location.pathname.split('/', 2)[1]}/${userInfoPerfil.uid_user}/to/${userInfoPerfil.uid_user !== chat.uid_user ? chat.uid_user : chat.uid_userChat}`}
+                <Link to={`${location.pathname.split('/', 3)[2] !== "chats" && location.pathname.split('/', 2)[1] === 'course' ? location.pathname : location.pathname.split('/', 2)[1]}/${userInfoPerfil.uid_user}/to/${userInfoPerfil.uid_user !== chat.uid_user ? chat.uid_user : chat.uid_userChat}`}
                     state={{ background: location, prevPath: location.pathname }}
                     onClick={seenHandle}
                     style={{ textDecoration: 'none', color: 'black' }}>

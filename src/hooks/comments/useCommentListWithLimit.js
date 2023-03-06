@@ -7,7 +7,7 @@ const getCommentListWithLimit = async ({ queryKey }) => {
 
     if(!id_Post) return [];
 
-    const { data } = await httpClient.get(`/comments/${ id_Post }/5`);
+    const { data } = await httpClient.get(`/comments/${ id_Post }/${limit}`);
 
     return data;
 }

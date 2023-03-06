@@ -46,22 +46,22 @@ const PerfilView = () => {
   const [, toggle] = useBodyScrollLock();
   const [viewAll, setViewAll] = useState(1);
 
-  const { data: dataUserPerfil = [], isLoading: lodingUserPerfil } = useUserById(uid_user);
+  const { data: dataUserPerfil = [], isFetching: fetchingUserPerfil, isLoading: lodingUserPerfil } = useUserById(uid_user);
   const [userPerfil, setUserPerfil] = useState(dataUserPerfil);
 
   const { data: dataCareer, isFetching: fetchingCareer, isLoading: loadingCareer } = useCareerById(userInfoPerfil.career);
   const [userCareer, setUserCareer] = useState(dataCareer);
 
-  const { data: dataPostsList = [], isLoading: loadingPostsList } = usePostsByUser(uid_user);
+  const { data: dataPostsList = [], isFetching: fetchingPostsList, isLoading: loadingPostsList } = usePostsByUser(uid_user);
   const [posts, setPosts] = useState(dataPostsList);
 
-  const { data: dataPosts = [], isLoading: loadingPosts } = usePostsList();
+  const { data: dataPosts = [], isFetching: fetchingPosts, isLoading: loadingPosts } = usePostsList();
   const [postsList, setPostsList] = useState(dataPosts);
 
-  const { data: dataCoursesList = [], isLoading: loadingCourses } = useCoursesByUser(uid_user);
+  const { data: dataCoursesList = [], isFetching: fetchingCourses, isLoading: loadingCourses } = useCoursesByUser(uid_user);
   const [courses, setCourses] = useState(dataCoursesList);
 
-  const { data: dataCoursesInscripto = [], isLoading: loadingCoursesInscripto } = useCoursesList();
+  const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
 
   const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userInfoPerfil.uid_user);
@@ -70,7 +70,7 @@ const PerfilView = () => {
   const { data: dataSavePost = [], isFetching: fetchingSavePost } = useSavePostList(userInfoPerfil.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
 
-  const { data: dataFollowers = [], isLoading: loadingFollowers } = useFollowersList(uid_user);
+  const { data: dataFollowers = [], isFetching: fetchingFollowers, isLoading: loadingFollowers } = useFollowersList(uid_user);
   const [followers, setFollowers] = useState(dataFollowers);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
