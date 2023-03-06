@@ -48,8 +48,6 @@ const Chat = () => {
     scrollRef.current && scrollRef.current.scrollToBottom();
   },[dataChat]);
 
-  const dummy = useRef();
-
   return (
     <div className="modalDiv">
       <div className="modal">
@@ -69,7 +67,6 @@ const Chat = () => {
             </Scrollbars>
             <div className="scrollbox">
               <div className="scrollbox-inner">
-                <span></span>
               </div>
             </div>
           </div>

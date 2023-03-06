@@ -50,8 +50,6 @@ const ChatView = () => {
     scrollRef.current && scrollRef.current.scrollToBottom();
   },[dataChat]);
 
-  const dummy = useRef();
-
   return (
     <div className="modalDiv-chat">
       <div className="modal-chat">

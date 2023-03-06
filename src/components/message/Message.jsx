@@ -21,7 +21,6 @@ const Message = (props) => {
     const filter = input && (userChat.username.toLowerCase().includes(input.toLowerCase()) || chat.message.toLowerCase().includes(input.toLowerCase()));
     
     const seenHandle = () => {
-        console.log(chat);
         updateSeen({ uid_user: chat.uid_user, uid_userChat: chat.uid_userChat }, {
             onSuccess: (response) => {
                 console.log(response);
@@ -49,7 +48,7 @@ const Message = (props) => {
     }
 
     return (
-        filter && input ? <div className={`row ${ !chat.seen && chat.uid_user !== userInfoPerfil.uid_user  ? 'message-not-view' : '' }`} onClick={ () => console.log('hola') }>
+        filter && input ? <div className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user  ? 'message-not-view' : '' }`} onClick={ () => console.log('hola') }>
             <Outlet />
             <div className='col-3'>
                 <Link to={`/perfil/${userInfoPerfil.uid_user === chat.uid_user ? userChat.uid_user : userPefil.uid_user}`}>
@@ -71,7 +70,7 @@ const Message = (props) => {
             <div className='linea-acostada' />
         </div>
             : !input &&
-            <div className={`row ${ !chat.seen && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : '' }`}>
+            <div className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : '' }`}>
                 
                 <Outlet />
                 <div className='col-3'>

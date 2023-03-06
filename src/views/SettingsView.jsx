@@ -1,25 +1,33 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import Select from 'react-select';
 import { useDispatch, useSelector } from "react-redux";
+
 import Notification from "../components/notification/Notification";
-import { useUpdateUser } from "../hooks";
+import { useCareerList, useUpdateUser } from "../hooks";
 import { user, fondo } from "../images";
 import { alertState } from "../reducers";
 
 const SettingsView = () => {
   const { mutate: updateUser } = useUpdateUser();
   const userInfo = useSelector(state => state.user);
+
   const [configValue, setConfigValue] = useState({
     uid_user: userInfo.uid_user,
     imgName: '',
     imgPortadaName: '',
     nombre: userInfo.name,
     telefono: userInfo.phone,
-    password: userInfo.password,
+    passwordA: '',
+    password: '',
     username: userInfo.username,
     carrera: userInfo.career
   });
   const [images, setImages] = useState({ imgName: '', imgPortadaName: '' });
+  const [ disableSave, setDisableSave ] = useState(true);
+  const [options, setOptions] = useState('Cuenta');
+  
+  const { data: dataCareersList = [], isFetching: fetchingCareersList } = useCareerList();
+  const [careerList, setCareerList] = useState(dataCareersList);
 
   const dispatch = useDispatch();
 
@@ -58,113 +66,167 @@ const SettingsView = () => {
     });
   };
 
+  const handleCancel = () => {
+    window.location.href = "/home";
+  }
+
+  useEffect(() => {
+    !fetchingCareersList && dataCareersList.length > 0 && setCareerList(dataCareersList);
+    // eslint-disable-next-line
+  }, [dataCareersList]);
+
   return (
     <div>
       <div className="linea-acostada" />
       <h1 style={{ marginLeft: "35%" }}>Configuracion de la cuenta</h1>
-
-      <div style={{ float: "left", marginLeft: "30%" }}>
-        <p>
-          <b>Imagen de perfil</b>
-        </p>
-        <img className="icon-perfil-setting"
-          src={`${userInfo.imgUrl ? userInfo.imgUrl : user}`}
-          alt={userInfo.username} />
-        <p>
-          <b>Imagen de portada</b>
-        </p>
-        <img className="circular-portada"
-          src={`${userInfo.imgPortadaUrl ? userInfo.imgPortadaUrl : fondo}`}
-          alt={userInfo.username} />
-        <br />
-        <br />
-        <p>
-          <b>Nombre completo</b>
-        </p>
-        <br />
-        <p>
-          <b>Nombre de usuario</b>
-        </p>
-        <br />
-        <p>
-          <b>Teléfono</b>
-        </p>
-        <br />
-        <p>
-          <b>Cambiar contraseña</b>
-        </p>
-        <br />
-        <button>Cancelar</button>
+      <div className="row">
+        <div className="col-1" />
+        <div className="col-9 row">
+          <div className={`col-1 card-settings ${options === 'Cuenta' ? 'card-settings-selected ' : ''}`} onClick={() => setOptions('Cuenta')}>Cuenta</div>
+          <div className="col-0" />
+          <div className={`col-1 card-settings ${options === 'Seguridad' ? 'card-settings-selected ' : ''}`} onClick={() => setOptions('Seguridad')}>Seguridad</div>
+        </div>
+        <div className="col-1" />
       </div>
+      <div className="row">
+        <div className="col-1" />
+        {
+          options === "Cuenta" &&
+          <div className="col-9">
+            <div className="row">
+              <div className="col-3">
+                <p>
+                  <b>Imagen de perfil</b>
+                </p>
+                <img className="icon-perfil-setting"
+                  src={`${userInfo.imgUrl ? userInfo.imgUrl : user}`}
+                  alt={userInfo.username} />
+                <p>
+                  <b>Imagen de portada</b>
+                </p>
+                <img className="circular-portada"
+                  src={`${userInfo.imgPortadaUrl ? userInfo.imgPortadaUrl : fondo}`}
+                  alt={userInfo.username} />
+              </div>
+              <div className="col-4">
+                <br /><br /><br />
+                <div 
+                  className="upload-btn-wrapper "
+                  onChange={onChange} 
+                  onFocus={ () => setDisableSave(false) }>
+                  <button className="boton-standar-rw" style={{ marginLeft: "7%" }}>
+                    Carga un archivo
+                  </button>
+                  <br />
+                  <br />
+                  <input type="text" readOnly value={images.imgName} />
+                  <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
+                </div>
+                <div
+                  className="upload-btn-wrapper "
+                  onChange={onChange}
+                  onFocus={ () => setDisableSave(false) }
+                  style={{ marginTop: "24%" }}
+                >
+                  <button className="boton-standar-rw" style={{ marginLeft: "7%" }}>
+                    Carga un archivo
+                  </button>
+                  <br />
+                  <br />
+                  <input type="text" readOnly value={images.imgPortadaName} />
+                  <input className="upload-file-buton" name="imgPortadaName" type="file" accept="image/*" />
+                </div>
 
-      <div style={{ float: "left", marginLeft: "5%", marginTop: "4%" }}>
-        <div className="upload-btn-wrapper " onChange={onChange}>
-          <button className="boton-standar-rw" style={{ marginLeft: "7%" }}>
-            Carga un archivo
-          </button>
-          <br />
-          <br />
-          <input type="text" readOnly value={images.imgName} />
-          <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
-        </div>
-
-        <br />
-
-        <div
-          className="upload-btn-wrapper "
-          onChange={onChange}
-          style={{ marginTop: "25%" }}
-        >
-          <button className="boton-standar-rw" style={{ marginLeft: "7%" }}>
-            Carga un archivo
-          </button>
-          <br />
-          <br />
-          <input type="text" readOnly value={images.imgPortadaName} />
-          <input className="upload-file-buton" name="imgPortadaName" type="file" accept="image/*" />
-        </div>
-
-        <br />
-
-        <div style={{ marginTop: "12%" }}>
-          <input
-            onChange={onChange}
-            type="text"
-            placeholder="Nombre completo"
-            name="nombre"
-            value={configValue.nombre}
-          />
-        </div>
-        <div style={{ marginTop: "2%" }}>
-          <input
-            onChange={onChange}
-            type="text"
-            placeholder="username"
-            name="username"
-            value={configValue.username}
-          />
-        </div>
-        <div style={{ marginTop: "2%" }}>
-          <input
-            onChange={onChange}
-            type="text"
-            placeholder="Telefono"
-            name="telefono"
-            value={configValue.telefono}
-          />
-        </div>
-        <div style={{ marginTop: "2%" }}>
-          <input
-            onChange={onChange}
-            type="password"
-            placeholder="Nueva contraseña"
-            name="password"
-            value={configValue.password}
-          />
-        </div>
-
-        <br />
-        <button style={{ marginTop: "3%" }} onClick={handleSubmit}>Guardar</button>
+              </div>
+              <div className="col-3 row">
+                <div className="col-5">
+                <p>
+                  <b>Nombre completo</b>
+                  <br /><br /><br />
+                  <b>Nombre de usuario</b>
+                  <br /><br /><br />
+                  <b>Telefono</b>
+                  <br /><br /><br />
+                  <b>Carrera</b>
+                </p>
+                </div>
+                <div className="col-1">
+                <input
+                  onFocus={ () => setDisableSave(false) }
+                  onChange={onChange}
+                  type="text"
+                  placeholder="Nombre completo"
+                  name="nombre"
+                  value={configValue.nombre}
+                />
+                <input
+                  onFocus={ () => setDisableSave(false) }
+                  onChange={onChange}
+                  type="text"
+                  placeholder="Nombre de usuario"
+                  name="username"
+                  value={configValue.username}
+                />
+                <input
+                  onFocus={ () => setDisableSave(false) }
+                  onChange={onChange}
+                  type="text"
+                  placeholder="Telefono"
+                  name="telefono"
+                  value={configValue.telefono}
+                />
+                <Select
+                  onFocus={ () => setDisableSave(false) }
+                  placeholder='carrera'
+                  name="carrera" 
+                  options={careerList}
+                  defaultValue={careerList[careerList.findIndex(career => career.value === configValue.carrera)]}
+                  className='select-career-settings' />
+                </div>
+              </div>
+            </div>
+            <br />
+            <button className="cancel-button" onClick={handleCancel}>Cancelar</button>
+            <button className="cancel-button" disabled={disableSave} onClick={handleSubmit}>Guardar</button>
+          </div>
+        }
+        {
+          options === "Seguridad" &&
+          <div className="col-9">
+            <div className="row">
+              <div className="col-2">
+                <p>
+                  <b>Contraseña anterior</b>
+                  <br /><br /><br />
+                  <b>Nueva contraseña</b>
+                </p>
+              </div>
+              <div className="col-1">
+              <input
+                  onFocus={ () => setDisableSave(false) }
+                  onChange={onChange}
+                  type="password"
+                  placeholder="Contraseña anterior"
+                  name="passowrdA"
+                  value={configValue.passwordA}
+                />
+                <input
+                  onFocus={ () => setDisableSave(false) }
+                  onChange={onChange}
+                  type="password"
+                  placeholder="Nueva contraseña"
+                  name="password"
+                  value={configValue.password}
+                  
+                />
+              </div>
+            </div>
+            <br />
+            <button className="cancel-button" onClick={handleCancel}>Cancelar</button>
+            <button className="cancel-button" disabled={disableSave} onClick={handleSubmit}>Guardar</button>
+          </div>
+        }
+        <div className="col-1" />
       </div>
       <Notification />
     </div>
