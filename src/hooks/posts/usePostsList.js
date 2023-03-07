@@ -13,7 +13,8 @@ export const usePostsList = () => {
         ['posts'],
         getPostsList, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 

@@ -15,7 +15,8 @@ export const useRegistrationByUser = ( id_Course, uid_user ) => {
         ['courses', id_Course, 'user', uid_user],
         getRegistrationByUser, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 20000
         }
     );
 

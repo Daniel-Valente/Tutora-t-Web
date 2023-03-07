@@ -13,7 +13,8 @@ export const useCoursesList = () => {
         ['courses'],
         getCoursesList, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 

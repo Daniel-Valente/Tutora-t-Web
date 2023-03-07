@@ -17,7 +17,8 @@ export const useFollowersList = (uid_user) => {
         uid_user ? ['users', uid_user, 'followers'] : [],
         getFollowersList, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 

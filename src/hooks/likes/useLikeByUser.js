@@ -17,7 +17,8 @@ export const useLikeByUser = ( id_Post, uid_user ) => {
         id_Post && uid_user ? ['likes', id_Post, 'user', uid_user] : [],
         getLikeByUser, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 50000
         }
     );
 

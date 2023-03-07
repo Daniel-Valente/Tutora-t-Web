@@ -14,7 +14,8 @@ export const useCoursesByUserWithLimit = ( uid_user, limit ) => {
         ['courses', uid_user, 'limit', limit],
         getCoursesByUserWithLimit, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 300000
         }
     );
 

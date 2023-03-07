@@ -14,7 +14,8 @@ export const useCoursesByUser = ( uid_user ) => {
         ['courses', uid_user],
         getCoursesByUser, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 300000
         }
     );
 

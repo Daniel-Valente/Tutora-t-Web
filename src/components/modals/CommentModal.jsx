@@ -51,6 +51,10 @@ const CommentModal = (props) => {
             </button>
             <div>{children}</div>
           </div>
+          <div
+            onClick={() => toggle(dispatch, active)}
+            style={styles.background}
+          />
         </div>
       )}
     </CommentPortal>

@@ -14,7 +14,8 @@ export const useLikesList = ( id_Post ) => {
         ['likes', id_Post],
         getLikesList, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 50000
         }
     );
 

@@ -14,7 +14,8 @@ export const usePostsByCourse = (id_Course) => {
         ['posts', 'course', id_Course],
         getPostsByCourse, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 
