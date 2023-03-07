@@ -14,7 +14,8 @@ export const useChatsList = (uid_user) => {
         ['chats', uid_user],
         getChatsList, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 

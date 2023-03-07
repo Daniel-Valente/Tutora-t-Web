@@ -18,7 +18,8 @@ export const useCourseById = ( id_Course ) => {
         id_Course ? ['courses', id_Course] : [],
         getCourseById, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 

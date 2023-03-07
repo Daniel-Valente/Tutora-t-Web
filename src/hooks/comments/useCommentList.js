@@ -16,7 +16,8 @@ export const useCommentList = (id_Post) => {
         ['post', id_Post, 'comments'],
         getCommentList, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 

@@ -17,7 +17,8 @@ export const usePostsWithLimit = (id_undefined, limit) => {
         id_undefined ? ['posts', id_undefined, 'limit', limit] : [],
         getPostsWithLimit, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 30000
         }
     );
 

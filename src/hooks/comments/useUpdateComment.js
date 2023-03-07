@@ -15,6 +15,5 @@ export const useUpdateComment = ( id_Post ) => {
         onSuccess: () => {
             queryClient.invalidateQueries(['post', id_Post, 'comments']);
         }
-
     });
 }

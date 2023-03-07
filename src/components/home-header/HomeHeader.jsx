@@ -15,16 +15,16 @@ import CardMessage from '../card-message/CardMessage';
 const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
   const { mutate: logOut } = useLogOut();
-
-  const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
-  const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);
-
+  
   const [first, setfirst] = useState([0, 1, 2, 3, 4]);
-
+  
   const { value: userModal } = useSelector(state => state.userModal);
   const { value: chatModal } = useSelector(state => state.chatModal);
   const { value: notificationModal } = useSelector(state => state.notificationModal);
-
+  
+    const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5, chatModal);
+    const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);
+  
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -71,7 +71,7 @@ const HomeHeader = () => {
     <div className="principal-header header">
       <Link className='logo-link' to='/home'>tutorate</Link>
       <div className='search'>
-        <input className='search-input' placeholder='Buscar...' type="text"></input>
+        <input className='search-input' placeholder='Buscar...' type="text"/>
         <button className='search-icon'>
           <img className='search-imag' src={search} alt="search" />
         </button>

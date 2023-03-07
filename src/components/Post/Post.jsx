@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-import { handleMouseEnter } from '../../helpers/utils';
+import { handleMouseEnter, isChatModal } from '../../helpers/utils';
 import {
     useAddComment, useBodyScrollLock, useCommentList, useCourseById,
     useDeletePost, useHidePost, useLikeByUser,
@@ -54,7 +54,13 @@ const Post = (props) => {
     const buttonMenuRef = useRef();
 
     const handleStar = () => {
-        const likeUser = { uid_user: userInfoPerfil.uid_user, id_Post: post._id };
+        const likeUser = { 
+            uid_user: userInfoPerfil.uid_user, 
+            id_Post: post._id,
+            uid_creator: post.uid_user,
+            message: `dejo un like en tu publicación`,
+            referencia: post.id_Post
+        };
         updateLike(likeUser, {
             onSuccess: ({ data }) => {
                 setStarActive(data);
@@ -230,7 +236,7 @@ const Post = (props) => {
                         </p>
                     </div>
                     <div className='col-3'>
-                        <Link to={post._id} state={{ background: location, commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
+                        <Link to={post._id} onClick={ () => isChatModal(dispatch, true) } state={{ background: location, commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
                             <img className='sinF' src={messages} alt="comments"/>
                         </Link>
                         <p style={{

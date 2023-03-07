@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, Outlet } from 'react-router-dom';
+import { isChatModal } from '../../helpers/utils';
 
 import { useUpdateChatToUser, useUserById } from '../../hooks';
 import { user } from '../../images';
@@ -10,6 +11,8 @@ const CardMessage = (props) => {
 
     const { chat } = props;
     const userInfoPerfil = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
     const { mutate: updateSeen } = useUpdateChatToUser(chat.uid_user, chat.uid_userChat);
 
     const { data: dataUserChat = [], isFetching: fetchingUserChat, isLoading: loadingUserChat } = useUserById(chat.uid_userChat);
@@ -19,6 +22,7 @@ const CardMessage = (props) => {
     const [userPefil, setUserPerfil] = useState(dataUser);
 
     const seenHandle = () => {
+        isChatModal(dispatch, true);
         updateSeen({ uid_user: chat.uid_user, uid_userChat: chat.uid_userChat }, {
             onSuccess: (response) => {
                 console.log(response);
