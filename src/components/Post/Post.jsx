@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter, isChatModal } from '../../helpers/utils';
 import {
-    useAddComment, useBodyScrollLock, useCommentList, useCourseById,
+    useAddComment, useCommentList, useCourseById,
     useDeletePost, useHidePost, useLikeByUser,
     useLikesList, useSavePost, useUpdateLike,
     useUserById
@@ -31,7 +31,6 @@ const Post = (props) => {
     const [x, setX] = useState('');
     const [y, setY] = useState('');
     const [menu, setMenu] = useState(false);
-    const [, toggle] = useBodyScrollLock();
 
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
@@ -57,10 +56,12 @@ const Post = (props) => {
         const likeUser = { 
             uid_user: userInfoPerfil.uid_user, 
             id_Post: post._id,
+            action: `reacciono a tu publicación`,
             uid_creator: post.uid_user,
-            message: `dejo un like en tu publicación`,
-            referencia: post.id_Post
+            type: 'like',
+            starActive
         };
+
         updateLike(likeUser, {
             onSuccess: ({ data }) => {
                 setStarActive(data);
@@ -141,7 +142,14 @@ const Post = (props) => {
     };
 
     const handleSubmit = () => {
-        const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue };
+        const comments = { 
+            uid_user: userInfoPerfil.uid_user, 
+            id_Post: post._id, 
+            comment: commentValue,
+            action: `realizo un comentario en tu publicación`,
+            uid_creator: post.uid_user,
+            type: 'comment',
+         };
         setCommentValue('');
         commentValue.length > 0 ? addComment(comments, {
             onSuccess: (response) => {

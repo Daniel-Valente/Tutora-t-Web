@@ -8,8 +8,9 @@ const getPostById = async ({ queryKey }) => {
     if(!id_Post) return [];
 
     const { data } = await httpClient.get(`/posts/${ id_Post }`);
+    const [ node ] = data;
 
-    return data;
+    return node;
 }
 
 export const usePostById = (id_Post) => {

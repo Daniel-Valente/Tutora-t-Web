@@ -8,23 +8,28 @@ import UserModal from '../modals/UserModal';
 
 import { exit, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
-import { useChatsListWithLimit, useLogOut } from '../../hooks';
+import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit } from '../../hooks';
 import { userInfo, userLogInState } from '../../reducers';
 import CardMessage from '../card-message/CardMessage';
+import CardNotification from '../card-notification/CardNotification';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
   const { mutate: logOut } = useLogOut();
-  
-  const [first, setfirst] = useState([0, 1, 2, 3, 4]);
-  
+
+  const [first,] = useState([0, 1, 2, 3, 4]);
+
   const { value: userModal } = useSelector(state => state.userModal);
   const { value: chatModal } = useSelector(state => state.chatModal);
   const { value: notificationModal } = useSelector(state => state.notificationModal);
+
+  const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
+  const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);
   
-    const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5, chatModal);
-    const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);
-  
+  const{ data: dataNotificationsWithLimit = [], isFetching: fetchingNotifications } = useNotificationsWithLimit( userInfoPerfil.uid_user, 10 );
+  const [ notificationsWithLimit , setNotificationsWithLimit ] = useState(dataNotificationsWithLimit);
+
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -67,15 +72,20 @@ const HomeHeader = () => {
     // eslint-disable-next-line
   }, [dataChatsWithLimit]);
 
+  useEffect(() => {
+    !fetchingNotifications && dataNotificationsWithLimit && setNotificationsWithLimit(dataNotificationsWithLimit);
+    // eslint-disable-next-line
+  }, [dataNotificationsWithLimit]);
+
   return (
     <div className="principal-header header">
       <Link className='logo-link' to='/home'>tutorate</Link>
-      <div className='search'>
-        <input className='search-input' placeholder='Buscar...' type="text"/>
+      {/* <div className='search'>
+        <input className='search-input' placeholder='Buscar...' type="text" />
         <button className='search-icon'>
           <img className='search-imag' src={search} alt="search" />
         </button>
-      </div>
+      </div> */}
 
       <button className='boton-circular'
         onClick={() => isUserModal(dispatch, userModal)}>
@@ -116,29 +126,16 @@ const HomeHeader = () => {
 
       <NotificationModal active={notificationModal} toggle={isNotificationModal} dispatch={dispatch}>
         <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Notificaciones</h2>
+        <Scrollbars style={{ width: '99%', height: 381 }}>
         {
-          first.map((element, index) => {
-            return (
-              <div className='row' key={`${element}-${index}-m`}>
-                <p className='p-1'>
-                  Futuras notificaciones loren ipsun
-                  Futuras notificaciones loren ipsun.
-                </p>
-              </div>
-            )
-          })
+          notificationsWithLimit.map( ( notification, index ) => <CardNotification notification={notification} key={ index } notificationModal={notificationModal} /> )
         }
-        <div className='row'>
-          <Link to={`/configuracion/`} style={{ textDecoration: 'none' }}>
-            <button className='boton-cuadrado' style={{ fontSize: '17px', textAlign: 'center' }}>Ver más</button>
-          </Link>
-        </div>
-        <br />
+        </Scrollbars>
       </NotificationModal>
 
       <MessageModal active={chatModal} toggle={isChatModal} dispatch={dispatch}>
         <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Mensajes</h2>
-        { chatsWithLimit.map((chat, index) => <CardMessage chat={chat} key={chat.id_Message} />) }
+        {chatsWithLimit.map((chat, index) => <CardMessage chat={chat} key={chat.id_Message} />)}
         <div className='row'>
           <Link to={`/chats/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
             <button className='boton-cuadrado' style={{ fontSize: '17px', textAlign: 'center' }}>Ver más</button>

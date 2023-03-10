@@ -38,7 +38,7 @@ const CourseView = () => {
   const buttonMenuRef = useRef();
 
   const [imagePreview, setImagePreview] = useState('');
-  const [privacidad, setPrivacidad] = useState([
+  const [privacidad, ] = useState([
     {
       value: true,
       label: 'Público'
@@ -113,8 +113,8 @@ const CourseView = () => {
     }
     else {
       e.label === 'Público' || e.label === 'Privado' ?
-        setEditCourse({ ...editCourse, ["visible"]: e.value })
-        : setEditCourse({ ...editCourse, ["career"]: e.value });
+        setEditCourse({ ...editCourse, "visible": e.value })
+        : setEditCourse({ ...editCourse, "career": e.value });
     }
   }
 
@@ -162,6 +162,7 @@ const CourseView = () => {
 
   useEffect(() => {
     !fetchingCareers && dataCareers.length > 0 && setCareer(dataCareers);
+    // eslint-disable-next-line
   }, [dataCareers]);
 
   if (loadingCourse || loadingPosts || loadingUserRegister || loadingUsersList) {
@@ -173,7 +174,15 @@ const CourseView = () => {
   }
 
   const handleRegister = () => {
-    const register = { id_Course, uid_user: userInfo.uid_user }
+    const register = { 
+      id_Course, 
+      uid_user: userInfo.uid_user,
+      action: 'se unio a tu tutoria',
+      uid_creator: course.uid_user,
+      type: 'inscription',
+      dataUserRegister
+    }
+    
     userRegister(register, {
       onSuccess: (response) => {
         console.log(response);
@@ -271,6 +280,7 @@ const CourseView = () => {
                     </Link>
                   </div>
                 }
+                else return []
               })
             }
           </div>
