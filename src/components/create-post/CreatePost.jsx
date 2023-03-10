@@ -54,7 +54,12 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
   };
 
   const handleSubmit = () => {
-    addPost(newPost, {
+    const post = {
+      ...newPost,
+      action: 'realizo una nueva publicación en tu tutoria',
+      type: 'course'
+    }
+    addPost(post, {
       onSuccess: (response) => {
         toggle();
         dispatch(

@@ -97,7 +97,15 @@ const PerfilView = () => {
   }
 
   const followHandle = () => {
-    follower({ uid_user, uid_follower: userInfoPerfil.uid_user }, {
+    const follow = { 
+      uid_user, 
+      uid_follower: userInfoPerfil.uid_user,
+      active: followers.includes(userInfoPerfil.uid_user),
+      action: 'comenzo a seguirte',
+      type: 'follower'
+    }
+
+    follower(follow, {
       onSuccess: () => {
         dispatch(
           alertState({

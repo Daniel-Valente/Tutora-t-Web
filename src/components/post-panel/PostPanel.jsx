@@ -45,7 +45,14 @@ const PostPanel = () => {
     };
 
     const handleSubmit = () => {
-        const comments = { uid_user: userInfoPerfil.uid_user, id_Post: post._id, comment: commentValue  };
+        const comments = { 
+            uid_user: userInfoPerfil.uid_user, 
+            id_Post: post._id, 
+            comment: commentValue,
+            action: `realizo un comentario en tu publicación`,
+            uid_creator: post.uid_user,
+            type: 'comment',
+         };
         setCommentValue('');
         commentValue.length > 0 ? addComment(comments, {
             onSuccess: (response) => {
@@ -57,14 +64,17 @@ const PostPanel = () => {
 
     useEffect(() => {
         !fetchingLike && setLikes(dataLikeList);
+        // eslint-disable-next-line
     }, [dataLikeList]);
 
     useEffect(() => {
         !fetchingLikeByUser && dataLikeByUser && setStarActive(dataLikeByUser);
+        // eslint-disable-next-line
     }, [dataLikeByUser]);
 
     useEffect(() => {
         !fetchingCommentsList && dataCommentsList && comments.length > -1 && setComments(dataCommentsList);
+        // eslint-disable-next-line
     }, [ dataCommentsList ]);
 
     if (loadingLike || loadingLikeByUser || loadingCommentsList) {

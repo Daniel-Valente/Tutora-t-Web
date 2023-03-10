@@ -7,7 +7,7 @@ import Course from "../components/course/Course";
 import CreatePost from "../components/create-post/CreatePost";
 import Post from "../components/Post/Post";
 import {
-  useCareersList, useCoursesList, useDivision, useHidePostList,
+  useCareersList, useCoursesList, useHidePostList,
   usePostsList, useSavePostList, useUserByUsername
 } from "../hooks";
 import { userInfo } from "../reducers";
@@ -24,7 +24,6 @@ const HomeView = () => {
 
   const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsList(dataUser.career);
   const [posts, setPosts] = useState(dataPostsList);
-
 
   const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);

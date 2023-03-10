@@ -49,7 +49,7 @@ const CardMessage = (props) => {
     }
 
     return (
-        <div className={`row ${chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : ''}`}>
+        <div className={`row ${chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : ''} card-message`}>
 
             <Outlet />
             <div className='col-3'>

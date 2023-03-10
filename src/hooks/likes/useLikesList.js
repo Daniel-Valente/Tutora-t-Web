@@ -4,6 +4,9 @@ import httpClient from "../../https/httpClient";
 
 const getLikesList = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
+
+    if(!id_Post) return [];
+    
     const { data } = await httpClient.get(`/likes/${ id_Post }`);
 
     return data;
@@ -11,7 +14,7 @@ const getLikesList = async ({ queryKey }) => {
 
 export const useLikesList = ( id_Post ) => {
     const query = useQuery(
-        ['likes', id_Post],
+        id_Post ? ['likes', id_Post] : [],
         getLikesList, {
             refetchOnWindowFocus: false,
             retry: false,

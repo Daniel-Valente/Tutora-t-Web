@@ -2,20 +2,20 @@ import { useQuery } from "@tanstack/react-query";
 
 import httpClient from "../../https/httpClient";
 
-const getChatsListWithLimit = async ({ queryKey }) => {
+const getNotificationsWithLimit = async ({ queryKey }) => {
     const [ , uid_user, , limit ] = queryKey;
 
     if (!uid_user) return [];
 
-    const { data } = await httpClient.get(`/chats/${ uid_user }/${limit}`);
+    const { data } = await httpClient.get(`/users/notification/${ uid_user }/${limit}`);
 
     return data;
 }
 
-export const useChatsListWithLimit = (uid_user, limit) => {
+export const useNotificationsWithLimit = (uid_user, limit) => {
     const query = useQuery(
-        uid_user ? ['chats', uid_user, 'limit', limit] : [],
-        getChatsListWithLimit, {
+        uid_user ? ['notifications', uid_user, 'limit', limit] : [],
+        getNotificationsWithLimit, {
             refetchOnWindowFocus: false,
             retry: false,
             refetchInterval: 30000
