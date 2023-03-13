@@ -10,7 +10,7 @@ const follower = async (follower) => {
         type
     };
 
-    !active && await httpClient.put(`/users/arbol/${ uid_user }/follow`, { career });
+    !active && await httpClient.put(`/users/arbol/${ uid_follower }/follow`, { career });
     !active && await httpClient.post(`/users/notification/${ uid_follower }`, notification);
     return await httpClient.put(`/users/interaction/${ uid_user }/follow/${ uid_follower }`);
 }

@@ -24,7 +24,8 @@ export const useTree = (uid_user, career) => {
         uid_user ? ['tree', uid_user, career] : [],
         getTree, {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            refetchInterval: 20000
         }
     );
 
