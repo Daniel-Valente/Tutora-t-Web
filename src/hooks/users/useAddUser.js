@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const addUser = async (user) =>
-    httpClient.post(`/users`, user, {
+    await httpClient.post(`/users`, user, {
         'Content-Type': 'application/json'
     });
 

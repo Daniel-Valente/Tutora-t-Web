@@ -4,7 +4,7 @@ import httpClient from "../../https/httpClient";
 
 const logIn = async (logIn) => {
 
-    return httpClient.post(`/users/LogIn`, logIn);
+    return await httpClient.post(`/users/LogIn`, logIn);
 }
 
 export const useLogIn = ( ) => useMutation(logIn);

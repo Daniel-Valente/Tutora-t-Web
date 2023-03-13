@@ -5,7 +5,7 @@ import httpClient from "../../https/httpClient";
 const updateChatToUser = async (messages) => {
     const { uid_user, uid_userChat } = messages;
 
-    return httpClient.put(`/chats/${ uid_user }/to/${ uid_userChat }`);
+    return await httpClient.put(`/chats/${ uid_user }/to/${ uid_userChat }`);
 }
 
 export const useUpdateChatToUser = ( uid_user, uid_userChat ) => {

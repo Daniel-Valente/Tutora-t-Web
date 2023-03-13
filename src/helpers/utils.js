@@ -128,3 +128,33 @@ export const isOut = (dispatch) => {
 export const handleMouseEnter = (dispatch) => {
     dispatch(hoveringState(true));
 }
+
+export const tree = (career, likes, posts, followed, comments, saves, courses, inscriptions ) => {
+    let allData = [ { total: 1, career }, ...likes, ...posts, ...followed, ...comments, ...saves, ...courses, ...inscriptions ];
+    
+    return getReference( allData );
+}
+
+const getReference = ( data ) => {
+    let newData = [];
+    let validation = [];
+    let size = 0;
+
+    data.forEach(( value, index, arr ) => {
+        if( size === data.length ) arr.length = index;
+        
+        if( !validation.includes( value.career )) {
+            const filterData = data.filter( data => data.career === value.career );
+            
+            newData.push({ career: value.career, total: filterData.reduce(( previous, current ) => previous + current.total, 0 )});
+            
+            size += data.filter( data => data.career === value.career ).length;
+            validation.push( value.career );
+        }
+    });
+
+    return { ...newData.reduce(( previous, current ) => previous.total > current.total ? previous : current )};
+}
+
+export const filterContent = (data, reference) => 
+    [ ...data.filter( data => data.career === reference.career ), ...data.filter( data => data.career !== reference.career )]; 

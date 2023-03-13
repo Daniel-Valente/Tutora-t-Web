@@ -102,7 +102,8 @@ const PerfilView = () => {
       uid_follower: userInfoPerfil.uid_user,
       active: followers.includes(userInfoPerfil.uid_user),
       action: 'comenzo a seguirte',
-      type: 'follower'
+      type: 'follower',
+      career: userInfoPerfil.career
     }
 
     follower(follow, {

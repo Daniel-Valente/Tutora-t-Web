@@ -14,7 +14,7 @@ const updateCourse = async (course) => {
     formData.append('visible', visible);
     formData.append('imgCourse', imgCourse);
 
-    return httpClient.put(`/courses/${ uid_user }/${ id_Course }`, formData, {
+    return await httpClient.put(`/courses/${ uid_user }/${ id_Course }`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }

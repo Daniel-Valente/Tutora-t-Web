@@ -1,29 +1,40 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import CardCareer from '../components/card-career/CardCareer';
 import CardCourses from '../components/card-courses/CardCourses';
-import { useCoursesList, useDivision } from '../hooks';
+import { filterContent } from '../helpers/utils';
+import { useCoursesList, useDivision, useTree } from '../hooks';
 
 const CoursesView = () => {
-
+  const userInfoPerfil = useSelector(state => state.user);
   const [categoria, setCategoria] = useState('Todos');
 
   const { data: dataDivisions, isFetching: fetchingDivisions, isLoading: loadingDivisions } = useDivision();
   const [divisions, setDivisions] = useState(dataDivisions);
+  
+  const { data: dataTree = [], isLoading: loadingTree, isFetching: fetchingTree } = useTree(userInfoPerfil.uid_user, userInfoPerfil.career);
+  const [ tree, setTree ] = useState(dataTree);
 
   const { data: dataCourseList, isFetching: fetchingCourseList, isLoading: loadingCourseList } = useCoursesList();
-  const [ courses, setCourses ] = useState(dataCourseList);
+  const [ courses, setCourses ] = useState( filterContent( dataCourseList, tree ));
 
   useEffect(() => {
     !fetchingDivisions && dataDivisions && setDivisions(dataDivisions);
     // eslint-disable-next-line
   }, [dataDivisions]);
+  
+  useEffect(() => {
+    !fetchingTree && dataTree && setTree(dataTree);
+    // eslint-disable-next-line
+  }, [dataTree]);
 
   useEffect(() => {
-    !fetchingCourseList && dataCourseList && setCourses(dataCourseList);
+    !fetchingCourseList && dataCourseList && tree && setCourses( filterContent( dataCourseList, tree ));
     // eslint-disable-next-line
   }, [dataCourseList]);
 
-  if ( loadingDivisions || loadingCourseList ) {
+  if ( loadingDivisions || loadingCourseList || loadingTree ) {
     return (
       <div className='parent'>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -47,7 +58,7 @@ const CoursesView = () => {
           </div>
           <br />
           <div className='row'>
-          {
+          { tree.length > -1 &&
             courses && courses.map((course, index) => 
               categoria === 'Todos'
               ? <CardCourses course={course} key={course._id} />

@@ -6,9 +6,10 @@ import CardCareer from "../components/card-career/CardCareer";
 import Course from "../components/course/Course";
 import CreatePost from "../components/create-post/CreatePost";
 import Post from "../components/Post/Post";
+import { filterContent } from "../helpers/utils";
 import {
   useCareersList, useCoursesList, useHidePostList,
-  usePostsList, useSavePostList, useUserByUsername
+  usePostsList, useSavePostList, useTree, useUserByUsername
 } from "../hooks";
 import { userInfo } from "../reducers";
 
@@ -22,18 +23,21 @@ const HomeView = () => {
   
   const { data: dataUser = [], isFetching: fetchingUser, isLoading: loadingUser } = useUserByUsername(userLogIn.displayName);
 
-  const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsList(dataUser.career);
-  const [posts, setPosts] = useState(dataPostsList);
+  const { data: dataTree = [], isLoading: loadingTree, isFetching: fetchingTree } = useTree(dataUser.uid_user, dataUser.career);
+  const [ tree, setTree ] = useState(dataTree);
 
+  const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsList();
+  const [posts, setPosts] = useState(filterContent(dataPostsList, tree));
+  
   const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
-
+  
   const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(dataUser.uid_user);
   const [hidePost, setHidePost] = useState(dataHidePost);
-
+  
   const { data: dataSavePost = [], isFetching: fetchingSavePost, isLoading: loadingSavePost } = useSavePostList(dataUser.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
-
+  
   const { data: dataCareers, isFetching: fetchingCareers, isLoading: loadingCareers } = useCareersList();
   const [careers, setCareers] = useState(dataCareers);
 
@@ -41,11 +45,6 @@ const HomeView = () => {
     !fetchingUser && dataUser && dispatch(userInfo(dataUser));
     // eslint-disable-next-line
   }, [dataUser]);
-
-  useEffect(() => {
-    !fetchingPostsList && dataPostsList && posts.length > -1 && setPosts(dataPostsList);
-    // eslint-disable-next-line
-  }, [dataPostsList]);
 
   useEffect(() => {
     !fetchingCoursesInscripto && dataCoursesInscripto && setCoursesInscripto(dataCoursesInscripto);
@@ -61,6 +60,18 @@ const HomeView = () => {
     !fetchingSavePost && dataSavePost && setSavePost(dataSavePost);
     // eslint-disable-next-line
   }, [dataSavePost]);
+
+  useEffect(() => {
+    !fetchingTree && dataTree && setTree(dataTree);
+    // eslint-disable-next-line
+  }, [dataTree]);
+
+  useEffect(() => { 
+    if(!fetchingPostsList && dataPostsList && posts.length > -1 && tree ) {
+      setPosts(filterContent(dataPostsList, tree));
+    }
+    // eslint-disable-next-line
+  }, [dataPostsList]);
 
   useEffect(() => {
     !fetchingCareers && dataCareers && setCareers(dataCareers);
@@ -92,7 +103,7 @@ const HomeView = () => {
         </div>
         <div className="col-7">
           <CreatePost />
-          {
+          { tree &&
             posts.map((post, index) => post.visible
               && !hidePost.includes(post._id)
               && section === 'Todos'

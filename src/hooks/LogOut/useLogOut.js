@@ -4,7 +4,7 @@ import httpClient from "../../https/httpClient";
 
 const logOut = async () => {
 
-    return httpClient.post(`/users/LogOut`);
+    return await httpClient.post(`/users/LogOut`);
 }
 
 export const useLogOut = ( ) => useMutation(logOut);

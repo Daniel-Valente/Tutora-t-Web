@@ -13,7 +13,7 @@ const updateUser = async (user) => {
     formData.append('username',username);
     formData.append('carrera',carrera);
 
-    return httpClient.put(`/users/${ uid_user }`, formData, {
+    return await httpClient.put(`/users/${ uid_user }`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }

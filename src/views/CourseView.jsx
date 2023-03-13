@@ -165,20 +165,13 @@ const CourseView = () => {
     // eslint-disable-next-line
   }, [dataCareers]);
 
-  if (loadingCourse || loadingPosts || loadingUserRegister || loadingUsersList) {
-    return (
-      <div className='parent'>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-      </div>
-    )
-  }
-
   const handleRegister = () => {
     const register = { 
       id_Course, 
       uid_user: userInfo.uid_user,
       action: 'se unio a tu tutoria',
       uid_creator: course.uid_user,
+      career: course.career,
       type: 'inscription',
       dataUserRegister
     }
@@ -188,6 +181,14 @@ const CourseView = () => {
         console.log(response);
       }
     });
+  }
+
+  if (loadingCourse || loadingPosts || loadingUserRegister || loadingUsersList) {
+    return (
+      <div className='parent'>
+        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+    )
   }
 
   return (
@@ -269,7 +270,7 @@ const CourseView = () => {
           <div className='row'>
             {
               course && users.map((userParticipant, index) => {
-                if ( course && course.participants.includes(userParticipant.uid_user)) {
+                if ( course && course.participants && course.participants.includes(userParticipant.uid_user)) {
                   return <div className='col-2' key={userParticipant.uid_user}>
                     <Link to={`/perfil/${userParticipant.uid_user}`} style={{ textDecoration: 'none' }}>
                       <div className='boton-circular-volteado-4'>

@@ -59,6 +59,7 @@ const Post = (props) => {
             action: `reacciono a tu publicación`,
             uid_creator: post.uid_user,
             type: 'like',
+            career: post.career,
             starActive
         };
 
@@ -128,7 +129,7 @@ const Post = (props) => {
     const handleSave = () => {
         !!menu && setMenu(!menu);
         savePost({ uid_user: userInfoPerfil.uid_user, 
-            id_Post: post._id }, {
+            id_Post: post._id, career: post.career }, {
             onSuccess: (response) => {
                 dispatch(
                     alertState({
@@ -148,6 +149,7 @@ const Post = (props) => {
             comment: commentValue,
             action: `realizo un comentario en tu publicación`,
             uid_creator: post.uid_user,
+            career: post.career,
             type: 'comment',
          };
         setCommentValue('');
