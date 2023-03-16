@@ -7,28 +7,34 @@ import NotificationModal from '../modals/NotificationModal';
 import UserModal from '../modals/UserModal';
 
 import { exit, messagesBlack, notifications, search, settings, user } from '../../images';
-import { isChatModal, isNotificationModal, isOut, isUserModal } from '../../helpers/utils';
-import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit } from '../../hooks';
+import { isChatModal, isNotificationModal, isOut, isSearchModal, isUserModal } from '../../helpers/utils';
+import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit, useUsersList } from '../../hooks';
 import { userInfo, userLogInState } from '../../reducers';
 import CardMessage from '../card-message/CardMessage';
 import CardNotification from '../card-notification/CardNotification';
 import Scrollbars from 'react-custom-scrollbars-2';
+import { SearchModal } from '../modals/SearchModal';
+import CardUsers from '../card-users/CardUsers';
 
 const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
   const { mutate: logOut } = useLogOut();
 
-  const [first,] = useState([0, 1, 2, 3, 4]);
-
   const { value: userModal } = useSelector(state => state.userModal);
   const { value: chatModal } = useSelector(state => state.chatModal);
+  const { value: searchModal } = useSelector(state => state.searchModal);
   const { value: notificationModal } = useSelector(state => state.notificationModal);
+
+  const [searchText, setSearchText] = useState('');
 
   const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
   const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);
-  
-  const{ data: dataNotificationsWithLimit = [], isFetching: fetchingNotifications } = useNotificationsWithLimit( userInfoPerfil.uid_user, 10 );
-  const [ notificationsWithLimit , setNotificationsWithLimit ] = useState(dataNotificationsWithLimit);
+
+  const { data: dataNotificationsWithLimit = [], isFetching: fetchingNotifications } = useNotificationsWithLimit(userInfoPerfil.uid_user, 10);
+  const [notificationsWithLimit, setNotificationsWithLimit] = useState(dataNotificationsWithLimit);
+
+  const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
+  const [users, setUsers] = useState(dataUsers);
 
   const dispatch = useDispatch();
 
@@ -67,6 +73,8 @@ const HomeHeader = () => {
     isOut(dispatch);
   }
 
+  const changeHandle = (e) => setSearchText( e.target.value );
+
   useEffect(() => {
     !fetchingChats && dataChatsWithLimit && setChatsWithLimit(dataChatsWithLimit);
     // eslint-disable-next-line
@@ -77,15 +85,24 @@ const HomeHeader = () => {
     // eslint-disable-next-line
   }, [dataNotificationsWithLimit]);
 
+  useEffect(() => {
+    !fetchingUsers && dataUsers && setUsers(dataUsers);
+    // eslint-disable-next-line
+  }, [dataUsers]);
+
   return (
     <div className="principal-header header">
       <Link className='logo-link' to='/home'>tutorate</Link>
-      {/* <div className='search'>
-        <input className='search-input' placeholder='Buscar...' type="text" />
+      <div className='search'>
+        <input className='search-input' placeholder='Buscar...' type="text" 
+          onFocus={() => isSearchModal(dispatch, searchModal)} 
+          onChange={ changeHandle }
+          value={ searchText }
+        />
         <button className='search-icon'>
           <img className='search-imag' src={search} alt="search" />
         </button>
-      </div> */}
+      </div>
 
       <button className='boton-circular'
         onClick={() => isUserModal(dispatch, userModal)}>
@@ -127,9 +144,9 @@ const HomeHeader = () => {
       <NotificationModal active={notificationModal} toggle={isNotificationModal} dispatch={dispatch}>
         <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Notificaciones</h2>
         <Scrollbars style={{ width: '99%', height: 381 }}>
-        {
-          notificationsWithLimit.map( ( notification, index ) => <CardNotification notification={notification} key={ index } notificationModal={notificationModal} /> )
-        }
+          {
+            notificationsWithLimit.map((notification, index) => <CardNotification notification={notification} key={index} notificationModal={notificationModal} />)
+          }
         </Scrollbars>
       </NotificationModal>
 
@@ -143,6 +160,20 @@ const HomeHeader = () => {
         </div>
         <br />
       </MessageModal>
+
+      <SearchModal active={searchModal} toggle={isSearchModal} dispatch={dispatch}>
+        <div className='row'>
+          <Scrollbars style={{ width: '100%', minHeight: 40, height: 381 }}>
+            <div className='col-1' />
+            <div className='row col-8'>
+              {
+                users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user && <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
+              }
+            </div>
+            <div className='col-1' />
+          </Scrollbars>
+        </div>
+      </SearchModal>
     </div>
   )
 }

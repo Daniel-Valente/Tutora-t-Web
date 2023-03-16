@@ -134,29 +134,33 @@ const PostPanel = () => {
 
                     <div className='row'>
                         <div className='meGusta'>
-                            <img
-                                className='star'
-                                style={{ position: 'absolute', top: '75vh', left: '0' }}
-                                src={starActive ? star : starSinF} alt="star"
-                                onClick={handleStar}
-                            />
-                            <p style={{
-                                position: 'absolute',
-                                top: '74vh',
-                                left: '2vw',
-                                color: '#858585'
-                            }}>
-                                {likes}
-                            </p>
-                            <p style={{
-                                position: 'absolute',
-                                top: '77vh',
-                                left: '0',
-                                color: '#858585'
-                            }}
-                            > {formatDate()} </p>
-                            <input className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
-                            <img className='send-2' src={send} alt="send" onClick={ handleSubmit } />
+                            <div className='row'>
+                                <img
+                                    className='star'
+                                    style={{ position: 'relative', top: '45vh', left: '0' }}
+                                    src={starActive ? star : starSinF} alt="star"
+                                    onClick={handleStar}
+                                />
+                                <p style={{
+                                    position: 'relative',
+                                    top: '41vh',
+                                    left: '2vw',
+                                    color: '#858585'
+                                }}>
+                                    {likes}
+                                </p>
+                                <p style={{
+                                    position: 'relative',
+                                    top: '40vh',
+                                    left: '0',
+                                    color: '#858585'
+                                }}
+                                > {formatDate()} </p>
+                            </div>
+                            <div className='row'>
+                                <input className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
+                                <img className='send-2' src={send} alt="send" onClick={ handleSubmit } />
+                            </div>
                         </div>
                     </div>
                 </div>

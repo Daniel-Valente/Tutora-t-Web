@@ -253,19 +253,23 @@ const PerfilView = () => {
               </div>
               :
               <div>
-                <button className='button-follow' onClick={followHandle}>
-                  {
-                    followers.includes(userInfoPerfil.uid_user) ? 'Dejar de seguir' : 'Seguir'
-                  }
-                </button>
-                <button className='button-message'>
-                  <Link 
-                    to={`${ location.pathname.split('/', 2)[0] }/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
-                    state={{ background: location, prevPath: location.pathname }}
-                    style={{ textDecoration: 'none', color: 'white' }}>
-                    Enviar mensaje
-                  </Link>
-                </button>
+                <div className='row'>
+                  <button className='button-follow' onClick={followHandle}>
+                    {
+                      followers.includes(userInfoPerfil.uid_user) ? 'Dejar de seguir' : 'Seguir'
+                    }
+                  </button>
+                </div>
+                <div className='row'>
+                  <button className='button-message'>
+                    <Link 
+                      to={`${ location.pathname.split('/', 2)[0] }/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
+                      state={{ background: location, prevPath: location.pathname }}
+                      style={{ textDecoration: 'none', color: 'white' }}>
+                      Enviar mensaje
+                    </Link>
+                  </button>
+                </div>
               </div>
           }
         </div>
@@ -329,22 +333,24 @@ const PerfilView = () => {
         <div className='col-2'>
           <br />
           <br />
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
-            <b>
-              {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
-            </b>
-            <div className='parent'>
-              {
-                userInfoPerfil.uid_user === userPerfil.uid_user
-                && <img className='button-new-course' src={isHoverButton ? newFocus : newButtton}
-                  alt="new-course"
-                  onMouseEnter={() => setIsHoverButton(true)}
-                  onMouseLeave={() => setIsHoverButton(false)}
-                  onClick={createCourseHandler}
-                />
-              }
-            </div>
-          </label>
+          <div className='row'>
+            <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
+              <b className='col-5'>
+                {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
+              </b>
+              <div className='parent col-1'>
+                {
+                  userInfoPerfil.uid_user === userPerfil.uid_user
+                  && <img className='button-new-course' src={isHoverButton ? newFocus : newButtton}
+                    alt="new-course"
+                    onMouseEnter={() => setIsHoverButton(true)}
+                    onMouseLeave={() => setIsHoverButton(false)}
+                    onClick={createCourseHandler}
+                  />
+                }
+              </div>
+            </label>
+          </div>
           {
             courses.map((course, index) =>
               userPerfil.uid_user === course.uid_user &&

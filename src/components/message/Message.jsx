@@ -48,7 +48,7 @@ const Message = (props) => {
     }
 
     return (
-        filter && input ? <div className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user  ? 'message-not-view' : '' }`} onClick={ () => console.log('hola') }>
+        filter && input ? <div className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user  ? 'message-not-view' : '' }`}>
             <Outlet />
             <div className='col-3'>
                 <Link to={`/perfil/${userInfoPerfil.uid_user === chat.uid_user ? userChat.uid_user : userPefil.uid_user}`}>

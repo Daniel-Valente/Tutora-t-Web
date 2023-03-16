@@ -5,7 +5,12 @@ import httpClient from "../../https/httpClient";
 const getUsersList = async () => {
     const { data } = await httpClient.get(`/users`);
 
-    return data;
+    const node = data.filter( data => {
+        if(data.name) return data;
+    } );
+    console.log(node);
+
+    return node;
 }
 
 export const useUsersList = () => {

@@ -2,6 +2,7 @@ import {
     chatModalState, commentModalState, editPublicationState, hoveringState,
     logInModalState, loginWithEmailState, notificationModalState,
     publicationState, registerModalState, registerWithEmailState,
+    searchModalState,
     sessionState, userModalState
 } from "../reducers";
 
@@ -110,6 +111,10 @@ export const isEditPublicationModal = (dispatch, activePublications) => {
     !activePublications && window.scrollTo(0, 0);
     document.body.overflow = 'hidden';
     dispatch(editPublicationState(!activePublications));
+}
+
+export const isSearchModal = ( dispatch, activeSearch ) => {
+    dispatch(searchModalState(!activeSearch));
 }
 
 export const isLogIn = (dispatch) => {
