@@ -19,8 +19,9 @@ const addPost = async (post) => {
     formData.append('imgPost', imgPost);
     formData.append('career', career);
 
-    id_Course && httpClient.post(`/users/notification/${ uid_user }`, notification);
-    return httpClient.post(`/posts/${ uid_user }`, formData, {
+    id_Course && await httpClient.post(`/users/notification/${ uid_user }`, notification);
+    await httpClient.put(`/users/arbol/${ uid_user }/post`, { career });
+    return await httpClient.post(`/posts/${ uid_user }`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }

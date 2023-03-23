@@ -14,7 +14,8 @@ const addCourse = async (course) => {
     formData.append('site', site);
     formData.append('imgCourse', imgCourse);
 
-    return httpClient.post(`/courses/${ uid_user }`, formData, {
+    await httpClient.put(`/users/arbol/${ uid_user }/course`, { career });
+    return await httpClient.post(`/courses/${ uid_user }`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }

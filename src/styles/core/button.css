@@ -137,6 +137,7 @@
 
 .button-follow {
   background-color: #1492e6;
+  cursor: pointer;
   border-radius: 10px;
   height: 40px;
   border: none;
@@ -147,12 +148,11 @@
   font-weight: bold;
   margin-right: 100px;
   margin-left: 100px;
-  position: absolute;
-  left: 0;
+  width: 95%;
+  margin-bottom: 1vh;
 }
 
 .button-follow:hover {
-  background-color: #1492e6;
   color: #f0f2f5;
 }
 
@@ -207,9 +207,9 @@
 .button-new-course {
   width: 20px;
   height: 20px;
-  bottom: 0.3vh;
-  right: 16vh;
-  position: absolute;
+  right: 3vh;
+  top: 1vh;
+  position: relative;
 }
 
 .button-message {
@@ -224,12 +224,9 @@
   font-weight: bold;
   margin-right: 100px;
   margin-left: 100px;
-  position: absolute;
-  top: 71%;
-  left: 0;
+  width: 95%;
 }
 
 .button-message:hover {
-  background-color: #db188a;
   color: #f0f2f5;
 }

@@ -1,3 +1,5 @@
+export { useTree } from "./tree/useTree";
+
 export { useAllNotifications } from "./notifications/useAllNotifications";
 export { useNotifications } from "./notifications/useNotifications";
 export { useNotificationsWithLimit } from "./notifications/useNotificationsWithLimit";
