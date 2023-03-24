@@ -8,8 +8,7 @@ const getUsersList = async () => {
     const node = data.filter( data => {
         if(data.name) return data;
     } );
-    console.log(node);
-
+    
     return node;
 }
 

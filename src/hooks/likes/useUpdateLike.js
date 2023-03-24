@@ -12,8 +12,8 @@ const updateLike = async (likes) => {
     };
     
     !starActive && uid_user !== uid_creator && await httpClient.post(`/users/notification/${ uid_user }`, notification);
-    !starActive && await httpClient.put(`/users/arbol/${ uid_user }/like`, { career });
-    return await httpClient.put(`/likes/${uid_user}/${ id_Post }`);
+    !starActive && await httpClient.patch(`/users/arbol/${ uid_user }/like`, { career });
+    return await httpClient.patch(`/likes/${uid_user}/${ id_Post }`);
 }
 
 export const useUpdateLike = ( id_Post ) => {

@@ -2,6 +2,7 @@ import {
     chatModalState, commentModalState, editPublicationState, hoveringState,
     logInModalState, loginWithEmailState, notificationModalState,
     publicationState, registerModalState, registerWithEmailState,
+    resetPasswordModalState,
     searchModalState,
     sessionState, userModalState
 } from "../reducers";
@@ -14,6 +15,11 @@ export const isLoginModal = (dispatch, sessionModal) => {
 export const isLoginWithEmail = (dispatch, loginModal) => {
     dispatch(logInModalState(false));
     dispatch(loginWithEmailState(!loginModal));
+}
+
+export const isResetPassword = (dispatch, resetModal) => {
+    dispatch(loginWithEmailState(false));
+    dispatch(resetPasswordModalState(!resetModal));
 }
 
 export const isRegisterModal = (dispatch, registerModal) => {

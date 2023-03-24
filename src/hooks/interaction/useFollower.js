@@ -10,9 +10,9 @@ const follower = async (follower) => {
         type
     };
 
-    !active && await httpClient.put(`/users/arbol/${ uid_follower }/follow`, { career });
+    !active && await httpClient.patch(`/users/arbol/${ uid_follower }/follow`, { career });
     !active && await httpClient.post(`/users/notification/${ uid_follower }`, notification);
-    return await httpClient.put(`/users/interaction/${ uid_user }/follow/${ uid_follower }`);
+    return await httpClient.patch(`/users/interaction/${ uid_user }/follow/${ uid_follower }`);
 }
 
 export const useFollower = ( uid_user ) => {

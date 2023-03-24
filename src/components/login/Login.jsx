@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import { isLogIn, isLoginModal, isLoginWithEmail, ValidateData } from '../../helpers/utils';
+import { isLogIn, isLoginModal, isLoginWithEmail, isResetPassword, ValidateData } from '../../helpers/utils';
 import { googleIcon } from '../../images';
 import LogInModal from '../modals/LogInModal';
 import Modal from '../modals/Modal';
 import { alertState, userLogInState } from '../../reducers';
 import Notification from '../notification/Notification';
-import { useLogIn } from '../../hooks';
+import { useLogIn, useResetPassword } from '../../hooks';
+import ResetPasswordModal from '../modals/ResetPasswordModal';
 
 const Login = () => {
   const { mutate: logIn } = useLogIn();
+  const { mutate: sendPasswordResetEmail } = useResetPassword();
 
   const [password, setPassword] = useState(false);
   const [loginValue, setLoginValue] = useState({
@@ -21,6 +23,7 @@ const Login = () => {
   });
 
   const { value: loginModal } = useSelector(state => state.loginModal);
+  const { value: resetPasswordModal } = useSelector(state => state.resetPasswordModal);
   const { value: loginWitnEmail } = useSelector(state => state.loginWitnEmail);
   const dispatch = useDispatch();
 
@@ -39,6 +42,16 @@ const Login = () => {
     setLoginValue({ ...loginValue, [event.target.name]: event.target.value })
   }
 
+  const resetPassword = () => {
+    setLoginValue({
+      email: '',
+      password: ''
+    });
+
+    isLoginWithEmail(dispatch, loginWitnEmail);
+    isResetPassword(dispatch, resetPasswordModal);
+  }
+
   const handleSubmit = () => {
     logIn(loginValue, {
       onSuccess: (response) => {
@@ -48,8 +61,8 @@ const Login = () => {
             message: "Welcome!!!",
             type: "success",
           })
-          );
-          
+        );
+
         dispatch(userLogInState(response.data));
         isLogIn(dispatch);
         isLoginWithEmail(dispatch, loginWitnEmail);
@@ -70,9 +83,39 @@ const Login = () => {
     });
   }
 
+  const handleSubmitResetPassword = () => {
+    sendPasswordResetEmail(loginValue, {
+      onSuccess: (response) => {
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: response.data,
+            type: "success",
+          })
+        );
+
+        isResetPassword(dispatch, resetPasswordModal);
+      },
+      onError: ({ response }) => {
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: response.data.error,
+            type: "error",
+          })
+        );
+      }
+    });
+
+    setLoginValue({
+      email: '',
+      password: ''
+    });
+  }
+
   return (
     <div>
-      <Modal active={ loginModal } toggle={ isLoginModal } dispatch={dispatch}>
+      <Modal active={loginModal} toggle={isLoginModal} dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Bienvenido de vuelta!</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Inicia sesion con tu correo electrónico o con Google.
@@ -90,7 +133,7 @@ const Login = () => {
         </p>
       </Modal>
 
-      <LogInModal active={ loginWitnEmail } toggle={ isLoginWithEmail } dispatch={dispatch}>
+      <LogInModal active={loginWitnEmail} toggle={isLoginWithEmail} dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Iniciar Sesion</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Inicia sesion con tu correo electronico aqui.
@@ -122,8 +165,23 @@ const Login = () => {
           <br />y el aviso de privacidad.
         </p>
         <div className="linea-acostada" />
-        <button className="boton-sin-fondo">¿Olvidaste tu contraseña? </button>
+        <button className="boton-sin-fondo" onClick={resetPassword}>¿Olvidaste tu contraseña? </button>
       </LogInModal>
+
+      <ResetPasswordModal active={resetPasswordModal} toggle={isResetPassword} dispatch={dispatch}>
+        <h1 style={{ textAlign: "center" }}>Iniciar Sesion</h1>
+        <h5 style={{ textAlign: "center", color: "#828181" }}>
+          Recupera tu contraseña aquí.
+        </h5>
+        <input type="email" placeholder="Correo electronico" name='email'
+          value={loginValue.email}
+          onChange={handleChange}
+          required
+        />
+        <br />
+        <button className="boton-correo" onClick={handleSubmitResetPassword} >Enviar correo</button>
+        <br />
+      </ResetPasswordModal>
 
       <Notification />
     </div>
