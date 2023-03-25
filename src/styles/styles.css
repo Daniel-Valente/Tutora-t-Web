@@ -1,0 +1,23 @@
+@import './index.css';
+
+@import './App.css';
+
+/* cores */
+@import './core/grid.css';
+@import './core/button.css';
+@import './core/input.css';
+@import './core/spinner.css';
+
+/* compoents */
+@import './components/post.css';
+@import './components/createPost.css';
+@import './components/course.css';
+@import './components/CardCareer.css';
+@import './components/CardNotification.css';
+
+/* views */
+@import './views/MainView.css';
+@import './views/PerfilView.css';
+@import './views/ChatsView.css';
+@import './views/ChatView.css';
+@import './views/SettingsView.css';

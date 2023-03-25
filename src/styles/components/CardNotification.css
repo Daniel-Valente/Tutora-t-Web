@@ -1,0 +1,9 @@
+.card-notification {
+    min-height: 6vh;
+    padding: 1vh;
+}
+
+.card-notification:hover, .card-message:hover {
+    background-color: rgba(183, 255, 255, 0.427);
+    cursor: pointer;
+}

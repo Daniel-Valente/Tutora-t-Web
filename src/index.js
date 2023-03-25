@@ -1,21 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import Principal from './front/pages/principal';
-import Perfil from './front/pages/perfil';
+import { Provider } from 'react-redux';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
-import { Routes ,Route, BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { store } from './store/index';
+import './styles/styles.css';
+
+import reportWebVitals from './reportWebVitals';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const persistor = persistStore(store);
+const queryClient = new QueryClient();
+
 root.render(
-  <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<App/>}/>
-          <Route exact path="/principal" element={<Principal/>}/>
-          <Route exact path="/perfil" element={<Perfil/>}/>
-        </Routes>
-    </BrowserRouter>
+  <React.StrictMode>
+    <Provider store={ store }>
+      <PersistGate loading={ null } persistor={ persistor }>  
+        <React.Suspense fallback={ <span>Loading...</span> }>
+          <QueryClientProvider client={ queryClient }>
+            <ReactQueryDevtools />
+            <App />
+          </QueryClientProvider>
+        </React.Suspense>
+      </PersistGate>
+    </Provider>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
