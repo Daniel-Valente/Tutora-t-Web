@@ -25,7 +25,7 @@ const HomeHeader = () => {
   const { value: searchModal } = useSelector(state => state.searchModal);
   const { value: notificationModal } = useSelector(state => state.notificationModal);
 
-  const [searchText, setSearchText] = useState('');
+  const [ searchText, setSearchText ] = useState('');
 
   const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
   const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);

@@ -4,7 +4,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import { isLogIn, isLoginModal, isLoginWithEmail, isResetPassword, ValidateData } from '../../helpers/utils';
-import { googleIcon } from '../../images';
 import LogInModal from '../modals/LogInModal';
 import Modal from '../modals/Modal';
 import { alertState, userLogInState } from '../../reducers';
@@ -120,9 +119,6 @@ const Login = () => {
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Inicia sesion con tu correo electrónico o con Google.
         </h5>
-        <button className="boton-google">Ingresar con Google</button>
-        <img src={googleIcon} className="google-icon"></img>
-        <br />
         <button className="boton-correo" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
           Ingresa con correo electronico
         </button>

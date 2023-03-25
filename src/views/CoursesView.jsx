@@ -58,7 +58,7 @@ const CoursesView = () => {
           </div>
           <br />
           <div className='row'>
-          { tree.length > -1 &&
+          { tree &&
             courses && courses.map((course, index) => 
               categoria === 'Todos'
               ? <CardCourses course={course} key={course._id} />

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   isLogIn,
   isRegisterModal,
   isRegisterWithEmail,
   ValidateData,
 } from "../../helpers/utils";
-import { useCareerList } from "../../hooks";
-import { googleIcon } from "../../images";
+import { useCareerList, useAddUser } from "../../hooks";
 import { alertState, userLogInState } from "../../reducers";
 import Modal from "../modals/Modal";
-
 import RegisterModal from "../modals/RegisterModal";
 import Notification from "../notification/Notification";
 import RegisterForm from "./RegisterForm";
-
-import { useAddUser } from "../../hooks";
 
 const Register = () => {
   const { mutate: addUser } = useAddUser();
@@ -107,8 +104,6 @@ const Register = () => {
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Crea una cuenta con tu correo electrónico o con Google.
         </h5>
-        <button className="boton-google">Registrate con Google</button>
-        <img src={googleIcon} alt="google" className="google-icon"></img>
         <br />
         <button
           className="boton-correo"
