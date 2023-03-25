@@ -11,9 +11,9 @@ const registrationUser = async (course) => {
         type
     };
 
-    await httpClient.put(`/users/arbol/${ uid_user }/course/inscripto`, { career });
+    await httpClient.patch(`/users/arbol/${ uid_user }/course/inscripto`, { career });
     !dataUserRegister && await httpClient.post(`/users/notification/${ uid_user }`, notification);
-    return await httpClient.put(`/courses/${ id_Course }/registration/${ uid_user }`);
+    return await httpClient.patch(`/courses/${ id_Course }/registration/${ uid_user }`);
 }
 
 export const useRegistrationUser = (id_Course, uid_user) => {

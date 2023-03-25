@@ -64,7 +64,7 @@ const ChatView = () => {
         <br />
         <div className="section-message-chat">
           <div className="sidebar-messages-chat main-message-chat">
-            <Scrollbars style={{ width: '42.5vh', height: '42vh' }} ref={scrollRef}>
+            <Scrollbars autoHeight autoHeightMax={ '42vh' }  style={{ width: '42.5vh' }} ref={scrollRef}>
               {
                 chatMessages && chatMessages.map((chat, index) => <ChatMessage key={index} chat={chat} userChat={userChat} />)
               }

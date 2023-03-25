@@ -11,7 +11,7 @@ const addComment = async (comments) => {
         type
     };
     
-    await httpClient.put(`/users/arbol/${ uid_user }/comment`, { career });
+    await httpClient.patch(`/users/arbol/${ uid_user }/comment`, { career });
     await httpClient.post(`/users/notification/${ uid_user }`, notification);
     return await httpClient.post(`/comments/${uid_user}/${id_Post}`, comments);
 }

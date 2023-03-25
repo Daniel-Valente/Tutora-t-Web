@@ -46,7 +46,7 @@ const ChatsList = ({ openHandle }) => {
             <br />
             <br />
             <div className="linea-acostada" />
-            <Scrollbars  style={{ width: 480, height: 731 }}>
+            <Scrollbars  autoHeight autoHeightMax={ 731 }  style={{ width: 480 }}>
                 { chats.map( ( chat, index ) => <Message chat={chat} key={chat.id_Message} input={ searchText } openHandle={openHandle} /> ) }
             </Scrollbars>
         </div>

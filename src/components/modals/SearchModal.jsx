@@ -6,16 +6,16 @@ export const SearchModal = (props) => {
 
     const styles = {
         wrapper: {
-            position: "absolute",
+            position: "fixed",
             top: 70,
-            right: 685,
-            width: "100vw",
-            height: "92%",
+            width: "100%",
+            height: "100%",
         },
         window: {
             position: "relative",
             background: "#fff",
             borderRadius: 10,
+            right: 685,
             float: "right",
             width: "50%",
             maxHeight: "48%",

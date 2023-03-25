@@ -25,7 +25,7 @@ const HomeHeader = () => {
   const { value: searchModal } = useSelector(state => state.searchModal);
   const { value: notificationModal } = useSelector(state => state.notificationModal);
 
-  const [searchText, setSearchText] = useState('');
+  const [ searchText, setSearchText ] = useState('');
 
   const { data: dataChatsWithLimit = [], isFetching: fetchingChats } = useChatsListWithLimit(userInfoPerfil.uid_user, 5);
   const [chatsWithLimit, setChatsWithLimit] = useState(dataChatsWithLimit);
@@ -95,7 +95,7 @@ const HomeHeader = () => {
       <Link className='logo-link' to='/home'>tutorate</Link>
       <div className='search'>
         <input className='search-input' placeholder='Buscar...' type="text" 
-          onFocus={() => isSearchModal(dispatch, searchModal)} 
+          onFocus={() => isSearchModal(dispatch, searchModal)}
           onChange={ changeHandle }
           value={ searchText }
         />
@@ -143,7 +143,7 @@ const HomeHeader = () => {
 
       <NotificationModal active={notificationModal} toggle={isNotificationModal} dispatch={dispatch}>
         <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Notificaciones</h2>
-        <Scrollbars style={{ width: '99%', height: 381 }}>
+        <Scrollbars autoHeight autoHeightMax={381} style={{ width: '99%' }}>
           {
             notificationsWithLimit.map((notification, index) => <CardNotification notification={notification} key={index} notificationModal={notificationModal} />)
           }
@@ -163,7 +163,7 @@ const HomeHeader = () => {
 
       <SearchModal active={searchModal} toggle={isSearchModal} dispatch={dispatch}>
         <div className='row'>
-          <Scrollbars style={{ width: '100%', minHeight: 40, height: 381 }}>
+          <Scrollbars autoHeight autoHeightMax={381} >
             <div className='col-1' />
             <div className='row col-8'>
               {

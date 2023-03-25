@@ -2,6 +2,7 @@ import {
     chatModalState, commentModalState, editPublicationState, hoveringState,
     logInModalState, loginWithEmailState, notificationModalState,
     publicationState, registerModalState, registerWithEmailState,
+    resetPasswordModalState,
     searchModalState,
     sessionState, userModalState
 } from "../reducers";
@@ -14,6 +15,11 @@ export const isLoginModal = (dispatch, sessionModal) => {
 export const isLoginWithEmail = (dispatch, loginModal) => {
     dispatch(logInModalState(false));
     dispatch(loginWithEmailState(!loginModal));
+}
+
+export const isResetPassword = (dispatch, resetModal) => {
+    dispatch(loginWithEmailState(false));
+    dispatch(resetPasswordModalState(!resetModal));
 }
 
 export const isRegisterModal = (dispatch, registerModal) => {
@@ -161,5 +167,8 @@ const getReference = ( data ) => {
     return { ...newData.reduce(( previous, current ) => previous.total > current.total ? previous : current )};
 }
 
-export const filterContent = (data, reference) => 
-    [ ...data.filter( data => data.career === reference.career ), ...data.filter( data => data.career !== reference.career )]; 
+export const filterContent = (data, reference) => {
+    if( !data ) return [];
+    
+    return [ ...data.filter( data => data.career === reference.career ), ...data.filter( data => data.career !== reference.career )]; 
+}
