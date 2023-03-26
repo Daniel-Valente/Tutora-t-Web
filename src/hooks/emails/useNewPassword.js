@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import httpClient from "../../https/httpClient";
 
 const newPassword = async (user) =>
-    await httpClient.post(`/users/password-reset`, user, {
+    await httpClient.patch(`/users/password-reset`, user, {
         'Content-Type': 'application/json'
     });
 
