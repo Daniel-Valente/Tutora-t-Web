@@ -21,6 +21,8 @@ import userReducer from '../reducers/users/userSlice';
 import userLogInReducer from '../reducers/users/userLogInSlice';
 import searchModalReducer from '../reducers/search/searchModalSlice';
 import resetPasswordModalReducer from '../reducers/auth/resetPasswordModalSlice';
+import validateCodeModalReducer from '../reducers/auth/validateCodeModalSlice';
+import newPasswordModalReducer from '../reducers/auth/newPasswordModalSlice';
 
 const reducers = combineReducers({
     sessionActive: isLoginReducer,
@@ -40,6 +42,8 @@ const reducers = combineReducers({
     commentModal: commentModalReducer,
     searchModal: searchModalReducer,
     resetPasswordModal: resetPasswordModalReducer,
+    validateCodeModal: validateCodeModalReducer,
+    newPasswordModal: newPasswordModalReducer,
 });
 
 const persistConfig = {
@@ -51,7 +55,7 @@ const persistConfig = {
         'registerWithEmail', 'commentModal', 'chatModal',
         'notificationModal', 'alert', 'publicationModal',
         'userModal', 'editPublicationModal, searchModal',
-        'resetPasswordModal']
+        'resetPasswordModal', 'validateCodeModal', 'newPasswordModal']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

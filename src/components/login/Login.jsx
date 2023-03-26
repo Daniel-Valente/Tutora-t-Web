@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import { isLogIn, isLoginModal, isLoginWithEmail, isResetPassword, ValidateData } from '../../helpers/utils';
+import { isLogIn, isLoginModal, isLoginWithEmail, isNewPassword, isResetPassword, isValidateCode, ValidateData } from '../../helpers/utils';
 import LogInModal from '../modals/LogInModal';
 import Modal from '../modals/Modal';
 import { alertState, userLogInState } from '../../reducers';
 import Notification from '../notification/Notification';
-import { useLogIn, useResetPassword } from '../../hooks';
+import { useLogIn, useNewPassword, useResetPassword } from '../../hooks';
 import ResetPasswordModal from '../modals/ResetPasswordModal';
 import ValidateCodeModal from '../modals/ValidateCodeModal';
 import NewPasswordModal from '../modals/NewPasswordModal';
@@ -16,22 +16,26 @@ import NewPasswordModal from '../modals/NewPasswordModal';
 const Login = () => {
   const { mutate: logIn } = useLogIn();
   const { mutate: sendPasswordResetEmail } = useResetPassword();
+  const { mutate: newPassword } = useNewPassword();
 
+  const [codeValidation, setCodeValidation] = useState();
   const [password, setPassword] = useState(false);
+  const [confirmPasswordView, setConfirmPasswordView] = useState(false);
   const [loginValue, setLoginValue] = useState({
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    code: null,
   });
 
   const { value: loginModal } = useSelector(state => state.loginModal);
   const { value: resetPasswordModal } = useSelector(state => state.resetPasswordModal);
-  //const { value: validateCodeModal } = useSelector(state => state.validateCodedModal);
+  const { value: validateCodeModal } = useSelector(state => state.validateCodeModal);
+  const { value: newPasswordModal } = useSelector(state => state.newPasswordModal);
   const { value: loginWitnEmail } = useSelector(state => state.loginWitnEmail);
+
   const dispatch = useDispatch();
 
-  const [passwordView, setPasswordView] = useState(false);
-  const [confirmPasswordView, setConfirmPasswordView] = useState(false);
   const handleChange = (event) => {
     const validation = ValidateData(event.target, loginValue);
     if (!validation.confirm) {
@@ -54,6 +58,7 @@ const Login = () => {
     });
 
     isLoginWithEmail(dispatch, loginWitnEmail);
+    setCodeValidation(Math.floor(Math.random() * 100000) + 1);
     isResetPassword(dispatch, resetPasswordModal);
   }
 
@@ -82,14 +87,15 @@ const Login = () => {
         );
       }
     });
-    setLoginValue({
-      email: '',
-      password: ''
-    });
   }
 
   const handleSubmitResetPassword = () => {
-    sendPasswordResetEmail(loginValue, {
+    const user = {
+      email: loginValue.email,
+      code: codeValidation,
+    }
+
+    sendPasswordResetEmail(user, {
       onSuccess: (response) => {
         dispatch(
           alertState({
@@ -100,6 +106,7 @@ const Login = () => {
         );
 
         isResetPassword(dispatch, resetPasswordModal);
+        isValidateCode(dispatch, validateCodeModal);
       },
       onError: ({ response }) => {
         dispatch(
@@ -111,12 +118,65 @@ const Login = () => {
         );
       }
     });
+  };
 
-    setLoginValue({
-      email: '',
-      password: ''
+  const handleSubmitValidateCode = () => {
+    if (codeValidation.toString() === loginValue.code) {
+      isValidateCode(dispatch, validateCodeModal);
+      isNewPassword(dispatch, newPasswordModal);
+    }
+    else {
+      dispatch(
+        alertState({
+          isOpen: true,
+          message: 'El código ingresado no coincide',
+          type: "error",
+        })
+      );
+    }
+  };
+
+  const handleSubmitNewPassword = () => {
+    newPassword(loginValue, {
+      onSuccess: () => {
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: 'Nueva Contraseña creada',
+            type: "success",
+          })
+        );
+
+        setLoginValue({
+          email: '',
+          password: '',
+          confirmPassword: '',
+          code: null
+        });
+        
+        isNewPassword(dispatch, newPasswordModal);
+        isLoginWithEmail(dispatch, loginWitnEmail);
+        setCodeValidation(null);
+      },
+      onError: ({ response }) => {
+        dispatch(
+          alertState({
+            isOpen: true,
+            message: response.data.error,
+            type: "error",
+          })
+        );
+      }
     });
   }
+
+  useEffect(() => {
+    if (codeValidation) {
+      setTimeout(() => {
+        setCodeValidation(null);
+      }, 300000);
+    }
+  }, [codeValidation]);
 
   return (
     <div>
@@ -184,55 +244,58 @@ const Login = () => {
         <button className="boton-correo button1" onClick={handleSubmitResetPassword} >Enviar correo</button>
         <br />
       </ResetPasswordModal>
-      <ValidateCodeModal  active={true} toggle={isResetPassword} dispatch={dispatch}>
+
+      <ValidateCodeModal active={validateCodeModal} toggle={isValidateCode} dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Introduce codigo de validacion</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Por favor introduce el codigo que te fue proporcionado al correo electronico.
         </h5>
         <input className='validateInput' type="text" placeholder="Codigo" name='code'
           onChange={handleChange}
+          value={loginValue.code}
           required
         />
         <br />
-        <button className="boton-correo2 button2" onClick={handleSubmitResetPassword} >Validar codigo</button>
+        <button className="boton-correo2 button2" onClick={handleSubmitValidateCode} >Validar codigo</button>
         <br />
       </ValidateCodeModal>
-      <NewPasswordModal active={false} toggle={isResetPassword} dispatch={dispatch}>
+
+      <NewPasswordModal active={newPasswordModal} toggle={isNewPassword} dispatch={dispatch}>
         <h1 style={{ textAlign: "center" }}>Introduce tu nueva contraseña</h1>
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Introduce tu nueva contraseña aqui, recuerda que las dos deven de coincidir.
         </h5>
-        <input className='pass' type={confirmPasswordView ? "text" : "password"} placeholder="Contraseña nueva" name='password'
+        <input className='pass' type={password ? "text" : "password"} placeholder="Contraseña nueva" name='password'
           value={loginValue.password}
           onChange={handleChange}
           required
         />
-        <br/>
-        <input className='pass' type={confirmPasswordView ? "text" : "password"} placeholder="Contraseña nueva" name='password'
+        <br />
+        <input className='pass' type={confirmPasswordView ? "text" : "password"} placeholder="Confirmar contraseña nueva" name='confirmPassword'
           value={loginValue.confirmPassword}
           onChange={handleChange}
           required
         />
         <button
-        className="eye-icon-4"
-        onClick={() =>
-          passwordView ? setPasswordView(false) : setPasswordView(true)
-        }
-      >
-        {passwordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
-      </button>
-      <button
-        className="eye-icon-5"
-        onClick={() =>
-          confirmPasswordView
-            ? setConfirmPasswordView(false)
-            : setConfirmPasswordView(true)
-        }
-      >
-        {confirmPasswordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
-      </button>
-      <br/>
-        <button className="boton-correo3 button2" onClick={handleSubmitResetPassword} >Cambiar contraseña</button>
+          className="eye-icon-4"
+          onClick={() =>
+            password ? setPassword(false) : setPassword(true)
+          }
+        >
+          {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
+        </button>
+        <button
+          className="eye-icon-5"
+          onClick={() =>
+            confirmPasswordView
+              ? setConfirmPasswordView(false)
+              : setConfirmPasswordView(true)
+          }
+        >
+          {confirmPasswordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
+        </button>
+        <br />
+        <button className="boton-correo3 button2" onClick={handleSubmitNewPassword} >Cambiar contraseña</button>
         <br />
       </NewPasswordModal>
 

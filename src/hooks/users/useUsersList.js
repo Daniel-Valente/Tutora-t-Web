@@ -6,7 +6,10 @@ const getUsersList = async () => {
     const { data } = await httpClient.get(`/users`);
 
     const node = data.filter( data => {
-        if(data.name) return data;
+        if(data.name) return {
+            uid_user: data._id,
+            ...data
+        };
     } );
     
     return node;

@@ -9,7 +9,14 @@ const getUserById = async ({ queryKey }) => {
 
     const { data } = await httpClient.get(`/users/userId/${ uid_user }`);
 
-    return data;
+    const node = data.filter(( user ) => {
+        return {
+            uid_user: user._id,
+            ...user
+        }
+    });
+
+    return node;
 }
 
 export const useUserById = (uid_user) => {
