@@ -23,6 +23,7 @@ import searchModalReducer from '../reducers/search/searchModalSlice';
 import resetPasswordModalReducer from '../reducers/auth/resetPasswordModalSlice';
 import validateCodeModalReducer from '../reducers/auth/validateCodeModalSlice';
 import newPasswordModalReducer from '../reducers/auth/newPasswordModalSlice';
+import isRegisterReducer from '../reducers/auth/isRegisterSlice';
 
 const reducers = combineReducers({
     sessionActive: isLoginReducer,
@@ -44,12 +45,13 @@ const reducers = combineReducers({
     resetPasswordModal: resetPasswordModalReducer,
     validateCodeModal: validateCodeModalReducer,
     newPasswordModal: newPasswordModalReducer,
+    isRegister: isRegisterReducer,
 });
 
 const persistConfig = {
     key: 'redux',
     storage,
-    whilelist: ['sessionActive', 'isHovering', 'user', 'userLogIn'],
+    whilelist: ['sessionActive', 'isHovering', 'user', 'userLogIn', 'isRegister'],
     blacklist: [
         'loginModal', 'loginWitnEmail', 'registerModal',
         'registerWithEmail', 'commentModal', 'chatModal',

@@ -9,17 +9,20 @@ import Post from "../components/Post/Post";
 import { filterContent } from "../helpers/utils";
 import {
   useCareersList, useCoursesList, useHidePostList,
-  usePostsList, useSavePostList, useTree, useUserByUsername
+  usePostsList, useSavePostList, useSendEmailVerify, useTree, useUserByUsername
 } from "../hooks";
-import { userInfo } from "../reducers";
+import { isRegisterState, userInfo } from "../reducers";
 
 const HomeView = () => {
 
   const userLogIn = useSelector(state => state.userLogIn);
   const { value: commentModal } = useSelector(state => state.commentModal);
+  const { value: isRegister } = useSelector(state => state.isRegister);
+  const userInfoPerfil = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const [section, setSection] = useState('Todos');
+  const { mutate: sendEmailVerify } = useSendEmailVerify();
   
   const { data: dataUser = [], isFetching: fetchingUser, isLoading: loadingUser } = useUserByUsername(userLogIn.displayName);
 
@@ -45,6 +48,25 @@ const HomeView = () => {
     !fetchingUser && dataUser && dispatch(userInfo(dataUser));
     // eslint-disable-next-line
   }, [dataUser]);
+
+  useEffect(() => {
+    if(isRegister){
+      const userVerify = {
+        name: userInfoPerfil.name,
+        email: userInfoPerfil.email
+      }
+
+      sendEmailVerify(userVerify, {
+        onSuccess: (response) => {
+          console.log('email was sent');
+          dispatch(isRegisterState(false));
+        },
+        onError: (response) => {
+          console.log(response);
+        }
+      });
+    }
+  }, [userInfoPerfil]);
 
   useEffect(() => {
     !fetchingCoursesInscripto && dataCoursesInscripto && setCoursesInscripto(dataCoursesInscripto);

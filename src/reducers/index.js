@@ -17,3 +17,4 @@ export { loginWithEmailState } from "./auth/loginWithEmailSlice";
 export { logInModalState } from "./auth/logInModalSlice";
 export { validateCodeModalState } from "./auth/validateCodeModalSlice";
 export { newPasswordModalState } from "./auth/newPasswordModalSlice";
+export { isRegisterState } from "./auth/isRegisterSlice";
