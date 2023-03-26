@@ -106,7 +106,7 @@ const Register = () => {
         </h5>
         <br />
         <button
-          className="boton-correo"
+          className="boton-correo button1"
           onClick={() => isRegisterWithEmail(dispatch, registerWithEmail)}
         >
           Registrate con correo electronico
@@ -129,7 +129,7 @@ const Register = () => {
         </h5>
         <RegisterForm values={values} onChange={onChange} options={career} />
         <br />
-        <button className="boton-crea" onClick={handleSubmit}>
+        <button className="boton-crea button2" onClick={handleSubmit}>
           Crea tu cuenta
         </button>
         <p className="aviso-privacidad">

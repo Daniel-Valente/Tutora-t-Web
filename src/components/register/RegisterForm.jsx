@@ -6,7 +6,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const RegisterForm = (pops) => {
   const { values, onChange, options } = pops;
-  
+
   const [passwordView, setPasswordView] = useState(false);
   const [confirmPasswordView, setConfirmPasswordView] = useState(false);
 
@@ -63,6 +63,7 @@ const RegisterForm = (pops) => {
         required
       />
       <Select
+        placeholder="Carrera"
         onChange={onChange}
         name="carrera"
         options={options}

@@ -10,6 +10,8 @@ import { alertState, userLogInState } from '../../reducers';
 import Notification from '../notification/Notification';
 import { useLogIn, useResetPassword } from '../../hooks';
 import ResetPasswordModal from '../modals/ResetPasswordModal';
+import ValidateCodeModal from '../modals/ValidateCodeModal';
+import NewPasswordModal from '../modals/NewPasswordModal';
 
 const Login = () => {
   const { mutate: logIn } = useLogIn();
@@ -18,14 +20,18 @@ const Login = () => {
   const [password, setPassword] = useState(false);
   const [loginValue, setLoginValue] = useState({
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
 
   const { value: loginModal } = useSelector(state => state.loginModal);
   const { value: resetPasswordModal } = useSelector(state => state.resetPasswordModal);
+  //const { value: validateCodeModal } = useSelector(state => state.validateCodedModal);
   const { value: loginWitnEmail } = useSelector(state => state.loginWitnEmail);
   const dispatch = useDispatch();
 
+  const [passwordView, setPasswordView] = useState(false);
+  const [confirmPasswordView, setConfirmPasswordView] = useState(false);
   const handleChange = (event) => {
     const validation = ValidateData(event.target, loginValue);
     if (!validation.confirm) {
@@ -119,7 +125,7 @@ const Login = () => {
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Inicia sesion con tu correo electrónico o con Google.
         </h5>
-        <button className="boton-correo" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
+        <button className="boton-correo button1" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
           Ingresa con correo electronico
         </button>
         <br />
@@ -154,7 +160,7 @@ const Login = () => {
           {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
         </button>
         <br />
-        <button className="boton-correo" onClick={handleSubmit} >Ingresa con correo electronico</button>
+        <button className="boton-correo button1" onClick={handleSubmit} >Ingresa con correo electronico</button>
         <br />
         <p className="aviso-privacidad">
           Al continuar, tu estas aceptas los términos y condiciones
@@ -175,9 +181,60 @@ const Login = () => {
           required
         />
         <br />
-        <button className="boton-correo" onClick={handleSubmitResetPassword} >Enviar correo</button>
+        <button className="boton-correo button1" onClick={handleSubmitResetPassword} >Enviar correo</button>
         <br />
       </ResetPasswordModal>
+      <ValidateCodeModal  active={true} toggle={isResetPassword} dispatch={dispatch}>
+        <h1 style={{ textAlign: "center" }}>Introduce codigo de validacion</h1>
+        <h5 style={{ textAlign: "center", color: "#828181" }}>
+          Por favor introduce el codigo que te fue proporcionado al correo electronico.
+        </h5>
+        <input className='validateInput' type="text" placeholder="Codigo" name='code'
+          onChange={handleChange}
+          required
+        />
+        <br />
+        <button className="boton-correo2 button2" onClick={handleSubmitResetPassword} >Validar codigo</button>
+        <br />
+      </ValidateCodeModal>
+      <NewPasswordModal active={false} toggle={isResetPassword} dispatch={dispatch}>
+        <h1 style={{ textAlign: "center" }}>Introduce tu nueva contraseña</h1>
+        <h5 style={{ textAlign: "center", color: "#828181" }}>
+          Introduce tu nueva contraseña aqui, recuerda que las dos deven de coincidir.
+        </h5>
+        <input className='pass' type={confirmPasswordView ? "text" : "password"} placeholder="Contraseña nueva" name='password'
+          value={loginValue.password}
+          onChange={handleChange}
+          required
+        />
+        <br/>
+        <input className='pass' type={confirmPasswordView ? "text" : "password"} placeholder="Contraseña nueva" name='password'
+          value={loginValue.confirmPassword}
+          onChange={handleChange}
+          required
+        />
+        <button
+        className="eye-icon-4"
+        onClick={() =>
+          passwordView ? setPasswordView(false) : setPasswordView(true)
+        }
+      >
+        {passwordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
+      </button>
+      <button
+        className="eye-icon-5"
+        onClick={() =>
+          confirmPasswordView
+            ? setConfirmPasswordView(false)
+            : setConfirmPasswordView(true)
+        }
+      >
+        {confirmPasswordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
+      </button>
+      <br/>
+        <button className="boton-correo3 button2" onClick={handleSubmitResetPassword} >Cambiar contraseña</button>
+        <br />
+      </NewPasswordModal>
 
       <Notification />
     </div>
