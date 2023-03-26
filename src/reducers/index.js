@@ -15,3 +15,5 @@ export { registerWithEmailState } from "./auth/registerWithEmailSlice";
 export { registerModalState } from "./auth/registerModalSlice";
 export { loginWithEmailState } from "./auth/loginWithEmailSlice";
 export { logInModalState } from "./auth/logInModalSlice";
+export { validateCodeModalState } from "./auth/validateCodeModalSlice";
+export { newPasswordModalState } from "./auth/newPasswordModalSlice";

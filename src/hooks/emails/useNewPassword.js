@@ -2,15 +2,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import httpClient from "../../https/httpClient";
 
-const resetPassword = async (user) =>
+const newPassword = async (user) =>
     await httpClient.post(`/users/password-reset`, user, {
         'Content-Type': 'application/json'
     });
 
-export const useResetPassword = ( ) => {
+export const useNewPassword = ( ) => {
     const queryClient = useQueryClient();
     
-    return useMutation(resetPassword, {
+    return useMutation(newPassword, {
         onSuccess: () => {
             queryClient.invalidateQueries(['users']);
         }
