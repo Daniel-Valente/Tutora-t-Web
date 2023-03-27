@@ -8,7 +8,7 @@ import { useAddComment, useCommentList, useLikeByUser, useLikesList, useUpdateLi
 import { send, star, starSinF, user } from '../../images';
 import CommentModal from '../modals/CommentModal';
 import Comment from '../comment/Comment';
-
+import { LikeButton } from '../Post/LikeButton';
 const PostPanel = () => {
     const location = useLocation();
     const { commentModal = false, post = {}, userPost = {}, prevPath = '' } = location.state || [];
@@ -134,24 +134,16 @@ const PostPanel = () => {
 
                     <div className='row'>
                         <div className='meGusta'>
-                            <div className='row'>
-                                <img
-                                    className='star'
-                                    style={{ position: 'relative', top: '10px', left: '1vw' }}
-                                    src={starActive ? star : starSinF} alt="star"
-                                    onClick={handleStar}
-                                />
+                            <div className='row' style={{paddingLeft:'15px'}}>
+                                <LikeButton 
+                                        props={{
+                                            post:post,
+                                            userInfoPerfil:userInfoPerfil}}
+                                 />
+                                 <br/>
                                 <p style={{
                                     position: 'relative',
-                                    bottom: '30px',
-                                    left: '3vw',
-                                    color: '#858585'
-                                }}>
-                                    {likes}
-                                </p>
-                                <p style={{
-                                    position: 'relative',
-                                    bottom: '40px',
+                                    bottom: '10px',
                                     left: '1vw',
                                     color: '#858585'
                                 }}

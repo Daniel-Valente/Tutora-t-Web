@@ -237,7 +237,7 @@ const Post = (props) => {
                     <div className='col-1'>
                     <LikeButton 
                         props={{
-                            info:props,
+                            post:props.post,
                             userInfoPerfil:userInfoPerfil}}
                     />
                     </div>

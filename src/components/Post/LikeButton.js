@@ -24,8 +24,8 @@ const ButtonWrapper = styled.button`
 `;
 
 export const LikeButton = (props) => {
+    const { post} = props.props;
 
-    const { post} = props.props.info;
     const {userInfoPerfil} = props.props;
   
     const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
