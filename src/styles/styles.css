@@ -14,6 +14,7 @@
 @import './components/course.css';
 @import './components/CardCareer.css';
 @import './components/CardNotification.css';
+@import './components/MenuPost.css';
 
 /* views */
 @import './views/MainView.css';

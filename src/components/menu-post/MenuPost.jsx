@@ -25,18 +25,22 @@ const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSa
     };
 
     return (
-        <div style={style()}>
+        <>
+        <div  style={style()}>
             {userInfoPerfil.uid_user === userPost.uid_user && 
             <Link to={`${prevUrl}/edit/${post._id}`} 
                 style={{ textDecoration: 'none' }}
                 state={{ background: location, editPublicationModal: true, post: post, prevPath: location.pathname }}>
-                <button style={ styles.div }>Editar</button>
+                <button className="boton-Ocultar" style={ styles.div }>Editar</button>
             </Link>
             }
-            <button style={styles.div} onClick={ handleHide } >{ !hide ? 'Ocultar' : 'Mostrar'  }</button>
-            <button style={styles.div} onClick={ handleSave } >{ !save ? 'Guardar' : 'Quitar'  }</button>
-            {userInfoPerfil.uid_user === userPost.uid_user && <button style={styles.div} onClick={handleDelete}>Eliminar</button>}
+            <button style={styles.div} className="boton-Ocultar" onClick={ handleHide } >{ !hide ? 'Ocultar' : 'Mostrar'  }</button>
+            <button style={styles.div} className="boton-Ocultar" onClick={ handleSave } >{ !save ? 'Guardar' : 'Quitar'  }</button>
+            {userInfoPerfil.uid_user === userPost.uid_user && <button className="boton-Ocultar" style={styles.div} onClick={handleDelete}>Eliminar</button>}
         </div>
+       
+        </>
+        
     );
 };
 
