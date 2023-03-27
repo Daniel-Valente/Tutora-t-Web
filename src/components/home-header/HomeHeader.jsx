@@ -120,8 +120,12 @@ const HomeHeader = () => {
 
       <UserModal active={userModal} toggle={isUserModal} dispatch={dispatch}>
         <div className='row'>
+        
           <Link to={`/perfil/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
-            <h4 style={{ textAlign: 'center', padding: '2rem' }}>
+          <img className='icon-user-2'
+                  src={userInfoPerfil.imgName ? userInfoPerfil.imgUrl : user}
+                  alt={userInfoPerfil.username} />
+            <h4 style={{ textAlign: 'center', padding: '2rem', fontFamily:'sans-serif', fontSize:'21px' }}>
               {userInfoPerfil.name}
             </h4>
           </Link>

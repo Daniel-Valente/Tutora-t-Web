@@ -19,7 +19,7 @@ import { LikeButton } from './LikeButton';
 const Post = (props) => {
     const { post, commentModal, hide = false, save=false } = props;
     const location = useLocation();
-
+    
     const userInfoPerfil = useSelector(state => state.user);
 
     const { mutate: updateLike } = useUpdateLike(post._id);

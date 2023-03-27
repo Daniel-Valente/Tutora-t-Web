@@ -136,6 +136,7 @@
 
 .boton-cuadrado:hover {
   background-color: #e2e2e2;
+  filter: opacity(.6);
 }
 
 .button-follow {

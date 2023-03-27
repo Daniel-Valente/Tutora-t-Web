@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import Lottie from 'react-lottie';
+import { useState, useEffect, useRef } from 'react';
+import Lottie from 'lottie-react';
 import animationData from './animation.json';
 import { useLikesList, useLikeByUser, useUpdateLike, } from '../../hooks';
 
@@ -34,9 +34,27 @@ export const LikeButton = (props) => {
     const [starActive, setStarActive] = useState(dataLikeByUser);
     const { mutate: updateLike } = useUpdateLike(post._id);
     const [isLiked, setLikeState] = useState(false);
+    const lottieRef = useRef(32,true);
+    const [viewLike, setViewLike] = useState({
+      viewLike: starActive === true ? true : false,
+    });
+ 
+    useEffect( () => {
+      lottieRef.current.setSpeed(2);
+      lottieRef.current.goToAndStop(0,true);
+      if(viewLike.viewLike){
+        lottieRef.current.playSegments([1,90], true)
+      }
+      if(!viewLike.viewLike){
+        lottieRef.current.playSegments([90,1], true)
+      }
+    },[starActive] )
+
+   
+    
     const [animationState, setAnimationState] = useState({
       isStopped: starActive === true ? false : true, isPaused: false,
-      direction: starActive === true ? 1 : 1,
+      direction: starActive === true ? 1 : -1,
     });
     const defaultOptions = {
       loop: false,
@@ -55,6 +73,7 @@ export const LikeButton = (props) => {
     return (
       <>
         <ButtonWrapper onClick={() => {
+          
           const reverseAnimation = -1;
           const normalAnimation = 1;
           const likeUser = { 
@@ -78,13 +97,18 @@ export const LikeButton = (props) => {
             isStopped: false,
             direction: starActive === true ? reverseAnimation : normalAnimation,
           })
+          setViewLike({
+            ...viewLike,
+            viewLike: starActive === true ? false : true,
+          })
           setLikeState(!isLiked);
         }}>
-          <div className="animation">
+          <div className="animation" style={{ position: 'absolute', width:'250px', height:'250px'}}>
             <Lottie
               options={defaultOptions}
-              width={270}
-              height={270}
+              animationData={animationData}
+              lottieRef={lottieRef}
+              loop={false}
               direction={animationState.direction}
               isStopped={animationState.isStopped}
               isPaused={animationState.isPaused}/>

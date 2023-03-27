@@ -68,7 +68,16 @@
   border-radius: 50%;
   margin: 0 auto;
 }
-
+.icon-user-2 {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 50%;
+  margin: 0 auto;
+  position: absolute;
+  top:45px;
+  left: 30px;
+}
 .icon-user-message {
   width: 80px;
   height: 80px;
