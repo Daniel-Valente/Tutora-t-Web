@@ -97,7 +97,7 @@ const PostPanel = () => {
                 </div>
                 <div className='panelDerecho'>
                     <div className='row'>
-                        <div className='col-1'>
+                        <div className='col-1' style={{marginTop:'5px'}}>
                             <Link to={`/perfil/${post.uid_user}`}>
                                 <div className='boton-circular-volteado'>
                                     <img className='icon-publications'
@@ -125,7 +125,7 @@ const PostPanel = () => {
                     </div>
 
                     <div className='row' style={{ minHeight:'480px',  }}>
-                        <Scrollbars autoHeight autoHeightMax={ 500 } style={{ width: 659 }}>
+                        <Scrollbars autoHeight autoHeightMax={ 487 } style={{width: 659 }}>
                             <div className='col-11'>
                             { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) }
                             </div>

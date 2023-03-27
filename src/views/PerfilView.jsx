@@ -12,7 +12,7 @@ import {
   usePostsByUser, usePostsList, useSavePostList
 } from '../hooks';
 import { useUserById } from '../hooks/users/userUserById';
-import { allPosts, fondo, newButtton, newFocus, save, send, user } from '../images';
+import { allPosts, fondo, newButtton, newFocus, save, send, user, perfilUsuarioGrande } from '../images';
 import CourseModal from '../components/modals/CourseModal';
 import { alertState } from '../reducers';
 import Notification from '../components/notification/Notification';
@@ -226,7 +226,7 @@ const PerfilView = () => {
           src={userPerfil.imgPortadaUrl ? userPerfil.imgPortadaUrl : fondo}
           alt={'user-portada'} />
         <img className='boton-circular-perfil icon-perfil'
-          src={userPerfil.imgUrl ? userPerfil.imgUrl : user}
+          src={userPerfil.imgUrl ? userPerfil.imgUrl : perfilUsuarioGrande}
           alt={'user-perfil'} />
         <label style={{ textAlign: 'left', marginTop: '5%', fontWeight: 'bold', marginLeft: '27%', fontSize: '300%', fontFamily: 'Segoe UI Emoji' }}>
           {userPerfil.name}

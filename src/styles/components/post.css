@@ -8,6 +8,9 @@
     background: #fff;
     transform: rotate(90deg);
 }
+.button-options:hover{
+    filter: opacity(0.3);
+}
 
 .button-comments-options {
     transform: rotate(90deg);
