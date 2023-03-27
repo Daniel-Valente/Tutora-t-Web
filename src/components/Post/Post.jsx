@@ -14,6 +14,7 @@ import { alertState } from '../../reducers';
 import MenuPost from '../menu-post/MenuPost';
 import PostModal from '../modals/PostModal';
 import Notification from '../notification/Notification';
+import { LikeButton } from './LikeButton';
 
 const Post = (props) => {
     const { post, commentModal, hide = false, save=false } = props;
@@ -234,24 +235,20 @@ const Post = (props) => {
                 </div>
                 <div className='row'>
                     <div className='col-1'>
-                        <img className='star' onClick={handleStar} src={starActive ? star : starSinF} alt="star" />
-                    </div>
-                    <div className='col-2'>
-                        <p style={{
-                            position: "absolute",
-                            left: "50px",
-                            color: "#858585"
-                        }}>
-                            {likes}
-                        </p>
+                    <LikeButton 
+                        props={{
+                            info:props,
+                            userInfoPerfil:userInfoPerfil}}
+                    />
                     </div>
                     <div className='col-3'>
                         <Link to={post._id} onClick={ () => isChatModal(dispatch, true) } state={{ background: location, commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
                             <img className='sinF' src={messages} alt="comments"/>
                         </Link>
+                        <br/>
                         <p style={{
                             position: "absolute",
-                            left: "92%",
+                            left: "95%",
                             color: "#858585"
                         }}>
                             {commentList.length}

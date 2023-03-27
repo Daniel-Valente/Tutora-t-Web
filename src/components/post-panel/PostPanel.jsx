@@ -113,7 +113,7 @@ const PostPanel = () => {
                     </div>
                     <div className='linea-acostada-2' />
                     <div className='row'>
-                        <Scrollbars autoHeight autoHeightMax={ 300 } style={{ width: 659 }}>
+                        <Scrollbars autoHeight autoHeightMax={ 129 } style={{ width: 659 }}>
                             <div className='col-11'>
                                 <h4>{post.title}</h4>
                                 <p>
@@ -124,8 +124,8 @@ const PostPanel = () => {
                         </Scrollbars>
                     </div>
 
-                    <div className='row'>
-                        <Scrollbars autoHeight autoHeightMax={ 265 } style={{ width: 659 }}>
+                    <div className='row' style={{ minHeight:'480px',  }}>
+                        <Scrollbars autoHeight autoHeightMax={ 500 } style={{ width: 659 }}>
                             <div className='col-11'>
                             { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) }
                             </div>
@@ -137,22 +137,22 @@ const PostPanel = () => {
                             <div className='row'>
                                 <img
                                     className='star'
-                                    style={{ position: 'relative', top: '45vh', left: '0' }}
+                                    style={{ position: 'relative', top: '10px', left: '1vw' }}
                                     src={starActive ? star : starSinF} alt="star"
                                     onClick={handleStar}
                                 />
                                 <p style={{
                                     position: 'relative',
-                                    top: '41vh',
-                                    left: '2vw',
+                                    bottom: '30px',
+                                    left: '3vw',
                                     color: '#858585'
                                 }}>
                                     {likes}
                                 </p>
                                 <p style={{
                                     position: 'relative',
-                                    top: '40vh',
-                                    left: '0',
+                                    bottom: '40px',
+                                    left: '1vw',
                                     color: '#858585'
                                 }}
                                 > {formatDate()} </p>
