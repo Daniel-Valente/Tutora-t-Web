@@ -24,4 +24,6 @@ export {default as appleBlanca } from './apple-blanca.png';
 export {default as ingenierias} from './ingenierias.png';
 export {default as ingenieriasBlanca} from './ingenierias-blanco.png';
 export {default as compu} from './computer.png';
-export {default as compuBlanca} from './computer-blanco.png'
+export {default as compuBlanca} from './computer-blanco.png';
+export {default as mensaje} from './mensaje.png';
+export {default as perfilUsuarioGrande} from './user-perfil-grande.png';

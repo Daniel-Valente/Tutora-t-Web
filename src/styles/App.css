@@ -73,10 +73,20 @@
   height: 50px;
   background-size: cover;
   border-radius: 50%;
-  margin: 0 auto;
-  position: absolute;
-  top:45px;
-  left: 30px;
+  position: relative;
+  top:50px;
+  left:20px;
+}
+.icon-user-3 {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+  
+}
+.icon-name:hover{
+  filter:opacity(0.6);
 }
 .icon-user-message {
   width: 80px;
@@ -161,7 +171,7 @@
 .linea-acostada-3 {
   width: 46.2%;
   position: absolute;
-  top: 74vh;
+  top: 73.2vh;
   right: 0px;
   background-color: #d4d4d4;
   height: 1px;

@@ -113,6 +113,12 @@ a:hover {
   background-color: #d4d4d4;
   height: 1px;
 }
+.linea-acostada-new {
+  width: 100%;
+  float: right;
+  background-color: #d4d4d4;
+  height: 1px;
+}
 
 .boton-google {
   background-color: #eeeeee;

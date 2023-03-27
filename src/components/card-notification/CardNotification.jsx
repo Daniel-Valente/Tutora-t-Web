@@ -13,6 +13,7 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
     const { data: dataUserReaction = [], isFetching: fetchingUserReaction } = useUserById(notification.uid_user);
     const [userReaction, setUserReaction] = useState(dataUserReaction);
 
+
     const { data: dataPost = [], isFetching: fetchingPost } = usePostById(notification.type === 'like' || notification.type === 'comment' ? notification.id_action : null);
     const [post, setPost] = useState(dataPost);
 
@@ -53,11 +54,21 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
         !fetchingCourse && dataCourse && course.length > -1 && setCourse(dataCourse);
         // eslint-disable-next-line
     }, [dataCourse]);
-
     return (
         <div>
+             <div className='linea-acostada' />
             <div className='row card-notification'>
-                <Link to={`/perfil/${notification.uid_user}`} style={{ textDecoration: 'none' }}>{userReaction.username}</Link>
+                <Link to={`/perfil/${notification.uid_user}`} style={{ textDecoration: 'none' }}> 
+                <div style={{ float:'left'}}>
+                <img className='icon-user-3'
+                  src={userReaction.imgName ? userReaction.imgUrl : userReaction.username}
+                  alt={userReaction.username} /> 
+                </div>
+                <div style={{ float:'left', color:'#000'}}>
+                <b>{userReaction.username}</b>
+                </div>
+                </Link>
+                  <br/>
                 {` ${ notification.type === 'follower' ? notification.action : notification.action + ':' } `}
                 {
                     notification.type === 'course' &&
@@ -102,7 +113,7 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
                     </Link>
                 }
             </div>
-            <div className='linea-acostada' />
+           
         </div>
     )
 }

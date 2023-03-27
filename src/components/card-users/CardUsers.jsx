@@ -22,39 +22,31 @@ const CardUsers = ({ user, searchText = '', action }) => {
             <div>
                 <Outlet />
                 <Link to={`/perfil/${user.uid_user}`} onClick={closedModal}  style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className='col-3'>
-                        <div className='boton-circular-volteado-5'>
-                            <img className='icon-user-message'
-                                src={`${user.imgUrl ? user.imgUrl : userImg}`}
-                                alt={user.username}
-                            />
-                        </div>
+                    <div style={{ float:'left', paddingLeft:'20px', paddingTop:'5px', paddingBottom:'5px'}}>
+                        <img className='icon-user-3'
+                        src={`${user.imgUrl ? user.imgUrl : userImg}`}
+                        alt={user.username} /> 
                     </div>
-                    <div className='col-7'>
-                        <h3>{user.name}</h3>
-
+                    <div style={{ float:'left', color:'#000', paddingTop:'20px', paddingBottom:'5px'}}>
+                        <b>{user.name}</b>
                     </div>
+                    
                 </Link>
-                <div className='linea-acostada' />
             </div>
             : !searchText &&
             <div>
                 <Outlet />
                 <Link to={`/perfil/${user.uid_user}`} onClick={closedModal}>
-                    <div className='col-3'>
-                        <div className='boton-circular-volteado-5'>
-                            <img className='icon-user-message'
-                                src={`${user.imgUrl ? user.imgUrl : userImg}`}
-                                alt={user.username}
-                            />
-                        </div>
+                    <div style={{ float:'left',paddingLeft:'20px',paddingTop:'5px',paddingBottom:'5px'}}>
+                        <img className='icon-user-3'
+                         src={`${user.imgUrl ? user.imgUrl : userImg}`}
+                         alt={user.username} /> 
                     </div>
-                    <div className='col-7'>
-                        <h3>{user.name}</h3>
-
+                    <div style={{ float:'left', color:'#000',paddingTop:'20px', paddingBottom:'5px'}}>
+                        <b> {user.name}</b>
                     </div>
                 </Link>
-                <div className='linea-acostada' />
+                <div className='linea-acostada-new' />
             </div>
     )
 }
