@@ -48,7 +48,7 @@ const CoursesView = () => {
       <div className='row'>
         <div className='col-11'>
           <div className='row'>
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
+          <label style={{ textAlign: 'left', marginLeft: '1%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
             <b>Tutorias por división</b>
           </label>
           <br />

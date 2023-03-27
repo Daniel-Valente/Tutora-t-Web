@@ -92,7 +92,7 @@ const HomeView = () => {
       <div className="linea-acostada" />
       <div className="row">
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
+          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
             <b>Publicaciones por carreras</b>
           </label>
           <div className='row'>
@@ -113,7 +113,7 @@ const HomeView = () => {
           }
         </div>
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
+          <label style={{ textAlign: 'left', marginLeft: '-2%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
             <b>Novedades en las tutorías</b>
           </label>
             <Link to={`/courses`} style={{ textDecoration: 'none' }}>

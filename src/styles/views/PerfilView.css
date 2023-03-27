@@ -143,14 +143,14 @@ input[type="file"]::-webkit-file-upload-button {
 .course-view-all {
   right: 5vh;
   position: absolute;
-  top: 8.5vh;
-  font-size: 1.5vh;
+  top: 7.8vh;
+  font-size: 1.7vh;
   cursor: pointer;
-  color: #000000;
+  color: #1492e6;
 }
 
 .course-view-all:hover {
-  color: #1492e6;
+  color: #1492e6c5;
 }
 
 .img-allPosts {

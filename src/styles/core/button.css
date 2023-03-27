@@ -45,7 +45,7 @@
   color: #ffffff;
   font-size: 17px;
   font-weight: bold;
-  margin-left: 2rem;
+  margin-left: 1rem;
   margin-top: 15px;
   float: left;
 }
@@ -100,11 +100,14 @@
   font-weight: bold;
   margin-top: 16px;
   margin-left: 20px;
-  margin-bottom: 4%;
+  margin-bottom: 1%;
 }
 
 .boton-circular-volteado-4:hover {
   background-color: #e2e6eb;
+}
+.boton-circular{
+  cursor: pointer;
 }
 
 .boton-circular:hover {

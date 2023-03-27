@@ -1,5 +1,6 @@
 .search-input-2:hover {
   background-color: #e2e6eb;
+  cursor: pointer;
 }
 
 .search-input {
@@ -38,7 +39,6 @@
   background-color: #f0f2f5;
   border-radius: 30px;
   height: 5vh;
-
   border: none;
   width: 85%;
   font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
@@ -48,7 +48,7 @@
   position:absolute;
   left: 10vh;
   bottom: 2vh;
-  padding-right: 30%;
+  padding-right: 60%;
 }
 
 .search-input {
@@ -60,13 +60,16 @@
   border-radius: 30px;
   border: 1px solid #a2a2a2;
   height: 40px;
-  width: 100%;
+  width: 95%;
   font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
   color: #000000;
   font-size: 15px;
   font-weight: bolder;
   margin-bottom: 5%;
   position: relative;
+  margin-left: 0;
+  padding-right: 10%;
+  
 }
 
 .inputCom-2 {
@@ -74,13 +77,14 @@
   border-radius: 30px;
   border: 1px solid #a2a2a2;
   height: 40px;
-  width: 80%;
+  width: 85%;
   font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
   color: #000000;
   font-size: 15px;
   font-weight: bolder;
   position: relative;
-  top: 38vh;
+  bottom: 30px;
+  padding-right: 10%;
 }
 
 .inp::placeholder {

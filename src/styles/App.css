@@ -102,8 +102,13 @@
 
 .send {
   width: 25px;
-  right: 1vh;
+  right: 2vh;
+  top: 8px;
   position: relative;
+}
+.send:hover{
+  cursor: pointer;
+  filter:opacity(0.7); 
 }
 
 .p-1 {
@@ -112,9 +117,13 @@
 
 .send-2 {
   width: 25px;
-  top: 39vh;
-  right: 2vh;
+  bottom: 60px;
+  left: 33vw;
   position: relative;
+}
+.send-2:hover{
+  cursor: pointer;
+  filter: opacity(0.7);
 }
 
 .send-comment {
@@ -131,13 +140,11 @@
 .panelDerecho {
   position: absolute;
   top: 2vh;
-  left: 57%;
+  left: 54%;
 }
 
 .linea-acostada-2 {
   width: 100%;
-  position: absolute;
-  right: 5%;
   background-color: #d4d4d4;
   height: 1px;
 }
@@ -162,7 +169,11 @@
 .sinF {
   position: absolute;
   width: 25px;
+  padding-top: 10px;
   right: 30px;
+}
+.sinF:hover{
+  filter:opacity(0.5);
 }
 .screen {
   width: 100%;
