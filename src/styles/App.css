@@ -60,6 +60,9 @@
   border-radius: 50%;
   margin: auto;
 }
+.hoEnButton:hover{
+  filter:opacity(0.5);
+}
 
 .icon-user {
   width: 50px;
@@ -171,7 +174,7 @@
 .linea-acostada-3 {
   width: 46.2%;
   position: absolute;
-  top: 73.2vh;
+  top: 696px;
   right: 0px;
   background-color: #d4d4d4;
   height: 1px;

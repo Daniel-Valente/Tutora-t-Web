@@ -124,8 +124,8 @@ const PostPanel = () => {
                         </Scrollbars>
                     </div>
 
-                    <div className='row' style={{ minHeight:'480px',  }}>
-                        <Scrollbars autoHeight autoHeightMax={ 487 } style={{width: 659 }}>
+                    <div className='row' style={{ minHeight:'480px' }}>
+                        <Scrollbars autoHeight autoHeightMax={ 470 } style={{width: 659 }}>
                             <div className='col-11'>
                             { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) }
                             </div>

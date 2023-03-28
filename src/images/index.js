@@ -27,3 +27,4 @@ export {default as compu} from './computer.png';
 export {default as compuBlanca} from './computer-blanco.png';
 export {default as mensaje} from './mensaje.png';
 export {default as perfilUsuarioGrande} from './user-perfil-grande.png';
+export {default as addTuto} from './add.png';
