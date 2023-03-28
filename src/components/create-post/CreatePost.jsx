@@ -122,7 +122,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
       </div>
 
       <PublicationModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center' }}>Crear publicacion</h2>
+        <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Crear publicacion</h2>
         <div className='row'>
           <div className='col-6'>
             <input className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
@@ -139,7 +139,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
           </div>
         </div>
         <br />
-        <textarea className='inp' placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
+        <textarea  className='inp' style={{borderRadius:'20px'}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
         <div className='upload-post'>
           <div className="upload-btn-wrapper" onChange={handleChange}>
             <button style={{backgroundColor:'pink'}} className="boton-standar-rw">
