@@ -18,7 +18,6 @@ import publicationModalReducer from '../reducers/publications/publicationModalSl
 import editPublicationModalReducer from '../reducers/publications/editPublicationModalSlice';
 import userModalReducer from '../reducers/users/userModalSlice';
 import userReducer from '../reducers/users/userSlice';
-import userLogInReducer from '../reducers/users/userLogInSlice';
 import searchModalReducer from '../reducers/search/searchModalSlice';
 import resetPasswordModalReducer from '../reducers/auth/resetPasswordModalSlice';
 import validateCodeModalReducer from '../reducers/auth/validateCodeModalSlice';
@@ -39,7 +38,6 @@ const reducers = combineReducers({
     editPublicationModal: editPublicationModalReducer,
     userModal: userModalReducer,
     user: userReducer,
-    userLogIn: userLogInReducer,
     commentModal: commentModalReducer,
     searchModal: searchModalReducer,
     resetPasswordModal: resetPasswordModalReducer,
@@ -51,7 +49,7 @@ const reducers = combineReducers({
 const persistConfig = {
     key: 'redux',
     storage,
-    whilelist: ['sessionActive', 'isHovering', 'user', 'userLogIn', 'isRegister'],
+    whilelist: ['sessionActive', 'isHovering', 'user', 'isRegister'],
     blacklist: [
         'loginModal', 'loginWitnEmail', 'registerModal',
         'registerWithEmail', 'commentModal', 'chatModal',

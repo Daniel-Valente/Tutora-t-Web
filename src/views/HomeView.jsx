@@ -11,22 +11,19 @@ import {
   useCareersList, useCoursesList, useHidePostList,
   usePostsList, useSavePostList, useSendEmailVerify, useTree, useUserByUsername
 } from "../hooks";
-import { isRegisterState, userInfo } from "../reducers";
+import { isRegisterState } from "../reducers";
 
 const HomeView = () => {
 
-  const userLogIn = useSelector(state => state.userLogIn);
+  const userInfoPerfil = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
   const { value: isRegister } = useSelector(state => state.isRegister);
-  const userInfoPerfil = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const [section, setSection] = useState('Todos');
   const { mutate: sendEmailVerify } = useSendEmailVerify();
   
-  const { data: dataUser = [], isFetching: fetchingUser, isLoading: loadingUser } = useUserByUsername(userLogIn.displayName);
-
-  const { data: dataTree = [], isLoading: loadingTree, isFetching: fetchingTree } = useTree(dataUser.uid_user, dataUser.career);
+  const { data: dataTree = [], isLoading: loadingTree, isFetching: fetchingTree } = useTree(userInfoPerfil.uid_user, userInfoPerfil.career);
   const [ tree, setTree ] = useState(dataTree);
 
   const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsList();
@@ -35,19 +32,14 @@ const HomeView = () => {
   const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
   
-  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(dataUser.uid_user);
+  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userInfoPerfil.uid_user);
   const [hidePost, setHidePost] = useState(dataHidePost);
   
-  const { data: dataSavePost = [], isFetching: fetchingSavePost, isLoading: loadingSavePost } = useSavePostList(dataUser.uid_user);
+  const { data: dataSavePost = [], isFetching: fetchingSavePost, isLoading: loadingSavePost } = useSavePostList(userInfoPerfil.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
   
   const { data: dataCareers, isFetching: fetchingCareers, isLoading: loadingCareers } = useCareersList();
   const [careers, setCareers] = useState(dataCareers);
-
-  useEffect(() => {
-    !fetchingUser && dataUser && dispatch(userInfo(dataUser));
-    // eslint-disable-next-line
-  }, [dataUser]);
 
   useEffect(() => {
     if(isRegister){
@@ -101,7 +93,7 @@ const HomeView = () => {
   }, [dataCareers]);
 
   if (loadingPosts || loadingUser || loadingCoursesInscripto
-    || loadingHidePost || loadingSavePost || loadingCareers) {
+    || loadingHidePost || loadingSavePost || loadingCareers || loadingTree) {
     return (
       <div className='parent'>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -146,7 +138,7 @@ const HomeView = () => {
           {
             coursesInscripto.map((course, index) => {
               const { participants } = course;
-              if (participants.includes(dataUser.uid_user) || course.uid_user === dataUser.uid_user) {
+              if (participants.includes(userInfoPerfil.uid_user) || course.uid_user === userInfoPerfil.uid_user) {
                 return (
                   <Course course={course} key={course._id} />
                 )

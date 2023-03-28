@@ -8,7 +8,7 @@ import {
   ValidateData,
 } from "../../helpers/utils";
 import { useCareerList, useAddUser } from "../../hooks";
-import { alertState, isRegisterState, userLogInState } from "../../reducers";
+import { alertState, isRegisterState, userInfo } from "../../reducers";
 import Modal from "../modals/Modal";
 import RegisterModal from "../modals/RegisterModal";
 import Notification from "../notification/Notification";
@@ -62,7 +62,7 @@ const Register = () => {
             type: "success",
           })
         );
-        dispatch(userLogInState(data));
+        dispatch(userInfo(data));
         dispatch(isRegisterState(true));
         isLogIn(dispatch);
         isRegisterWithEmail(dispatch, registerWithEmail);

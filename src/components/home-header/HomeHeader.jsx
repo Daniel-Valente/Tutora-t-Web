@@ -9,7 +9,7 @@ import UserModal from '../modals/UserModal';
 import { exit, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isSearchModal, isUserModal } from '../../helpers/utils';
 import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit, useUsersList } from '../../hooks';
-import { userInfo, userLogInState } from '../../reducers';
+import { userInfo } from '../../reducers';
 import CardMessage from '../card-message/CardMessage';
 import CardNotification from '../card-notification/CardNotification';
 import Scrollbars from 'react-custom-scrollbars-2';
@@ -51,23 +51,7 @@ const HomeHeader = () => {
       imagePortadaUrl: '',
       imgName: '',
       imgUrl: '',
-    }));
-
-    logOut();
-
-    dispatch(userLogInState({
-      apiKey: "",
-      appName: "",
-      createdAt: "",
-      displayName: "",
-      email: "",
-      emailVerified: false,
-      isAnonymous: false,
-      lastLoginAt: "",
-      phoneNumber: "",
-      providerData: {},
-      stsTokenManager: {},
-      uid: ""
+      verify: false
     }));
 
     isOut(dispatch);

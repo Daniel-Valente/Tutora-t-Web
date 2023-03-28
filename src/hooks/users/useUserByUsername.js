@@ -8,15 +8,15 @@ const getUserByUsername = async ({ queryKey }) => {
     if( !username ) return [];
     
     const { data } = await httpClient.get(`/users/${ username }`);
-    return data;
-    // const node = data.filter(( user ) => {
-    //     return {
-    //         uid_user: user._id,
-    //         ...user
-    //     }
-    // });
 
-    // return node;
+    const node = data.map(( user ) => {
+        return {
+            uid_user: user._id,
+            ...user
+        }
+    });
+
+    return node;
 }
 
 export const useUserByUsername = (username) => {

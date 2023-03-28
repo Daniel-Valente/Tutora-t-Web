@@ -12,6 +12,7 @@ const initialState = {
     imgPortadaUrl:'',
     imgName:'',
     imgUrl:'',
+    verify: false,
 }
 
 const userSlice = createSlice({
@@ -30,6 +31,7 @@ const userSlice = createSlice({
             state.imgPortadaUrl = action.payload.imgPortadaUrl;
             state.imgName = action.payload.imgName;
             state.imgUrl = action.payload.imgUrl;
+            state.verify = action.payload.verify;
         }
     }
 });

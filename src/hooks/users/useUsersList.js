@@ -4,15 +4,15 @@ import httpClient from "../../https/httpClient";
 
 const getUsersList = async () => {
     const { data } = await httpClient.get(`/users`);
-    return data;
-    // const node = data.filter( data => {
-    //     if(data.name) return {
-    //         uid_user: data._id,
-    //         ...data
-    //     };
-    // } );
-    
-    // return node;
+
+    const node = data.map(( user ) => {
+        return {
+            uid_user: user._id,
+            ...user
+        }
+    });
+
+    return node;
 }
 
 export const useUsersList = () => {

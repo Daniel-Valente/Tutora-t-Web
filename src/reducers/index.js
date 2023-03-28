@@ -1,6 +1,5 @@
 export { resetPasswordModalState } from "./auth/resetPasswordModalSlice";
 export { searchModalState } from "./search/searchModalSlice";
-export { userLogInState } from "./users/userLogInSlice";
 export { sessionState } from "./auth/isLogInSlice";
 export { userModalState } from "./users/userModalSlice";
 export { userInfo } from "./users/userSlice";
