@@ -12,7 +12,7 @@ import {
   usePostsByUser, usePostsList, useSavePostList
 } from '../hooks';
 import { useUserById } from '../hooks/users/userUserById';
-import { allPosts, fondo, newButtton, newFocus, save, send, user } from '../images';
+import { allPosts, fondo, newButtton, newFocus, save, send, user, perfilUsuarioGrande, addTuto } from '../images';
 import CourseModal from '../components/modals/CourseModal';
 import { alertState } from '../reducers';
 import Notification from '../components/notification/Notification';
@@ -221,25 +221,30 @@ const PerfilView = () => {
 
   return (
     <div className='principal-body'>
+      <div style={{ width:'300px',  position:'absolute', top:'580px', left:'90px' }}>
+        <span style={{ color:'#000', display:'block' ,textAlign:'center', fontFamily:'sans-serif', fontSize:'23px' }}> 
+        <b>{userPerfil.name}</b>
+        </span>
+        <span style={{display:'block' ,textAlign:'center',fontFamily:'sans-serif', }}>
+        Nombre de usuario: {userPerfil.username}
+        <br/>
+        Carrera: {userCareer ? userCareer.name : loadingCareer && 'loading...'}
+        </span>
+        <br/>
+        <span style={{display:'block' ,textAlign:'center',fontFamily:'sans-serif',fontSize:'17px', color:'#FF0096' }}>
+        {followers.length} Seguidores
+        </span >
+      </div>
       <div className='row'>
         <img className="fondo"
           src={userPerfil.imgPortadaUrl ? userPerfil.imgPortadaUrl : fondo}
           alt={'user-portada'} />
         <img className='boton-circular-perfil icon-perfil'
-          src={userPerfil.imgUrl ? userPerfil.imgUrl : user}
+          src={userPerfil.imgUrl ? userPerfil.imgUrl : perfilUsuarioGrande}
           alt={'user-perfil'} />
-        <label style={{ textAlign: 'left', marginTop: '5%', fontWeight: 'bold', marginLeft: '27%', fontSize: '300%', fontFamily: 'Segoe UI Emoji' }}>
-          {userPerfil.name}
-        </label>
         <br />
-        <label style={{ textAlign: 'left', marginLeft: '27%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
-          <b>Nombre de usuario: </b>{userPerfil.username}
-        </label>
-        <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
-          <b>Carrera: </b>{userCareer ? userCareer.name : loadingCareer && 'loading...'}
-        </label>
-        <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '120%', fontFamily: 'Segoe UI Emoji' }}>
-          <b>Seguidores: </b> {followers.length}
+        <label style={{ textAlign: 'left', marginLeft: '23%', fontSize: '120%', fontFamily: 'Segoe UI Emoji' }}>
+          
         </label>
       </div>
       <div className='row'>
@@ -265,7 +270,7 @@ const PerfilView = () => {
                     <Link 
                       to={`${ location.pathname.split('/', 2)[0] }/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
                       state={{ background: location, prevPath: location.pathname }}
-                      style={{ textDecoration: 'none', color: 'white' }}>
+                      className="mensaje-enviar" style={{ textDecoration: 'none' }}>
                       Enviar mensaje
                     </Link>
                   </button>
@@ -334,14 +339,16 @@ const PerfilView = () => {
           <br />
           <br />
           <div className='row'>
-            <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
-              <b className='col-5'>
+            <label style={{ textAlign: 'left', fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+              <div style={{float:'left'}}>
+              <b>
                 {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
               </b>
-              <div className='parent col-1'>
+              </div>
+              <div className="hoEnButton" style={{float:'left', position:'relative', left:'40px', top:'-10px'}}>
                 {
                   userInfoPerfil.uid_user === userPerfil.uid_user
-                  && <img className='button-new-course' src={isHoverButton ? newFocus : newButtton}
+                  && <img className='button-new-course' src={addTuto}
                     alt="new-course"
                     onMouseEnter={() => setIsHoverButton(true)}
                     onMouseLeave={() => setIsHoverButton(false)}
@@ -371,7 +378,7 @@ const PerfilView = () => {
                 )
           }
           <br />
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
+          <label style={{ textAlign: 'left',fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
             <b>Tutorías inscritas</b>
           </label>
           {
@@ -399,27 +406,28 @@ const PerfilView = () => {
         </div>
       </div>
       <CourseModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center' }}>Crear curso</h2>
+        <h2 style={{ textAlign: 'center',fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Crea tu curso</h2>
         <input className='title-course' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
         <input className='site-course' type="text" name="site" placeholder='Lugar' value={newCourse.site} onChange={handleChange} />
         <br /><br />
-        <textarea className='inp' placeholder={`¿Que tienes en mente  ${userInfoPerfil.name}?...`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
-        <div className='row'>
-          <div className='col-4'>
+        <textarea style={{borderRadius:'20px',marginLeft:'30px', width:'1100px'}} className='inp' placeholder={`¿Que tienes en mente  ${userInfoPerfil.name}?...`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
+        <div style={{marginBottom:'70px'}}>
+          <div style={{float:'left'}}>
             <input type="text" placeholder='Días' name='dates' value={newCourse.dates} onChange={handleChange} />
           </div>
-          <div className='col-4'>
+          <div style={{float:'left'}}>
             <input type="text" placeholder='Horario' name='hours' value={newCourse.hours} onChange={handleChange} />
           </div>
-          <div className='col-2'>
+          <div style={{float:'left'}}>
             <Select
               placeholder='carrera'
               name="career"
               options={career}
               onChange={handleChange}
-              className="input-course" />
+              className="input-course-2" />
           </div>
         </div>
+        <br/>
         <div className='upload-course'>
           <div className="upload-btn-wrapper" onChange={handleChange}>
             <button className="boton-standar-rw">
@@ -428,7 +436,7 @@ const PerfilView = () => {
             <input className="upload-file-buton" name="imgCourse" type="file" accept="image/*" />
           </div>
         </div>
-        <div className='upload-image-course'>
+        <div className='upload-image-course' style={{marginLeft:'30px', width:'1100px'}}>
           <img src={imagePreview ? imagePreview : fondo} alt="img-course" className='image-course' onChange={handleChange} />
         </div>
         <img className='send-course' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />

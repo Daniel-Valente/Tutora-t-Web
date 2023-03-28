@@ -6,7 +6,7 @@ import MessageModal from '../modals/MessageModal';
 import NotificationModal from '../modals/NotificationModal';
 import UserModal from '../modals/UserModal';
 
-import { exit, messagesBlack, notifications, search, settings, user } from '../../images';
+import { exit, mensaje, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isSearchModal, isUserModal } from '../../helpers/utils';
 import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit, useUsersList } from '../../hooks';
 import { userInfo } from '../../reducers';
@@ -104,11 +104,17 @@ const HomeHeader = () => {
 
       <UserModal active={userModal} toggle={isUserModal} dispatch={dispatch}>
         <div className='row'>
-          <Link to={`/perfil/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
-            <h4 style={{ textAlign: 'center', padding: '2rem' }}>
+        
+          <div className='icon-name'>
+          <Link  to={`/perfil/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
+          <img className='icon-user-2'
+                  src={userInfoPerfil.imgName ? userInfoPerfil.imgUrl : user}
+                  alt={userInfoPerfil.username} />
+            <h4  style={{ position:'relative', top:'-20px', textAlign: 'center', paddingLeft: '4.5rem', paddingRight: '2rem', fontSize: '19px', fontFamily:'sans-serif', color: '#6b6b6b' }}>
               {userInfoPerfil.name}
             </h4>
           </Link>
+          </div>
         </div>
         <div className='row'>
           <Link to={`/configuracion/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
@@ -126,7 +132,7 @@ const HomeHeader = () => {
       </UserModal>
 
       <NotificationModal active={notificationModal} toggle={isNotificationModal} dispatch={dispatch}>
-        <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Notificaciones</h2>
+        <h2 style={{ textAlign: 'center', paddingTop: '1rem', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Notificaciones</h2>
         <Scrollbars autoHeight autoHeightMax={381} style={{ width: '99%' }}>
           {
             notificationsWithLimit.map((notification, index) => <CardNotification notification={notification} key={index} notificationModal={notificationModal} />)
@@ -135,26 +141,26 @@ const HomeHeader = () => {
       </NotificationModal>
 
       <MessageModal active={chatModal} toggle={isChatModal} dispatch={dispatch}>
-        <h2 style={{ textAlign: 'center', paddingTop: '2rem' }}>Mensajes</h2>
+        <h2 style={{ textAlign: 'center', paddingTop: '1rem', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Mensajes</h2>
         {chatsWithLimit.map((chat, index) => <CardMessage chat={chat} key={chat.id_Message} />)}
         <div className='row'>
           <Link to={`/chats/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
-            <button className='boton-cuadrado' style={{ fontSize: '17px', textAlign: 'center' }}>Ver más</button>
+          
+          <button className='boton-cuadrado' style={{ fontSize: '19px',fontFamily:'sans-serif', color: '#6B6B6B' }}> <img style={{marginRight:'20px', top:'5px', position:'relative'}} src={mensaje}></img>Ver más</button>
           </Link>
         </div>
         <br />
       </MessageModal>
 
       <SearchModal active={searchModal} toggle={isSearchModal} dispatch={dispatch}>
-        <div className='row'>
+        <div style={{borderRadius:'10px'}}>
           <Scrollbars autoHeight autoHeightMax={381} >
-            <div className='col-1' />
-            <div className='row col-8'>
+            <div/>
+            <div style={{backgroundColor:'pink'}}>
               {
                 users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user && <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
               }
             </div>
-            <div className='col-1' />
           </Scrollbars>
         </div>
       </SearchModal>

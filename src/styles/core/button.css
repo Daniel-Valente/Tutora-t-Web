@@ -45,7 +45,7 @@
   color: #ffffff;
   font-size: 17px;
   font-weight: bold;
-  margin-left: 2rem;
+  margin-left: 1rem;
   margin-top: 15px;
   float: left;
 }
@@ -100,11 +100,14 @@
   font-weight: bold;
   margin-top: 16px;
   margin-left: 20px;
-  margin-bottom: 4%;
+  margin-bottom: 1%;
 }
 
 .boton-circular-volteado-4:hover {
   background-color: #e2e6eb;
+}
+.boton-circular{
+  cursor: pointer;
 }
 
 .boton-circular:hover {
@@ -133,27 +136,30 @@
 
 .boton-cuadrado:hover {
   background-color: #e2e2e2;
+  filter: opacity(.6);
 }
 
 .button-follow {
-  background-color: #1492e6;
-  cursor: pointer;
   border-radius: 10px;
   height: 40px;
-  border: none;
+  background-color: #fff;
   width: 15%;
-  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
+  border: 1px solid #1492e67c;
+  font-family: sans-serif;
+  color: #828282;
   font-size: 17px;
   font-weight: bold;
   margin-right: 100px;
   margin-left: 100px;
-  width: 95%;
-  margin-bottom: 1vh;
+  width: 150px;
+  top: 500px;
+  left: 550px;
+  position: absolute;
 }
 
 .button-follow:hover {
-  color: #f0f2f5;
+  background-color: #1492e6;
+  color: #fff;
 }
 
 .button-join {
@@ -213,20 +219,31 @@
 }
 
 .button-message {
-  background-color: #ff0096;
   border-radius: 10px;
   height: 40px;
-  border: none;
+  background-color: #fff;
   width: 15%;
-  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
+  border: 1px solid #fbcae8;
+  font-family: sans-serif;
+  
   font-size: 17px;
   font-weight: bold;
   margin-right: 100px;
   margin-left: 100px;
-  width: 95%;
+  width: 150px;
+  top: 500px;
+  left: 350px;
+  position: absolute;
+}
+.mensaje-enviar{
+  color: #828282;
 }
 
-.button-message:hover {
-  color: #f0f2f5;
+.button-message:hover{
+  background-color: #ff0096;
+  
+  
+}
+.button-message:hover .mensaje-enviar{
+  color: #fff;
 }

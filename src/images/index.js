@@ -15,7 +15,16 @@ export { default as user } from './user.png';
 export { default as fondo } from './fondo.png';
 export { default as imagen1 } from './Imagen1.png';
 export { default as starSinF } from './starSinF.png';
-export { default as newButtton } from './new.png'
-export { default as newFocus } from './new-focus.png'
-export { default as allPosts } from './allPosts.png'
-export { default as save } from './save.png'
+export { default as newButtton } from './new.png';
+export { default as newFocus } from './new-focus.png';
+export { default as allPosts } from './allPosts.png';
+export { default as save } from './save.png';
+export { default as apple } from './apple.png';
+export {default as appleBlanca } from './apple-blanca.png';
+export {default as ingenierias} from './ingenierias.png';
+export {default as ingenieriasBlanca} from './ingenierias-blanco.png';
+export {default as compu} from './computer.png';
+export {default as compuBlanca} from './computer-blanco.png';
+export {default as mensaje} from './mensaje.png';
+export {default as perfilUsuarioGrande} from './user-perfil-grande.png';
+export {default as addTuto} from './add.png';

@@ -128,6 +128,7 @@ const Register = () => {
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Crea una cuenta con tu correo electronico.
         </h5>
+        
         <RegisterForm values={values} onChange={onChange} options={career} />
         <br />
         <button className="boton-crea button2" onClick={handleSubmit}>

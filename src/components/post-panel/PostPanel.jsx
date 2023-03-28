@@ -8,7 +8,7 @@ import { useAddComment, useCommentList, useLikeByUser, useLikesList, useUpdateLi
 import { send, star, starSinF, user } from '../../images';
 import CommentModal from '../modals/CommentModal';
 import Comment from '../comment/Comment';
-
+import { LikeButton } from '../Post/LikeButton';
 const PostPanel = () => {
     const location = useLocation();
     const { commentModal = false, post = {}, userPost = {}, prevPath = '' } = location.state || [];
@@ -97,7 +97,7 @@ const PostPanel = () => {
                 </div>
                 <div className='panelDerecho'>
                     <div className='row'>
-                        <div className='col-1'>
+                        <div className='col-1' style={{marginTop:'5px'}}>
                             <Link to={`/perfil/${post.uid_user}`}>
                                 <div className='boton-circular-volteado'>
                                     <img className='icon-publications'
@@ -113,7 +113,7 @@ const PostPanel = () => {
                     </div>
                     <div className='linea-acostada-2' />
                     <div className='row'>
-                        <Scrollbars autoHeight autoHeightMax={ 300 } style={{ width: 659 }}>
+                        <Scrollbars autoHeight autoHeightMax={ 129 } style={{ width: 659 }}>
                             <div className='col-11'>
                                 <h4>{post.title}</h4>
                                 <p>
@@ -124,8 +124,8 @@ const PostPanel = () => {
                         </Scrollbars>
                     </div>
 
-                    <div className='row'>
-                        <Scrollbars autoHeight autoHeightMax={ 265 } style={{ width: 659 }}>
+                    <div className='row' style={{ minHeight:'480px' }}>
+                        <Scrollbars autoHeight autoHeightMax={ 470 } style={{width: 659 }}>
                             <div className='col-11'>
                             { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) }
                             </div>
@@ -134,25 +134,17 @@ const PostPanel = () => {
 
                     <div className='row'>
                         <div className='meGusta'>
-                            <div className='row'>
-                                <img
-                                    className='star'
-                                    style={{ position: 'relative', top: '45vh', left: '0' }}
-                                    src={starActive ? star : starSinF} alt="star"
-                                    onClick={handleStar}
-                                />
+                            <div className='row' style={{paddingLeft:'15px'}}>
+                                <LikeButton 
+                                        props={{
+                                            post:post,
+                                            userInfoPerfil:userInfoPerfil}}
+                                 />
+                                 <br/>
                                 <p style={{
                                     position: 'relative',
-                                    top: '41vh',
-                                    left: '2vw',
-                                    color: '#858585'
-                                }}>
-                                    {likes}
-                                </p>
-                                <p style={{
-                                    position: 'relative',
-                                    top: '40vh',
-                                    left: '0',
+                                    bottom: '10px',
+                                    left: '1vw',
                                     color: '#858585'
                                 }}
                                 > {formatDate()} </p>

@@ -60,6 +60,9 @@
   border-radius: 50%;
   margin: auto;
 }
+.hoEnButton:hover{
+  filter:opacity(0.5);
+}
 
 .icon-user {
   width: 50px;
@@ -68,7 +71,26 @@
   border-radius: 50%;
   margin: 0 auto;
 }
-
+.icon-user-2 {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 50%;
+  position: relative;
+  top:50px;
+  left:20px;
+}
+.icon-user-3 {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+  
+}
+.icon-name:hover{
+  filter:opacity(0.6);
+}
 .icon-user-message {
   width: 80px;
   height: 80px;
@@ -102,8 +124,13 @@
 
 .send {
   width: 25px;
-  right: 1vh;
+  right: 2vh;
+  top: 8px;
   position: relative;
+}
+.send:hover{
+  cursor: pointer;
+  filter:opacity(0.7); 
 }
 
 .p-1 {
@@ -112,9 +139,13 @@
 
 .send-2 {
   width: 25px;
-  top: 39vh;
-  right: 2vh;
+  bottom: 60px;
+  left: 33vw;
   position: relative;
+}
+.send-2:hover{
+  cursor: pointer;
+  filter: opacity(0.7);
 }
 
 .send-comment {
@@ -131,13 +162,11 @@
 .panelDerecho {
   position: absolute;
   top: 2vh;
-  left: 57%;
+  left: 54%;
 }
 
 .linea-acostada-2 {
   width: 100%;
-  position: absolute;
-  right: 5%;
   background-color: #d4d4d4;
   height: 1px;
 }
@@ -145,7 +174,7 @@
 .linea-acostada-3 {
   width: 46.2%;
   position: absolute;
-  top: 74vh;
+  top: 696px;
   right: 0px;
   background-color: #d4d4d4;
   height: 1px;
@@ -162,7 +191,11 @@
 .sinF {
   position: absolute;
   width: 25px;
+  padding-top: 10px;
   right: 30px;
+}
+.sinF:hover{
+  filter:opacity(0.5);
 }
 .screen {
   width: 100%;
