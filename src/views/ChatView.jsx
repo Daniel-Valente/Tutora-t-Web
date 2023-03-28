@@ -57,14 +57,14 @@ const ChatView = () => {
           <button className="close-panel">
             <Link  to={prevPath} style={{ textDecoration: 'none'}} >X</Link>
           </button>
-          <div className="name-user-header-chat">{userChat.name}</div>
+          <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>{userChat.name}</h2>
         </div>
         <br /><br />
         <div className="linea-acostada"/>
         <br />
         <div className="section-message-chat">
           <div className="sidebar-messages-chat main-message-chat">
-            <Scrollbars autoHeight autoHeightMax={ '42vh' }  style={{ width: '42.5vh' }} ref={scrollRef}>
+            <Scrollbars autoHeight autoHeightMax={ '42vh' }  style={{ width: '44.5vh' }} ref={scrollRef}>
               {
                 chatMessages && chatMessages.map((chat, index) => <ChatMessage key={index} chat={chat} userChat={userChat} />)
               }
@@ -76,7 +76,7 @@ const ChatView = () => {
               className="input-message-chat"
               value={formValue}
               onChange={(e) => setFormValue(e.target.value)}
-              placeholder="say something nice"
+              placeholder="treat people with kindness"
             />
 
             <button

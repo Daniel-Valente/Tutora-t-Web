@@ -76,7 +76,7 @@ const Chat = () => {
               className="input-message"
               value={formValue}
               onChange={(e) => setFormValue(e.target.value)}
-              placeholder="say something nice"
+              placeholder="treat people with kindness"
             />
 
             <button
