@@ -4,14 +4,9 @@ import httpClient from "../../https/httpClient";
 
 const logIn = async (logIn) => {
     const { data } = await httpClient.post(`/users/LogIn`, logIn);
-    
-    const node = data.map( user => {
-        return {
-            uid_user: user._id,
-            ...user
-        }
-    });
 
+    const node = { user_uid: data._id, ...data };
+    
     return node;
 }
 

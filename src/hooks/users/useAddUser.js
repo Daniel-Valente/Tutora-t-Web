@@ -7,12 +7,7 @@ const addUser = async (user) => {
         'Content-Type': 'application/json'
     });
 
-    const node = data.map(( user ) => {
-        return {
-            uid_user: user._id,
-            ...user
-        }
-    });
+    const node = { user_uid: data._id, ...data };
 
     return node;
 }

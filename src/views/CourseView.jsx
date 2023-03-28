@@ -48,18 +48,7 @@ const CourseView = () => {
       label: 'Privado'
     }
   ]);
-  const [editCourse, setEditCourse] = useState({
-    title: course ? course.title : '',
-    description: course ? course.description : '',
-    dates: course ? course.dates : '',
-    hours: course ? course.hours : '',
-    site: course ? course.site : '',
-    career: course ? course.career : '',
-    imgCourse: '',
-    visible: course ? course.visible : '',
-    uid_user: userInfo.uid_user,
-    id_Course
-  });
+  const [editCourse, setEditCourse] = useState({ id_Course, ...course });
 
   const { mutate: userRegister } = useRegistrationUser(id_Course, userInfo.uid_user);
 
@@ -165,6 +154,11 @@ const CourseView = () => {
     // eslint-disable-next-line
   }, [dataCareers]);
 
+  useEffect(() => {
+    course && setEditCourse({ id_Course, ...course });
+    // eslint-disable-next-line
+  }, [course]);
+
   const handleRegister = () => {
     const register = { 
       id_Course, 
@@ -234,24 +228,6 @@ const CourseView = () => {
           <b>Privacidad del curso:</b> {course.visible ? 'Público' : 'Privado'} <br />
         </div>
         <div className='col-7'>
-          <div className='row'>
-            {/* <div className='col-1'></div>
-            <div className='col-2'>
-              <button className='button-left'>Conversación</button>
-            </div>
-            <div className='col-2'>
-              <button className='button-left'> Destacado </button>
-            </div>
-            <div className='col-4'>
-              <button className='button-left'> Multimedia </button>
-            </div>
-            <div className='col-1'>
-              <button>
-                <img className='search-imag' src={ search } alt="" />
-              </button>
-              <button  style={{ marginLeft: '1vh' }} className='button-option-course'>...</button>
-            </div> */}
-          </div>
           {
             dataUserRegister ? <CreatePost isDisabled={true} value={course.career}/> : userInfo.uid_user === course.uid_user && <CreatePost  isDisabled={true} value={course.career}/>
           }

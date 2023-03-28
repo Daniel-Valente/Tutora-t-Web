@@ -9,12 +9,7 @@ const getUserById = async ({ queryKey }) => {
 
     const { data } = await httpClient.get(`/users/userId/${ uid_user }`);
     
-    const node = data.map(( user ) => {
-        return {
-            uid_user: user._id,
-            ...user
-        }
-    });
+    const node = { user_uid: data._id, ...data };
 
     return node;
 }

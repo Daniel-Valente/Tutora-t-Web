@@ -92,7 +92,7 @@ const HomeView = () => {
     // eslint-disable-next-line
   }, [dataCareers]);
 
-  if (loadingPosts || loadingUser || loadingCoursesInscripto
+  if (loadingPosts || loadingCoursesInscripto
     || loadingHidePost || loadingSavePost || loadingCareers || loadingTree) {
     return (
       <div className='parent'>
