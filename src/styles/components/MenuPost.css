@@ -4,3 +4,9 @@
 .boton-Ocultar:hover{
     color: rgb(41, 41, 41);
 }
+.Eliminar{
+    color: rgb(128, 128, 128);
+}
+.Eliminar:hover{
+    color: rgb(41, 41, 41);
+}

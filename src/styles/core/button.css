@@ -88,6 +88,19 @@
   margin-left: 20px;
   margin-bottom: 4%;
 }
+.boton-circular-volteado-5-new {
+  background-color: #f0f2f5;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-left: 20px;
+  margin-bottom: 4%;
+}
 
 .boton-circular-volteado-6 {
   background-color: #f0f2f5;
