@@ -64,13 +64,13 @@ input[type="file"]::-webkit-file-upload-button {
 /* ESTILO DEL BOTÓN */
 .boton-standar-rw {
   margin: 5px;
-  background-color: white;
-  color: rgb(245, 61, 58);
+  background-color: #FFEDF8;
+  color: rgb(139, 139, 139);
   border-radius: 20px;
   font-weight: bold;
   letter-spacing: 1px;
   line-height: 15px;
-  border: 2px solid rgb(245, 61, 58);
+  border: 1px solid #fbcae8;
   transition: all 0.3s ease 0s;
   width: 12em;
   padding: 10px;
@@ -78,7 +78,7 @@ input[type="file"]::-webkit-file-upload-button {
 /* ESTILO DEL BOTÓN CON HOVER DE MOUSE */
 .boton-standar-rw:hover {
   color: white;
-  background-color: rgb(245, 61, 58);
+  background-color: #FF0096;
 }
 
 .title-course {
@@ -86,7 +86,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .site-course {
-  width: 30vh;
+  width: 37vh;
 }
 
 .visible-course {
@@ -111,7 +111,7 @@ input[type="file"]::-webkit-file-upload-button {
 .upload-image-course {
   height: 240px;
   position: relative;
-  border: 3px dotted #a2a2a2;
+  border: 3px dotted #ff009530;
   z-index: -1;
 }
 
@@ -138,6 +138,16 @@ input[type="file"]::-webkit-file-upload-button {
   font-weight: bolder;
   margin-top: 1rem;
   right: 4vh;
+}
+.input-course-2 {
+  border-color: #e7e7e7;
+  border-radius: 15px;
+  width: 36vh;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bolder;
+  margin-top: 1rem;
 }
 
 .course-view-all {
@@ -168,6 +178,9 @@ input[type="file"]::-webkit-file-upload-button {
   width: 12vh;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0);
+}
+.view-button:hover{
+  filter:opacity(0.5);
 }
 
 .color-button-view {

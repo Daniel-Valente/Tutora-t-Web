@@ -142,7 +142,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
         <textarea className='inp' placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
         <div className='upload-post'>
           <div className="upload-btn-wrapper" onChange={handleChange}>
-            <button className="boton-standar-rw">
+            <button style={{backgroundColor:'pink'}} className="boton-standar-rw">
               Carga un archivo
             </button>
             <input className="upload-file-buton" name="imgPost" type="file" accept="image/*" />
