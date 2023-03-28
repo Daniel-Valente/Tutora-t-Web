@@ -9,7 +9,7 @@ import Post from "../components/Post/Post";
 import { filterContent } from "../helpers/utils";
 import {
   useCareersList, useCoursesList, useHidePostList,
-  usePostsList, useSavePostList, useSendEmailVerify, useTree, useUserByUsername
+  usePostsList, useSavePostList, useSendEmailVerify, useTree
 } from "../hooks";
 import { isRegisterState } from "../reducers";
 

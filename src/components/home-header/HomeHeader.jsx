@@ -8,7 +8,7 @@ import UserModal from '../modals/UserModal';
 
 import { exit, mensaje, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isSearchModal, isUserModal } from '../../helpers/utils';
-import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit, useUsersList } from '../../hooks';
+import { useChatsListWithLimit, useNotificationsWithLimit, useUsersList } from '../../hooks';
 import { userInfo } from '../../reducers';
 import CardMessage from '../card-message/CardMessage';
 import CardNotification from '../card-notification/CardNotification';
@@ -18,7 +18,6 @@ import CardUsers from '../card-users/CardUsers';
 
 const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
-  const { mutate: logOut } = useLogOut();
 
   const { value: userModal } = useSelector(state => state.userModal);
   const { value: chatModal } = useSelector(state => state.chatModal);

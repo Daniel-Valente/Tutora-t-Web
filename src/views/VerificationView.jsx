@@ -28,6 +28,8 @@ const VerificationView = () => {
                 }
             });
         }
+
+        // eslint-disable-next-line
     }, [userInfoPerfil]);
     
 

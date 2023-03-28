@@ -6,7 +6,6 @@ const MenuCourse = ({ x, y, showMenu, handleDelete }) => {
             width: 150,
             borderRadius: 10,
             background: "#fff",
-            display: 'flex',
             flexDirection: 'column',
             padding: 10,
             top: y,

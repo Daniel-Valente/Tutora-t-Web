@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { useBodyScrollLock } from '../../hooks';
 
 const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSave, post, hide, save, prevUrl }) => {
     const userInfoPerfil = useSelector(state => state.user);
     const location = useLocation();
-    const [, toggle] = useBodyScrollLock();
 
     const style = () => {
         return {
             width: 150,
             borderRadius: 10,
             background: "#fff",
-            display: 'flex',
             flexDirection: 'column',
             padding: 10,
             top: y,

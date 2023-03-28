@@ -5,11 +5,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { handleMouseEnter, isChatModal } from '../../helpers/utils';
 import {
     useAddComment, useCommentList, useCourseById,
-    useDeletePost, useHidePost, useLikeByUser,
-    useLikesList, useSavePost, useUpdateLike,
-    useUserById
+    useDeletePost, useHidePost, useSavePost, useUserById
 } from '../../hooks';
-import { messages, send, star, starSinF, user } from '../../images';
+import { messages, send, user } from '../../images';
 import { alertState } from '../../reducers';
 import MenuPost from '../menu-post/MenuPost';
 import PostModal from '../modals/PostModal';
@@ -22,7 +20,6 @@ const Post = (props) => {
     
     const userInfoPerfil = useSelector(state => state.user);
 
-    const { mutate: updateLike } = useUpdateLike(post._id);
     const { mutate: addComment } = useAddComment(post._id);
     const { mutate: deletePost } = useDeletePost(post._id);
     const { mutate: savePost } = useSavePost(userInfoPerfil.uid_user);
@@ -36,14 +33,8 @@ const Post = (props) => {
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
 
-    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
-    const [likes, setLikes] = useState(dataLikeList);
-
     const { data: dataCommentList = [], isFetching: fetchingCommentList, isLoading: loadingCommentList } = useCommentList(post._id);
     const [commentList, setCommentList] = useState(dataCommentList);
-
-    const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
-    const [starActive, setStarActive] = useState(dataLikeByUser);
 
     const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse } = useCourseById(post.id_Course);
     const [course, setCourse] = useState(dataCourse);
@@ -52,24 +43,6 @@ const Post = (props) => {
     const dispatch = useDispatch();
 
     const buttonMenuRef = useRef();
-
-    const handleStar = () => {
-        const likeUser = { 
-            uid_user: userInfoPerfil.uid_user, 
-            id_Post: post._id,
-            action: `reacciono a tu publicación`,
-            uid_creator: post.uid_user,
-            type: 'like',
-            career: post.career,
-            starActive
-        };
-
-        updateLike(likeUser, {
-            onSuccess: ({ data }) => {
-                setStarActive(data);
-            }
-        });
-    };
 
     const handleChange = (e) => {
         setCommentValue(e.target.value);
@@ -153,29 +126,21 @@ const Post = (props) => {
             career: post.career,
             type: 'comment',
          };
-        setCommentValue('');
+
         commentValue.length > 0 ? addComment(comments, {
             onSuccess: (response) => {
                 console.log(response);
             }
         })
-            : console.log('no');
+        : console.log('no');
+
+        setCommentValue('');
     };
 
     useEffect(() => {
         !fetchingUserPost && dataUserPost && userPost.length > -1 && setUserPost(dataUserPost);
         // eslint-disable-next-line
     }, [dataUserPost]);
-
-    useEffect(() => {
-        !fetchingLike && setLikes(dataLikeList);
-        // eslint-disable-next-line
-    }, [dataLikeList]);
-
-    useEffect(() => {
-        !fetchingLikeByUser && setStarActive(dataLikeByUser);
-        // eslint-disable-next-line
-    }, [dataLikeByUser]);
 
     useEffect(() => {
         !fetchingCommentList && setCommentList(dataCommentList);
@@ -187,7 +152,7 @@ const Post = (props) => {
         // eslint-disable-next-line
     }, [dataCourse]);
 
-    if (loadingLike || loadingLikeByUser || loadingCommentList || loadingCourse) {
+    if ( loadingCommentList || loadingCourse ) {
         return (
             <div className='parent'>
                 <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -242,7 +207,7 @@ const Post = (props) => {
                     />
                     </div>
                     <div className='col-3'>
-                        <Link to={post._id} onClick={ () => isChatModal(dispatch, true) } state={{ background: location, commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
+                        <Link to={post._id} onClick={ () => isChatModal(dispatch, true) } state={{ background: location, commentModal: !commentModal, post, userPost, prevPath: location.pathname }}>
                             <img className='sinF' src={messages} alt="comments"/>
                         </Link>
                         <br/>
