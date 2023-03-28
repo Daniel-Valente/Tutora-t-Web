@@ -270,7 +270,7 @@ const PerfilView = () => {
                     <Link 
                       to={`${ location.pathname.split('/', 2)[0] }/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
                       state={{ background: location, prevPath: location.pathname }}
-                      style={{ textDecoration: 'none', color: 'white' }}>
+                      className="mensaje-enviar" style={{ textDecoration: 'none' }}>
                       Enviar mensaje
                     </Link>
                   </button>
