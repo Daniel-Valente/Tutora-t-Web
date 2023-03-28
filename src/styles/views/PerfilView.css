@@ -84,6 +84,9 @@ input[type="file"]::-webkit-file-upload-button {
 .title-course {
   width: 65vh;
 }
+.title-course-3 {
+  width: 50vh;
+}
 
 .site-course {
   width: 37vh;
@@ -93,7 +96,7 @@ input[type="file"]::-webkit-file-upload-button {
   width: 15vh;
   height: 3vh;
   bottom: 5vh;
-  left: 115vh;
+  left: 105vh;
 }
 
 .inp-course {
