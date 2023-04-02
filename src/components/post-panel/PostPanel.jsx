@@ -115,7 +115,9 @@ const PostPanel = () => {
                                 <LikeButton 
                                         props={{
                                             post:post,
-                                            userInfoPerfil:userInfoPerfil}}
+                                            userInfoPerfil:userInfoPerfil,
+                                            vista:'2'
+                                        }}
                                  />
                                  <br/>
                                 <p style={{

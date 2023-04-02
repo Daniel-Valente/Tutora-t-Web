@@ -203,7 +203,9 @@ const Post = (props) => {
                     <LikeButton 
                         props={{
                             post:props.post,
-                            userInfoPerfil:userInfoPerfil}}
+                            userInfoPerfil:userInfoPerfil,
+                            vista:"1"
+                        }}
                     />
                     </div>
                     <div className='col-3'>

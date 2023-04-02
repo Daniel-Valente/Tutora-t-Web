@@ -88,6 +88,19 @@
   margin-left: 20px;
   margin-bottom: 4%;
 }
+.boton-circular-volteado-5-new {
+  background-color: #f0f2f5;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-left: 20px;
+  margin-bottom: 4%;
+}
 
 .boton-circular-volteado-6 {
   background-color: #f0f2f5;
@@ -160,44 +173,47 @@
 .button-follow:hover {
   background-color: #1492e6;
   color: #fff;
+  cursor: pointer;
 }
 
 .button-join {
-  background-color: #1492e6;
   border-radius: 10px;
   height: 40px;
-  border: none;
-  width: 15vh;
-  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
+  background-color: #fff;
+  width: 35%;
+  border: 1px solid #1492e67c;
+  font-family: sans-serif;
+  color: #828282;
   font-size: 17px;
   font-weight: bold;
+  border-radius: 10px;
   margin-right: 1vh;
 }
 
 .button-join:hover {
+  background-color: #1492e6;
+  color: #fff;
   cursor: pointer;
-  background-color: #ff0096;
-  color: #f0f2f5;
 }
 
 .button-left {
-  background-color: #ff0096;
   border-radius: 10px;
   height: 40px;
-  border: none;
-  width: 15vh;
-  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
+  background-color: #fff;
+  width: 35%;
+  border: 1px solid #fbcae8;
+  font-family: sans-serif;
+  color: #828282;
   font-size: 17px;
   font-weight: bold;
+  border-radius: 10px;
   margin-right: 1vh;
 }
 
 .button-left:hover {
+  color: #fff;
   cursor: pointer;
-  background-color: #1492e6;
-  color: #f0f2f5;
+  background-color: #ff0096;
 }
 .button-option-course {
   left: 96%;
@@ -241,6 +257,7 @@
 
 .button-message:hover{
   background-color: #ff0096;
+  cursor: pointer;
   
   
 }

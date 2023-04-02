@@ -191,7 +191,7 @@ const CourseView = () => {
         <img className="fondo"
           src={course.imgUrl}
           alt={'user-portada'} />
-        <label style={{ textAlign: 'left', marginTop: '5%', fontWeight: 'bold', marginLeft: '27%', fontSize: '300%', fontFamily: 'Segoe UI Emoji' }}>
+        <label style={{ textAlign: 'left', marginTop: '5%', marginLeft: '27%', fontSize: '300%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
           {course.title}
         </label>
         <br />
@@ -217,8 +217,8 @@ const CourseView = () => {
       </div>
       <div className='row'>
         <div className='col-2'>
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
-            <b>Información:</b>
+          <label style={{ textAlign: 'left', marginLeft: '1%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+            <b>Información</b>
           </label>
           <br />
           <b>Descripción:</b> {course.description} <br />
@@ -240,8 +240,8 @@ const CourseView = () => {
           }
         </div>
         <div className='col-2'>
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily: 'Segoe UI Emoji' }}>
-            <b>Participantes:</b>
+          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+            <b>Participantes</b>
           </label>
           <div className='row'>
             {
@@ -265,8 +265,8 @@ const CourseView = () => {
       </div>
 
       <CourseModal active={editPublicationModal} toggle={isEditPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center' }}>Editar curso</h2>
-        <input className='title-course' type="text" placeholder='Titulo' name='title' value={editCourse.title} onChange={handleChange} />
+        <h2 style={{ textAlign: 'center', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Editar curso</h2>
+        <input className='title-course-3' type="text" placeholder='Titulo' name='title' value={editCourse.title} onChange={handleChange} />
         <input className='site-course' type="text" name="site" placeholder='Lugar' value={editCourse.site} onChange={handleChange} />
         <Select className='visible-course'
           defaultValue={privacidad[privacidad.findIndex(pri => pri.value === course.visible)]}
@@ -275,7 +275,7 @@ const CourseView = () => {
           options={privacidad}
           onChange={handleChange}
         />
-        <textarea className='inp' placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={editCourse.description} onChange={handleChange}></textarea>
+        <textarea className='inp' style={{borderRadius:'20px', width:'1200px', marginLeft:'20px'}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={editCourse.description} onChange={handleChange}></textarea>
         <div className='row'>
           <div className='col-4'>
             <input type="text" placeholder='Días' name='dates' value={editCourse.dates} onChange={handleChange} />

@@ -18,7 +18,7 @@ const MenuCourse = ({ x, y, showMenu, handleDelete }) => {
 
   return (
     <div style={style()}>
-        <button style={ styles.div } onClick={handleDelete}>Eliminar</button>
+        <button className='Eliminar' style={ styles.div } onClick={handleDelete}>Eliminar</button>
     </div>
   );
 };
