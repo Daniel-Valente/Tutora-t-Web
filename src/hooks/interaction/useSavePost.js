@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const savePost = async ({ uid_user, id_Post, career }) => {
     await httpClient.patch(`/users/arbol/${ uid_user }/save`, { career });

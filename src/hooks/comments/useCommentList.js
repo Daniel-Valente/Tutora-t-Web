@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { showGlobalLoader } from "../../actions/layout";
 
 const getCommentList = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
+    store.dispatch( showGlobalLoader() );
 
     const { data } = await httpClient.get(`/comments/${ id_Post }`);
     const { result } = data;

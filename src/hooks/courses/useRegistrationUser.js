@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const registrationUser = async (course) => {
     const { uid_user, id_Course, uid_creator, action, type, dataUserRegister, career } = course;

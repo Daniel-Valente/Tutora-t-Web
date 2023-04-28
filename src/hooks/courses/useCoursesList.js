@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { showGlobalLoader } from "../../actions/layout";
 
 const getCoursesList = async () => {
+    store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get('/courses');
 
     return data;

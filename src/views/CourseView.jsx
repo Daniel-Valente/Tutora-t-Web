@@ -16,10 +16,12 @@ import {
 
 import { send, user } from '../images';
 import { alertState } from '../reducers';
+import { Loader } from '../components/loader/Loader';
+import { StoreRounded } from '@mui/icons-material';
 
 const CourseView = () => {
   const { id_Course } = useParams();
-
+  const { layout: { loading: globalLoader } } = StoreRounded.getState();
   const userInfo = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
   const { value: editPublicationModal } = useSelector(state => state.editPublicationModal);
@@ -29,7 +31,7 @@ const CourseView = () => {
   const { mutate: updateCourse } = useUpdateCourse();
   const { mutate: deleteCourse } = useDeleteCourse(id_Course);
 
-  const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse, remove } = useCourseById(id_Course);
+  const { data: dataCourse = [], isFetching: fetchingCourse, remove } = useCourseById(id_Course);
   const [course, setCourse] = useState(dataCourse);
 
   const [x, setX] = useState('');
@@ -53,13 +55,13 @@ const CourseView = () => {
   const { mutate: userRegister } = useRegistrationUser(id_Course, userInfo.uid_user);
 
 
-  const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsByCourse(id_Course);
+  const { data: dataPostsList = [], isFetching: fetchingPostsList } = usePostsByCourse(id_Course);
   const [posts, setPosts] = useState(dataPostsList);
 
-  const { data: dataUsersList = [], isFetching: fetchingUsersList, isLoading: loadingUsersList } = useUsersList();
+  const { data: dataUsersList = [], isFetching: fetchingUsersList } = useUsersList();
   const [users, setUsers] = useState(dataUsersList);
 
-  const { data: dataUserRegister, isLoading: loadingUserRegister } = useRegistrationByUser(id_Course, userInfo.uid_user);
+  const { data: dataUserRegister } = useRegistrationByUser(id_Course, userInfo.uid_user);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
   const [career, setCareer] = useState(dataCareers);
@@ -177,16 +179,11 @@ const CourseView = () => {
     });
   }
 
-  if (loadingCourse || loadingPosts || loadingUserRegister || loadingUsersList) {
-    return (
-      <div className='parent'>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-      </div>
-    )
-  }
-
   return (
     <div className='principal-body'>
+      {
+        globalLoader && <Loader/>
+      }
       <div className='row'>
         <img className="fondo"
           src={course.imgUrl}

@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { showGlobalLoader } from "../../actions/layout";
 
 const getChatsList = async ({ queryKey }) => {
     const [ , uid_user ] = queryKey;
+    store.dispatch( showGlobalLoader() );
 
     const { data } = await httpClient.get(`/chats/${ uid_user }`);
     return data;

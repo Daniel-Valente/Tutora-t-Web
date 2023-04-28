@@ -11,7 +11,7 @@ const ChatsList = ({ openHandle }) => {
 
     const [searchText, setSearchText] = useState('');
 
-    const { data: dataChatsList = [], isFetching: fetchingChatsList, isLoading: loadingChatsList } = useChatsList(userInfo.uid_user);
+    const { data: dataChatsList = [], isFetching: fetchingChatsList } = useChatsList(userInfo.uid_user);
     const [chats, setChats] = useState(dataChatsList);
     
     const changeHandle = (e) => setSearchText( e.target.value );
@@ -20,14 +20,6 @@ const ChatsList = ({ openHandle }) => {
         !fetchingChatsList && dataChatsList && setChats(dataChatsList);
         // eslint-disable-next-line
     }, [dataChatsList]);
-
-    if (loadingChatsList) {
-        return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
 
     return (
         <div>
