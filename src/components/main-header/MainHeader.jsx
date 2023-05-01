@@ -1,11 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useThemeContext } from '../../context/ThemeContext';
 import { isLoginModal, isRegisterModal } from '../../helpers/utils';
 
 const MainHeader = () => {
   const { value: loginModal } = useSelector(state => state.loginModal);
   const { value: registerModal } = useSelector(state => state.registerModal);
   const dispatch = useDispatch();
+  const {contextTheme} = useThemeContext();
 
   return (
     <div className='header'>

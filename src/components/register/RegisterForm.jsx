@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import ViewPassword from './viewPassword';
 
 
 const RegisterForm = (pops) => {
@@ -9,7 +8,8 @@ const RegisterForm = (pops) => {
 
   const [passwordView, setPasswordView] = useState(false);
   const [confirmPasswordView, setConfirmPasswordView] = useState(false);
-
+  const [changeTypePass, setChangeTypePass] = useState(false);
+  const[confirmchangeTypePass, setConfirmChangeTypePass] = useState(false);
   return (
     <>
       <input
@@ -46,22 +46,31 @@ const RegisterForm = (pops) => {
         required
       />
       <br />
+
       <input
-        type={passwordView ? "text" : "password"}
+        type={changeTypePass ? "text" : "password"}
         value={values.password}
         name="password"
         placeholder="Contraseña"
         onChange={onChange}
         required
       />
+      <div className="eye-icon-2" onClick={() => setChangeTypePass(!changeTypePass)}>
+      <ViewPassword/>
+      </div>
       <input
-        type={confirmPasswordView ? "text" : "password"}
+        type={confirmchangeTypePass ? "text" : "password"}
         value={values.confirmPassword}
         name="confirmPassword"
         placeholder="Confirmar Contraseña"
         onChange={onChange}
         required
       />
+      <div className="eye-icon-3" onClick={() => setConfirmChangeTypePass(!confirmchangeTypePass)}>
+      <ViewPassword/>
+      </div>
+
+      
       <Select
         placeholder="Carrera"
         onChange={onChange}
@@ -69,24 +78,6 @@ const RegisterForm = (pops) => {
         options={options}
         className="input-type"
       />
-      <button
-        className="eye-icon-2"
-        onClick={() =>
-          passwordView ? setPasswordView(false) : setPasswordView(true)
-        }
-      >
-        {passwordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
-      </button>
-      <button
-        className="eye-icon-3"
-        onClick={() =>
-          confirmPasswordView
-            ? setConfirmPasswordView(false)
-            : setConfirmPasswordView(true)
-        }
-      >
-        {confirmPasswordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
-      </button>
     </>
   )
 }

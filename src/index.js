@@ -11,6 +11,7 @@ import { store } from './store/index';
 import './styles/styles.css';
 
 import reportWebVitals from './reportWebVitals';
+import { ThemeContextProvider } from './context/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -18,18 +19,20 @@ const persistor = persistStore(store);
 const queryClient = new QueryClient();
 
 root.render(
+  <ThemeContextProvider>
   <React.StrictMode>
     <Provider store={ store }>
       <PersistGate loading={ null } persistor={ persistor }>  
         <React.Suspense fallback={ <span>Loading...</span> }>
           <QueryClientProvider client={ queryClient }>
             <ReactQueryDevtools />
-            <App />
+               <App />
           </QueryClientProvider>
         </React.Suspense>
       </PersistGate>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
+  </ThemeContextProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
