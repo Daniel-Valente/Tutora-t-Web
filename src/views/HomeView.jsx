@@ -88,8 +88,8 @@ const HomeView = () => {
   };
 
   return (
-    <div className="principal-body">
-      <div className="linea-acostada" />
+    <div className="principal-body ">
+      <div className="linea-acostadaHome" />
       <div className="row">
         <div className="col-2">
           <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
