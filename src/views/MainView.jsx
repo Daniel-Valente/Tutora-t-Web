@@ -12,7 +12,7 @@ const MainView = () => {
   const {contextTheme} = useThemeContext();
 
   return (
-    <div>
+    <div className="main">
       <div className="linea-acostadaLogin" />
       <div>
         <img className="image-cucei" src={CUCEI} />

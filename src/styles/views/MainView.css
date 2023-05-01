@@ -10,6 +10,11 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+.main {
+  height: 88.5vh;
+}
+
 .react-switch{
   position: absolute;
   top:-50px;
