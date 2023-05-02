@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
 import { isLogIn, isLoginModal, isLoginWithEmail, isNewPassword, isResetPassword, isValidateCode, ValidateData } from '../../helpers/utils';
 import LogInModal from '../modals/LogInModal';
 import Modal from '../modals/Modal';
@@ -12,8 +9,51 @@ import { useLogIn, useNewPassword, useResetPassword } from '../../hooks';
 import ResetPasswordModal from '../modals/ResetPasswordModal';
 import ValidateCodeModal from '../modals/ValidateCodeModal';
 import NewPasswordModal from '../modals/NewPasswordModal';
+import { googleIcon } from '../../images';
+import ViewPassword from '../register/viewPassword';
+import { useTheme } from 'styled-components';
 
 const Login = () => {
+  const theme = useTheme();
+  const [isHoverB, setIsHoverB] = useState(false);
+
+  const handleMouseEnterB = () => {
+     setIsHoverB(true);
+  };
+  const handleMouseLeaveB = () => {
+     setIsHoverB(false);
+  };
+  const boxStyleB = {
+   background: isHoverB ? theme.bH  : theme.linkColor,
+   color:theme.header,
+    transition: 'all 0.10s ease',
+  };
+  const [isHoverB2, setIsHoverB2] = useState(false);
+
+  const handleMouseEnterB2 = () => {
+     setIsHoverB2(true);
+  };
+  const handleMouseLeaveB2 = () => {
+     setIsHoverB2(false);
+  };
+  const boxStyleB2 = {
+   background: isHoverB2 ? theme.bH  : theme.linkColor,
+   color:theme.header,
+    transition: 'all 0.10s ease',
+  };
+  const [isHoverB3, setIsHoverB3] = useState(false);
+
+  const handleMouseEnterB3 = () => {
+     setIsHoverB3(true);
+  };
+  const handleMouseLeaveB3 = () => {
+     setIsHoverB3(false);
+  };
+  const boxStyleB3 = {
+   background: isHoverB3 ? theme.bH  : theme.linkColor,
+   color:theme.header,
+    transition: 'all 0.10s ease',
+  };
   const { mutate: logIn } = useLogIn();
   const { mutate: sendPasswordResetEmail } = useResetPassword();
   const { mutate: newPassword } = useNewPassword();
@@ -33,7 +73,9 @@ const Login = () => {
   const { value: validateCodeModal } = useSelector(state => state.validateCodeModal);
   const { value: newPasswordModal } = useSelector(state => state.newPasswordModal);
   const { value: loginWitnEmail } = useSelector(state => state.loginWitnEmail);
-
+  const [changeTypePass, setChangeTypePass] = useState(false);
+  const [changeTypePass2, setChangeTypePass2] = useState(false);
+  const [changeTypePass2Confirm, setChangeTypePass2Confirm] = useState(false);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -191,76 +233,86 @@ const Login = () => {
   return (
     <div>
       <Modal active={loginModal} toggle={isLoginModal} dispatch={dispatch}>
-        <h1 style={{ textAlign: "center" }}>Bienvenido de vuelta!</h1>
-        <h5 style={{ textAlign: "center", color: "#828181" }}>
+        <h1 style={{ textAlign: "center", color:theme.userName }}>Bienvenido de vuelta!</h1>
+        <h5 style={{ textAlign: "center", color: theme.userName2 }}>
           Inicia sesion con tu correo electrónico o con Google.
         </h5>
-        <button className="boton-correo button1" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
+        <button className="boton-correoGoogle buttonGoogle">
+          Ingresa con Google
+        </button>
+        <div>
+          <img className="google-icon" src={googleIcon} />
+        </div>
+        <br/>
+        <button style={boxStyleB} onMouseEnter={handleMouseEnterB}
+       onMouseLeave={handleMouseLeaveB}  className="boton-correoLogin button1" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
           Ingresa con correo electronico
         </button>
         <br />
-        <p className="aviso-privacidad">
+        <p  style={{ textAlign: "center", color: theme.userName2 }} className="aviso-privacidad">
           Al continuar, tu estas aceptas los términos y condiciones
           <br />y el aviso de privacidad.
         </p>
       </Modal>
 
       <LogInModal active={loginWitnEmail} toggle={isLoginWithEmail} dispatch={dispatch}>
-        <h1 style={{ textAlign: "center" }}>Iniciar Sesion</h1>
-        <h5 style={{ textAlign: "center", color: "#828181" }}>
+        <h1 style={{ textAlign: "center", color:theme.userName }}>Iniciar Sesion</h1>
+        <h5 style={{ textAlign: "center", color:theme.userName2 }}>
           Inicia sesion con tu correo electronico aqui.
         </h5>
-        <input type="email" placeholder="Correo electronico" name='email'
+        <input 
+          style={{backgroundColor:theme.header, color: theme.userName}}
+          type="email" placeholder="Correo electronico" name='email'
           value={loginValue.email}
           onChange={handleChange}
           required
         />
         <br />
         <input
-          type={password ? "text" : "password"}
+          style={{backgroundColor:theme.header, color: theme.userName}}
+          type={changeTypePass ? "text" : "password"}
           placeholder="Contraseña" name='password'
           value={loginValue.password}
           onChange={handleChange}
           required
         />
-        <button
-          className="eye-icon"
-          onClick={() => (password ? setPassword(false) : setPassword(true))}
-        >
-          {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </button>
+        <div style={{filter:theme.eye}} className="eye-icon" onClick={() => setChangeTypePass(!changeTypePass)}>
+            <ViewPassword/>
+        </div>
         <br />
-        <button className="boton-correo button1" onClick={handleSubmit} >Ingresa con correo electronico</button>
+        <button style={boxStyleB2} onMouseEnter={handleMouseEnterB2}
+       onMouseLeave={handleMouseLeaveB2} className="boton-correo button1" onClick={handleSubmit} >Ingresa con correo electronico</button>
         <br />
-        <p className="aviso-privacidad">
+        <p style={{color:theme.userName}} className="aviso-privacidad">
           Al continuar, tu estas aceptas los términos y condiciones
           <br />y el aviso de privacidad.
         </p>
-        <div className="linea-acostada" />
-        <button className="boton-sin-fondo" onClick={resetPassword}>¿Olvidaste tu contraseña? </button>
+        <div style={{backgroundColor:theme.linea}} className="linea-acostada" />
+        <button style={{ background:theme.header}} className="boton-sin-fondo" onClick={resetPassword}>¿Olvidaste tu contraseña? </button>
       </LogInModal>
 
       <ResetPasswordModal active={resetPasswordModal} toggle={isResetPassword} dispatch={dispatch}>
-        <h1 style={{ textAlign: "center" }}>Iniciar Sesion</h1>
-        <h5 style={{ textAlign: "center", color: "#828181" }}>
+        <h1 style={{color:theme.userName,textAlign: "center"}}>Iniciar Sesion</h1>
+        <h5 style={{ textAlign: "center", color:theme.userName2 }}>
           Recupera tu contraseña aquí.
         </h5>
-        <input type="email" placeholder="Correo electronico" name='email'
+        <input style={{backgroundColor:theme.header, color: theme.userName}} type="email" placeholder="Correo electronico" name='email'
           value={loginValue.email}
           onChange={handleChange}
           required
         />
         <br />
-        <button className="boton-correo button1" onClick={handleSubmitResetPassword} >Enviar correo</button>
+        <button style={boxStyleB3} onMouseEnter={handleMouseEnterB3}
+       onMouseLeave={handleMouseLeaveB3} className="boton-correo button1" onClick={handleSubmitResetPassword} >Enviar correo</button>
         <br />
       </ResetPasswordModal>
 
       <ValidateCodeModal active={validateCodeModal} toggle={isValidateCode} dispatch={dispatch}>
-        <h1 style={{ textAlign: "center" }}>Introduce codigo de validacion</h1>
-        <h5 style={{ textAlign: "center", color: "#828181" }}>
+        <h1 style={{ textAlign: "center", color: theme.userName }}>Introduce codigo de validacion</h1>
+        <h5 style={{ textAlign: "center",  color: theme.userName2 }}>
           Por favor introduce el codigo que te fue proporcionado al correo electronico.
         </h5>
-        <input className='validateInput' type="text" placeholder="Codigo" name='code'
+        <input style={{backgroundColor:theme.header, color: theme.userName}} className='validateInput' type="text" placeholder="Codigo" name='code'
           onChange={handleChange}
           value={loginValue.code}
           required
@@ -271,39 +323,27 @@ const Login = () => {
       </ValidateCodeModal>
 
       <NewPasswordModal active={newPasswordModal} toggle={isNewPassword} dispatch={dispatch}>
-        <h1 style={{ textAlign: "center" }}>Introduce tu nueva contraseña</h1>
-        <h5 style={{ textAlign: "center", color: "#828181" }}>
-          Introduce tu nueva contraseña aqui, recuerda que las dos deven de coincidir.
+        <h1 style={{ textAlign: "center", color: theme.userName }}>Introduce tu nueva contraseña</h1>
+        <h5 style={{ textAlign: "center",  color: theme.userName2 }}>
+          Introduce tu nueva contraseña aqui, recuerda que las dos deben coincidir.
         </h5>
-        <input className='pass' type={password ? "text" : "password"} placeholder="Contraseña nueva" name='password'
+        <input style={{backgroundColor:theme.header, color: theme.userName}} className='pass' type={changeTypePass2 ? "text" : "password"} placeholder="Contraseña nueva" name='password'
           value={loginValue.password}
           onChange={handleChange}
           required
         />
         <br />
-        <input className='pass' type={confirmPasswordView ? "text" : "password"} placeholder="Confirmar contraseña nueva" name='confirmPassword'
+        <input style={{backgroundColor:theme.header, color: theme.userName}} className='pass' type={changeTypePass2Confirm ? "text" : "password"} placeholder="Confirmar contraseña nueva" name='confirmPassword'
           value={loginValue.confirmPassword}
           onChange={handleChange}
           required
         />
-        <button
-          className="eye-icon-4"
-          onClick={() =>
-            password ? setPassword(false) : setPassword(true)
-          }
-        >
-          {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </button>
-        <button
-          className="eye-icon-5"
-          onClick={() =>
-            confirmPasswordView
-              ? setConfirmPasswordView(false)
-              : setConfirmPasswordView(true)
-          }
-        >
-          {confirmPasswordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </button>
+        <div style={{filter:theme.eye}} className="eye-icon-4" onClick={() => setChangeTypePass2(!changeTypePass2)}>
+            <ViewPassword/>
+        </div>
+        <div style={{filter:theme.eye}} className="eye-icon-5" onClick={() => setChangeTypePass2Confirm(!changeTypePass2Confirm)}>
+            <ViewPassword/>
+        </div>
         <br />
         <button className="boton-correo3 button2" onClick={handleSubmitNewPassword} >Cambiar contraseña</button>
         <br />

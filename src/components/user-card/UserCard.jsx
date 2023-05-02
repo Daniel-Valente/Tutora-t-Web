@@ -14,8 +14,8 @@ const UserCard = (props) => {
     }, [dataUser]);
 
     return (
-        <div className='col-3'>
-            <div className='card' style={{border: "1px solid #a2a2a2", height:'250px', borderRadius:'10px'}}>
+        <div style={{marginRight:'100px'}}  className='col-3'>
+            <div  className='card' style={{border: "1px solid #a2a2a2", height:'250px', borderRadius:'10px'}}>
                 <img src={userImg.imgPortadaUrl ? userImg.imgPortadaUrl : fondo} alt={userImg.username} style={{ width: '100%', height: '15vh' }} />
                 <Link to={`/perfil/${userImg.uid_user}`}>
                     <div className='boton-circular-userCard'>

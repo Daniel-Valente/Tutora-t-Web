@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import { useChatsList } from "../../hooks";
 import { search } from "../../images";
 import Message from "../message/Message";
+import { useTheme } from "styled-components";
 
 const ChatsList = ({ openHandle }) => {
     const userInfo = useSelector(state => state.user);
-
+    const theme = useTheme();
     const [searchText, setSearchText] = useState('');
 
     const { data: dataChatsList = [], isFetching: fetchingChatsList } = useChatsList(userInfo.uid_user);
@@ -20,24 +21,39 @@ const ChatsList = ({ openHandle }) => {
         !fetchingChatsList && dataChatsList && setChats(dataChatsList);
         // eslint-disable-next-line
     }, [dataChatsList]);
+    const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+     backgroundColor: isHover ? theme.commentsHover : theme.comments,
+     transition: 'all 0.10s ease',
+   };
 
     return (
         <div>
-            <div className="search-message">
+            <div style={boxStyle}  onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} className="search-message">
                 <input
+                    style={{color:theme.userName,}}
                     className="search-input-chats"
-                    placeholder="Buscar mensaje o usuario"
+                    placeholder="Buscar por usuario u mensaje"
                     type="text"
                     onChange={ changeHandle }
                     value={ searchText }
                 />
                 <button className="search-icon">
-                    <img className="search-imag" src={search} alt="search" />
+                    <img style={{filter:theme.eye}} className="search-imag" src={search} alt="search" />
                 </button>
             </div>
             <br />
             <br />
-            <div className="linea-acostada" />
+            <div style={{background:theme.linea}} className="linea-acostada" />
             <Scrollbars  autoHeight autoHeightMax={ 731 }  style={{ width: 480 }}>
                 { chats.map( ( chat, index ) => <Message chat={chat} key={chat.id_Message} input={ searchText } openHandle={openHandle} /> ) }
             </Scrollbars>

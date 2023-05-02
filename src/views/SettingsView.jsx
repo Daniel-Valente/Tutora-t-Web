@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Notification from "../components/notification/Notification";
 import { useCareerList, useUpdateUser } from "../hooks";
-import { user, fondo } from "../images";
+import { user, fondo, perfilUsuarioGrande } from "../images";
 import { alertState } from "../reducers";
 import { Loader } from "../components/loader/Loader";
 import { store } from "../store";
+import { useTheme } from "styled-components";
 
 const SettingsView = () => {
   const { mutate: updateUser } = useUpdateUser();
+  const theme = useTheme();
   const userInfo = useSelector(state => state.user);
   const { layout: { loading: globalLoader } } = store.getState();
 
@@ -83,8 +85,8 @@ const SettingsView = () => {
       {
         globalLoader && <Loader/>
       }
-      <div className="linea-acostada" />
-      <h1 style={{ marginLeft: "35%" }}>Configuracion de la cuenta</h1>
+      <div style={{background:theme.linea}} className="linea-acostadaConfiguracion" />
+      <h1 style={{ marginLeft: "35%", color:theme.userName }}>Configuracion de la cuenta</h1>
       <div className="row">
         <div className="col-1" />
         <div className="col-9 row">
@@ -100,12 +102,12 @@ const SettingsView = () => {
           options === "Cuenta" &&
           <div className="col-9">
             <div className="row">
-              <div className="col-3">
+              <div style={{color:theme.userName}} className="col-3">
                 <p>
                   <b>Imagen de perfil</b>
                 </p>
                 <img className="icon-perfil-setting"
-                  src={`${userInfo.imgUrl ? userInfo.imgUrl : user}`}
+                  src={`${userInfo.imgUrl ? userInfo.imgUrl : perfilUsuarioGrande}`}
                   alt={userInfo.username} />
                 <p>
                   <b>Imagen de portada</b>
@@ -139,14 +141,14 @@ const SettingsView = () => {
                   </button>
                   <br />
                   <br />
-                  <input type="text" readOnly value={images.imgPortadaName} />
+                  <input  type="text" readOnly value={images.imgPortadaName} />
                   <input className="upload-file-buton" name="imgPortadaName" type="file" accept="image/*" />
                 </div>
 
               </div>
               <div className="col-3 row">
                 <div className="col-5">
-                <p>
+                <p style={{color:theme.userName}}>
                   <b>Nombre completo</b>
                   <br /><br /><br />
                   <b>Nombre de usuario</b>
@@ -158,6 +160,7 @@ const SettingsView = () => {
                 </div>
                 <div className="col-1">
                 <input
+                  style={{background:theme.header, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="text"
@@ -166,6 +169,7 @@ const SettingsView = () => {
                   value={configValue.nombre}
                 />
                 <input
+                  style={{background:theme.header, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="text"
@@ -174,6 +178,7 @@ const SettingsView = () => {
                   value={configValue.username}
                 />
                 <input
+                  style={{background:theme.header, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="text"
@@ -182,6 +187,7 @@ const SettingsView = () => {
                   value={configValue.telefono}
                 />
                 <Select
+                  style={{background:theme.header, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   placeholder='carrera'
                   name="carrera" 

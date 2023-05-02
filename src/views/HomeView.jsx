@@ -11,11 +11,26 @@ import {
   useCareersList, useCoursesList, useHidePostList,
   usePostsList, useSavePostList, useSendEmailVerify, useTree
 } from "../hooks";
+import { useTheme } from "styled-components";
 import { isRegisterState } from "../reducers";
 import { Loader } from "../components/loader/Loader";
 import { store } from "../store";
 
 const HomeView = () => {
+  const theme = useTheme();
+  const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+    color: isHover ? theme.linkHover : theme.linkColor,
+     transition: 'all 0.10s ease',
+   };
 
   const userInfoPerfil = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
@@ -101,10 +116,10 @@ const HomeView = () => {
         globalLoader && <Loader/>
       }
 
-      <div className="linea-acostada" />
+    <div style={{backgroundColor:theme.linea}} className="linea-acostadaHome" />
       <div className="row">
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: theme.subTitles }}>
             <b>Publicaciones por carreras</b>
           </label>
           <div className='row'>
@@ -125,11 +140,12 @@ const HomeView = () => {
           }
         </div>
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '-2%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '-2%', fontSize: '150%', fontFamily:'sans-serif', color: theme.subTitles }}>
             <b>Novedades en las tutorías</b>
           </label>
             <Link to={`/courses`} style={{ textDecoration: 'none' }}>
-              <p className="course-view-all">ver más</p>
+              <p style={boxStyle}  onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} className="course-view-all">ver más</p>
             </Link>
           <br />
           <br />

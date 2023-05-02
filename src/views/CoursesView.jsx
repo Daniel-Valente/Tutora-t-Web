@@ -7,8 +7,10 @@ import { filterContent } from '../helpers/utils';
 import { useCoursesList, useDivision, useTree } from '../hooks';
 import { store } from '../store';
 import { Loader } from '../components/loader/Loader';
+import { useTheme } from 'styled-components';
 
 const CoursesView = () => {
+  const theme = useTheme();
   const { layout: { loading: globalLoader } } = store.getState();
   const userInfoPerfil = useSelector(state => state.user);
   const [categoria, setCategoria] = useState('Todos');
@@ -46,7 +48,7 @@ const CoursesView = () => {
       <div className='row'>
         <div className='col-11'>
           <div className='row'>
-          <label style={{ textAlign: 'left', marginLeft: '1%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '1%', fontSize: '150%', fontFamily:'sans-serif',color: theme.subTitles }}>
             <b>Tutorias por división</b>
           </label>
           <br />
