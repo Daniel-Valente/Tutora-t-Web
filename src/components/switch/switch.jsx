@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./switch.css";
+import { store } from "../../store";
 
-function Switch({toogleTheme, isDarkTheme,}) {
+function Switch({toogleTheme}) {
+  const { layout: { isDarkTheme } } = store.getState();
   const [isToggled, setIsToggled] = useState(isDarkTheme);
 
   const onToggle = () => {
-    setIsToggled(!isToggled);
+    setIsToggled(!isDarkTheme);
     toogleTheme();
   };
 

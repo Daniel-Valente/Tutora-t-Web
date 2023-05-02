@@ -9,6 +9,8 @@ import AppRouter from './routers/AppRouter';
 import SunIcon from './components/switch/sun';
 import MoonIcon from './components/switch/moon';
 import Switch from './components/switch/switch';
+import { store } from './store';
+import { updateIsDarkTheme, updateTheme } from './actions/layout';
 const StyledApp = styled.div`
 background: ${(props) => props.theme.background};
 transition: all 0.25s ease;
@@ -72,10 +74,12 @@ const lightTheme ={
 
 };
 const App = () => {
-  const[theme, setTheme] = useState("light");
-  const isDarkTheme = theme === 'dark';
+  const { layout: { theme: globalTheme, isDarkTheme } } = store.getState();
+  const[theme, setTheme] = useState(globalTheme);
   const toggleTheme = () =>{
-    setTheme(isDarkTheme ? "light" : "dark");
+    store.dispatch( updateIsDarkTheme( !isDarkTheme ) );
+    store.dispatch( updateTheme( isDarkTheme ? "light" : "dark") );
+    setTheme(updateTheme(isDarkTheme ? "light" : "dark"));
   }
   const { active: sessionActive } = useSelector(state => state.sessionActive);
 

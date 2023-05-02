@@ -11,7 +11,7 @@ const getUserById = async ({ queryKey }) => {
     //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/users/userId/${ uid_user }`);
     
-    const node = { user_uid: data._id, ...data };
+    const node = { uid_user: data._id, ...data };
 
     //store.dispatch( hideGlobalLoader() );
     return node;

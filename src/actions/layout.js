@@ -1,5 +1,10 @@
 import { types } from "../types/types";
 
+export const updateIsDarkTheme = ( isDark ) => ({
+    type: types.layout.updateIsDarkTheme,
+    payload: isDark
+});
+
 export const updateTheme = ( theme ) => ({
     type: types.layout.updateTheme,
     payload: theme

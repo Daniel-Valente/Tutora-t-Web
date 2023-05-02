@@ -121,31 +121,31 @@ const PerfilView = () => {
   const [, toggle] = useBodyScrollLock();
   const [viewAll, setViewAll] = useState(1);
 
-  const { data: dataUserPerfil = [] } = useUserById(uid_user);
+  const { data: dataUserPerfil = [], isFetching: fetchingUserPerfil, isLoading: lodingUserPerfil  } = useUserById(uid_user);
   const [userPerfil, setUserPerfil] = useState(dataUserPerfil);
 
-  const { data: dataCareer, isFetching: fetchingCareer } = useCareerById(userInfoPerfil.career);
+  const { data: dataCareer, isFetching: fetchingCareer, isLoading: loadingCareer } = useCareerById(userInfoPerfil.career);
   const [userCareer, setUserCareer] = useState(dataCareer);
 
-  const { data: dataPostsList = [] } = usePostsByUser(uid_user);
+  const { data: dataPostsList = [], isLoading: loadingPostsList } = usePostsByUser(uid_user);
   const [posts, setPosts] = useState(dataPostsList);
 
-  const { data: dataPosts = [] } = usePostsList();
+  const { data: dataPosts = [], isLoading: loadingPosts } = usePostsList();
   const [postsList, setPostsList] = useState(dataPosts);
 
-  const { data: dataCoursesList = [] } = useCoursesByUser(uid_user);
+  const { data: dataCoursesList = [], isLoading: loadingCourses } = useCoursesByUser(uid_user);
   const [courses, setCourses] = useState(dataCoursesList);
 
-  const { data: dataCoursesInscripto = [] } = useCoursesList();
+  const { data: dataCoursesInscripto = [], isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
 
-  const { data: dataHidePost = [], isFetching: fetchingHidePost } = useHidePostList(userInfoPerfil.uid_user);
+  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userInfoPerfil.uid_user);
   const [hidePost, setHidePost] = useState(dataHidePost);
 
   const { data: dataSavePost = [], isFetching: fetchingSavePost } = useSavePostList(userInfoPerfil.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
 
-  const { data: dataFollowers = [] } = useFollowersList(uid_user);
+  const { data: dataFollowers = [], isLoading: loadingFollowers } = useFollowersList(uid_user);
   const [followers, setFollowers] = useState(dataFollowers);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
@@ -234,6 +234,8 @@ const PerfilView = () => {
 
   useEffect(() => {
     dataUserPerfil && setUserPerfil(dataUserPerfil);
+    console.log(userInfoPerfil);
+  console.log(userPerfil);
     // eslint-disable-next-line
   }, [dataUserPerfil]);
 
@@ -281,6 +283,17 @@ const PerfilView = () => {
     dataFollowers && setFollowers(dataFollowers);
     // eslint-disable-next-line
   }, [dataFollowers]);
+
+  if (lodingUserPerfil || loadingPostsList
+    || loadingCareer || loadingCourses
+    || loadingCoursesInscripto || loadingHidePost
+    || loadingFollowers || loadingPosts) {
+    return (
+      <div className='parent'>
+        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+    )
+  }
 
   return (
     <div className='principal-body'>
