@@ -156,8 +156,8 @@ const HomeHeader = () => {
   const { data: dataNotificationsWithLimit = [], isFetching: fetchingNotifications } = useNotificationsWithLimit(userInfoPerfil.uid_user, 10);
   const [notificationsWithLimit, setNotificationsWithLimit] = useState(dataNotificationsWithLimit);
 
-  // const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
-  // const [users, setUsers] = useState(dataUsers);
+  const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
+  const [users, setUsers] = useState(dataUsers);
 
   const dispatch = useDispatch();
 
@@ -192,11 +192,11 @@ const HomeHeader = () => {
     // eslint-disable-next-line
   }, [dataNotificationsWithLimit]);
 
-  // useEffect(() => {
-  //   !fetchingUsers && dataUsers && setUsers(dataUsers);
-  //   console.log(users);
-  //   // eslint-disable-next-line
-  // }, [dataUsers]);
+  useEffect(() => {
+    !fetchingUsers && dataUsers && setUsers(dataUsers);
+    console.log(users);
+    // eslint-disable-next-line
+  }, [dataUsers]);
 
   return (
     <div style={{backgroundColor:theme.header}} className="principal-header header">
@@ -292,7 +292,7 @@ const HomeHeader = () => {
           <Scrollbars autoHeight autoHeightMax={381} >
             <div/>
               {
-                // !!users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user &&  <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
+                !!users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user &&  <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
               }
            
           </Scrollbars>
