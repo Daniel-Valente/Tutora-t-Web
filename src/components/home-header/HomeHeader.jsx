@@ -32,7 +32,7 @@ const HomeHeader = () => {
   const { data: dataNotificationsWithLimit = [], isFetching: fetchingNotifications } = useNotificationsWithLimit(userInfoPerfil.uid_user, 10);
   const [notificationsWithLimit, setNotificationsWithLimit] = useState(dataNotificationsWithLimit);
 
-  const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
+  // const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
   const [users, setUsers] = useState(dataUsers);
 
   const dispatch = useDispatch();
@@ -68,11 +68,11 @@ const HomeHeader = () => {
     // eslint-disable-next-line
   }, [dataNotificationsWithLimit]);
 
-  useEffect(() => {
-    !fetchingUsers && dataUsers && setUsers(dataUsers);
-    console.log(users);
-    // eslint-disable-next-line
-  }, [dataUsers]);
+  // useEffect(() => {
+  //   !fetchingUsers && dataUsers && setUsers(dataUsers);
+  //   console.log(users);
+  //   // eslint-disable-next-line
+  // }, [dataUsers]);
 
   return (
     <div className="principal-header header">
