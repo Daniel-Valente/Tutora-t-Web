@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CommentPortal from "../portals/CommentPortal";
+import { useTheme } from "styled-components";
 
 const CommentModal = (props) => {
+  const theme = useTheme();
   const { children, toggle, active, dispatch, prevPath } = props;
 
   const styles = {
@@ -22,7 +24,7 @@ const CommentModal = (props) => {
 
     window: {
       position: "relative",
-      background: "#fff",
+      background: theme.header,
       borderRadius: 10,
       paddingBottom: 15,
       boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
@@ -35,6 +37,7 @@ const CommentModal = (props) => {
     closeBtn: {
       position: "absolute",
       top: 10,
+      color: theme.userName,
       right: 10,
       background: "none",
       border: "none",
