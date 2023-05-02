@@ -6,10 +6,13 @@ import Notification from "../components/notification/Notification";
 import { useCareerList, useUpdateUser } from "../hooks";
 import { user, fondo } from "../images";
 import { alertState } from "../reducers";
+import { Loader } from "../components/loader/Loader";
+import { store } from "../store";
 
 const SettingsView = () => {
   const { mutate: updateUser } = useUpdateUser();
   const userInfo = useSelector(state => state.user);
+  const { layout: { loading: globalLoader } } = store.getState();
 
   const [configValue, setConfigValue] = useState({
     uid_user: userInfo.uid_user,
@@ -77,6 +80,9 @@ const SettingsView = () => {
 
   return (
     <div>
+      {
+        globalLoader && <Loader/>
+      }
       <div className="linea-acostada" />
       <h1 style={{ marginLeft: "35%" }}>Configuracion de la cuenta</h1>
       <div className="row">

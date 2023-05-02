@@ -5,18 +5,21 @@ import CardCareer from '../components/card-career/CardCareer';
 import CardCourses from '../components/card-courses/CardCourses';
 import { filterContent } from '../helpers/utils';
 import { useCoursesList, useDivision, useTree } from '../hooks';
+import { store } from '../store';
+import { Loader } from '../components/loader/Loader';
 
 const CoursesView = () => {
+  const { layout: { loading: globalLoader } } = store.getState();
   const userInfoPerfil = useSelector(state => state.user);
   const [categoria, setCategoria] = useState('Todos');
 
-  const { data: dataDivisions, isFetching: fetchingDivisions, isLoading: loadingDivisions } = useDivision();
+  const { data: dataDivisions, isFetching: fetchingDivisions } = useDivision();
   const [divisions, setDivisions] = useState(dataDivisions);
   
-  const { data: dataTree = [], isLoading: loadingTree, isFetching: fetchingTree } = useTree(userInfoPerfil.uid_user, userInfoPerfil.career);
+  const { data: dataTree = [], isFetching: fetchingTree } = useTree(userInfoPerfil.uid_user, userInfoPerfil.career);
   const [ tree, setTree ] = useState(dataTree);
 
-  const { data: dataCourseList, isFetching: fetchingCourseList, isLoading: loadingCourseList } = useCoursesList();
+  const { data: dataCourseList, isFetching: fetchingCourseList } = useCoursesList();
   const [ courses, setCourses ] = useState( filterContent( dataCourseList, tree ));
 
   useEffect(() => {
@@ -34,16 +37,11 @@ const CoursesView = () => {
     // eslint-disable-next-line
   }, [dataCourseList]);
 
-  if ( loadingDivisions || loadingCourseList || loadingTree ) {
-    return (
-      <div className='parent'>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-      </div>
-    )
-  };
-
   return (
     <div className='principal-body'>
+      {
+        globalLoader && <Loader/>
+      }
       <div className="linea-acostada" />
       <div className='row'>
         <div className='col-11'>

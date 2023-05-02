@@ -20,7 +20,7 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
 
-    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
+    const { data: dataLikeList = [], isFetching: fetchingLike  } = useLikesList(post._id);
     const [likes, setLikes] = useState(dataLikeList);
 
     const { data: dataCourse = [], isFetching: fetchingCourse } = useCourseById(notification.type === 'course' || notification.type === 'inscription' ? notification.id_action : null);
@@ -54,6 +54,7 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
         !fetchingCourse && dataCourse && course.length > -1 && setCourse(dataCourse);
         // eslint-disable-next-line
     }, [dataCourse]);
+    
     return (
         <div>
              <div className='linea-acostada' />

@@ -12,10 +12,10 @@ const Message = (props) => {
     const userInfoPerfil = useSelector(state => state.user);
     const { mutate: updateSeen } = useUpdateChatToUser( chat.uid_user, chat.uid_userChat );
 
-    const { data: dataUserChat = [], isFetching: fetchingUserChat, isLoading: loadingUserChat } = useUserById(chat.uid_userChat);
+    const { data: dataUserChat = [], isFetching: fetchingUserChat } = useUserById(chat.uid_userChat);
     const [userChat, setUserChat] = useState(dataUserChat);
 
-    const { data: dataUser = [], isFetching: fetchingUser, isLoading: loadingUser } = useUserById(chat.uid_user);
+    const { data: dataUser = [], isFetching: fetchingUser } = useUserById(chat.uid_user);
     const [userPefil, setUserPerfil] = useState(dataUser);
 
     const filter = input && (userChat.username.toLowerCase().includes(input.toLowerCase()) || chat.message.toLowerCase().includes(input.toLowerCase()));
@@ -38,15 +38,6 @@ const Message = (props) => {
         // eslint-disable-next-line
     }, [dataUser]);
     
-
-    if (loadingUserChat || loadingUser) {
-        return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
-
     return (
         filter && input ? <div className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user  ? 'message-not-view' : '' }`}>
             <Outlet />
