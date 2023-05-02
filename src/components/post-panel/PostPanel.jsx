@@ -9,9 +9,11 @@ import { send, user } from '../../images';
 import CommentModal from '../modals/CommentModal';
 import Comment from '../comment/Comment';
 import { LikeButton } from '../Post/LikeButton';
+import { useTheme } from 'styled-components';
 
 const PostPanel = () => {
     const location = useLocation();
+    const theme = useTheme();
     const { commentModal = false, post = {}, userPost = {}, prevPath = '' } = location.state || [];
     const userInfoPerfil = useSelector(state => state.user);
     const { mutate: addComment } = useAddComment(post._id);
@@ -57,7 +59,7 @@ const PostPanel = () => {
     return (
         <>
             <CommentModal toggle={isCommentModal} active={commentModal} dispatch={dispatch} prevPath={prevPath}>
-                <div className='linea-acostada-3' />
+                <div style={{background:theme.linea}} className='linea-acostada-3' />
                 <div>
                     <img
                         style={{ width: '43vw', height: '91.6vh' }}
@@ -77,15 +79,15 @@ const PostPanel = () => {
                             </Link>
                         </div>
                         <div className='col-11'>
-                            <h3 className='name-comments-public'>{userPost.name}</h3>
+                            <h3 style={{color:theme.userName }} className='name-comments-public'>{userPost.name}</h3>
                         </div>
                     </div>
-                    <div className='linea-acostada-2' />
+                    <div  style={{background:theme.linea}} className='linea-acostada-2' />
                     <div className='row'>
                         <Scrollbars autoHeight autoHeightMax={ 129 } style={{ width: 659 }}>
                             <div className='col-11'>
-                                <h4>{post.title}</h4>
-                                <p>
+                                <h4 style={{color:theme.userName}}>{post.title}</h4>
+                                <p style={{color:theme.userName2 }}>
                                     <a style={{ textDecoration: 'none' }}>{userPost.username}: </a>
                                     {post.description}
                                 </p>
@@ -93,7 +95,7 @@ const PostPanel = () => {
                         </Scrollbars>
                     </div>
 
-                    <div className='row' style={{ minHeight:'480px' }}>
+                    <div className='row' style={{ minHeight:'470px' }}>
                         <Scrollbars autoHeight autoHeightMax={ 470 } style={{width: 659 }}>
                             <div className='col-11'>
                             { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) }
@@ -116,12 +118,12 @@ const PostPanel = () => {
                                     position: 'relative',
                                     bottom: '10px',
                                     left: '1vw',
-                                    color: '#858585'
+                                    color:theme.userName2
                                 }}
                                 > {formatDate()} </p>
                             </div>
                             <div className='row'>
-                                <input className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
+                                <input style={{border:theme.comments2, background:theme.header, color:theme.userName}} className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
                                 <img className='send-2' src={send} alt="send" onClick={ handleSubmit } />
                             </div>
                         </div>
