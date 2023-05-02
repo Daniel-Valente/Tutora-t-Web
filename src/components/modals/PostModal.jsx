@@ -1,5 +1,4 @@
 import React from "react";
-import PostPortal from "../portals/PostPortal";
 
 const PostModal = (props) => {
   const { children } = props;

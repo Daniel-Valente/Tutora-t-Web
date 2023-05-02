@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PublicationPortal from "../portals/PublicationPortal";
 
 const PublicationModal = (props) => {

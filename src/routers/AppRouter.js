@@ -17,6 +17,7 @@ const PerfilView = lazy(() => import('../views/PerfilView'));
 const SettingsView = lazy(() => import('../views/SettingsView'));
 const PostPanel = lazy(() => import('../components/post-panel/PostPanel'));
 const EditPostPanel = lazy(() => import('../components/edit-post-panel/EditPostPanel'));
+const VerificationView = lazy(() => import('../views/VerificationView'));
 
 const AppRouter = () => {
   const { active: sessionActive } = useSelector(state => state.sessionActive);
@@ -55,6 +56,9 @@ const AppRouter = () => {
               {/* CHAT */}
               <Route path='/chats/:uid_user' element={<ChatsView />} />
               <Route path='/chats/:uid_user/to/:uid_userChat' element={<ChatPanel />} />
+              {/* Verification */}
+              <Route path='/verification/:verification' element={<VerificationView />} />
+              
             </Routes>
             {
               background && (
@@ -100,6 +104,8 @@ const AppRouter = () => {
               {/* CHAT */}
               <Route path='/chats/:uid_user' element={<MainView />} />
               <Route path='/chats/:uid_user/to/:uid_userChat' element={<MainView />} />
+              {/* Verification */}
+              <Route path='/verification/:verification' element={<MainView />} />
             </Routes>
           </>
       }

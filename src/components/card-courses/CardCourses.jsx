@@ -4,21 +4,14 @@ import { useUserById } from '../../hooks';
 
 const CardCourses = (props) => {
     const { course } = props;
-    const { data: dataUserCourse = [], isFetching: fetchingUserCourse, loading: loadingUserCourse } = useUserById(course.uid_user);
+
+    const { data: dataUserCourse = [], isFetching: fetchingUserCourse } = useUserById(course.uid_user);
     const [userCourse, setUserCourse] = useState(dataUserCourse);
 
     useEffect(() => {
         !fetchingUserCourse && dataUserCourse && userCourse.length > -1 && setUserCourse(dataUserCourse);
         // eslint-disable-next-line
     }, [dataUserCourse]);
-
-    if (loadingUserCourse) {
-        return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
 
     return (
         <div className='col-2' style={{marginRight:'40px', marginleft:'40px', width:'400px'}}>

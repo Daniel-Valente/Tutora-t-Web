@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const updateCourse = async (course) => {
     const { uid_user, id_Course, title, description, dates, hours, site, visible, imgCourse } = course;

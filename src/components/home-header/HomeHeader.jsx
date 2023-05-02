@@ -8,8 +8,8 @@ import UserModal from '../modals/UserModal';
 
 import { exit, mensaje, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isSearchModal, isUserModal } from '../../helpers/utils';
-import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit, useUsersList } from '../../hooks';
-import { userInfo, userLogInState } from '../../reducers';
+import { useChatsListWithLimit, useNotificationsWithLimit, useUsersList } from '../../hooks';
+import { userInfo } from '../../reducers';
 import CardMessage from '../card-message/CardMessage';
 import CardNotification from '../card-notification/CardNotification';
 import Scrollbars from 'react-custom-scrollbars-2';
@@ -18,7 +18,6 @@ import CardUsers from '../card-users/CardUsers';
 
 const HomeHeader = () => {
   const userInfoPerfil = useSelector(state => state.user);
-  const { mutate: logOut } = useLogOut();
 
   const { value: userModal } = useSelector(state => state.userModal);
   const { value: chatModal } = useSelector(state => state.chatModal);
@@ -33,8 +32,8 @@ const HomeHeader = () => {
   const { data: dataNotificationsWithLimit = [], isFetching: fetchingNotifications } = useNotificationsWithLimit(userInfoPerfil.uid_user, 10);
   const [notificationsWithLimit, setNotificationsWithLimit] = useState(dataNotificationsWithLimit);
 
-  const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
-  const [users, setUsers] = useState(dataUsers);
+  // const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
+  // const [users, setUsers] = useState(dataUsers);
 
   const dispatch = useDispatch();
 
@@ -51,23 +50,7 @@ const HomeHeader = () => {
       imagePortadaUrl: '',
       imgName: '',
       imgUrl: '',
-    }));
-
-    logOut();
-
-    dispatch(userLogInState({
-      apiKey: "",
-      appName: "",
-      createdAt: "",
-      displayName: "",
-      email: "",
-      emailVerified: false,
-      isAnonymous: false,
-      lastLoginAt: "",
-      phoneNumber: "",
-      providerData: {},
-      stsTokenManager: {},
-      uid: ""
+      verify: false
     }));
 
     isOut(dispatch);
@@ -85,10 +68,11 @@ const HomeHeader = () => {
     // eslint-disable-next-line
   }, [dataNotificationsWithLimit]);
 
-  useEffect(() => {
-    !fetchingUsers && dataUsers && setUsers(dataUsers);
-    // eslint-disable-next-line
-  }, [dataUsers]);
+  // useEffect(() => {
+  //   !fetchingUsers && dataUsers && setUsers(dataUsers);
+  //   console.log(users);
+  //   // eslint-disable-next-line
+  // }, [dataUsers]);
 
   return (
     <div className="principal-header header">
@@ -174,7 +158,7 @@ const HomeHeader = () => {
             <div/>
             <div style={{backgroundColor:'pink'}}>
               {
-                users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user && <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
+                // !!users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user &&  <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
               }
             </div>
           </Scrollbars>

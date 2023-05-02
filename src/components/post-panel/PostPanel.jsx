@@ -4,41 +4,26 @@ import { Link, useLocation } from 'react-router-dom';
 import {Scrollbars } from 'react-custom-scrollbars-2';
 
 import { isCommentModal } from '../../helpers/utils';
-import { useAddComment, useCommentList, useLikeByUser, useLikesList, useUpdateLike } from '../../hooks';
-import { send, star, starSinF, user } from '../../images';
+import { useAddComment, useCommentList } from '../../hooks';
+import { send, user } from '../../images';
 import CommentModal from '../modals/CommentModal';
 import Comment from '../comment/Comment';
 import { LikeButton } from '../Post/LikeButton';
+
 const PostPanel = () => {
     const location = useLocation();
     const { commentModal = false, post = {}, userPost = {}, prevPath = '' } = location.state || [];
     const userInfoPerfil = useSelector(state => state.user);
-    const { mutate: updateLike } = useUpdateLike(post._id);
     const { mutate: addComment } = useAddComment(post._id);
 
     const [ commentValue, setCommentValue ] = useState('');
 
     const dispatch = useDispatch();
 
-    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
-    const [likes, setLikes] = useState(dataLikeList);
-
-    const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
-    const [starActive, setStarActive] = useState(dataLikeByUser);
-
-    const { data: dataCommentsList = [], isFetching: fetchingCommentsList, isLoading: loadingCommentsList } = useCommentList(post._id);
+    const { data: dataCommentsList = [], isFetching: fetchingCommentsList } = useCommentList(post._id);
     const [ comments, setComments ] = useState(dataCommentsList);
 
     const formatDate = () => new Date(post.createdAt).toDateString();
-
-    const handleStar = () => {
-        const likeUser = { uid_user: userInfoPerfil.uid_user, id_Post: post._id };
-        updateLike(likeUser, {
-            onSuccess: ({ data }) => {
-                setStarActive(data);
-            }
-        });
-    }
     
     const handleChange = (e) => {
         setCommentValue(e.target.value);
@@ -52,38 +37,22 @@ const PostPanel = () => {
             action: `realizo un comentario en tu publicación`,
             uid_creator: post.uid_user,
             type: 'comment',
+            career: post.career
          };
-        setCommentValue('');
+
+         
         commentValue.length > 0 ? addComment(comments, {
             onSuccess: (response) => {
                 console.log(response);
             }
-        })
-        : console.log('no');
+        }) : console.log('no');
+        setCommentValue('');
     }
-
-    useEffect(() => {
-        !fetchingLike && setLikes(dataLikeList);
-        // eslint-disable-next-line
-    }, [dataLikeList]);
-
-    useEffect(() => {
-        !fetchingLikeByUser && dataLikeByUser && setStarActive(dataLikeByUser);
-        // eslint-disable-next-line
-    }, [dataLikeByUser]);
 
     useEffect(() => {
         !fetchingCommentsList && dataCommentsList && comments.length > -1 && setComments(dataCommentsList);
         // eslint-disable-next-line
     }, [ dataCommentsList ]);
-
-    if (loadingLike || loadingLikeByUser || loadingCommentsList) {
-        return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
 
     return (
         <>

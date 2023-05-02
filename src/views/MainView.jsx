@@ -5,15 +5,20 @@ import Login from "../components/login/Login";
 import Register from "../components/register/Register";
 import { isLoginModal } from "../helpers/utils";
 import { CUCEI } from "../images";
-import { useThemeContext } from "../context/ThemeContext";
+import { store } from "../store";
+import { Loader } from "../components/loader/Loader";
+
 const MainView = () => {
+  const { layout: { loading: globalLoader } } = store.getState();
   const { value: loginModal } = useSelector(state => state.loginModal);
   const dispatch = useDispatch();
-  const {contextTheme} = useThemeContext();
 
   return (
     <div>
-      <div className="linea-acostadaLogin" />
+      {
+        globalLoader && <Loader/>
+      }
+      <div className="linea-acostada" />
       <div>
         <img className="image-cucei" src={CUCEI} />
 
