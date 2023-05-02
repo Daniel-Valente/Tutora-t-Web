@@ -72,7 +72,7 @@ const Login = () => {
             type: "success",
           })
         );
-
+      
         dispatch(userInfo(data));
         isLogIn(dispatch);
         isLoginWithEmail(dispatch, loginWitnEmail);
@@ -177,6 +177,16 @@ const Login = () => {
       }, 300000);
     }
   }, [codeValidation]);
+
+  useEffect(() => {
+    !loginWitnEmail && setLoginValue({
+      email: '',
+      password: '',
+      confirmPassword: '',
+      code: null
+    });
+
+  }, [ loginWitnEmail ]);
 
   return (
     <div>

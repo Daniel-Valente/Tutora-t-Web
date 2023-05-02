@@ -45,7 +45,7 @@ const HomeView = () => {
   const [careers, setCareers] = useState(dataCareers);
 
   useEffect(() => {
-    if(isRegister){
+    if (isRegister) {
       const userVerify = {
         name: userInfoPerfil.name,
         email: userInfoPerfil.email

@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 
 import httpClient from "../../http/httpClient";
 import { store } from "../../store";
-import { showGlobalLoader } from "../../actions/layout";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getPostsByUser = async ({ queryKey }) => {
     const [ , uid_user ] = queryKey;
-    store.dispatch( showGlobalLoader() );
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/posts/${ uid_user }`);
-
+    
+    //store.dispatch( hideGlobalLoader() );
     return data;
 }
 

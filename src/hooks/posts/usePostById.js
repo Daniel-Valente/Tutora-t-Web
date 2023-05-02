@@ -2,16 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 
 import httpClient from "../../http/httpClient";
 import { store } from "../../store";
-import { showGlobalLoader } from "../../actions/layout";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getPostById = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
 
     if(!id_Post) return [];
-    store.dispatch( showGlobalLoader() );
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/posts/${ id_Post }`);
     const [ node ] = data;
 
+    //store.dispatch( hideGlobalLoader() );
     return node;
 }
 

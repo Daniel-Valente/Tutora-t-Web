@@ -8,7 +8,7 @@ const getUserByUsername = async ({ queryKey }) => {
     const [ , username ] = queryKey;
     
     if( !username ) return [];
-    store.dispatch( showGlobalLoader() );
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/users/${ username }`);
 
     const node = { user_uid: data._id, ...data };

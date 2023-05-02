@@ -2,15 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 
 import httpClient from "../../http/httpClient";
 import { store } from "../../store";
-import { showGlobalLoader } from "../../actions/layout";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getFollowersList = async ({ queryKey }) => {
     const [ , uid_user ] = queryKey;
 
     if(!uid_user) return [];
-    store.dispatch( showGlobalLoader() );
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/users/interaction/follow/${ uid_user }`);
 
+    //store.dispatch( hideGlobalLoader() );
     return data;
 }
 

@@ -1,6 +1,7 @@
 import { types } from "../types/types";
 
 const initialState = {
+    version: process.env.REACT_APP_VERSION,
     theme: 'white',
     loading: false,
     pendingGlobalRequests: 0
@@ -26,7 +27,7 @@ export const layoutReducer = (state = initialState, action) => {
         case types.layout.incPendingRequest:
             return {
                 ...state,
-                pendingGlobalRequests: state.pendingGlobalRequests + 1
+                pendingGlobalRequests: 1
             };
         case types.layout.decPendingRequest:
             return {

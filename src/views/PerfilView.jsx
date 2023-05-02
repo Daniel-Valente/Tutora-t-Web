@@ -215,6 +215,7 @@ const PerfilView = () => {
       {
         globalLoader && <Loader/>
       }
+      
       <div style={{ width:'300px',  position:'absolute', top:'580px', left:'90px' }}>
         <span style={{ color:'#000', display:'block' ,textAlign:'center', fontFamily:'sans-serif', fontSize:'23px' }}> 
         <b>{userPerfil.name}</b>

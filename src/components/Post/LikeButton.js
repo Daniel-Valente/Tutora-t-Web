@@ -25,7 +25,6 @@ const ButtonWrapper = styled.button`
 
 export const LikeButton = (props) => {
     const { post, userInfoPerfil, vista} = props.props;
-    console.log("vista:",vista)
   
     const { data: dataLikeList = [], isFetching: fetchingLike } = useLikesList(post._id);
     const [likes, setLikes] = useState(dataLikeList);
@@ -60,8 +59,6 @@ export const LikeButton = (props) => {
         lottieRef.current.playSegments([90,1], true)
       }
   }, [dataLikeByUser]);
-    console.log("starActive:",starActive)
-    console.log("viewLike:",viewLike)
    
     
     const [animationState, setAnimationState] = useState({

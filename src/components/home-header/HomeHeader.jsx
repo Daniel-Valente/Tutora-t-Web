@@ -70,6 +70,7 @@ const HomeHeader = () => {
 
   useEffect(() => {
     !fetchingUsers && dataUsers && setUsers(dataUsers);
+    console.log(users);
     // eslint-disable-next-line
   }, [dataUsers]);
 
@@ -157,7 +158,7 @@ const HomeHeader = () => {
             <div/>
             <div style={{backgroundColor:'pink'}}>
               {
-                users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user && <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
+                // !!users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user &&  <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
               }
             </div>
           </Scrollbars>

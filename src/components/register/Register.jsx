@@ -94,6 +94,19 @@ const Register = () => {
     // eslint-disable-next-line
   }, [dataCareers]);
 
+  useEffect(() => {
+    !registerWithEmail && setValues({
+      username: "",
+      nombre: "",
+      email: "",
+      telefono: "",
+      password: "",
+      confirmPassword: "",
+      carrera: values.carrera,
+    });
+
+  }, [ registerWithEmail ]);
+
   return (
     <div>
       <Modal

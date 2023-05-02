@@ -2,19 +2,20 @@ import { useQuery } from "@tanstack/react-query";
 
 import httpClient from "../../http/httpClient";
 import { store } from "../../store";
-import { showGlobalLoader } from "../../actions/layout";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getUsersList = async () => {
-    store.dispatch( showGlobalLoader() );
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/users`);
 
-    const node = data.map(( user ) => {
-        return {
-            uid_user: user._id,
-            ...user
+    const node = data.map(( data ) => {
+        if(data.name) return {
+            uid_user: data._id,
+            ...data
         }
     });
 
+    //store.dispatch( hideGlobalLoader() );
     return node;
 }
 

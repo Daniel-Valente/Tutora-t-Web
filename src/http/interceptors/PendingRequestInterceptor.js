@@ -7,16 +7,16 @@ export const PendingRequestInterceptor = ( axiosInstance ) => {
         return config;
     }, ( error ) => {
         store.dispatch( decPendingRequest() );
-        store.dispatch( hideGlobalLoader() );
+        //store.dispatch( hideGlobalLoader() );
     });
     
     axiosInstance.interceptors.response.use(( config ) => {
         store.dispatch( decPendingRequest() );
-        store.dispatch( hideGlobalLoader() );
+        //store.dispatch( hideGlobalLoader() );
         
         return config;
     }, ( error ) => {
         store.dispatch( decPendingRequest() );
-        store.dispatch( hideGlobalLoader() );
+        //store.dispatch( hideGlobalLoader() );
     });
 }

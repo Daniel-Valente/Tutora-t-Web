@@ -20,7 +20,7 @@ const PostPanel = () => {
 
     const dispatch = useDispatch();
 
-    const { data: dataCommentsList = [], isFetching: fetchingCommentsList, isLoading: loadingCommentsList } = useCommentList(post._id);
+    const { data: dataCommentsList = [], isFetching: fetchingCommentsList } = useCommentList(post._id);
     const [ comments, setComments ] = useState(dataCommentsList);
 
     const formatDate = () => new Date(post.createdAt).toDateString();
@@ -53,14 +53,6 @@ const PostPanel = () => {
         !fetchingCommentsList && dataCommentsList && comments.length > -1 && setComments(dataCommentsList);
         // eslint-disable-next-line
     }, [ dataCommentsList ]);
-
-    if ( loadingCommentsList ) {
-        return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
 
     return (
         <>
