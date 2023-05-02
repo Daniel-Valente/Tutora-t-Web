@@ -9,8 +9,25 @@ import PublicationModal from '../modals/PublicationModal';
 import { useAddPost, useBodyScrollLock, useCareerList } from '../../hooks';
 import { alertState } from '../../reducers';
 import Notification from '../notification/Notification';
+import { useTheme } from 'styled-components';
 
 const CreatePost = ({ isDisabled = false, value = '' }) => {
+  const theme = useTheme();
+  const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+     backgroundColor: isHover ? theme.commentsHover : theme.comments,
+     transition: 'all 0.10s ease',
+     color: theme.userName
+   };
+  
   const userInfo = useSelector(state => state.user);
   const { id_Course } = useParams();
   const [, toggle] = useBodyScrollLock();
@@ -101,8 +118,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
 
   return (
     <div>
-      <div className='wrapper'>
-        <div className='windows parent'>
+        <div style={{background:theme.header, boxShadow:theme.boxShadow}} className='windows parent'>
           <div className='col-3'>
             <Link to={`/perfil/${userInfo.uid_user}`} style={{ textDecoration: 'none' }}>
               <div className='boton-circular-volteado-4'>
@@ -113,13 +129,14 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
             </Link>
           </div>
           <div className='col-9'>
-            <button className='search-input-2'
+            <button className='search-input-2'  style={boxStyle} 
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
               onClick={openModalHandler} >
               ¿Que tienes en mente?...
             </button>
           </div>
         </div>
-      </div>
 
       <PublicationModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
         <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Crear publicacion</h2>
@@ -139,7 +156,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
           </div>
         </div>
         <br />
-        <textarea  className='inp' style={{borderRadius:'20px'}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
+        <textarea className='inp' style={{borderRadius:'7px', paddingLeft:'10px', paddingTop:'10px'}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
         <div className='upload-post'>
           <div className="upload-btn-wrapper" onChange={handleChange}>
             <button style={{backgroundColor:'pink'}} className="boton-standar-rw">

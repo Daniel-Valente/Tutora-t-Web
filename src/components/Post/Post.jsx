@@ -15,11 +15,12 @@ import MenuPost from '../menu-post/MenuPost';
 import PostModal from '../modals/PostModal';
 import Notification from '../notification/Notification';
 import { LikeButton } from './LikeButton';
+import { useTheme } from 'styled-components';
 
 const Post = (props) => {
     const { post, commentModal, hide = false, save=false } = props;
     const location = useLocation();
-    
+    const theme = useTheme();
     const userInfoPerfil = useSelector(state => state.user);
 
     const { mutate: updateLike } = useUpdateLike(post._id);
@@ -194,6 +195,7 @@ const Post = (props) => {
             </div>
         )
     }
+    
 
     return (
         <div className='row'>
@@ -210,7 +212,7 @@ const Post = (props) => {
                         </Link>
                     </div>
                     <div className='col-8'>
-                        <h3 className='name'>
+                        <h3 style={{color:theme.userName}} className='name'>
                             {`${userPost.name} ${post.id_Course && ' > '}`}
                             {
                                 post.id_Course && course ?
@@ -223,7 +225,7 @@ const Post = (props) => {
                         </h3>
                     </div>
                     <div className='col-1'>
-                        <button className='button-options' ref={buttonMenuRef} onClick={handleMenu}>...</button>
+                        <button style={{background:theme.header, color:theme.colorPuntos}} className='button-options' ref={buttonMenuRef} onClick={handleMenu}>...</button>
                         <MenuPost x={x} y={y} showMenu={menu} userPost={userPost} handleDelete={handleDelete} handleHide={handleHide} handleSave={handleSave} post={post} hide={ hide } save={ save } prevUrl={location.pathname} />
                     </div>
                 </div>
@@ -245,13 +247,13 @@ const Post = (props) => {
                     </div>
                     <div className='col-3'>
                         <Link to={post._id} onClick={ () => isChatModal(dispatch, true) } state={{ background: location, commentModal: !commentModal, post, userPost, likes, prevPath: location.pathname }}>
-                            <img className='sinF' src={messages} alt="comments"/>
+                            <img style={{filter: theme.globo}} className='sinF' src={messages} alt="comments"/>
                         </Link>
                         <br/>
                         <p style={{
                             position: "absolute",
                             left: "95%",
-                            color: "#858585"
+                            color: theme.numbers
                         }}>
                             {commentList.length}
                         </p>
@@ -259,8 +261,8 @@ const Post = (props) => {
                 </div>
                 <div className='row'>
                     <div className='col-11'>
-                        <h4>{post.title}</h4>
-                        <p>
+                        <h4 style={{color:theme.userName}}>{post.title}</h4>
+                        <p style={{color:theme.userName2}}>
                             <a>{userPost.username}: </a>
                             {post.description}
                             <br />
@@ -268,7 +270,7 @@ const Post = (props) => {
                         </p>
                     </div>
                 </div>
-                <div className='linea-acostada' />
+                <div style={{backgroundColor:theme.linea}} className='linea-acostada' />
                 <div className='row'>
                     <div className='col-1'>
                         <Link to={`/perfil/${userInfo.uid_user}`} style={{ textDecoration: 'none' }}>
@@ -280,7 +282,7 @@ const Post = (props) => {
                         </Link>
                     </div>
                     <div className='col-8'>
-                        <input className='inputCom' type="text" placeholder='¿Qué opinas?... ' value={commentValue} onChange={handleChange} />
+                        <input style={{border:theme.comments2, background:theme.header, color:theme.userName}} className='inputCom' type="text" placeholder='¿Qué opinas?... ' value={commentValue} onChange={handleChange} />
                     </div>
                     <br />
                     <div className='col-1'>

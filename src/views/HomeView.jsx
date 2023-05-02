@@ -12,8 +12,23 @@ import {
   usePostsList, useSavePostList, useTree, useUserByUsername
 } from "../hooks";
 import { userInfo } from "../reducers";
+import { useTheme } from "styled-components";
 
 const HomeView = () => {
+  const theme = useTheme();
+  const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+    color: isHover ? theme.linkHover : theme.linkColor,
+     transition: 'all 0.10s ease',
+   };
 
   const userLogIn = useSelector(state => state.userLogIn);
   const { value: commentModal } = useSelector(state => state.commentModal);
@@ -89,10 +104,10 @@ const HomeView = () => {
 
   return (
     <div className="principal-body ">
-      <div className="linea-acostadaHome" />
+      <div style={{backgroundColor:theme.linea}} className="linea-acostadaHome" />
       <div className="row">
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: theme.subTitles }}>
             <b>Publicaciones por carreras</b>
           </label>
           <div className='row'>
@@ -113,11 +128,12 @@ const HomeView = () => {
           }
         </div>
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '-2%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '-2%', fontSize: '150%', fontFamily:'sans-serif', color: theme.subTitles }}>
             <b>Novedades en las tutorías</b>
           </label>
             <Link to={`/courses`} style={{ textDecoration: 'none' }}>
-              <p className="course-view-all">ver más</p>
+              <p style={boxStyle}  onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} className="course-view-all">ver más</p>
             </Link>
           <br />
           <br />

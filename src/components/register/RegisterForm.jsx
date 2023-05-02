@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import ViewPassword from './viewPassword';
+import { useTheme } from 'styled-components';
 
 
 const RegisterForm = (pops) => {
   const { values, onChange, options } = pops;
-
+  const theme = useTheme();
   const [passwordView, setPasswordView] = useState(false);
   const [confirmPasswordView, setConfirmPasswordView] = useState(false);
   const [changeTypePass, setChangeTypePass] = useState(false);
@@ -13,6 +14,7 @@ const RegisterForm = (pops) => {
   return (
     <>
       <input
+        style={{backgroundColor:theme.header, color: theme.userName}}
         type="text"
         placeholder="Nombre completo"
         value={values.nombre}
@@ -21,6 +23,7 @@ const RegisterForm = (pops) => {
         required
       />
       <input
+        style={{backgroundColor:theme.header, color: theme.userName}}
         type="text"
         placeholder="Nombre de usuario"
         value={values.username}
@@ -30,6 +33,7 @@ const RegisterForm = (pops) => {
       />
       <br />
       <input
+        style={{backgroundColor:theme.header, color: theme.userName}}
         type="email"
         placeholder="Correo electrónico"
         value={values.email}
@@ -38,6 +42,7 @@ const RegisterForm = (pops) => {
         required
       />
       <input
+        style={{backgroundColor:theme.header, color: theme.userName}}
         type="text"
         placeholder="Número de teléfono"
         value={values.telefono}
@@ -48,6 +53,7 @@ const RegisterForm = (pops) => {
       <br />
 
       <input
+        style={{backgroundColor:theme.header, color: theme.userName}}
         type={changeTypePass ? "text" : "password"}
         value={values.password}
         name="password"
@@ -55,10 +61,11 @@ const RegisterForm = (pops) => {
         onChange={onChange}
         required
       />
-      <div className="eye-icon-2" onClick={() => setChangeTypePass(!changeTypePass)}>
+      <div style={{filter:theme.eye}} className="eye-icon-2" onClick={() => setChangeTypePass(!changeTypePass)}>
       <ViewPassword/>
       </div>
       <input
+        style={{backgroundColor:theme.header, color: theme.userName}}
         type={confirmchangeTypePass ? "text" : "password"}
         value={values.confirmPassword}
         name="confirmPassword"
@@ -66,12 +73,13 @@ const RegisterForm = (pops) => {
         onChange={onChange}
         required
       />
-      <div className="eye-icon-3" onClick={() => setConfirmChangeTypePass(!confirmchangeTypePass)}>
+      <div style={{filter:theme.eye}} className="eye-icon-3" onClick={() => setConfirmChangeTypePass(!confirmchangeTypePass)}>
       <ViewPassword/>
       </div>
 
       
       <Select
+        style={{backgroundColor:theme.header, color: theme.userName}}
         placeholder="Carrera"
         onChange={onChange}
         name="carrera"

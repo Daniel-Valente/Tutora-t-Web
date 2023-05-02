@@ -4,6 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { isSearchModal } from '../../helpers/utils';
 
 import { user as userImg } from '../../images';
+import { useTheme } from 'styled-components';
 
 const CardUsers = ({ user, searchText = '', action }) => {
 
@@ -13,6 +14,7 @@ const CardUsers = ({ user, searchText = '', action }) => {
         action('');
         isSearchModal(dispatch, true);
     }
+    const theme = useTheme();
 
 
     const filter = searchText && (user.username.toLowerCase().includes(searchText.toLowerCase()) || user.name.toLowerCase().includes(searchText.toLowerCase()));
@@ -22,12 +24,12 @@ const CardUsers = ({ user, searchText = '', action }) => {
             <div>
                 <Outlet />
                 <Link to={`/perfil/${user.uid_user}`} onClick={closedModal}  style={{ textDecoration: 'none', color: 'black' }}>
-                    <div style={{ float:'left', paddingLeft:'20px', paddingTop:'5px', paddingBottom:'5px'}}>
+                    <div style={{background:theme.header, float:'left', paddingLeft:'20px', paddingTop:'5px', paddingBottom:'5px'}}>
                         <img className='icon-user-3'
                         src={`${user.imgUrl ? user.imgUrl : userImg}`}
                         alt={user.username} /> 
                     </div>
-                    <div style={{ float:'left', color:'#000', paddingTop:'20px', paddingBottom:'5px'}}>
+                    <div style={{background:theme.header, float:'left', color:'#000', paddingTop:'20px', paddingBottom:'5px'}}>
                         <b>{user.name}</b>
                     </div>
                     
@@ -35,18 +37,18 @@ const CardUsers = ({ user, searchText = '', action }) => {
             </div>
             : !searchText &&
             <div>
-                <Outlet />
+                <Outlet/>
                 <Link to={`/perfil/${user.uid_user}`} onClick={closedModal}>
-                    <div style={{ float:'left',paddingLeft:'20px',paddingTop:'5px',paddingBottom:'5px'}}>
+                    <div style={{ background:'pink', float:'left',paddingLeft:'20px',paddingTop:'5px',paddingBottom:'5px'}}>
                         <img className='icon-user-3'
                          src={`${user.imgUrl ? user.imgUrl : userImg}`}
                          alt={user.username} /> 
                     </div>
-                    <div style={{ float:'left', color:'#000',paddingTop:'20px', paddingBottom:'5px'}}>
+                    <div style={{background:theme.header, float:'left', color:'#000',paddingTop:'20px', paddingBottom:'5px'}}>
                         <b> {user.name}</b>
                     </div>
                 </Link>
-                <div className='linea-acostada-new' />
+                <div style={{background:theme.header}} className='linea-acostada-new' />
             </div>
     )
 }

@@ -15,8 +15,112 @@ import CardNotification from '../card-notification/CardNotification';
 import Scrollbars from 'react-custom-scrollbars-2';
 import { SearchModal } from '../modals/SearchModal';
 import CardUsers from '../card-users/CardUsers';
+import { useTheme } from 'styled-components';
 
 const HomeHeader = () => {
+  const theme = useTheme();
+  const [isHoverT, setIsHoverT] = useState(false);
+
+   const handleMouseEnterT = () => {
+      setIsHoverT(true);
+   };
+   const handleMouseLeaveT = () => {
+      setIsHoverT(false);
+   };
+
+   const boxStyleT = {
+    color: isHoverT ? theme.linkHover : theme.linkColor,
+    textDecoration: 'none',
+     transition: 'all 0.10s ease',
+   };
+  const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+     backgroundColor: isHover ? theme.commentsHover : theme.comments,
+     transition: 'all 0.10s ease',
+   };
+   const [isHoverB1, setIsHoverB1] = useState(false);
+
+   const handleMouseEnterB1 = () => {
+      setIsHoverB1(true);
+   };
+   const handleMouseLeaveB1 = () => {
+      setIsHoverB1(false);
+   };
+
+   const boxStyleB1 = {
+     backgroundColor: isHoverB1 ? theme.botonCircularHover : theme.botonCircular,
+     transition: 'all 0.10s ease',
+   };
+   const [isHoverB2, setIsHoverB2] = useState(false);
+
+   const handleMouseEnterB2 = () => {
+      setIsHoverB2(true);
+   };
+   const handleMouseLeaveB2 = () => {
+      setIsHoverB2(false);
+   };
+
+   const boxStyleB2 = {
+     backgroundColor: isHoverB2 ? theme.botonCircularHover : theme.botonCircular,
+     transition: 'all 0.10s ease',
+   };
+   const [isHoverB3, setIsHoverB3] = useState(false);
+
+   const handleMouseEnterB3 = () => {
+      setIsHoverB3(true);
+   };
+   const handleMouseLeaveB3 = () => {
+      setIsHoverB3(false);
+   };
+
+   const boxStyleB3 = {
+     backgroundColor: isHoverB3 ? theme.botonCircularHover : theme.botonCircular,
+     transition: 'all 0.10s ease',
+   };
+   const [isHoverB4, setIsHoverB4] = useState(false);
+
+   const handleMouseEnterB4 = () => {
+      setIsHoverB4(true);
+   };
+   const handleMouseLeaveB4 = () => {
+      setIsHoverB4(false);
+   };
+   const boxStyleB4 = {
+    filter: isHoverB4 ? theme.hover  : '',
+    backgroundColor: isHoverB4 ? '#e2e2e2' : theme.header,
+    color:theme === 'dark' ||    isHoverB4 ? '#000000' : theme.userName,
+    transition: 'all 0.10s ease',
+   };
+   const boxStyleE = {
+    filter:theme === 'dark' ||    isHoverB4 ? 'invert(0)' : theme.eye,
+    transition: 'all 0.10s ease',
+   };
+   const [isHoverB5, setIsHoverB5] = useState(false);
+
+   const handleMouseEnterB5 = () => {
+      setIsHoverB5(true);
+   };
+   const handleMouseLeaveB5 = () => {
+      setIsHoverB5(false);
+   };
+   const boxStyleB5 = {
+    filter: isHoverB5 ? theme.hover  : '',
+    backgroundColor: isHoverB5 ? '#e2e2e2' : theme.header,
+    color:theme === 'dark' ||    isHoverB5 ? '#000000' : theme.userName,
+    transition: 'all 0.10s ease',
+   };
+   const boxStyleE2 = {
+    filter:theme === 'dark' ||    isHoverB5 ? 'invert(0)' : theme.eye,
+    transition: 'all 0.10s ease',
+   };
   const userInfoPerfil = useSelector(state => state.user);
   const { mutate: logOut } = useLogOut();
 
@@ -91,10 +195,12 @@ const HomeHeader = () => {
   }, [dataUsers]);
 
   return (
-    <div className="principal-header header">
-      <Link className='logo-link' to='/home'>tutorate</Link>
-      <div className='search'>
-        <input className='search-input' placeholder='Buscar...' type="text" 
+    <div style={{backgroundColor:theme.header}} className="principal-header header">
+      <Link style={boxStyleT}  onMouseEnter={handleMouseEnterT}
+            onMouseLeave={handleMouseLeaveT} className='logo-link' to='/home'>tutorate</Link>
+      <div style={boxStyle}  onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} className='search'>
+        <input style={{color:theme.userName}}  className='search-input' placeholder='Buscar...' type="text" 
           onFocus={() => isSearchModal(dispatch, searchModal)}
           onChange={ changeHandle }
           value={ searchText }
@@ -104,17 +210,20 @@ const HomeHeader = () => {
         </button>
       </div>
 
-      <button className='boton-circular'
+      <button style={boxStyleB1}  onMouseEnter={handleMouseEnterB1}
+            onMouseLeave={handleMouseLeaveB1} className='boton-circular'
         onClick={() => isUserModal(dispatch, userModal)}>
-        <img className='icon' src={user} alt="user" />
+        <img style={{filter:theme.iconsCircular}} className='icon' src={user} alt="user" />
       </button>
-      <button className='boton-circular'
+      <button style={boxStyleB2}  onMouseEnter={handleMouseEnterB2}
+            onMouseLeave={handleMouseLeaveB2} className='boton-circular'
         onClick={() => isNotificationModal(dispatch, notificationModal)}>
-        <img className='icon' src={notifications} alt="notifications" />
+        <img style={{filter:theme.iconsCircular}} className='icon' src={notifications} alt="notifications" />
       </button>
-      <button className='boton-circular'
+      <button style={boxStyleB3}  onMouseEnter={handleMouseEnterB3}
+            onMouseLeave={handleMouseLeaveB3} className='boton-circular'
         onClick={() => isChatModal(dispatch, chatModal)}>
-        <img className='icon' src={messagesBlack} alt="messagesBlack" />
+        <img style={{filter:theme.iconsCircular}} className='icon' src={messagesBlack} alt="messagesBlack" />
       </button>
       <div className='linea' />
 
@@ -122,11 +231,11 @@ const HomeHeader = () => {
         <div className='row'>
         
           <div className='icon-name'>
-          <Link  to={`/perfil/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
+          <Link style={{color:theme.userName2, textDecoration: 'none'}}  to={`/perfil/${userInfoPerfil.uid_user}`}>
           <img className='icon-user-2'
                   src={userInfoPerfil.imgName ? userInfoPerfil.imgUrl : user}
                   alt={userInfoPerfil.username} />
-            <h4  style={{ position:'relative', top:'-20px', textAlign: 'center', paddingLeft: '4.5rem', paddingRight: '2rem', fontSize: '19px', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+            <h4 style={{color:theme.userName, position:'relative', top:'-20px', textAlign: 'center', paddingLeft: '4.5rem', paddingRight: '2rem', fontSize: '19px', fontFamily:'sans-serif'}}>
               {userInfoPerfil.name}
             </h4>
           </Link>
@@ -134,14 +243,17 @@ const HomeHeader = () => {
         </div>
         <div className='row'>
           <Link to={`/configuracion/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
-            <button className='boton-cuadrado'>
-              <img className='icon-2' src={settings} alt="settings" />Configuracion
+            <button style={boxStyleB4}  onMouseEnter={handleMouseEnterB4}
+            onMouseLeave={handleMouseLeaveB4} className='boton-cuadrado'>
+              <img style={boxStyleE}  onMouseEnter={handleMouseEnterB4}
+            onMouseLeave={handleMouseLeaveB4} className='icon-2' src={settings} alt="settings" />Configuracion
             </button>
           </Link>
         </div>
         <div className='row'>
-          <button className='boton-cuadrado' onClick={handleSubmit} >
-            <img className='icon-2' src={exit} alt="exit" />Salir
+          <button style={boxStyleB5}  onMouseEnter={handleMouseEnterB5}
+            onMouseLeave={handleMouseLeaveB5} className='boton-cuadrado' onClick={handleSubmit} >
+            <img  style={boxStyleE2} className='icon-2' src={exit} alt="exit" />Salir
           </button>
         </div>
         <br />
@@ -169,10 +281,10 @@ const HomeHeader = () => {
       </MessageModal>
 
       <SearchModal active={searchModal} toggle={isSearchModal} dispatch={dispatch}>
-        <div style={{borderRadius:'10px'}}>
+        <div style={{borderRadius:'10px', minHeight:0, background:theme.header, boxShadow:theme.boxShadow}}>
           <Scrollbars autoHeight autoHeightMax={381} >
             <div/>
-            <div style={{backgroundColor:'pink'}}>
+            <div>
               {
                 users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user && <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
               }

@@ -10,6 +10,15 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.main {
+  height: 88.5vh;
+}
+a{
+  color: #1492e6;
+}
+a:hover {
+  color: #ff0096;
+}
 .react-switch{
   position: absolute;
   top:-50px;
@@ -25,9 +34,6 @@
   margin-left: 1rem;
 }
 
-a:hover {
-  color: #ff0096;
-}
 .button-shape {
   background-color: #1492e6;
   border-radius: 10px;
@@ -42,7 +48,6 @@ a:hover {
 }
 
 .button-without-background {
-  background-color: #ffffff;
   border-radius: 10px;
   height: 40px;
   border: none;
@@ -56,7 +61,6 @@ a:hover {
 }
 
 .boton-sin-fondo {
-  background-color: #ffffff;
   border-radius: 10px;
   height: 40px;
   border: none;
@@ -112,7 +116,6 @@ a:hover {
 .linea {
   width: 1px;
   float: right;
-  background-color: #d4d4d4;
   height: 40px;
   margin-right: 2rem;
 }
@@ -135,7 +138,6 @@ a:hover {
 .linea-acostadaHome {
   width: 100%;
   float: right;
-  background-color: #d4d4d4;
   height: 1px;
   position: absolute;
   top:71px;

@@ -17,8 +17,80 @@ import CourseModal from '../components/modals/CourseModal';
 import { alertState } from '../reducers';
 import Notification from '../components/notification/Notification';
 import UserCard from '../components/user-card/UserCard';
+import { useTheme } from 'styled-components';
 
 const PerfilView = () => {
+  const theme = useTheme();
+  const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+     filter: isHover ? theme.iconsCircular : theme.iconCircularNormal,
+     transition: 'all 0.10s ease',
+   };
+   const [isHover2, setIsHover2] = useState(false);
+
+   const handleMouseEnter2 = () => {
+      setIsHover2(true);
+   };
+   const handleMouseLeave2 = () => {
+      setIsHover2(false);
+   };
+
+   const boxStyle2 = {
+    filter: isHover2 ? theme.iconsCircular : theme.iconCircularNormal,
+     transition: 'all 0.10s ease',
+   };
+   const [isHover3, setIsHover3] = useState(false);
+
+   const handleMouseEnter3 = () => {
+      setIsHover3(true);
+   };
+   const handleMouseLeave3 = () => {
+      setIsHover3(false);
+   };
+
+   const boxStyle3 = {
+    filter: isHover3 ? theme.iconsCircular : theme.iconCircularNormal,
+     transition: 'all 0.10s ease',
+   };
+
+
+   const [isHoverL, setIsHoverL] = useState(false);
+
+   const handleMouseEnterL = () => {
+      setIsHoverL(true);
+   };
+   const handleMouseLeaveL = () => {
+      setIsHoverL(false);
+   };
+
+   const boxStyleL = {
+    color: isHoverL ? theme.linkHover : theme.linkColor,
+    textDecoration: 'none',
+     transition: 'all 0.10s ease',
+   };
+
+   const [isHoverL2, setIsHoverL2] = useState(false);
+
+   const handleMouseEnterL2 = () => {
+      setIsHoverL2(true);
+   };
+   const handleMouseLeaveL2 = () => {
+      setIsHoverL2(false);
+   };
+
+   const boxStyleL2 = {
+    color: isHoverL2 ? theme.linkHover : theme.linkColor,
+    textDecoration: 'none',
+     transition: 'all 0.10s ease',
+   };
   const { uid_user } = useParams();
   const location = useLocation();
 
@@ -223,9 +295,9 @@ const PerfilView = () => {
     <div className='principal-body'>
       <div style={{ width:'300px',  position:'absolute', top:'580px', left:'90px' }}>
         <span style={{ color:'#000', display:'block' ,textAlign:'center', fontFamily:'sans-serif', fontSize:'23px' }}> 
-        <b>{userPerfil.name}</b>
+        <b style={{color:theme.userName}}>{userPerfil.name}</b>
         </span>
-        <span style={{display:'block' ,textAlign:'center',fontFamily:'sans-serif', }}>
+        <span style={{color:theme.userName2,display:'block' ,textAlign:'center',fontFamily:'sans-serif', }}>
         Nombre de usuario: {userPerfil.username}
         <br/>
         Carrera: {userCareer ? userCareer.name : loadingCareer && 'loading...'}
@@ -283,21 +355,24 @@ const PerfilView = () => {
           {
             userInfoPerfil.uid_user === userPerfil.uid_user &&
 
-            <div className='wrapper'>
-              <div className='windows-options'>
+            <div>
+              <div style={{backgroundColor: theme.header, boxShadow:theme.boxShadow}} className='windows-options'>
                 <div className={`col-1 ${ viewAll === 1 ? 'color-button-view' : '' }`}>
                   <button className='view-button' onClick={() => setViewAll(1)}>
-                    <img className='img-allPosts' src={ allPosts } alt="" />
+                    <img style={boxStyle}  onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} className='img-allPosts' src={ allPosts } alt="" />
                   </button>
                 </div>
                 <div className={`col-1 ${ viewAll === 2 ? 'color-button-view' : '' }`}>
                   <button className='view-button' onClick={() => setViewAll(2)}>
-                    <img className='img-allPosts' src={ user } alt="" />
+                    <img style={boxStyle2}  onMouseEnter={handleMouseEnter2}
+            onMouseLeave={handleMouseLeave2} className='img-allPosts' src={ user } alt="" />
                   </button>
                 </div>
                 <div className={`col-1 ${ viewAll === 3 ? 'color-button-view' : '' }`}>
                   <button className='view-button' onClick={() => setViewAll(3)}>
-                    <img className='img-allPosts' src={ save } alt="" />
+                    <img style={boxStyle3}  onMouseEnter={handleMouseEnter3}
+            onMouseLeave={handleMouseLeave3} className='img-allPosts' src={ save } alt="" />
                   </button>
                 </div>
                 <div className='col-8'></div>
@@ -341,7 +416,7 @@ const PerfilView = () => {
           <div className='row'>
             <label style={{ textAlign: 'left', fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
               <div style={{float:'left'}}>
-              <b>
+              <b style={{color:theme.subTitles}}>
                 {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
               </b>
               </div>
@@ -372,14 +447,15 @@ const PerfilView = () => {
                   <div className='col-8'>
                     <Link to={`/course/${course._id}`}
                       state={{ course }}
-                      style={{ textDecoration: 'none' }} >{course.title}</Link>
+                      style={boxStyleL}  onMouseEnter={handleMouseEnterL}
+            onMouseLeave={handleMouseLeaveL} >{course.title}</Link>
                   </div>
                 </div>
                 )
           }
           <br />
-          <label style={{ textAlign: 'left',fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
-            <b>Tutorías inscritas</b>
+          <label style={{ textAlign: 'left',fontSize: '147%', fontFamily:'sans-serif' }}>
+            <b style={{color:theme.subTitles}}>Tutorías inscritas</b>
           </label>
           {
             coursesInscripto.map((course, index) => {
@@ -394,8 +470,8 @@ const PerfilView = () => {
                       />
                     </div>
                     <div className='col-8'>
-                      <Link to={`/course/${course._id}`}
-                        style={{ textDecoration: 'none' }} >{course.title}</Link>
+                      <Link  style={boxStyleL2}  onMouseEnter={handleMouseEnterL2}
+            onMouseLeave={handleMouseLeaveL2} to={`/course/${course._id}`} >{course.title}</Link>
                     </div>
                   </div>
                 )
