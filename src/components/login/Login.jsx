@@ -12,6 +12,8 @@ import { useLogIn, useNewPassword, useResetPassword } from '../../hooks';
 import ResetPasswordModal from '../modals/ResetPasswordModal';
 import ValidateCodeModal from '../modals/ValidateCodeModal';
 import NewPasswordModal from '../modals/NewPasswordModal';
+import { googleIcon } from '../../images';
+import ViewPassword from '../register/viewPassword';
 
 const Login = () => {
   const { mutate: logIn } = useLogIn();
@@ -33,7 +35,9 @@ const Login = () => {
   const { value: validateCodeModal } = useSelector(state => state.validateCodeModal);
   const { value: newPasswordModal } = useSelector(state => state.newPasswordModal);
   const { value: loginWitnEmail } = useSelector(state => state.loginWitnEmail);
-
+  const [changeTypePass, setChangeTypePass] = useState(false);
+  const [changeTypePass2, setChangeTypePass2] = useState(false);
+  const [changeTypePass2Confirm, setChangeTypePass2Confirm] = useState(false);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -195,7 +199,14 @@ const Login = () => {
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Inicia sesion con tu correo electrónico o con Google.
         </h5>
-        <button className="boton-correo button1" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
+        <button className="boton-correoGoogle buttonGoogle">
+          Ingresa con Google
+        </button>
+        <div>
+          <img className="google-icon" src={googleIcon} />
+        </div>
+        <br/>
+        <button className="boton-correoLogin button1" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
           Ingresa con correo electronico
         </button>
         <br />
@@ -217,18 +228,15 @@ const Login = () => {
         />
         <br />
         <input
-          type={password ? "text" : "password"}
+          type={changeTypePass ? "text" : "password"}
           placeholder="Contraseña" name='password'
           value={loginValue.password}
           onChange={handleChange}
           required
         />
-        <button
-          className="eye-icon"
-          onClick={() => (password ? setPassword(false) : setPassword(true))}
-        >
-          {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </button>
+        <div className="eye-icon" onClick={() => setChangeTypePass(!changeTypePass)}>
+            <ViewPassword/>
+        </div>
         <br />
         <button className="boton-correo button1" onClick={handleSubmit} >Ingresa con correo electronico</button>
         <br />
@@ -275,35 +283,23 @@ const Login = () => {
         <h5 style={{ textAlign: "center", color: "#828181" }}>
           Introduce tu nueva contraseña aqui, recuerda que las dos deven de coincidir.
         </h5>
-        <input className='pass' type={password ? "text" : "password"} placeholder="Contraseña nueva" name='password'
+        <input className='pass' type={changeTypePass2 ? "text" : "password"} placeholder="Contraseña nueva" name='password'
           value={loginValue.password}
           onChange={handleChange}
           required
         />
         <br />
-        <input className='pass' type={confirmPasswordView ? "text" : "password"} placeholder="Confirmar contraseña nueva" name='confirmPassword'
+        <input className='pass' type={changeTypePass2Confirm ? "text" : "password"} placeholder="Confirmar contraseña nueva" name='confirmPassword'
           value={loginValue.confirmPassword}
           onChange={handleChange}
           required
         />
-        <button
-          className="eye-icon-4"
-          onClick={() =>
-            password ? setPassword(false) : setPassword(true)
-          }
-        >
-          {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </button>
-        <button
-          className="eye-icon-5"
-          onClick={() =>
-            confirmPasswordView
-              ? setConfirmPasswordView(false)
-              : setConfirmPasswordView(true)
-          }
-        >
-          {confirmPasswordView ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </button>
+        <div className="eye-icon-4" onClick={() => setChangeTypePass2(!changeTypePass2)}>
+            <ViewPassword/>
+        </div>
+        <div className="eye-icon-5" onClick={() => setChangeTypePass2Confirm(!changeTypePass2Confirm)}>
+            <ViewPassword/>
+        </div>
         <br />
         <button className="boton-correo3 button2" onClick={handleSubmitNewPassword} >Cambiar contraseña</button>
         <br />
