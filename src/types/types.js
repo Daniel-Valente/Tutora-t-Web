@@ -1,6 +1,7 @@
 export const types = {
     layout: {
         updateTheme: "[Layout] updateTheme",
+        updateIsDarkTheme: "[Layout] updateIsDarkTheme",
         showGlobalLoading: "[Layout] showGlobalLoading",
         hideGlobalLoading: "[Layout] hideGlobalLoading",
         incPendingRequest: "[Layout] incPendingRequest",

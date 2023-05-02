@@ -2,13 +2,19 @@ import { types } from "../types/types";
 
 const initialState = {
     version: process.env.REACT_APP_VERSION,
-    theme: 'white',
+    theme: 'light',
+    isDarkTheme: false,
     loading: false,
     pendingGlobalRequests: 0
 }
 
 export const layoutReducer = (state = initialState, action) => {
     switch (action.type) {
+        case types.layout.updateIsDarkTheme:
+            return {
+                ...state,
+                isDarkTheme: action.payload
+            };
         case types.layout.updateTheme:
             return {
                 ...state,
