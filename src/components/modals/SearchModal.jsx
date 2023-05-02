@@ -1,8 +1,10 @@
 import React from 'react';
 import SearchPortal from '../portals/SearchPortal';
+import { useTheme } from 'styled-components';
 
 export const SearchModal = (props) => {
     const { children, toggle, active, dispatch } = props;
+    const theme = useTheme();
 
     const styles = {
         wrapper: {
@@ -13,14 +15,14 @@ export const SearchModal = (props) => {
         },
         window: {
             position: "relative",
-            background: "pink",
+            background: theme.header,
             borderRadius: 10,
             right: 685,
             float: "right",
             width: "50%",
             maxHeight: "48%",
-            minHeight: "0%",
-            boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
+            minHeight: "10%",
+            boxShadow: theme.boxShadow,
             zIndex: 10,
             top: 0,
             marginRight: "1vw",

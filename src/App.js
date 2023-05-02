@@ -36,7 +36,9 @@ const darkTheme ={
   linkHover:'#ff0096',
   bH:'#2a81bb',
   eye:'invert(1)',
-  hover: 'opacity(.6)'
+  hover: 'opacity(.6)',
+  status: 'dark',
+  selected:'#2a2a2b'
   
 
 };
@@ -63,7 +65,10 @@ const lightTheme ={
   linkHover:'#ff0096',
   bH:'#2a81bb',
   eye:'',
-  hover:'opacity(.6)'
+  hover:'opacity(.6)',
+  status:'light',
+  selected: '#fff',
+  rosaHover: '#ff009521'
 
 };
 const App = () => {

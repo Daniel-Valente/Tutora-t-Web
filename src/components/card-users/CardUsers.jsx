@@ -9,6 +9,7 @@ import { useTheme } from 'styled-components';
 const CardUsers = ({ user, searchText = '', action }) => {
 
     const dispatch = useDispatch();
+    const { username, name } = user || [];
 
     const closedModal = () => {
         action('');
@@ -16,8 +17,8 @@ const CardUsers = ({ user, searchText = '', action }) => {
     }
     const theme = useTheme();
 
-
-    const filter = searchText && (user.username.toLowerCase().includes(searchText.toLowerCase()) || user.name.toLowerCase().includes(searchText.toLowerCase()));
+    console.log(user)
+    const filter = searchText && (username && username.toLowerCase().includes(searchText.toLowerCase()) || name && name.toLowerCase().includes(searchText.toLowerCase()));
 
     return (
         filter && searchText ?
@@ -39,7 +40,7 @@ const CardUsers = ({ user, searchText = '', action }) => {
             <div>
                 <Outlet/>
                 <Link to={`/perfil/${user.uid_user}`} onClick={closedModal}>
-                    <div style={{ background:'pink', float:'left',paddingLeft:'20px',paddingTop:'5px',paddingBottom:'5px'}}>
+                    <div style={{ background:'orange', float:'left',paddingLeft:'20px',paddingTop:'5px',paddingBottom:'5px'}}>
                         <img className='icon-user-3'
                          src={`${user.imgUrl ? user.imgUrl : userImg}`}
                          alt={user.username} /> 

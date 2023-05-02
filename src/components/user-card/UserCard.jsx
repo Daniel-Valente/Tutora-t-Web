@@ -5,7 +5,7 @@ import { fondo, user } from '../../images';
 
 const UserCard = (props) => {
     const { uid_user } = props;
-    const { data: dataUser = [], isFetching: fetchingUser, isLoading: loadingUser } = useUserById(uid_user);
+    const { data: dataUser = [], isFetching: fetchingUser } = useUserById(uid_user);
     const [userImg, setUserImg] = useState(dataUser);
 
     useEffect(() => {
@@ -13,13 +13,6 @@ const UserCard = (props) => {
         // eslint-disable-next-line
     }, [dataUser]);
 
-    if (loadingUser) {
-        return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
     return (
         <div style={{marginRight:'100px'}}  className='col-3'>
             <div  className='card' style={{border: "1px solid #a2a2a2", height:'250px', borderRadius:'10px'}}>

@@ -14,6 +14,8 @@ export { useUserByUsername } from "./users/useUserByUsername";
 export { useUsersList } from "./users/useUsersList";
 export { useResetPassword } from "./emails/useResetPassword";
 export { useNewPassword } from "./emails/useNewPassword";
+export { useVerifyEmailAddress } from "./emails/useVerifyEmailAddress";
+export { useSendEmailVerify } from "./emails/useSendEmailVerify";
 
 export { useHidePost } from "./interaction/useHidePost";
 export { useHidePostList } from "./interaction/useHidePostList";

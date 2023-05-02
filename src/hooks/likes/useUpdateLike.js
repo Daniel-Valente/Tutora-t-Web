@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const updateLike = async (likes) => {
     const { uid_user, id_Post, uid_creator, action, type, starActive, career } = likes;

@@ -8,8 +8,8 @@ import UserModal from '../modals/UserModal';
 
 import { exit, mensaje, messagesBlack, notifications, search, settings, user } from '../../images';
 import { isChatModal, isNotificationModal, isOut, isSearchModal, isUserModal } from '../../helpers/utils';
-import { useChatsListWithLimit, useLogOut, useNotificationsWithLimit, useUsersList } from '../../hooks';
-import { userInfo, userLogInState } from '../../reducers';
+import { useChatsListWithLimit, useNotificationsWithLimit, useUsersList } from '../../hooks';
+import { userInfo } from '../../reducers';
 import CardMessage from '../card-message/CardMessage';
 import CardNotification from '../card-notification/CardNotification';
 import Scrollbars from 'react-custom-scrollbars-2';
@@ -121,8 +121,27 @@ const HomeHeader = () => {
     filter:theme === 'dark' ||    isHoverB5 ? 'invert(0)' : theme.eye,
     transition: 'all 0.10s ease',
    };
+   const [isHoverB6, setIsHoverB6] = useState(false);
+
+   const handleMouseEnterB6 = () => {
+      setIsHoverB6(true);
+   };
+   const handleMouseLeaveB6 = () => {
+      setIsHoverB6(false);
+   };
+   const boxStyleB6 = {
+    filter: isHoverB5 ? theme.hover  : '',
+    backgroundColor: isHoverB6 ? '#e2e2e2' : theme.header,
+    color:theme === 'dark' ||    isHoverB6 ? '#000000' : theme.userName,
+    transition: 'all 0.10s ease',
+    fontSize: '14px',
+   };
+   const boxStyleE3 = {
+    filter:theme === 'dark' ||    isHoverB6 ? 'invert(0)' : theme.eye,
+    transition: 'all 0.10s ease',
+    marginRight:'20px', top:'5px', position:'relative'
+   };
   const userInfoPerfil = useSelector(state => state.user);
-  const { mutate: logOut } = useLogOut();
 
   const { value: userModal } = useSelector(state => state.userModal);
   const { value: chatModal } = useSelector(state => state.chatModal);
@@ -137,8 +156,8 @@ const HomeHeader = () => {
   const { data: dataNotificationsWithLimit = [], isFetching: fetchingNotifications } = useNotificationsWithLimit(userInfoPerfil.uid_user, 10);
   const [notificationsWithLimit, setNotificationsWithLimit] = useState(dataNotificationsWithLimit);
 
-  const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
-  const [users, setUsers] = useState(dataUsers);
+  // const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
+  // const [users, setUsers] = useState(dataUsers);
 
   const dispatch = useDispatch();
 
@@ -155,23 +174,7 @@ const HomeHeader = () => {
       imagePortadaUrl: '',
       imgName: '',
       imgUrl: '',
-    }));
-
-    logOut();
-
-    dispatch(userLogInState({
-      apiKey: "",
-      appName: "",
-      createdAt: "",
-      displayName: "",
-      email: "",
-      emailVerified: false,
-      isAnonymous: false,
-      lastLoginAt: "",
-      phoneNumber: "",
-      providerData: {},
-      stsTokenManager: {},
-      uid: ""
+      verify: false
     }));
 
     isOut(dispatch);
@@ -189,10 +192,11 @@ const HomeHeader = () => {
     // eslint-disable-next-line
   }, [dataNotificationsWithLimit]);
 
-  useEffect(() => {
-    !fetchingUsers && dataUsers && setUsers(dataUsers);
-    // eslint-disable-next-line
-  }, [dataUsers]);
+  // useEffect(() => {
+  //   !fetchingUsers && dataUsers && setUsers(dataUsers);
+  //   console.log(users);
+  //   // eslint-disable-next-line
+  // }, [dataUsers]);
 
   return (
     <div style={{backgroundColor:theme.header}} className="principal-header header">
@@ -206,7 +210,7 @@ const HomeHeader = () => {
           value={ searchText }
         />
         <button className='search-icon'>
-          <img className='search-imag' src={search} alt="search" />
+          <img style={{filter:theme.eye}} className='search-imag' src={search} alt="search" />
         </button>
       </div>
 
@@ -260,7 +264,7 @@ const HomeHeader = () => {
       </UserModal>
 
       <NotificationModal active={notificationModal} toggle={isNotificationModal} dispatch={dispatch}>
-        <h2 style={{ textAlign: 'center', paddingTop: '1rem', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Notificaciones</h2>
+        <h2 style={{ textAlign: 'center', paddingTop: '1rem', fontSize: '150%', fontFamily:'sans-serif', color: theme.userName }}>Notificaciones</h2>
         <Scrollbars autoHeight autoHeightMax={381} style={{ width: '99%' }}>
           {
             notificationsWithLimit.map((notification, index) => <CardNotification notification={notification} key={index} notificationModal={notificationModal} />)
@@ -269,26 +273,28 @@ const HomeHeader = () => {
       </NotificationModal>
 
       <MessageModal active={chatModal} toggle={isChatModal} dispatch={dispatch}>
-        <h2 style={{ textAlign: 'center', paddingTop: '1rem', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Mensajes</h2>
+        <h2 style={{ textAlign: 'center', paddingTop: '1rem', fontSize: '150%', fontFamily:'sans-serif', color: theme.userName }}>Mensajes</h2>
         {chatsWithLimit.map((chat, index) => <CardMessage chat={chat} key={chat.id_Message} />)}
         <div className='row'>
           <Link to={`/chats/${userInfoPerfil.uid_user}`} style={{ textDecoration: 'none' }}>
           
-          <button className='boton-cuadrado' style={{ fontSize: '19px',fontFamily:'sans-serif', color: '#6B6B6B' }}> <img style={{marginRight:'20px', top:'5px', position:'relative'}} src={mensaje}></img>Ver más</button>
+          <button style={boxStyleB6}  onMouseEnter={handleMouseEnterB6}
+            onMouseLeave={handleMouseLeaveB6} className='boton-cuadrado'> 
+            <img style={boxStyleE3}  onMouseEnter={handleMouseEnterB6}
+            onMouseLeave={handleMouseLeaveB6} src={mensaje}></img>Ver más</button>
           </Link>
         </div>
         <br />
       </MessageModal>
 
       <SearchModal active={searchModal} toggle={isSearchModal} dispatch={dispatch}>
-        <div style={{borderRadius:'10px', minHeight:0, background:theme.header, boxShadow:theme.boxShadow}}>
+        <div style={{ minHeight:'0px'}}>
           <Scrollbars autoHeight autoHeightMax={381} >
             <div/>
-            <div>
               {
-                users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user && <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
+                // !!users && users.map((user) => user.uid_user !== userInfoPerfil.uid_user &&  <CardUsers user={user} key={user.uid_user} searchText={searchText} action={setSearchText} />)
               }
-            </div>
+           
           </Scrollbars>
         </div>
       </SearchModal>

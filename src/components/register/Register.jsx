@@ -8,7 +8,7 @@ import {
   ValidateData,
 } from "../../helpers/utils";
 import { useCareerList, useAddUser } from "../../hooks";
-import { alertState, userLogInState } from "../../reducers";
+import { alertState, isRegisterState, userInfo } from "../../reducers";
 import Modal from "../modals/Modal";
 import RegisterModal from "../modals/RegisterModal";
 import Notification from "../notification/Notification";
@@ -37,12 +37,12 @@ const Register = () => {
   
   const [values, setValues] = useState({
     username: "",
-    nombre: "",
+    name: "",
     email: "",
-    telefono: "",
+    phone: "",
     password: "",
     confirmPassword: "",
-    carrera: "",
+    career: "",
   });
 
   const { value: registerModal } = useSelector((state) => state.registerModal);
@@ -63,13 +63,12 @@ const Register = () => {
 
     e.target
       ? setValues({ ...values, [e.target.name]: e.target.value })
-      : setValues({ ...values, "carrera": e.value });
+      : setValues({ ...values, "career": e.value });
   };
 
   const handleSubmit = () => {
-
     addUser(values, {
-      onSuccess: ({data}) => {
+      onSuccess: (data) => {
         dispatch(
           alertState({
             isOpen: true,
@@ -77,15 +76,17 @@ const Register = () => {
             type: "success",
           })
         );
-        dispatch(userLogInState(data));
+        dispatch(userInfo(data));
+        dispatch(isRegisterState(true));
         isLogIn(dispatch);
         isRegisterWithEmail(dispatch, registerWithEmail);
       },
-      onError: ({ response }) => {
+      onError: (error) => {
+        console.log(error);
         dispatch(
           alertState({
             isOpen: true,
-            message: response.data.error,
+            message: error,
             type: "error",
           })
         );
@@ -94,12 +95,12 @@ const Register = () => {
 
     setValues({
       username: "",
-      nombre: "",
+      name: "",
       email: "",
-      telefono: "",
+      phone: "",
       password: "",
       confirmPassword: "",
-      carrera: values.carrera,
+      career: values.career,
     });
   };
 
@@ -107,6 +108,19 @@ const Register = () => {
     !fetchingCareers && dataCareers.length > 0 && setCareer(dataCareers);
     // eslint-disable-next-line
   }, [dataCareers]);
+
+  useEffect(() => {
+    !registerWithEmail && setValues({
+      username: "",
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+      career: values.career,
+    });
+
+  }, [ registerWithEmail ]);
 
   return (
     <div>

@@ -139,13 +139,14 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
         </div>
 
       <PublicationModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Crear publicacion</h2>
+        <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color:theme.userName }}>Crear publicacion</h2>
         <div className='row'>
           <div className='col-6'>
-            <input className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
+            <input style={{background:theme.header, color: theme.userName}} className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
           </div>
           <div className='col-4'>
             <Select 
+              style={{background:theme.header, color: theme.userName}}
               className='select-career' 
               placeholder='carrera'
               name="career"
@@ -156,7 +157,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
           </div>
         </div>
         <br />
-        <textarea className='inp' style={{borderRadius:'7px', paddingLeft:'10px', paddingTop:'10px'}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
+        <textarea className='inp' style={{borderRadius:'7px', paddingLeft:'10px', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
         <div className='upload-post'>
           <div className="upload-btn-wrapper" onChange={handleChange}>
             <button style={{backgroundColor:'pink'}} className="boton-standar-rw">
@@ -168,7 +169,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
         <div className='upload-image-post'>
           <img src={imagePreview ? imagePreview : fondo} alt="" className='image-post' onChange={handleChange} />
         </div>
-        <img className='send-post' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
+        <img className='send-post2' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
       </PublicationModal>
       <Notification />
     </div>

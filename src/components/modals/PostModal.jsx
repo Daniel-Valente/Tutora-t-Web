@@ -1,5 +1,4 @@
 import React from "react";
-import PostPortal from "../portals/PostPortal";
 import { useTheme } from "styled-components";
 
 const PostModal = (props) => {

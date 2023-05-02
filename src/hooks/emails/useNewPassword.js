@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const newPassword = async (user) =>
     await httpClient.patch(`/users/password-reset`, user, {

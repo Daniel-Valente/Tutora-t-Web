@@ -1,9 +1,3 @@
-#Dark {
-  background-color:#23374D;
-}
-#Light{
-  background-color: #ffffff;
-}
 .header {
   width: 100%;
   height: 40px;
@@ -32,6 +26,10 @@ a:hover {
   font-weight: 700;
   text-decoration: none;
   margin-left: 1rem;
+}
+
+a:hover {
+  color: #ff0096;
 }
 
 .button-shape {
@@ -125,6 +123,12 @@ a:hover {
   float: right;
   background-color: #d4d4d4;
   height: 1px;
+}
+.linea-acostadaConfiguracion{
+  width: 100%;
+  float: right;
+  height: 1px;
+  margin-top: -22px;
 }
 .linea-acostadaLogin{
   width: 100%;

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const follower = async (follower) => {
     const { uid_user, uid_follower, action, type, active, career } = follower;
