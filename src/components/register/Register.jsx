@@ -22,12 +22,12 @@ const Register = () => {
   
   const [values, setValues] = useState({
     username: "",
-    nombre: "",
+    name: "",
     email: "",
-    telefono: "",
+    phone: "",
     password: "",
     confirmPassword: "",
-    carrera: "",
+    career: "",
   });
 
   const { value: registerModal } = useSelector((state) => state.registerModal);
@@ -48,13 +48,12 @@ const Register = () => {
 
     e.target
       ? setValues({ ...values, [e.target.name]: e.target.value })
-      : setValues({ ...values, "carrera": e.value });
+      : setValues({ ...values, "career": e.value });
   };
 
   const handleSubmit = () => {
-
     addUser(values, {
-      onSuccess: ({data}) => {
+      onSuccess: (data) => {
         dispatch(
           alertState({
             isOpen: true,
@@ -67,7 +66,8 @@ const Register = () => {
         isLogIn(dispatch);
         isRegisterWithEmail(dispatch, registerWithEmail);
       },
-      onError: ({ response }) => {
+      onError: (error) => {
+        console.log(error);
         dispatch(
           alertState({
             isOpen: true,
@@ -80,12 +80,12 @@ const Register = () => {
 
     setValues({
       username: "",
-      nombre: "",
+      name: "",
       email: "",
-      telefono: "",
+      phone: "",
       password: "",
       confirmPassword: "",
-      carrera: values.carrera,
+      career: values.career,
     });
   };
 
@@ -97,12 +97,12 @@ const Register = () => {
   useEffect(() => {
     !registerWithEmail && setValues({
       username: "",
-      nombre: "",
+      name: "",
       email: "",
-      telefono: "",
+      phone: "",
       password: "",
       confirmPassword: "",
-      carrera: values.carrera,
+      career: values.career,
     });
 
   }, [ registerWithEmail ]);

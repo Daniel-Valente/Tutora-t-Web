@@ -64,7 +64,7 @@ const Login = () => {
 
   const handleSubmit = () => {
     logIn(loginValue, {
-      onSuccess: ({data}) => {
+      onSuccess: (data) => {
         dispatch(
           alertState({
             isOpen: true,
@@ -72,7 +72,7 @@ const Login = () => {
             type: "success",
           })
         );
-      
+
         dispatch(userInfo(data));
         isLogIn(dispatch);
         isLoginWithEmail(dispatch, loginWitnEmail);

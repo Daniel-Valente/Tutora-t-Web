@@ -7,9 +7,9 @@ import { store } from "../../store";
 const logIn = async (logIn) => {
     //store.dispatch( showGlobalLoader() );
 
-    const { data } = await httpClient.post(`/users/LogIn`, logIn);
-    const node = { user_uid: data._id, ...data };
-    
+    const { data } = await httpClient.post(`/auth/LogIn`, logIn);
+    const node = { uid_user: data._id, ...data };
+    console.log( node );
     //store.dispatch( hideGlobalLoader() );
     return node;
 }
