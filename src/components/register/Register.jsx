@@ -71,7 +71,7 @@ const Register = () => {
         dispatch(
           alertState({
             isOpen: true,
-            message: response.data.error,
+            message: error,
             type: "error",
           })
         );
