@@ -33,7 +33,7 @@ const HomeHeader = () => {
   const [notificationsWithLimit, setNotificationsWithLimit] = useState(dataNotificationsWithLimit);
 
   // const { data: dataUsers, isFetching: fetchingUsers } = useUsersList();
-  const [users, setUsers] = useState(dataUsers);
+  // const [users, setUsers] = useState(dataUsers);
 
   const dispatch = useDispatch();
 
