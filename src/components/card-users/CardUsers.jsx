@@ -8,14 +8,15 @@ import { user as userImg } from '../../images';
 const CardUsers = ({ user, searchText = '', action }) => {
 
     const dispatch = useDispatch();
+    const { username, name } = user || [];
 
     const closedModal = () => {
         action('');
         isSearchModal(dispatch, true);
     }
 
-
-    const filter = searchText && (user.username.toLowerCase().includes(searchText.toLowerCase()) || user.name.toLowerCase().includes(searchText.toLowerCase()));
+    console.log(user)
+    const filter = searchText && (username && username.toLowerCase().includes(searchText.toLowerCase()) || name && name.toLowerCase().includes(searchText.toLowerCase()));
 
     return (
         filter && searchText ?

@@ -6,7 +6,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { isLogIn, isLoginModal, isLoginWithEmail, isNewPassword, isResetPassword, isValidateCode, ValidateData } from '../../helpers/utils';
 import LogInModal from '../modals/LogInModal';
 import Modal from '../modals/Modal';
-import { alertState, userLogInState } from '../../reducers';
+import { alertState, userInfo } from '../../reducers';
 import Notification from '../notification/Notification';
 import { useLogIn, useNewPassword, useResetPassword } from '../../hooks';
 import ResetPasswordModal from '../modals/ResetPasswordModal';
@@ -68,7 +68,7 @@ const Login = () => {
 
   const handleSubmit = () => {
     logIn(loginValue, {
-      onSuccess: (response) => {
+      onSuccess: (data) => {
         dispatch(
           alertState({
             isOpen: true,
@@ -77,7 +77,7 @@ const Login = () => {
           })
         );
 
-        dispatch(userLogInState(response.data));
+        dispatch(userInfo(data));
         isLogIn(dispatch);
         isLoginWithEmail(dispatch, loginWitnEmail);
       },
@@ -181,6 +181,16 @@ const Login = () => {
       }, 300000);
     }
   }, [codeValidation]);
+
+  useEffect(() => {
+    !loginWitnEmail && setLoginValue({
+      email: '',
+      password: '',
+      confirmPassword: '',
+      code: null
+    });
+
+  }, [ loginWitnEmail ]);
 
   return (
     <div>

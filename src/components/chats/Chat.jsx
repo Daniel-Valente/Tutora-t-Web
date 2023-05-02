@@ -11,11 +11,11 @@ const Chat = () => {
 
   const scrollRef = useRef('null');
 
-  const { data: dataChat, isRefetching: fetchingChat } = useChatsListToUser(uid_user, uid_userChat);
+  const { data: dataChat } = useChatsListToUser(uid_user, uid_userChat);
   const [chatMessages, setChatMessage] = useState(dataChat);
   const { mutate: sendMessage } = useAddChatToUser(uid_user, uid_userChat);
 
-  const { data: dataUserChat = [], isFetching: fetchingUserChat } = useUserById(uid_userChat);
+  const { data: dataUserChat = [] } = useUserById(uid_userChat);
   const [userChat, setUserChat] = useState(dataUserChat);
 
   const [formValue, setFormValue] = useState("");

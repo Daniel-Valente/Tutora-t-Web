@@ -1,22 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getUserById = async ({ queryKey }) => {
     const [ , uid_user ] = queryKey;
 
     if(!uid_user) return [];
-
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/users/userId/${ uid_user }`);
-    return data;
-    // const node = data.filter(( user ) => {
-    //     return {
-    //         uid_user: user._id,
-    //         ...user
-    //     }
-    // });
+    
+    const node = { user_uid: data._id, ...data };
 
-    // return node;
+    //store.dispatch( hideGlobalLoader() );
+    return node;
 }
 
 export const useUserById = (uid_user) => {

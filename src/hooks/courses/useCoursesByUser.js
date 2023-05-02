@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getCoursesByUser = async ({ queryKey }) => {
     const [ , uid_user ] = queryKey;
+
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/courses/${ uid_user }`);
 
+    //store.dispatch( hideGlobalLoader() );
     return data;
 }
 

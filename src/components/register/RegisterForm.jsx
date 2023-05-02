@@ -15,8 +15,8 @@ const RegisterForm = (pops) => {
       <input
         type="text"
         placeholder="Nombre completo"
-        value={values.nombre}
-        name="nombre"
+        value={values.name}
+        name="name"
         onChange={onChange}
         required
       />
@@ -40,8 +40,8 @@ const RegisterForm = (pops) => {
       <input
         type="text"
         placeholder="Número de teléfono"
-        value={values.telefono}
-        name="telefono"
+        value={values.phone}
+        name="phone"
         onChange={onChange}
         required
       />
@@ -72,9 +72,9 @@ const RegisterForm = (pops) => {
 
       
       <Select
-        placeholder="Carrera"
+        placeholder="carrera"
         onChange={onChange}
-        name="carrera"
+        name="career"
         options={options}
         className="input-type"
       />

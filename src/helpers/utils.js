@@ -141,7 +141,7 @@ export const isLogIn = (dispatch) => {
 }
 
 export const isOut = (dispatch) => {
-    userModalState(dispatch, true);
+    userModalState(dispatch, false);
     dispatch(sessionState(false));
     window.location.href = "/";
 }

@@ -1,9 +1,11 @@
+
 #Dark {
   background-color:#23374D;
 }
 #Light{
   background-color: #ffffff;
 }
+
 .header {
   width: 100%;
   height: 40px;
@@ -28,6 +30,7 @@
 a:hover {
   color: #ff0096;
 }
+
 .button-shape {
   background-color: #1492e6;
   border-radius: 10px;

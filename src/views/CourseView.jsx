@@ -16,10 +16,12 @@ import {
 
 import { send, user } from '../images';
 import { alertState } from '../reducers';
+import { Loader } from '../components/loader/Loader';
+import { StoreRounded } from '@mui/icons-material';
 
 const CourseView = () => {
   const { id_Course } = useParams();
-
+  const { layout: { loading: globalLoader } } = StoreRounded.getState();
   const userInfo = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
   const { value: editPublicationModal } = useSelector(state => state.editPublicationModal);
@@ -29,7 +31,7 @@ const CourseView = () => {
   const { mutate: updateCourse } = useUpdateCourse();
   const { mutate: deleteCourse } = useDeleteCourse(id_Course);
 
-  const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse, remove } = useCourseById(id_Course);
+  const { data: dataCourse = [], isFetching: fetchingCourse, remove } = useCourseById(id_Course);
   const [course, setCourse] = useState(dataCourse);
 
   const [x, setX] = useState('');
@@ -48,29 +50,18 @@ const CourseView = () => {
       label: 'Privado'
     }
   ]);
-  const [editCourse, setEditCourse] = useState({
-    title: course ? course.title : '',
-    description: course ? course.description : '',
-    dates: course ? course.dates : '',
-    hours: course ? course.hours : '',
-    site: course ? course.site : '',
-    career: course ? course.career : '',
-    imgCourse: '',
-    visible: course ? course.visible : '',
-    uid_user: userInfo.uid_user,
-    id_Course
-  });
+  const [editCourse, setEditCourse] = useState({ id_Course, ...course });
 
   const { mutate: userRegister } = useRegistrationUser(id_Course, userInfo.uid_user);
 
 
-  const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsByCourse(id_Course);
+  const { data: dataPostsList = [], isFetching: fetchingPostsList } = usePostsByCourse(id_Course);
   const [posts, setPosts] = useState(dataPostsList);
 
-  const { data: dataUsersList = [], isFetching: fetchingUsersList, isLoading: loadingUsersList } = useUsersList();
+  const { data: dataUsersList = [], isFetching: fetchingUsersList } = useUsersList();
   const [users, setUsers] = useState(dataUsersList);
 
-  const { data: dataUserRegister, isLoading: loadingUserRegister } = useRegistrationByUser(id_Course, userInfo.uid_user);
+  const { data: dataUserRegister } = useRegistrationByUser(id_Course, userInfo.uid_user);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
   const [career, setCareer] = useState(dataCareers);
@@ -165,6 +156,11 @@ const CourseView = () => {
     // eslint-disable-next-line
   }, [dataCareers]);
 
+  useEffect(() => {
+    course && setEditCourse({ id_Course, ...course });
+    // eslint-disable-next-line
+  }, [course]);
+
   const handleRegister = () => {
     const register = { 
       id_Course, 
@@ -183,16 +179,11 @@ const CourseView = () => {
     });
   }
 
-  if (loadingCourse || loadingPosts || loadingUserRegister || loadingUsersList) {
-    return (
-      <div className='parent'>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-      </div>
-    )
-  }
-
   return (
     <div className='principal-body'>
+      {
+        globalLoader && <Loader/>
+      }
       <div className='row'>
         <img className="fondo"
           src={course.imgUrl}
@@ -234,24 +225,6 @@ const CourseView = () => {
           <b>Privacidad del curso:</b> {course.visible ? 'Público' : 'Privado'} <br />
         </div>
         <div className='col-7'>
-          <div className='row'>
-            {/* <div className='col-1'></div>
-            <div className='col-2'>
-              <button className='button-left'>Conversación</button>
-            </div>
-            <div className='col-2'>
-              <button className='button-left'> Destacado </button>
-            </div>
-            <div className='col-4'>
-              <button className='button-left'> Multimedia </button>
-            </div>
-            <div className='col-1'>
-              <button>
-                <img className='search-imag' src={ search } alt="" />
-              </button>
-              <button  style={{ marginLeft: '1vh' }} className='button-option-course'>...</button>
-            </div> */}
-          </div>
           {
             dataUserRegister ? <CreatePost isDisabled={true} value={course.career}/> : userInfo.uid_user === course.uid_user && <CreatePost  isDisabled={true} value={course.career}/>
           }
