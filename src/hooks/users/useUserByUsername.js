@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { showGlobalLoader } from "../../actions/layout";
 
 const getUserByUsername = async ({ queryKey }) => {
     const [ , username ] = queryKey;
     
     if( !username ) return [];
-    
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/users/${ username }`);
 
     const node = { user_uid: data._id, ...data };

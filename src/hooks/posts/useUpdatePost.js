@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const updatePost = async (post) => {
     const { uid_user, id_Post, title, description, id_Course, imgPost } = post;

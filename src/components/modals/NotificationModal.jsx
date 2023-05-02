@@ -1,8 +1,10 @@
 import React from "react";
 import NotificationPortal from "../portals/NotificationPortal";
+import { useTheme } from "styled-components";
 
 const NotificationModal = (props) => {
   const { children, toggle, active, dispatch } = props;
+  const theme = useTheme();
 
   const styles = {
     wrapper: {
@@ -15,7 +17,7 @@ const NotificationModal = (props) => {
 
     window: {
       position: "relative",
-      background: "#fff",
+      background: theme.header,
       float: "right",
       borderRadius: 10,
       width: "20vw",

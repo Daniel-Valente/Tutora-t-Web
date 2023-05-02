@@ -11,38 +11,56 @@ import {
   useCareersList, useCoursesList, useHidePostList,
   usePostsList, useSavePostList, useSendEmailVerify, useTree
 } from "../hooks";
+import { useTheme } from "styled-components";
 import { isRegisterState } from "../reducers";
+import { Loader } from "../components/loader/Loader";
+import { store } from "../store";
 
 const HomeView = () => {
+  const theme = useTheme();
+  const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+    color: isHover ? theme.linkHover : theme.linkColor,
+     transition: 'all 0.10s ease',
+   };
 
   const userInfoPerfil = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
   const { value: isRegister } = useSelector(state => state.isRegister);
+  const { layout: { loading: globalLoader } } = store.getState();
   const dispatch = useDispatch();
 
   const [section, setSection] = useState('Todos');
   const { mutate: sendEmailVerify } = useSendEmailVerify();
   
-  const { data: dataTree = [], isLoading: loadingTree, isFetching: fetchingTree } = useTree(userInfoPerfil.uid_user, userInfoPerfil.career);
+  const { data: dataTree = [], isFetching: fetchingTree } = useTree(userInfoPerfil.uid_user, userInfoPerfil.career);
   const [ tree, setTree ] = useState(dataTree);
 
-  const { data: dataPostsList = [], isLoading: loadingPosts, isFetching: fetchingPostsList } = usePostsList();
+  const { data: dataPostsList = [], isFetching: fetchingPostsList } = usePostsList();
   const [posts, setPosts] = useState(filterContent(dataPostsList, tree));
   
-  const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
+  const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
   
-  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userInfoPerfil.uid_user);
+  const { data: dataHidePost = [], isFetching: fetchingHidePost } = useHidePostList(userInfoPerfil.uid_user);
   const [hidePost, setHidePost] = useState(dataHidePost);
   
-  const { data: dataSavePost = [], isFetching: fetchingSavePost, isLoading: loadingSavePost } = useSavePostList(userInfoPerfil.uid_user);
+  const { data: dataSavePost = [], isFetching: fetchingSavePost} = useSavePostList(userInfoPerfil.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
   
-  const { data: dataCareers, isFetching: fetchingCareers, isLoading: loadingCareers } = useCareersList();
+  const { data: dataCareers, isFetching: fetchingCareers } = useCareersList();
   const [careers, setCareers] = useState(dataCareers);
 
   useEffect(() => {
-    if(isRegister){
+    if (isRegister) {
       const userVerify = {
         name: userInfoPerfil.name,
         email: userInfoPerfil.email
@@ -92,21 +110,16 @@ const HomeView = () => {
     // eslint-disable-next-line
   }, [dataCareers]);
 
-  if (loadingPosts || loadingCoursesInscripto
-    || loadingHidePost || loadingSavePost || loadingCareers || loadingTree) {
-    return (
-      <div className='parent'>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-      </div>
-    )
-  };
-
   return (
     <div className="principal-body">
-      <div className="linea-acostada" />
+      {
+        globalLoader && <Loader/>
+      }
+
+    <div style={{backgroundColor:theme.linea}} className="linea-acostadaHome" />
       <div className="row">
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: theme.subTitles }}>
             <b>Publicaciones por carreras</b>
           </label>
           <div className='row'>
@@ -127,11 +140,12 @@ const HomeView = () => {
           }
         </div>
         <div className="col-2">
-          <label style={{ textAlign: 'left', marginLeft: '-2%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '-2%', fontSize: '150%', fontFamily:'sans-serif', color: theme.subTitles }}>
             <b>Novedades en las tutorías</b>
           </label>
             <Link to={`/courses`} style={{ textDecoration: 'none' }}>
-              <p className="course-view-all">ver más</p>
+              <p style={boxStyle}  onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} className="course-view-all">ver más</p>
             </Link>
           <br />
           <br />

@@ -1,7 +1,9 @@
 import React from "react";
+import { useTheme } from "styled-components";
 
 const PostModal = (props) => {
   const { children } = props;
+  const theme = useTheme();
 
   const styles = {
     wrapper: {
@@ -22,6 +24,7 @@ const PostModal = (props) => {
       boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
       top: 0,
       width: "50vw",
+      backgroundColor: theme.header
     },
   };
 

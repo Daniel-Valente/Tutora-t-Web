@@ -12,15 +12,90 @@ import {
   usePostsByUser, usePostsList, useSavePostList
 } from '../hooks';
 import { useUserById } from '../hooks/users/userUserById';
-import { allPosts, fondo, newButtton, newFocus, save, send, user, perfilUsuarioGrande, addTuto } from '../images';
+import { allPosts, fondo, save, send, user, perfilUsuarioGrande, addTuto } from '../images';
 import CourseModal from '../components/modals/CourseModal';
 import { alertState } from '../reducers';
 import Notification from '../components/notification/Notification';
 import UserCard from '../components/user-card/UserCard';
+import { useTheme } from 'styled-components';
+import { store } from '../store';
+import { Loader } from '../components/loader/Loader';
 
 const PerfilView = () => {
+  const theme = useTheme();
+  const [isHover, setIsHover] = useState(false);
+
+   const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
+
+   const boxStyle = {
+     filter: isHover ? theme.iconsCircular : theme.iconCircularNormal,
+     transition: 'all 0.10s ease',
+   };
+   const [isHover2, setIsHover2] = useState(false);
+
+   const handleMouseEnter2 = () => {
+      setIsHover2(true);
+   };
+   const handleMouseLeave2 = () => {
+      setIsHover2(false);
+   };
+
+   const boxStyle2 = {
+    filter: isHover2 ? theme.iconsCircular : theme.iconCircularNormal,
+     transition: 'all 0.10s ease',
+   };
+   const [isHover3, setIsHover3] = useState(false);
+
+   const handleMouseEnter3 = () => {
+      setIsHover3(true);
+   };
+   const handleMouseLeave3 = () => {
+      setIsHover3(false);
+   };
+
+   const boxStyle3 = {
+    filter: isHover3 ? theme.iconsCircular : theme.iconCircularNormal,
+     transition: 'all 0.10s ease',
+   };
+
+
+   const [isHoverL, setIsHoverL] = useState(false);
+
+   const handleMouseEnterL = () => {
+      setIsHoverL(true);
+   };
+   const handleMouseLeaveL = () => {
+      setIsHoverL(false);
+   };
+
+   const boxStyleL = {
+    color: isHoverL ? theme.linkHover : theme.linkColor,
+    textDecoration: 'none',
+     transition: 'all 0.10s ease',
+   };
+
+   const [isHoverL2, setIsHoverL2] = useState(false);
+
+   const handleMouseEnterL2 = () => {
+      setIsHoverL2(true);
+   };
+   const handleMouseLeaveL2 = () => {
+      setIsHoverL2(false);
+   };
+
+   const boxStyleL2 = {
+    color: isHoverL2 ? theme.linkHover : theme.linkColor,
+    textDecoration: 'none',
+     transition: 'all 0.10s ease',
+   };
   const { uid_user } = useParams();
   const location = useLocation();
+  const { layout: { loading: globalLoader } } = store.getState();
 
   const userInfoPerfil = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
@@ -30,7 +105,7 @@ const PerfilView = () => {
   const { mutate: addCourse } = useAddCourse();
   const { mutate: follower } = useFollower(uid_user);
 
-  const [isHoverButton, setIsHoverButton] = useState(false);
+  const [, setIsHoverButton] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const [newCourse, setNewCourse] = useState({
     title: '',
@@ -46,31 +121,31 @@ const PerfilView = () => {
   const [, toggle] = useBodyScrollLock();
   const [viewAll, setViewAll] = useState(1);
 
-  const { data: dataUserPerfil = [], isFetching: fetchingUserPerfil, isLoading: lodingUserPerfil } = useUserById(uid_user);
+  const { data: dataUserPerfil = [] } = useUserById(uid_user);
   const [userPerfil, setUserPerfil] = useState(dataUserPerfil);
 
-  const { data: dataCareer, isFetching: fetchingCareer, isLoading: loadingCareer } = useCareerById(userInfoPerfil.career);
+  const { data: dataCareer, isFetching: fetchingCareer } = useCareerById(userInfoPerfil.career);
   const [userCareer, setUserCareer] = useState(dataCareer);
 
-  const { data: dataPostsList = [], isFetching: fetchingPostsList, isLoading: loadingPostsList } = usePostsByUser(uid_user);
+  const { data: dataPostsList = [] } = usePostsByUser(uid_user);
   const [posts, setPosts] = useState(dataPostsList);
 
-  const { data: dataPosts = [], isFetching: fetchingPosts, isLoading: loadingPosts } = usePostsList();
+  const { data: dataPosts = [] } = usePostsList();
   const [postsList, setPostsList] = useState(dataPosts);
 
-  const { data: dataCoursesList = [], isFetching: fetchingCourses, isLoading: loadingCourses } = useCoursesByUser(uid_user);
+  const { data: dataCoursesList = [] } = useCoursesByUser(uid_user);
   const [courses, setCourses] = useState(dataCoursesList);
 
-  const { data: dataCoursesInscripto = [], isFetching: fetchingCoursesInscripto, isLoading: loadingCoursesInscripto } = useCoursesList();
+  const { data: dataCoursesInscripto = [] } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
 
-  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userInfoPerfil.uid_user);
+  const { data: dataHidePost = [], isFetching: fetchingHidePost } = useHidePostList(userInfoPerfil.uid_user);
   const [hidePost, setHidePost] = useState(dataHidePost);
 
   const { data: dataSavePost = [], isFetching: fetchingSavePost } = useSavePostList(userInfoPerfil.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
 
-  const { data: dataFollowers = [], isFetching: fetchingFollowers, isLoading: loadingFollowers } = useFollowersList(uid_user);
+  const { data: dataFollowers = [] } = useFollowersList(uid_user);
   const [followers, setFollowers] = useState(dataFollowers);
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
@@ -207,28 +282,20 @@ const PerfilView = () => {
     // eslint-disable-next-line
   }, [dataFollowers]);
 
-
-  if (lodingUserPerfil || loadingPostsList
-    || loadingCareer || loadingCourses
-    || loadingCoursesInscripto || loadingHidePost
-    || loadingFollowers || loadingPosts) {
-    return (
-      <div className='parent'>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-      </div>
-    )
-  }
-
   return (
     <div className='principal-body'>
+      {
+        globalLoader && <Loader/>
+      }
+      
       <div style={{ width:'300px',  position:'absolute', top:'580px', left:'90px' }}>
         <span style={{ color:'#000', display:'block' ,textAlign:'center', fontFamily:'sans-serif', fontSize:'23px' }}> 
-        <b>{userPerfil.name}</b>
+        <b style={{color:theme.userName}}>{userPerfil.name}</b>
         </span>
-        <span style={{display:'block' ,textAlign:'center',fontFamily:'sans-serif', }}>
+        <span style={{color:theme.userName2,display:'block' ,textAlign:'center',fontFamily:'sans-serif', }}>
         Nombre de usuario: {userPerfil.username}
         <br/>
-        Carrera: {userCareer ? userCareer.name : loadingCareer && 'loading...'}
+        Carrera: {userCareer ? userCareer.name : globalLoader && 'loading...'}
         </span>
         <br/>
         <span style={{display:'block' ,textAlign:'center',fontFamily:'sans-serif',fontSize:'17px', color:'#FF0096' }}>
@@ -283,21 +350,24 @@ const PerfilView = () => {
           {
             userInfoPerfil.uid_user === userPerfil.uid_user &&
 
-            <div className='wrapper'>
-              <div className='windows-options'>
+            <div>
+              <div style={{backgroundColor: theme.header, boxShadow:theme.boxShadow}} className='windows-options'>
                 <div className={`col-1 ${ viewAll === 1 ? 'color-button-view' : '' }`}>
                   <button className='view-button' onClick={() => setViewAll(1)}>
-                    <img className='img-allPosts' src={ allPosts } alt="" />
+                    <img style={boxStyle}  onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} className='img-allPosts' src={ allPosts } alt="" />
                   </button>
                 </div>
                 <div className={`col-1 ${ viewAll === 2 ? 'color-button-view' : '' }`}>
                   <button className='view-button' onClick={() => setViewAll(2)}>
-                    <img className='img-allPosts' src={ user } alt="" />
+                    <img style={boxStyle2}  onMouseEnter={handleMouseEnter2}
+            onMouseLeave={handleMouseLeave2} className='img-allPosts' src={ user } alt="" />
                   </button>
                 </div>
                 <div className={`col-1 ${ viewAll === 3 ? 'color-button-view' : '' }`}>
                   <button className='view-button' onClick={() => setViewAll(3)}>
-                    <img className='img-allPosts' src={ save } alt="" />
+                    <img style={boxStyle3}  onMouseEnter={handleMouseEnter3}
+            onMouseLeave={handleMouseLeave3} className='img-allPosts' src={ save } alt="" />
                   </button>
                 </div>
                 <div className='col-8'></div>
@@ -341,7 +411,7 @@ const PerfilView = () => {
           <div className='row'>
             <label style={{ textAlign: 'left', fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
               <div style={{float:'left'}}>
-              <b>
+              <b style={{color:theme.subTitles}}>
                 {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
               </b>
               </div>
@@ -372,14 +442,15 @@ const PerfilView = () => {
                   <div className='col-8'>
                     <Link to={`/course/${course._id}`}
                       state={{ course }}
-                      style={{ textDecoration: 'none' }} >{course.title}</Link>
+                      style={boxStyleL}  onMouseEnter={handleMouseEnterL}
+            onMouseLeave={handleMouseLeaveL} >{course.title}</Link>
                   </div>
                 </div>
                 )
           }
           <br />
-          <label style={{ textAlign: 'left',fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
-            <b>Tutorías inscritas</b>
+          <label style={{ textAlign: 'left',fontSize: '147%', fontFamily:'sans-serif' }}>
+            <b style={{color:theme.subTitles}}>Tutorías inscritas</b>
           </label>
           {
             coursesInscripto.map((course, index) => {
@@ -394,8 +465,8 @@ const PerfilView = () => {
                       />
                     </div>
                     <div className='col-8'>
-                      <Link to={`/course/${course._id}`}
-                        style={{ textDecoration: 'none' }} >{course.title}</Link>
+                      <Link  style={boxStyleL2}  onMouseEnter={handleMouseEnterL2}
+            onMouseLeave={handleMouseLeaveL2} to={`/course/${course._id}`} >{course.title}</Link>
                     </div>
                   </div>
                 )
@@ -406,20 +477,21 @@ const PerfilView = () => {
         </div>
       </div>
       <CourseModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center',fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Crea tu curso</h2>
-        <input className='title-course' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
-        <input className='site-course' type="text" name="site" placeholder='Lugar' value={newCourse.site} onChange={handleChange} />
+        <h2 style={{ textAlign: 'center',fontSize: '147%', fontFamily:'sans-serif', color:theme.userName }}>Crea tu curso</h2>
+        <input style={{background:theme.header, color:theme.userName}} className='title-course' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
+        <input style={{background:theme.header, color:theme.userName}} className='site-course' type="text" name="site" placeholder='Lugar' value={newCourse.site} onChange={handleChange} />
         <br /><br />
-        <textarea style={{borderRadius:'20px',marginLeft:'30px', width:'1100px'}} className='inp' placeholder={`¿Que tienes en mente  ${userInfoPerfil.name}?...`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
+        <textarea style={{borderRadius:'8px',marginLeft:'30px', width:'1060px',background:theme.header, color:theme.userName, paddingLeft:'15px', paddingTop:'15px'}} className='inp' placeholder={`¿Que tienes en mente  ${userInfoPerfil.name}?...`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
         <div style={{marginBottom:'70px'}}>
           <div style={{float:'left'}}>
-            <input type="text" placeholder='Días' name='dates' value={newCourse.dates} onChange={handleChange} />
+            <input style={{background:theme.header, color:theme.userName}} type="text" placeholder='Días' name='dates' value={newCourse.dates} onChange={handleChange} />
           </div>
           <div style={{float:'left'}}>
-            <input type="text" placeholder='Horario' name='hours' value={newCourse.hours} onChange={handleChange} />
+            <input style={{background:theme.header, color:theme.userName}} type="text" placeholder='Horario' name='hours' value={newCourse.hours} onChange={handleChange} />
           </div>
           <div style={{float:'left'}}>
             <Select
+              style={{background:theme.header, color:theme.userName}}
               placeholder='carrera'
               name="career"
               options={career}

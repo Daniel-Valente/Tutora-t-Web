@@ -1,9 +1,10 @@
 import React from "react";
 import UserPortal from "../portals/UserPortal";
+import { useTheme } from "styled-components";
 
 const UserModal = (props) => {
   const { children, toggle, active, dispatch } = props;
-
+  const theme = useTheme();
   const styles = {
     wrapper: {
       position: "absolute",
@@ -14,7 +15,7 @@ const UserModal = (props) => {
     },
     window: {
       position: "relative",
-      background: "#fff",
+      background: theme.header,
       borderRadius: 10,
       float: "right",
       width: "13vw",

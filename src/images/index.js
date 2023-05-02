@@ -1,4 +1,5 @@
 export { default as CUCEI } from './CUCEI.png';
+export { default as CUCEIDARKS } from './CUCEIDARKS.png';
 export { default as exit } from './exit.png';
 export { default as exitBlack } from './exitBlack.png';
 export { default as eye } from './eye.png';
@@ -28,3 +29,6 @@ export {default as compuBlanca} from './computer-blanco.png';
 export {default as mensaje} from './mensaje.png';
 export {default as perfilUsuarioGrande} from './user-perfil-grande.png';
 export {default as addTuto} from './add.png';
+export {default as appleNegra} from './appleNegra.png';
+export {default as computerNegra} from './computerNegra.png';
+export {default as ingenieriasNegra} from './ingenieriasNegra.png';

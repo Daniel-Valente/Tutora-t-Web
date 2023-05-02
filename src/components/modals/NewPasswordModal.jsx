@@ -1,8 +1,10 @@
 
+import { useTheme } from "styled-components";
 import LogInPortal from "../portals/LogInPortal";
 
 const NewPasswordModal = (props) => {
   const { children, toggle, active, dispatch } = props;
+  const theme = useTheme();
 
   const styles = {
     wrapper: {
@@ -19,7 +21,7 @@ const NewPasswordModal = (props) => {
     },
     window: {
       position: "relative",
-      background: "#fff",
+      background: theme.header,
       borderRadius: 10,
       paddingBottom:100,
       paddingTop:25,
@@ -36,6 +38,7 @@ const NewPasswordModal = (props) => {
       position: "absolute",
       top: 10,
       right: 10,
+      color: theme.userName,
       background: "none",
       border: "none",
     },

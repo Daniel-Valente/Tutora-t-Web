@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getLikesList = async ({ queryKey }) => {
     const [ , id_Post ] = queryKey;
 
     if(!id_Post) return [];
-    
+    //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/likes/${ id_Post }`);
-
+    //store.dispatch( hideGlobalLoader() );
     return data;
 }
 
