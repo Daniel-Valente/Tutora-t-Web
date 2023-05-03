@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDeleteComment, useUpdateComment, useUserById } from '../../hooks';
 import { send, user } from '../../images';
 import MenuComment from '../menu-comment/MenuComment';
+import { timeSince } from '../../helpers/utils';
 
 const Comment = (props) => {
     const { userInfoPerfil, comment, userPost } = props;
@@ -18,6 +19,7 @@ const Comment = (props) => {
     const [ x, setX ] = useState('');
     const [ y, setY ] = useState('');
     const [ menu, setMenu ] = useState(false);
+    const formatDate = () => new Date(comment.createdAt);
 
     const buttonMenuRef = useRef();
 
@@ -100,6 +102,7 @@ const Comment = (props) => {
                     {
                         !edit && <img className='send-comment' src={send} alt="send" onClick={ handleSubmitEdit } />
                     }
+                    <span className='format-time'> hace { timeSince( formatDate() ) } </span>
                 </p>
             </div>
             <div className='col-1'>
