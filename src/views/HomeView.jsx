@@ -79,7 +79,7 @@ const HomeView = () => {
   }, [userInfoPerfil]);
 
   useEffect(() => {
-    !fetchingCoursesInscripto && dataCoursesInscripto && setCoursesInscripto(dataCoursesInscripto);
+    !fetchingCoursesInscripto && !!dataCoursesInscripto && setCoursesInscripto(dataCoursesInscripto);
     // eslint-disable-next-line
   }, [dataCoursesInscripto]);
 
@@ -94,7 +94,7 @@ const HomeView = () => {
   }, [dataSavePost]);
 
   useEffect(() => {
-    !fetchingTree && dataTree && setTree(dataTree);
+    !fetchingTree && !!dataTree && setTree(dataTree);
     // eslint-disable-next-line
   }, [dataTree]);
 
@@ -112,10 +112,6 @@ const HomeView = () => {
 
   return (
     <div className="principal-body">
-      {
-        globalLoader && <Loader/>
-      }
-
     <div style={{backgroundColor:theme.linea}} className="linea-acostadaHome" />
       <div className="row">
         <div className="col-2">

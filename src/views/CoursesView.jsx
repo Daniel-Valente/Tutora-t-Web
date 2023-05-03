@@ -41,9 +41,6 @@ const CoursesView = () => {
 
   return (
     <div className='principal-body'>
-      {
-        globalLoader && <Loader/>
-      }
       <div className="linea-acostada" />
       <div className='row'>
         <div className='col-11'>

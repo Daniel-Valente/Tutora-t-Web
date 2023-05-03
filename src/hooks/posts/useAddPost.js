@@ -5,7 +5,7 @@ import httpClient from "../../http/httpClient";
 const addPost = async (post) => {
     const { uid_user, title, description, career, id_Course, imgPost, action, type } = post;
     const formData = new FormData();
-
+    console.log( uid_user );
     const notification = { 
         id_action: id_Course,
         action,
