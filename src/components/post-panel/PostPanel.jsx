@@ -51,6 +51,9 @@ const PostPanel = () => {
         setCommentValue('');
     }
 
+    const submitHandler = ( event ) => 
+    event.code === 'Enter' && handleSubmit()
+
     useEffect(() => {
         !fetchingCommentsList && dataCommentsList && comments.length > -1 && setComments(dataCommentsList);
         // eslint-disable-next-line
@@ -123,7 +126,7 @@ const PostPanel = () => {
                                 > {formatDate()} </p>
                             </div>
                             <div className='row'>
-                                <input style={{border:theme.comments2, background:theme.header, color:theme.userName}} className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' value={ commentValue } onChange={ handleChange } />
+                                <input style={{border:theme.comments2, background:theme.header, color:theme.userName}} className='inputCom-2' type="text" placeholder=' ¿Qué opinas?... ' value={ commentValue } onKeyUp={ submitHandler } onChange={ handleChange } />
                                 <img className='send-2' src={send} alt="send" onClick={ handleSubmit } />
                             </div>
                         </div>

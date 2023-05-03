@@ -129,7 +129,7 @@ export const isEditPublicationModal = (dispatch, activePublications) => {
     dispatch(editPublicationState(!activePublications));
 }
 
-export const isSearchModal = ( dispatch, activeSearch ) => {
+export const isSearchModal = (dispatch, activeSearch) => {
     dispatch(searchModalState(!activeSearch));
 }
 
@@ -150,35 +150,65 @@ export const handleMouseEnter = (dispatch) => {
     dispatch(hoveringState(true));
 }
 
-export const tree = (career, likes, posts, followed, comments, saves, courses, inscriptions ) => {
-    let allData = [ { total: 1, career }, ...likes, ...posts, ...followed, ...comments, ...saves, ...courses, ...inscriptions ];
-    
-    return getReference( allData );
+export const tree = (career, likes, posts, followed, comments, saves, courses, inscriptions) => {
+    let allData = [{ total: 1, career }, ...likes, ...posts, ...followed, ...comments, ...saves, ...courses, ...inscriptions];
+
+    return getReference(allData);
 }
 
-const getReference = ( data ) => {
+const getReference = (data) => {
     let newData = [];
     let validation = [];
     let size = 0;
 
-    data.forEach(( value, index, arr ) => {
-        if( size === data.length ) arr.length = index;
-        
-        if( !validation.includes( value.career )) {
-            const filterData = data.filter( data => data.career === value.career );
-            
-            newData.push({ career: value.career, total: filterData.reduce(( previous, current ) => previous + current.total, 0 )});
-            
-            size += data.filter( data => data.career === value.career ).length;
-            validation.push( value.career );
+    data.forEach((value, index, arr) => {
+        if (size === data.length) arr.length = index;
+
+        if (!validation.includes(value.career)) {
+            const filterData = data.filter(data => data.career === value.career);
+
+            newData.push({ career: value.career, total: filterData.reduce((previous, current) => previous + current.total, 0) });
+
+            size += data.filter(data => data.career === value.career).length;
+            validation.push(value.career);
         }
     });
 
-    return { ...newData.reduce(( previous, current ) => previous.total > current.total ? previous : current )};
+    return { ...newData.reduce((previous, current) => previous.total > current.total ? previous : current) };
 }
 
 export const filterContent = (data, reference) => {
-    if( !data ) return [];
+    if (!data) return [];
+
+    return [...data.filter(data => data.career === reference.career), ...data.filter(data => data.career !== reference.career)];
+}
+
+export const timeSince = (date) => {
+    let seconds = Math.floor((new Date() - date) / 1000);
+    let intervalo = seconds / 31536000;
     
-    return [ ...data.filter( data => data.career === reference.career ), ...data.filter( data => data.career !== reference.career )]; 
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' años';
+
+    intervalo = seconds / 2592000;
+
+    if ( intervalo > 1 ) 
+        return Math.floor(intervalo) + ' meses';
+    
+    intervalo = seconds / 86400;
+
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' dias';
+
+    intervalo = seconds / 3600;
+
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' horas';
+    
+        intervalo = seconds / 60;
+    
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' minutos';
+
+    return Math.floor(seconds) + ' segundos';
 }

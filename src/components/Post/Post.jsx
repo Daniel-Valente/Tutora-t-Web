@@ -144,6 +144,9 @@ const Post = (props) => {
         setCommentValue('');
     };
 
+    const submitHandler = ( event ) => 
+        event.code === 'Enter' && handleSubmit()
+
     useEffect(() => {
         !fetchingUserPost && dataUserPost && userPost.length > -1 && setUserPost(dataUserPost);
         // eslint-disable-next-line
@@ -175,8 +178,8 @@ const Post = (props) => {
                         <Link to={`/perfil/${post.uid_user}`}>
                             <div className='boton-circular-volteado'>
                                 <img className='icon-publications'
-                                    src={dataUserPost.imgName ? dataUserPost.imgUrl : user}
-                                    alt={dataUserPost.username}
+                                    src={userPost.imgName ? userPost.imgUrl : user}
+                                    alt={userPost.username}
                                 />
                             </div>
                         </Link>
@@ -252,7 +255,7 @@ const Post = (props) => {
                         </Link>
                     </div>
                     <div className='col-8'>
-                        <input style={{border:theme.comments2, background:theme.header, color:theme.userName}} className='inputCom' type="text" placeholder='¿Qué opinas?... ' value={commentValue} onChange={handleChange} />
+                        <input style={{border:theme.comments2, background:theme.header, color:theme.userName}} className='inputCom' type="text" placeholder='¿Qué opinas?... ' value={commentValue} onKeyUp={ submitHandler } onChange={handleChange} />
                     </div>
                     <br />
                     <div className='col-1'>
