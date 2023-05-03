@@ -106,13 +106,13 @@ const PostPanel = () => {
                     <div className='row'>
                         <div className='meGusta'>
                             <div className='row' style={{paddingLeft:'15px'}}>
-                                {/* <LikeButton 
+                                <LikeButton 
                                         props={{
                                             post:post,
                                             userInfoPerfil:userInfoPerfil,
                                             vista:'2'
                                         }}
-                                 /> */}
+                                 />
                                  <br/>
                                 <p style={{
                                     position: 'relative',

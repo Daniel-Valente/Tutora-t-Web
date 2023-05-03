@@ -6,7 +6,6 @@ import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getCommentList = async ( id_Post ) => {
     const { data } = await httpClient.get(`/comments/${ id_Post }`);
-    console.log( data );
     return data;
 }
 
