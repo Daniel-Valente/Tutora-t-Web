@@ -128,11 +128,10 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
       ...base,
       
       background:theme.header,
-      height: '5px',
-      width: '90px',
-      position:'relative', top:'-100px', marginLeft: '60px',
+      height: '50px',
       // match with the menu
       marginTop:'5px',
+      borderRadius:  "10px",
       // Overwrittes the different states of border
       borderColor: state.isFocused ?  theme.userName : theme.userName,
       // Removes weird border around container
@@ -192,15 +191,6 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
             </h4>
             
           </div>
-          <Select 
-              styles={customStyles}
-              className='select-career' 
-              placeholder='carrera'
-              name="career"
-              isDisabled={isDisabled}
-              options={careerList}
-              defaultValue={isDisabled ? careerList[ careerList.findIndex(career => career.value === value) ] : ''}
-              onChange={handleChange}/>
           <textarea className='inp' style={{fontSize: '16px', border:'none' ,position:'relative', top:'-60px', paddingLeft:'10px', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente,  ${userInfo.name}?`} name='description' value={newPost.description} onChange={handleChange}></textarea>
         </div>
         <div className='row'>

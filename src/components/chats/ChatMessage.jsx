@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { user } from '../../images';
+import { useTheme } from 'styled-components';
 
 const ChatMessage = (props) => {
     const { userChat, chat } = props;
@@ -10,7 +11,7 @@ const ChatMessage = (props) => {
     
     const userInfo = useSelector(state => state.user);
     const messageClass = uid_user === userInfo.uid_user ? 'sent' : 'received';
-
+    const theme = useTheme();
     return (
         <div className={`message ${messageClass}`}>
             <Link to={`/perfil/${ uid_user === userInfo.uid_user ? uid_user : userChat.uid_user }`} style={{ textDecoration: 'none' }}>
@@ -23,7 +24,7 @@ const ChatMessage = (props) => {
                 alt={'user-chat'}/>
               </div>
             </Link>
-            <p className='parrafo-message'>{message}</p>
+            <p style={{color:theme.userName}} className='parrafo-message'>{message}</p>
         </div>
     )
 }

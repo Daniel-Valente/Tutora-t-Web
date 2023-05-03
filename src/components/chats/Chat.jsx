@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useAddChatToUser, useChatsListToUser, useUserById } from "../../hooks";
 
 import ChatMessage from "./ChatMessage";
+import { useTheme } from "styled-components";
 
 const Chat = () => {
   const { uid_user, uid_userChat } = useParams();
@@ -47,12 +48,12 @@ const Chat = () => {
   useEffect(() => {
     scrollRef.current && scrollRef.current.scrollToBottom();
   },[dataChat]);
-
+  const theme = useTheme();
   return (
-    <div className="modalDiv">
-      <div className="modal">
-        <div className="header-chat">
-          <div className="name-user-header">{userChat.name}</div>
+    <div style={{background:theme.background}} className="modalDiv">
+      <div style={{background:theme.background}} className="modal">
+        <div style={{background:theme.background}} className="header-chat">
+          <div style={{color:theme.userName}} className="name-user-header">{userChat.name}</div>
         </div>
         <br />
         <br />
@@ -71,8 +72,9 @@ const Chat = () => {
             </div>
           </div>
 
-          <div className="form-chat">
+          <div style={{background:theme.comments}} className="form-chat">
             <input
+              style={{color:theme.userName, background:theme.background}}
               className="input-message"
               value={formValue}
               onChange={(e) => setFormValue(e.target.value)}

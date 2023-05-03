@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { isNotificationModal } from '../../helpers/utils';
 import { useCourseById, useLikesList, usePostById, useUserById } from '../../hooks';
+import { useTheme } from 'styled-components';
 
 const CardNotification = ({ notification = [], notificationModal = false }) => {
     const location = useLocation();
@@ -54,18 +55,18 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
         !fetchingCourse && dataCourse && course.length > -1 && setCourse(dataCourse);
         // eslint-disable-next-line
     }, [dataCourse]);
-    
+    const theme = useTheme();
     return (
         <div>
-             <div className='linea-acostada' />
-            <div className='row card-notification'>
+             <div style={{background:theme.linea}} className='linea-acostada' />
+            <div style={{color:theme.userName2}} className='row card-notification'>
                 <Link to={`/perfil/${notification.uid_user}`} style={{ textDecoration: 'none' }}> 
                 <div style={{ float:'left'}}>
                 <img className='icon-user-3'
                   src={userReaction.imgName ? userReaction.imgUrl : userReaction.username}
                   alt={userReaction.username} /> 
                 </div>
-                <div style={{ float:'left', color:'#000'}}>
+                <div style={{ float:'left', color:theme.userName}}>
                 <b>{userReaction.username}</b>
                 </div>
                 </Link>
