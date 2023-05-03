@@ -194,7 +194,6 @@ const HomeHeader = () => {
 
   useEffect(() => {
     !fetchingUsers && dataUsers && setUsers(dataUsers);
-    console.log(users);
     // eslint-disable-next-line
   }, [dataUsers]);
 

@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {Scrollbars } from 'react-custom-scrollbars-2';
 
 import { isCommentModal } from '../../helpers/utils';
-import { useAddComment, useCommentList } from '../../hooks';
+import { useAddComment, useCommentsList } from '../../hooks';
 import { send, user } from '../../images';
 import CommentModal from '../modals/CommentModal';
 import Comment from '../comment/Comment';
@@ -22,8 +22,8 @@ const PostPanel = () => {
 
     const dispatch = useDispatch();
 
-    // const { data: dataCommentsList = [], isFetching: fetchingCommentsList, isLoading: loadingCommentList } = useCommentList(post._id);
-    // const [ comments, setComments ] = useState(dataCommentsList);
+    const { data: dataCommentsList = [], isFetching: fetchingCommentsList, isLoading: loadingCommentList } = useCommentsList(post._id);
+    const [ comments, setComments ] = useState(dataCommentsList);
 
     const formatDate = () => new Date(post.createdAt).toDateString();
     
@@ -32,29 +32,29 @@ const PostPanel = () => {
     };
 
     const handleSubmit = () => {
-        // const comments = { 
-        //     uid_user: userInfoPerfil.uid_user, 
-        //     id_Post: post._id, 
-        //     comment: commentValue,
-        //     action: `realizo un comentario en tu publicación`,
-        //     uid_creator: post.uid_user,
-        //     type: 'comment',
-        //     career: post.career
-        //  };
+        const comments = { 
+            uid_user: userInfoPerfil.uid_user, 
+            id_Post: post._id, 
+            comment: commentValue,
+            action: `realizo un comentario en tu publicación`,
+            uid_creator: post.uid_user,
+            type: 'comment',
+            career: post.career
+         };
 
          
-        // commentValue.length > 0 ? addComment(comments, {
-        //     onSuccess: (response) => {
-        //         console.log(response);
-        //     }
-        // }) : console.log('no');
-        // setCommentValue('');
+        commentValue.length > 0 ? addComment(comments, {
+            onSuccess: (response) => {
+                console.log(response);
+            }
+        }) : console.log('no');
+        setCommentValue('');
     }
 
-    // useEffect(() => {
-    //     !fetchingCommentsList && dataCommentsList && comments.length > -1 && setComments(dataCommentsList);
-    //     // eslint-disable-next-line
-    // }, [ dataCommentsList ]);
+    useEffect(() => {
+        !fetchingCommentsList && dataCommentsList && comments.length > -1 && setComments(dataCommentsList);
+        // eslint-disable-next-line
+    }, [ dataCommentsList ]);
 
     return (
         <>
@@ -98,7 +98,7 @@ const PostPanel = () => {
                     <div className='row' style={{ minHeight:'470px' }}>
                         <Scrollbars autoHeight autoHeightMax={ 470 } style={{width: 659 }}>
                             <div className='col-11'>
-                            {/* { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) } */}
+                            { comments.map( (comment, index) => <Comment key={ comment._id } userInfoPerfil={userInfoPerfil} comment={ comment } userPost={userPost} /> ) }
                             </div>
                         </Scrollbars>
                     </div>
@@ -106,13 +106,13 @@ const PostPanel = () => {
                     <div className='row'>
                         <div className='meGusta'>
                             <div className='row' style={{paddingLeft:'15px'}}>
-                                {/* <LikeButton 
+                                <LikeButton 
                                         props={{
                                             post:post,
                                             userInfoPerfil:userInfoPerfil,
                                             vista:'2'
                                         }}
-                                 /> */}
+                                 />
                                  <br/>
                                 <p style={{
                                     position: 'relative',
