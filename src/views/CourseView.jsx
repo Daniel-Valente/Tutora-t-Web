@@ -18,6 +18,7 @@ import { send, user } from '../images';
 import { alertState } from '../reducers';
 import { Loader } from '../components/loader/Loader';
 import { StoreRounded } from '@mui/icons-material';
+import { useTheme } from 'styled-components';
 
 const CourseView = () => {
   const { id_Course } = useParams();
@@ -178,6 +179,48 @@ const CourseView = () => {
       }
     });
   }
+  const theme = useTheme();
+  const customStyles = {
+    singleValue: (base, state) => ({
+      ...base,
+      color: theme.userName,
+    }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isFocused ? '#ededed' : '',
+    }),
+    control: (base, state) => ({
+      ...base,
+      
+      background:theme.header,
+      height: '50px',
+      // match with the menu
+      marginTop:'5px',
+      borderRadius:  "10px",
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ?  theme.userName : theme.userName,
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? theme.userName : theme.userName
+      }
+    }),
+    menu: (base) => ({
+      ...base,
+      
+      // override border radius to match the box
+      borderRadius: 0,
+      // kill the gap
+      marginTop: 0
+    }),
+    menuList: (base) => ({
+      ...base,
+      // kill the white space on first and last option
+      padding: 0
+    })
+  }
+
 
   return (
     <div className='principal-body'>
@@ -265,7 +308,9 @@ const CourseView = () => {
         <h2 style={{ textAlign: 'center', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Editar curso</h2>
         <input className='title-course-3' type="text" placeholder='Titulo' name='title' value={editCourse.title} onChange={handleChange} />
         <input className='site-course' type="text" name="site" placeholder='Lugar' value={editCourse.site} onChange={handleChange} />
-        <Select className='visible-course'
+        <Select 
+        styles={customStyles}
+        className='visible-course'
           defaultValue={privacidad[privacidad.findIndex(pri => pri.value === course.visible)]}
           placeholder='Privacidad'
           name='visible'
@@ -282,6 +327,7 @@ const CourseView = () => {
           </div>
           <div className='col-2'>
             <Select
+            styles={customStyles}
               defaultValue={career[career.findIndex(career => career.value === course.career)]}
               placeholder='carrera'
               name="career"

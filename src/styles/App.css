@@ -85,6 +85,18 @@
   top:50px;
   left:20px;
 }
+textarea:focus { 
+  outline: none !important;
+  border-color: none;;
+}
+.icon-user-nn {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  border-radius: 30%;
+  position: relative;
+  left:20px;
+}
 .icon-user-3 {
   width: 30px;
   height: 30px;

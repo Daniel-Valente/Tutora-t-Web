@@ -40,12 +40,12 @@ const CardUsers = ({ user, searchText = '', action }) => {
             <div>
                 <Outlet/>
                 <Link to={`/perfil/${user.uid_user}`} onClick={closedModal}>
-                    <div style={{ background:'orange', float:'left',paddingLeft:'20px',paddingTop:'5px',paddingBottom:'5px'}}>
+                    <div style={{ float:'left',paddingLeft:'20px',paddingTop:'5px',paddingBottom:'5px'}}>
                         <img className='icon-user-3'
                          src={`${user.imgUrl ? user.imgUrl : userImg}`}
                          alt={user.username} /> 
                     </div>
-                    <div style={{background:theme.header, float:'left', color:'#000',paddingTop:'20px', paddingBottom:'5px'}}>
+                    <div style={{background:theme.header, float:'left',paddingTop:'20px', paddingBottom:'5px', color: theme.userName}}>
                         <b> {user.name}</b>
                     </div>
                 </Link>
