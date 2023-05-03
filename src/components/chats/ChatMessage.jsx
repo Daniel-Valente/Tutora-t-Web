@@ -6,10 +6,12 @@ import { user } from '../../images';
 
 const ChatMessage = (props) => {
     const { userChat, chat } = props;
-    const { message, uid_user } = chat;
+    const { message, uid_user, createdAt } = chat;
     
     const userInfo = useSelector(state => state.user);
     const messageClass = uid_user === userInfo.uid_user ? 'sent' : 'received';
+
+    const formatDate = () => new Date(createdAt).toLocaleTimeString();
 
     return (
         <div className={`message ${messageClass}`}>
@@ -23,7 +25,7 @@ const ChatMessage = (props) => {
                 alt={'user-chat'}/>
               </div>
             </Link>
-            <p className='parrafo-message'>{message}</p>
+            <p className='parrafo-message'>{message}<span className='format-time-chat'> { formatDate() }</span></p>
         </div>
     )
 }

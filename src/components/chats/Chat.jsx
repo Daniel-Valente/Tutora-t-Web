@@ -65,7 +65,7 @@ const Chat = () => {
           <div className="sidebar-messages main-message">
             <Scrollbars  autoHeight autoHeightMax={ 731 } style={{ width: '99%' }} ref={scrollRef}>
               {
-                chatMessages && chatMessages.map((chat, index) => <ChatMessage key={index} chat={chat} userChat={userChat} />)
+                chatMessages && chatMessages.map((chat, index) => <ChatMessage key={index} chat={chat} userChat={userChat}  />)
               }
             </Scrollbars>
             <div className="scrollbox">
