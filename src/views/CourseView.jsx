@@ -181,9 +181,6 @@ const CourseView = () => {
 
   return (
     <div className='principal-body'>
-      {
-        globalLoader && <Loader/>
-      }
       <div className='row'>
         <img className="fondo"
           src={course.imgUrl}

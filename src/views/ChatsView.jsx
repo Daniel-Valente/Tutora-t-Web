@@ -10,9 +10,6 @@ const ChatsView = () => {
   const theme = useTheme();
   return (
     <div className="row">
-      {
-        globalLoader && <Loader/>
-      }
       <div style={{ background:theme.linea}} className="linea-acostada" />
       <div className="col-3">
         <ChatsList />
