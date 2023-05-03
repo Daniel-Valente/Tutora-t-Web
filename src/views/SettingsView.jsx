@@ -122,9 +122,6 @@ const SettingsView = () => {
 
   return (
     <div>
-      {
-        globalLoader && <Loader/>
-      }
       <div style={{background:theme.linea}} className="linea-acostadaConfiguracion" />
       <h1 style={{ marginLeft: "35%", color:theme.userName }}>Configuracion de la cuenta</h1>
       <div className="row">

@@ -21,15 +21,14 @@ const ButtonWrapper = styled.button`
   .animation {
     pointer-events: none;
   }
-  
 `;
 
 export const LikeButton = (props) => {
     const { post, userInfoPerfil, vista} = props.props;
     const theme = useTheme();
-    const { data: dataLikeList = [], isFetching: fetchingLike } = useLikesList(post._id);
+    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
     const [likes, setLikes] = useState(dataLikeList);
-    const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
+    const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
     const [starActive, setStarActive] = useState(dataLikeByUser);
     const { mutate: updateLike } = useUpdateLike(post._id);
     const [isLiked, setLikeState] = useState(false);
@@ -83,7 +82,7 @@ export const LikeButton = (props) => {
     return (
       <>
         <ButtonWrapper onClick={() => {
-          
+          console.log('hola');
           const reverseAnimation = -1;
           const normalAnimation = 1;
           const likeUser = { 
@@ -96,7 +95,7 @@ export const LikeButton = (props) => {
             starActive
             };
             updateLike(likeUser, {
-                onSuccess: ({ data }) => {
+                onSuccess: ( data ) => {
                     setStarActive(data);
                 }
             });

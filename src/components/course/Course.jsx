@@ -5,7 +5,7 @@ import { usePostsWithLimit, useUserById } from '../../hooks';
 const Course = (props) => {
     const { course } = props;
 
-    const { data: dataPost = [], isFetching: fetchingPost } = usePostsWithLimit(course._id, 1);
+    const { data: dataPost = [], isFetching: fetchingPost, isLoading: loadingPostsWithLimit } = usePostsWithLimit(course._id, 1);
     const [ post, setPost ] = useState(dataPost);
     
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
@@ -20,7 +20,15 @@ const Course = (props) => {
         !fetchingUserPost && dataUserPost && userPost.length > -1 && setUserPost(dataUserPost);
         // eslint-disable-next-line
     }, [dataUserPost]);
-    
+
+    if ( loadingPostsWithLimit ) {
+        return (
+            <div className='spinner-container'>
+                <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
+            </div>
+        )
+    }
+
     if(post.length === 0)
         return <div></div>
 

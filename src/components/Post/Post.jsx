@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { handleMouseEnter, isChatModal } from '../../helpers/utils';
 import {
     useAddComment, useCommentList, useCourseById,
-    useDeletePost, useHidePost, useSavePost, useUserById
+    useDeletePost, useHidePost, useLikeByUser, useLikesList, useSavePost, useUserById
 } from '../../hooks';
 import { messages, send, user } from '../../images';
 import { alertState } from '../../reducers';
@@ -34,11 +34,16 @@ const Post = (props) => {
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
 
-    const { data: dataCommentList = [], isFetching: fetchingCommentList, isLoading: loadingCommentList } = useCommentList(post._id);
-    const [commentList, setCommentList] = useState(dataCommentList);
+    // const { data: dataCommentList = [], isFetching: fetchingCommentList, isLoading: loadingCommentList } = useCommentList(post._id);
+    // const [commentList, setCommentList] = useState(dataCommentList);
 
     const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse } = useCourseById(post.id_Course);
-    const [course, setCourse] = useState(dataCourse);
+    const [course, setCourse] = useState(dataCourse);   
+
+    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
+    const [likes, setLikes] = useState(dataLikeList);
+    const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
+    const [starActive, setStarActive] = useState(dataLikeByUser);
 
     const userInfo = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -118,24 +123,24 @@ const Post = (props) => {
     };
 
     const handleSubmit = () => {
-        const comments = { 
-            uid_user: userInfoPerfil.uid_user, 
-            id_Post: post._id, 
-            comment: commentValue,
-            action: `realizo un comentario en tu publicación`,
-            uid_creator: post.uid_user,
-            career: post.career,
-            type: 'comment',
-         };
+        // const comments = { 
+        //     uid_user: userInfoPerfil.uid_user, 
+        //     id_Post: post._id, 
+        //     comment: commentValue,
+        //     action: `realizo un comentario en tu publicación`,
+        //     uid_creator: post.uid_user,
+        //     career: post.career,
+        //     type: 'comment',
+        //  };
 
-        commentValue.length > 0 ? addComment(comments, {
-            onSuccess: (response) => {
-                console.log(response);
-            }
-        })
-        : console.log('no');
+        // commentValue.length > 0 ? addComment(comments, {
+        //     onSuccess: (response) => {
+        //         console.log(response);
+        //     }
+        // })
+        // : console.log('no');
 
-        setCommentValue('');
+        // setCommentValue('');
     };
 
     useEffect(() => {
@@ -143,24 +148,23 @@ const Post = (props) => {
         // eslint-disable-next-line
     }, [dataUserPost]);
 
-    useEffect(() => {
-        !fetchingCommentList && setCommentList(dataCommentList);
-        // eslint-disable-next-line
-    }, [dataCommentList]);
+    // useEffect(() => {
+    //     !fetchingCommentList && dataCommentList && setCommentList(dataCommentList);
+    //     // eslint-disable-next-line
+    // }, [dataCommentList]);
 
     useEffect(() => {
         !fetchingCourse && dataCourse && setCourse(dataCourse);
         // eslint-disable-next-line
     }, [dataCourse]);
 
-    if ( loadingCommentList || loadingCourse ) {
+    if ( loadingCourse || loadingLikeByUser || loadingLike ) {
         return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+            <div className='spinner-container'>
+                <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
             </div>
         )
     }
-    
 
     return (
         <div className='row'>
@@ -205,7 +209,7 @@ const Post = (props) => {
                     <LikeButton 
                         props={{
                             post:props.post,
-                            userInfoPerfil:userInfoPerfil,
+                            userInfoPerfil,
                             vista:"1"
                         }}
                     />
@@ -220,7 +224,7 @@ const Post = (props) => {
                             left: "95%",
                             color: theme.numbers
                         }}>
-                            {commentList.length}
+                            {/* {commentList.total_comments} */}
                         </p>
                     </div>
                 </div>

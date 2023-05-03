@@ -12,7 +12,7 @@ const addCourse = async (course) => {
     formData.append('dates', dates);
     formData.append('hours', hours);
     formData.append('site', site);
-    formData.append('imgCourse', imgCourse);
+    formData.append('image', imgCourse);
 
     await httpClient.patch(`/users/arbol/${ uid_user }/course`, { career });
     return await httpClient.post(`/courses/${ uid_user }`, formData, {

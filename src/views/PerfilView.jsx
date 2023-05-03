@@ -25,74 +25,74 @@ const PerfilView = () => {
   const theme = useTheme();
   const [isHover, setIsHover] = useState(false);
 
-   const handleMouseEnter = () => {
-      setIsHover(true);
-   };
-   const handleMouseLeave = () => {
-      setIsHover(false);
-   };
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
 
-   const boxStyle = {
-     filter: isHover ? theme.iconsCircular : theme.iconCircularNormal,
-     transition: 'all 0.10s ease',
-   };
-   const [isHover2, setIsHover2] = useState(false);
+  const boxStyle = {
+    filter: isHover ? theme.iconsCircular : theme.iconCircularNormal,
+    transition: 'all 0.10s ease',
+  };
+  const [isHover2, setIsHover2] = useState(false);
 
-   const handleMouseEnter2 = () => {
-      setIsHover2(true);
-   };
-   const handleMouseLeave2 = () => {
-      setIsHover2(false);
-   };
+  const handleMouseEnter2 = () => {
+    setIsHover2(true);
+  };
+  const handleMouseLeave2 = () => {
+    setIsHover2(false);
+  };
 
-   const boxStyle2 = {
+  const boxStyle2 = {
     filter: isHover2 ? theme.iconsCircular : theme.iconCircularNormal,
-     transition: 'all 0.10s ease',
-   };
-   const [isHover3, setIsHover3] = useState(false);
+    transition: 'all 0.10s ease',
+  };
+  const [isHover3, setIsHover3] = useState(false);
 
-   const handleMouseEnter3 = () => {
-      setIsHover3(true);
-   };
-   const handleMouseLeave3 = () => {
-      setIsHover3(false);
-   };
+  const handleMouseEnter3 = () => {
+    setIsHover3(true);
+  };
+  const handleMouseLeave3 = () => {
+    setIsHover3(false);
+  };
 
-   const boxStyle3 = {
+  const boxStyle3 = {
     filter: isHover3 ? theme.iconsCircular : theme.iconCircularNormal,
-     transition: 'all 0.10s ease',
-   };
+    transition: 'all 0.10s ease',
+  };
 
 
-   const [isHoverL, setIsHoverL] = useState(false);
+  const [isHoverL, setIsHoverL] = useState(false);
 
-   const handleMouseEnterL = () => {
-      setIsHoverL(true);
-   };
-   const handleMouseLeaveL = () => {
-      setIsHoverL(false);
-   };
+  const handleMouseEnterL = () => {
+    setIsHoverL(true);
+  };
+  const handleMouseLeaveL = () => {
+    setIsHoverL(false);
+  };
 
-   const boxStyleL = {
+  const boxStyleL = {
     color: isHoverL ? theme.linkHover : theme.linkColor,
     textDecoration: 'none',
-     transition: 'all 0.10s ease',
-   };
+    transition: 'all 0.10s ease',
+  };
 
-   const [isHoverL2, setIsHoverL2] = useState(false);
+  const [isHoverL2, setIsHoverL2] = useState(false);
 
-   const handleMouseEnterL2 = () => {
-      setIsHoverL2(true);
-   };
-   const handleMouseLeaveL2 = () => {
-      setIsHoverL2(false);
-   };
+  const handleMouseEnterL2 = () => {
+    setIsHoverL2(true);
+  };
+  const handleMouseLeaveL2 = () => {
+    setIsHoverL2(false);
+  };
 
-   const boxStyleL2 = {
+  const boxStyleL2 = {
     color: isHoverL2 ? theme.linkHover : theme.linkColor,
     textDecoration: 'none',
-     transition: 'all 0.10s ease',
-   };
+    transition: 'all 0.10s ease',
+  };
   const { uid_user } = useParams();
   const location = useLocation();
   const { layout: { loading: globalLoader } } = store.getState();
@@ -121,7 +121,7 @@ const PerfilView = () => {
   const [, toggle] = useBodyScrollLock();
   const [viewAll, setViewAll] = useState(1);
 
-  const { data: dataUserPerfil = [], isFetching: fetchingUserPerfil, isLoading: lodingUserPerfil  } = useUserById(uid_user);
+  const { data: dataUserPerfil = [], isFetching: fetchingUserPerfil, isLoading: lodingUserPerfil } = useUserById(uid_user);
   const [userPerfil, setUserPerfil] = useState(dataUserPerfil);
 
   const { data: dataCareer, isFetching: fetchingCareer, isLoading: loadingCareer } = useCareerById(userInfoPerfil.career);
@@ -213,8 +213,8 @@ const PerfilView = () => {
 
 
   const followHandle = () => {
-    const follow = { 
-      uid_user, 
+    const follow = {
+      uid_user,
       uid_follower: userInfoPerfil.uid_user,
       active: followers.includes(userInfoPerfil.uid_user),
       action: 'comenzo a seguirte',
@@ -275,8 +275,6 @@ const PerfilView = () => {
 
   useEffect(() => {
     dataUserPerfil && setUserPerfil(dataUserPerfil);
-    console.log(userInfoPerfil);
-  console.log(userPerfil);
     // eslint-disable-next-line
   }, [dataUserPerfil]);
 
@@ -330,30 +328,26 @@ const PerfilView = () => {
     || loadingCoursesInscripto || loadingHidePost
     || loadingFollowers || loadingPosts) {
     return (
-      <div className='parent'>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+      <div className='spinner-container'>
+        <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
       </div>
     )
   }
 
   return (
     <div className='principal-body'>
-      {
-        globalLoader && <Loader/>
-      }
-      
-      <div style={{ width:'300px',  position:'absolute', top:'580px', left:'90px' }}>
-        <span style={{ color:'#000', display:'block' ,textAlign:'center', fontFamily:'sans-serif', fontSize:'23px' }}> 
-        <b style={{color:theme.userName}}>{userPerfil.name}</b>
+      <div style={{ width: '300px', position: 'absolute', top: '580px', left: '90px' }}>
+        <span style={{ color: '#000', display: 'block', textAlign: 'center', fontFamily: 'sans-serif', fontSize: '23px' }}>
+          <b style={{ color: theme.userName }}>{userPerfil.name}</b>
         </span>
-        <span style={{color:theme.userName2,display:'block' ,textAlign:'center',fontFamily:'sans-serif', }}>
-        Nombre de usuario: {userPerfil.username}
-        <br/>
-        Carrera: {userCareer ? userCareer.name : globalLoader && 'loading...'}
+        <span style={{ color: theme.userName2, display: 'block', textAlign: 'center', fontFamily: 'sans-serif', }}>
+          Nombre de usuario: {userPerfil.username}
+          <br />
+          Carrera: {userCareer ? userCareer.name : globalLoader && 'loading...'}
         </span>
-        <br/>
-        <span style={{display:'block' ,textAlign:'center',fontFamily:'sans-serif',fontSize:'17px', color:'#FF0096' }}>
-        {followers.length} Seguidores
+        <br />
+        <span style={{ display: 'block', textAlign: 'center', fontFamily: 'sans-serif', fontSize: '17px', color: '#FF0096' }}>
+          {followers.length} Seguidores
         </span >
       </div>
       <div className='row'>
@@ -365,7 +359,7 @@ const PerfilView = () => {
           alt={'user-perfil'} />
         <br />
         <label style={{ textAlign: 'left', marginLeft: '23%', fontSize: '120%', fontFamily: 'Segoe UI Emoji' }}>
-          
+
         </label>
       </div>
       <div className='row'>
@@ -388,8 +382,8 @@ const PerfilView = () => {
                 </div>
                 <div className='row'>
                   <button className='button-message'>
-                    <Link 
-                      to={`${ location.pathname.split('/', 2)[0] }/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
+                    <Link
+                      to={`${location.pathname.split('/', 2)[0]}/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
                       state={{ background: location, prevPath: location.pathname }}
                       className="mensaje-enviar" style={{ textDecoration: 'none' }}>
                       Enviar mensaje
@@ -405,23 +399,23 @@ const PerfilView = () => {
             userInfoPerfil.uid_user === userPerfil.uid_user &&
 
             <div>
-              <div style={{backgroundColor: theme.header, boxShadow:theme.boxShadow}} className='windows-options'>
-                <div className={`col-1 ${ viewAll === 1 ? 'color-button-view' : '' }`}>
+              <div style={{ backgroundColor: theme.header, boxShadow: theme.boxShadow }} className='windows-options'>
+                <div className={`col-1 ${viewAll === 1 ? 'color-button-view' : ''}`}>
                   <button className='view-button' onClick={() => setViewAll(1)}>
-                    <img style={boxStyle}  onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave} className='img-allPosts' src={ allPosts } alt="" />
+                    <img style={boxStyle} onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave} className='img-allPosts' src={allPosts} alt="" />
                   </button>
                 </div>
-                <div className={`col-1 ${ viewAll === 2 ? 'color-button-view' : '' }`}>
+                <div className={`col-1 ${viewAll === 2 ? 'color-button-view' : ''}`}>
                   <button className='view-button' onClick={() => setViewAll(2)}>
-                    <img style={boxStyle2}  onMouseEnter={handleMouseEnter2}
-            onMouseLeave={handleMouseLeave2} className='img-allPosts' src={ user } alt="" />
+                    <img style={boxStyle2} onMouseEnter={handleMouseEnter2}
+                      onMouseLeave={handleMouseLeave2} className='img-allPosts' src={user} alt="" />
                   </button>
                 </div>
-                <div className={`col-1 ${ viewAll === 3 ? 'color-button-view' : '' }`}>
+                <div className={`col-1 ${viewAll === 3 ? 'color-button-view' : ''}`}>
                   <button className='view-button' onClick={() => setViewAll(3)}>
-                    <img style={boxStyle3}  onMouseEnter={handleMouseEnter3}
-            onMouseLeave={handleMouseLeave3} className='img-allPosts' src={ save } alt="" />
+                    <img style={boxStyle3} onMouseEnter={handleMouseEnter3}
+                      onMouseLeave={handleMouseLeave3} className='img-allPosts' src={save} alt="" />
                   </button>
                 </div>
                 <div className='col-8'></div>
@@ -439,23 +433,23 @@ const PerfilView = () => {
                   }
                 </div>
                 : viewAll === 1 || userInfoPerfil.uid_user !== userPerfil.uid_user ?
-                <div>
-                  {
-                    posts.map((post, index) => post.visible
-                      && !hidePost.includes(post._id)
-                      && <Post post={post} commentModal={commentModal} key={post._id} />)
-                  }
-                </div>
-                : 
-                <div className='card-user'>
-                  <div className='row'>
-                  {
-                    followers && userInfoPerfil.uid_user === userPerfil.uid_user && followers.map( (follower, index) => 
-                    <UserCard uid_user={ follower } key={index}/>)
-                  }
+                  <div>
+                    {
+                      posts.map((post, index) => post.visible
+                        && !hidePost.includes(post._id)
+                        && <Post post={post} commentModal={commentModal} key={post._id} />)
+                    }
                   </div>
-                </div>
-              
+                  :
+                  <div className='card-user'>
+                    <div className='row'>
+                      {
+                        followers && userInfoPerfil.uid_user === userPerfil.uid_user && followers.map((follower, index) =>
+                          <UserCard uid_user={follower} key={index} />)
+                      }
+                    </div>
+                  </div>
+
             }
           </div>
         </div>
@@ -463,13 +457,13 @@ const PerfilView = () => {
           <br />
           <br />
           <div className='row'>
-            <label style={{ textAlign: 'left', fontSize: '147%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
-              <div style={{float:'left'}}>
-              <b style={{color:theme.subTitles}}>
-                {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
-              </b>
+            <label style={{ textAlign: 'left', fontSize: '147%', fontFamily: 'sans-serif', color: '#6b6b6b' }}>
+              <div style={{ float: 'left' }}>
+                <b style={{ color: theme.subTitles }}>
+                  {userInfoPerfil.uid_user === userPerfil.uid_user ? 'Mis tutorías' : 'Tutorías creadas'}
+                </b>
               </div>
-              <div className="hoEnButton" style={{float:'left', position:'relative', left:'40px', top:'-10px'}}>
+              <div className="hoEnButton" style={{ float: 'left', position: 'relative', left: '40px', top: '-10px' }}>
                 {
                   userInfoPerfil.uid_user === userPerfil.uid_user
                   && <img className='button-new-course' src={addTuto}
@@ -485,26 +479,26 @@ const PerfilView = () => {
           {
             courses.map((course, index) =>
               userPerfil.uid_user === course.uid_user &&
-                
-                <div className='row' key={course._id}>
-                  <div className='col-1'>
-                    <img className='icon-publications'
-                      src={course.imgUrl}
-                      alt=''
-                    />
-                  </div>
-                  <div className='col-8'>
-                    <Link to={`/course/${course._id}`}
-                      state={{ course }}
-                      style={boxStyleL}  onMouseEnter={handleMouseEnterL}
-            onMouseLeave={handleMouseLeaveL} >{course.title}</Link>
-                  </div>
+
+              <div className='row' key={course._id}>
+                <div className='col-1'>
+                  <img className='icon-publications'
+                    src={course.imgUrl}
+                    alt=''
+                  />
                 </div>
-                )
+                <div className='col-8'>
+                  <Link to={`/course/${course._id}`}
+                    state={{ course }}
+                    style={boxStyleL} onMouseEnter={handleMouseEnterL}
+                    onMouseLeave={handleMouseLeaveL} >{course.title}</Link>
+                </div>
+              </div>
+            )
           }
           <br />
-          <label style={{ textAlign: 'left',fontSize: '147%', fontFamily:'sans-serif' }}>
-            <b style={{color:theme.subTitles}}>Tutorías inscritas</b>
+          <label style={{ textAlign: 'left', fontSize: '147%', fontFamily: 'sans-serif' }}>
+            <b style={{ color: theme.subTitles }}>Tutorías inscritas</b>
           </label>
           {
             coursesInscripto.map((course, index) => {
@@ -519,8 +513,8 @@ const PerfilView = () => {
                       />
                     </div>
                     <div className='col-8'>
-                      <Link  style={boxStyleL2}  onMouseEnter={handleMouseEnterL2}
-            onMouseLeave={handleMouseLeaveL2} to={`/course/${course._id}`} >{course.title}</Link>
+                      <Link style={boxStyleL2} onMouseEnter={handleMouseEnterL2}
+                        onMouseLeave={handleMouseLeaveL2} to={`/course/${course._id}`} >{course.title}</Link>
                     </div>
                   </div>
                 )
@@ -531,19 +525,19 @@ const PerfilView = () => {
         </div>
       </div>
       <CourseModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center',fontSize: '147%', fontFamily:'sans-serif', color:theme.userName }}>Crea tu curso</h2>
-        <input style={{background:theme.header, color:theme.userName}} className='title-course' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
-        <input style={{background:theme.header, color:theme.userName}} className='site-course' type="text" name="site" placeholder='Lugar' value={newCourse.site} onChange={handleChange} />
+        <h2 style={{ textAlign: 'center', fontSize: '147%', fontFamily: 'sans-serif', color: theme.userName }}>Crea tu curso</h2>
+        <input style={{ background: theme.header, color: theme.userName }} className='title-course' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
+        <input style={{ background: theme.header, color: theme.userName }} className='site-course' type="text" name="site" placeholder='Lugar' value={newCourse.site} onChange={handleChange} />
         <br /><br />
-        <textarea style={{borderRadius:'8px',marginLeft:'30px', width:'1060px',background:theme.header, color:theme.userName, paddingLeft:'15px', paddingTop:'15px'}} className='inp' placeholder={`¿Que tienes en mente  ${userInfoPerfil.name}?...`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
-        <div style={{marginBottom:'70px'}}>
-          <div style={{float:'left'}}>
-            <input style={{background:theme.header, color:theme.userName}} type="text" placeholder='Días' name='dates' value={newCourse.dates} onChange={handleChange} />
+        <textarea style={{ borderRadius: '8px', marginLeft: '30px', width: '1060px', background: theme.header, color: theme.userName, paddingLeft: '15px', paddingTop: '15px' }} className='inp' placeholder={`¿Que tienes en mente  ${userInfoPerfil.name}?...`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
+        <div style={{ marginBottom: '70px' }}>
+          <div style={{ float: 'left' }}>
+            <input style={{ background: theme.header, color: theme.userName }} type="text" placeholder='Días' name='dates' value={newCourse.dates} onChange={handleChange} />
           </div>
-          <div style={{float:'left'}}>
-            <input style={{background:theme.header, color:theme.userName}} type="text" placeholder='Horario' name='hours' value={newCourse.hours} onChange={handleChange} />
+          <div style={{ float: 'left' }}>
+            <input style={{ background: theme.header, color: theme.userName }} type="text" placeholder='Horario' name='hours' value={newCourse.hours} onChange={handleChange} />
           </div>
-          <div style={{float:'left'}}>
+          <div style={{ float: 'left' }}>
             <Select
               styles={customStyles}
               placeholder='carrera'
@@ -553,7 +547,7 @@ const PerfilView = () => {
               className="input-course-2" />
           </div>
         </div>
-        <br/>
+        <br />
         <div className='upload-course'>
           <div className="upload-btn-wrapper" onChange={handleChange}>
             <button className="boton-standar-rw">
@@ -562,7 +556,7 @@ const PerfilView = () => {
             <input className="upload-file-buton" name="imgCourse" type="file" accept="image/*" />
           </div>
         </div>
-        <div className='upload-image-course' style={{marginLeft:'30px', width:'1100px'}}>
+        <div className='upload-image-course' style={{ marginLeft: '30px', width: '1100px' }}>
           <img src={imagePreview ? imagePreview : fondo} alt="img-course" className='image-course' onChange={handleChange} />
         </div>
         <img className='send-course' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />

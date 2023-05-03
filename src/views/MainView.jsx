@@ -16,9 +16,6 @@ const MainView = () => {
 
   return (
     <div>
-      {
-        globalLoader && <Loader/>
-      }
       <div style={{background:theme.linea}} className="linea-acostadaLogin" />
       <div>
         <img className="image-cucei" src={ theme.status === 'dark' ? CUCEIDARKS : CUCEI} />

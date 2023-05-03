@@ -16,13 +16,11 @@ import {
 
 import { send, user } from '../images';
 import { alertState } from '../reducers';
-import { Loader } from '../components/loader/Loader';
 import { StoreRounded } from '@mui/icons-material';
 import { useTheme } from 'styled-components';
 
 const CourseView = () => {
   const { id_Course } = useParams();
-  const { layout: { loading: globalLoader } } = StoreRounded.getState();
   const userInfo = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
   const { value: editPublicationModal } = useSelector(state => state.editPublicationModal);
@@ -224,9 +222,6 @@ const CourseView = () => {
 
   return (
     <div className='principal-body'>
-      {
-        globalLoader && <Loader/>
-      }
       <div className='row'>
         <img className="fondo"
           src={course.imgUrl}

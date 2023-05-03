@@ -10,7 +10,7 @@ const getLikeByUser = async ({ queryKey }) => {
     if(!id_Post || !uid_user) return [];
     //store.dispatch( showGlobalLoader() );
     const { data } = await httpClient.get(`/likes/${uid_user}/${ id_Post }`);
-
+    
     //store.dispatch( hideGlobalLoader() );
     return data;
 }

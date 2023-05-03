@@ -17,7 +17,6 @@ const CardUsers = ({ user, searchText = '', action }) => {
     }
     const theme = useTheme();
 
-    console.log(user)
     const filter = searchText && (username && username.toLowerCase().includes(searchText.toLowerCase()) || name && name.toLowerCase().includes(searchText.toLowerCase()));
 
     return (
