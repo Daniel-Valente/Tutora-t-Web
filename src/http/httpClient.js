@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const httpClient = axios.create({
-    baseURL: "https://tutora-t-rest-api.vercel.app"
+    baseURL: process.env.REACT_APP_API_ENDPOINT
 });
 
 export default httpClient;

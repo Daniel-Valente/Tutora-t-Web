@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { handleMouseEnter, isChatModal } from '../../helpers/utils';
 import {
-    useAddComment, useCourseById,
+    useAddComment, useCourseById, useCommentsTotal,
     useDeletePost, useHidePost, useLikeByUser, useLikesList, useSavePost, useUserById
 } from '../../hooks';
 import { messages, send, user } from '../../images';
@@ -39,8 +39,12 @@ const Post = (props) => {
 
     const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
     const [likes, setLikes] = useState(dataLikeList);
+
     const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
     const [starActive, setStarActive] = useState(dataLikeByUser);
+
+    const { data: dataTotalComments = [], isFetching: fetchingTotalComments, isLoading: loadingTotalComments } = useCommentsTotal(post._id);
+    const [ totalComments, setTotalComments ] = useState(dataTotalComments);
 
     const userInfo = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -150,7 +154,12 @@ const Post = (props) => {
         // eslint-disable-next-line
     }, [dataCourse]);
 
-    if ( loadingCourse || loadingLikeByUser || loadingLike ) {
+    useEffect(() => {
+        !fetchingTotalComments && dataTotalComments && setTotalComments(dataTotalComments);
+        // eslint-disable-next-line
+    }, [dataTotalComments]);
+
+    if ( loadingCourse || loadingLikeByUser || loadingLike || loadingTotalComments ) {
         return (
             <div className='spinner-container'>
                 <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
@@ -216,7 +225,7 @@ const Post = (props) => {
                             left: "95%",
                             color: theme.numbers
                         }}>
-                            { 1 }
+                            { totalComments }
                         </p>
                     </div>
                 </div>
