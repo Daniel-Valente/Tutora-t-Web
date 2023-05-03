@@ -30,6 +30,8 @@ const CardMessage = (props) => {
         });
     }
 
+    const formatDate = () => new Date(chat.createdAt).toLocaleTimeString();
+
     useEffect(() => {
         !fetchingUserChat && dataUserChat && userChat.length > -1 && setUserChat(dataUserChat);
         // eslint-disable-next-line
@@ -63,6 +65,7 @@ const CardMessage = (props) => {
                         <label style={{ fontSize: '20px' }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
                         <br />
                         {userInfoPerfil.uid_user === chat.uid_user ? 'Tú: ' + chat.message : chat.message}
+                        <div className='format-hours'>{ formatDate() }</div>
                     </p>
                 </Link>
             </div>
