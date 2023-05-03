@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { handleMouseEnter, isChatModal } from '../../helpers/utils';
 import {
     useAddComment, useCommentList, useCourseById,
-    useDeletePost, useHidePost, useSavePost, useUserById
+    useDeletePost, useHidePost, useLikeByUser, useLikesList, useSavePost, useUserById
 } from '../../hooks';
 import { messages, send, user } from '../../images';
 import { alertState } from '../../reducers';
@@ -38,7 +38,12 @@ const Post = (props) => {
     // const [commentList, setCommentList] = useState(dataCommentList);
 
     const { data: dataCourse = [], isFetching: fetchingCourse, isLoading: loadingCourse } = useCourseById(post.id_Course);
-    const [course, setCourse] = useState(dataCourse);
+    const [course, setCourse] = useState(dataCourse);   
+
+    const { data: dataLikeList = [], isFetching: fetchingLike, isLoading: loadingLike } = useLikesList(post._id);
+    const [likes, setLikes] = useState(dataLikeList);
+    const { data: dataLikeByUser = [], isFetching: fetchingLikeByUser, isLoading: loadingLikeByUser } = useLikeByUser(post._id, userInfoPerfil.uid_user);
+    const [starActive, setStarActive] = useState(dataLikeByUser);
 
     const userInfo = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -153,7 +158,7 @@ const Post = (props) => {
         // eslint-disable-next-line
     }, [dataCourse]);
 
-    if ( loadingCourse ) {
+    if ( loadingCourse || loadingLikeByUser || loadingLike ) {
         return (
             <div className='spinner-container'>
                 <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
@@ -201,13 +206,13 @@ const Post = (props) => {
                 </div>
                 <div className='row'>
                     <div className='col-1'>
-                    {/* <LikeButton 
+                    <LikeButton 
                         props={{
                             post:props.post,
                             userInfoPerfil,
                             vista:"1"
                         }}
-                    /> */}
+                    />
                     </div>
                     <div className='col-3'> 
                         <Link to={post._id} onClick={ () => isChatModal(dispatch, true) } state={{ background: location, commentModal: !commentModal, post, userPost, prevPath: location.pathname }}>

@@ -16,12 +16,10 @@ import {
 
 import { send, user } from '../images';
 import { alertState } from '../reducers';
-import { Loader } from '../components/loader/Loader';
 import { StoreRounded } from '@mui/icons-material';
 
 const CourseView = () => {
   const { id_Course } = useParams();
-  const { layout: { loading: globalLoader } } = StoreRounded.getState();
   const userInfo = useSelector(state => state.user);
   const { value: commentModal } = useSelector(state => state.commentModal);
   const { value: editPublicationModal } = useSelector(state => state.editPublicationModal);

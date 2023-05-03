@@ -82,7 +82,7 @@ export const LikeButton = (props) => {
     return (
       <>
         <ButtonWrapper onClick={() => {
-          
+          console.log('hola');
           const reverseAnimation = -1;
           const normalAnimation = 1;
           const likeUser = { 
@@ -95,7 +95,7 @@ export const LikeButton = (props) => {
             starActive
             };
             updateLike(likeUser, {
-                onSuccess: ({ data }) => {
+                onSuccess: ( data ) => {
                     setStarActive(data);
                 }
             });
