@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../components/notification/Notification";
 import { useCareerList, useUpdateUser } from "../hooks";
 import { user, fondo, perfilUsuarioGrande } from "../images";
-import { alertState } from "../reducers";
+import { alertState, userInfo } from "../reducers";
 import { Loader } from "../components/loader/Loader";
 import { store } from "../store";
 import { useTheme } from "styled-components";
@@ -13,19 +13,18 @@ import { useTheme } from "styled-components";
 const SettingsView = () => {
   const { mutate: updateUser } = useUpdateUser();
   const theme = useTheme();
-  const userInfo = useSelector(state => state.user);
-  const { layout: { loading: globalLoader } } = store.getState();
+  const userInfoPerfil = useSelector(state => state.user);
 
   const [configValue, setConfigValue] = useState({
-    uid_user: userInfo.uid_user,
+    uid_user: userInfoPerfil.uid_user,
     imgName: '',
     imgPortadaName: '',
-    nombre: userInfo.name,
-    telefono: userInfo.phone,
+    nombre: userInfoPerfil.name,
+    telefono: userInfoPerfil.phone,
     passwordA: '',
     password: '',
-    username: userInfo.username,
-    carrera: userInfo.career
+    username: userInfoPerfil.username,
+    carrera: userInfoPerfil.career
   });
   const [images, setImages] = useState({ imgName: '', imgPortadaName: '' });
   const [ disableSave, setDisableSave ] = useState(true);
@@ -38,7 +37,6 @@ const SettingsView = () => {
 
   const onChange = (e) => {
     if (e.target.files) {
-      console.log(e.target.files[0]);
       setImages({ ...images, [e.target.name]: e.target.files[0].name });
       setConfigValue({ ...configValue, [e.target.name]: e.target.files[0] });
     }
@@ -88,15 +86,15 @@ const SettingsView = () => {
   }
 
   const handleSubmit = () => {
-    if (configValue.nombre === userInfo.name) configValue.nombre = '';
-    if (configValue.telefono === userInfo.phone) configValue.telefono = '';
-    if (configValue.password === userInfo.password) configValue.password = '';
-    if (configValue.carrera === userInfo.career) configValue.carrera = '';
-    if (configValue.username === userInfo.username) configValue.username = '';
+    if (configValue.nombre === userInfoPerfil.name) configValue.nombre = '';
+    if (configValue.telefono === userInfoPerfil.phone) configValue.telefono = '';
+    if (configValue.password === userInfoPerfil.password) configValue.password = '';
+    if (configValue.carrera === userInfoPerfil.career) configValue.carrera = '';
+    if (configValue.username === userInfoPerfil.username) configValue.username = '';
 
     updateUser(configValue, {
-      onSuccess: (response) => {
-        console.log(response);
+      onSuccess: (data) => {
+        dispatch(userInfo(data));
         window.location.href = "/home";
       },
       onError: (response) => {
@@ -144,14 +142,14 @@ const SettingsView = () => {
                   <b>Imagen de perfil</b>
                 </p>
                 <img className="icon-perfil-setting"
-                  src={`${userInfo.imgUrl ? userInfo.imgUrl : perfilUsuarioGrande}`}
-                  alt={userInfo.username} />
+                  src={`${userInfoPerfil.imgUrl ? userInfoPerfil.imgUrl : perfilUsuarioGrande}`}
+                  alt={userInfoPerfil.username} />
                 <p>
                   <b>Imagen de portada</b>
                 </p>
                 <img className="circular-portada"
-                  src={`${userInfo.imgPortadaUrl ? userInfo.imgPortadaUrl : fondo}`}
-                  alt={userInfo.username} />
+                  src={`${userInfoPerfil.imgPortadaUrl ? userInfoPerfil.imgPortadaUrl : fondo}`}
+                  alt={userInfoPerfil.username} />
               </div>
               <div className="col-4">
                 <br /><br /><br />

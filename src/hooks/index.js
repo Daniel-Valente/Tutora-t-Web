@@ -53,10 +53,11 @@ export { useUpdateCourse } from "./courses/useUpdateCourse";
 export { useRegistrationByUser } from "./courses/useRegistrationByUser";
 
 export { useAddComment } from "./comments/useAddComment";
-export { useCommentList } from "./comments/useCommentList";
 export { useCommentListWithLimit } from "./comments/useCommentListWithLimit";
 export { useDeleteComment } from "./comments/useDeleteComment";
 export { useUpdateComment } from "./comments/useUpdateComment";
+export { useCommentsTotal } from "./comments/useCommentsTotal";
+export { useCommentsList } from "./comments/useCommentsList";
 
 export { useAddChatToUser } from "./chats/useAddChatToUser";
 export { useChatsList } from "./chats/useChatsList";
