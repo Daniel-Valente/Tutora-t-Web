@@ -11,7 +11,6 @@ const getCommentsList = async ({ queryKey }) => {
     //store.dispatch( showGlobalLoader() );
 
     const { data } = await httpClient.get(`/comments/comments/${ id_Post }`);
-    
     //store.dispatch( hideGlobalLoader() );
     return data;
 }
