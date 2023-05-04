@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserById } from '../../hooks';
+import { useTheme } from 'styled-components';
 
 const CardCourses = (props) => {
     const { course } = props;
@@ -12,7 +13,7 @@ const CardCourses = (props) => {
         !fetchingUserCourse && dataUserCourse && userCourse.length > -1 && setUserCourse(dataUserCourse);
         // eslint-disable-next-line
     }, [dataUserCourse]);
-
+    const theme = useTheme();
     return (
         <div className='col-2' style={{marginRight:'40px', marginleft:'40px', width:'400px'}}>
             <div className='card'style={{borderRadius:'10px', width:'400px', border:'1px solid #d0d0d0'}}>
@@ -20,12 +21,12 @@ const CardCourses = (props) => {
                 <div className='container'>
                     <p>
                         <Link to={`/course/${course._id}`}
-                            style={{ textDecoration: 'none', fontFamily:'sans-serif', fontSize:'30px', color: '#434343' }}
+                            style={{ textDecoration: 'none', fontFamily:'sans-serif', fontSize:'30px', color:theme.userName }}
                         >
                             {course.title}
                         </Link>
                         <br/>
-                        <span style={{fontFamily:'sans-serif', fontSize:'16px', color:'#878787'}}>
+                        <span style={{fontFamily:'sans-serif', fontSize:'16px', color:theme.userName2}}>
                             {dataUserCourse.username}
                             <br/>
                             Días: {course.dates} <br />
