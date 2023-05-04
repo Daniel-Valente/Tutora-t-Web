@@ -11,7 +11,7 @@ import Post from '../components/Post/Post';
 import { handleMouseEnter, isEditPublicationModal } from '../helpers/utils';
 import {
   useBodyScrollLock, useCareerList, useCourseById, useDeleteCourse, usePostsByCourse, useRegistrationByUser,
-  useRegistrationUser, useUpdateCourse, useUsersList
+  useRegistrationUser, useUpdateCourse, useUserById, useUsersList
 } from '../hooks';
 
 import { send, user } from '../images';
@@ -64,6 +64,9 @@ const CourseView = () => {
 
   const { data: dataCareers = [], isFetching: fetchingCareers } = useCareerList();
   const [career, setCareer] = useState(dataCareers);
+  
+    const { data: dataUserCreator = [], isFetching: fetchingUserCreator } = useUserById(course.uid_user);
+  const [userCreator, setUserCreator] = useState(dataUserCreator);
 
   const createCourseHandler = () => {
     isEditPublicationModal(dispatch, editPublicationModal);
@@ -159,6 +162,11 @@ const CourseView = () => {
     course && setEditCourse({ id_Course, ...course });
     // eslint-disable-next-line
   }, [course]);
+  
+    useEffect(() => {
+    !fetchingUserCreator && dataUserCreator.length > 0 && setUserCreator(dataUserCreator);
+    // eslint-disable-next-line
+  }, [dataUserCreator]);
 
   const handleRegister = () => {
     const register = { 
@@ -292,6 +300,14 @@ const CourseView = () => {
             <b>Información</b>
           </label>
           <br />
+          <b>Creador</b>
+          <Link to={`/perfil/${userCreator.uid_user}`} style={{ textDecoration: 'none' }}>
+            <div className='boton-circular-volteado-4'>
+              <img className='icon-user'
+                src={userCreator.imgName ? userCreator.imgUrl : user}
+                alt={userCreator.username} />
+            </div>
+          </Link> <br /> { userCreator.username }
           <b>Descripción:</b> {course.description} <br />
           <b>Días:</b> {course.dates} <br />
           <b>Horario:</b> {course.hours} <br />
