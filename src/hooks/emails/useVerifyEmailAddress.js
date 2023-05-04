@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import httpClient from "../../http/httpClient";
 
 const verifyEmailAddress = async (user) =>
-    await httpClient.put(`/users/verify-email`, user, {
+    await httpClient.put(`/auth/verify-email`, user, {
         'Content-Type': 'application/json'
     });
 

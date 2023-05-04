@@ -156,7 +156,7 @@ const PerfilView = () => {
   const { data: dataUserPerfil = [], isFetching: fetchingUserPerfil, isLoading: lodingUserPerfil } = useUserById(uid_user);
   const [userPerfil, setUserPerfil] = useState(dataUserPerfil);
 
-  const { data: dataCareer, isFetching: fetchingCareer, isLoading: loadingCareer } = useCareerById(userInfoPerfil.career);
+  const { data: dataCareer, isFetching: fetchingCareer, isLoading: loadingCareer } = useCareerById(userPerfil.career);
   const [userCareer, setUserCareer] = useState(dataCareer);
 
   const { data: dataPostsList = [], isLoading: loadingPostsList } = usePostsByUser(uid_user);
@@ -171,10 +171,10 @@ const PerfilView = () => {
   const { data: dataCoursesInscripto = [], isLoading: loadingCoursesInscripto } = useCoursesList();
   const [coursesInscripto, setCoursesInscripto] = useState(dataCoursesInscripto);
 
-  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userInfoPerfil.uid_user);
+  const { data: dataHidePost = [], isFetching: fetchingHidePost, isLoading: loadingHidePost } = useHidePostList(userPerfil.uid_user);
   const [hidePost, setHidePost] = useState(dataHidePost);
 
-  const { data: dataSavePost = [], isFetching: fetchingSavePost } = useSavePostList(userInfoPerfil.uid_user);
+  const { data: dataSavePost = [], isFetching: fetchingSavePost } = useSavePostList(userPerfil.uid_user);
   const [savePost, setSavePost] = useState(dataSavePost);
 
   const { data: dataFollowers = [], isLoading: loadingFollowers } = useFollowersList(uid_user);

@@ -200,8 +200,8 @@ const SettingsView = () => {
                   className="upload-btn-wrapper4-1 "
                   onChange={onChange} 
                   onFocus={ () => setDisableSave(false) }>
-                  <input style={{opacity: 0}} type="text" readOnly value={images.imgName} />
-                  <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
+                  <input style={{opacity: 0}} type="text" readOnly value={images.imgPortadaName} />
+                  <input className="upload-file-buton" name="imgPortadaName" type="file" accept="image/*" />
                 </div>
 
               </div>
