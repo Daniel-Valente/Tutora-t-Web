@@ -4,6 +4,7 @@ import { Link, useLocation, Outlet } from 'react-router-dom';
 
 import { useUpdateChatToUser, useUserById } from '../../hooks';
 import { user } from '../../images';
+import { useTheme } from 'styled-components';
 
 const Message = (props) => {
     const location = useLocation();
@@ -39,11 +40,12 @@ const Message = (props) => {
         !fetchingUser && dataUser && userPefil.length > -1 && setUserPerfil(userPefil);
         // eslint-disable-next-line
     }, [dataUser]);
+    const theme = useTheme();
     
     return (
         filter && input ? <div className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user  ? 'message-not-view' : '' }`}>
             <Outlet />
-            <div className='col-3'>
+            <div  className='col-3'>
                 <Link to={`/perfil/${userInfoPerfil.uid_user === chat.uid_user ? userChat.uid_user : userPefil.uid_user}`}>
                     <div className='boton-circular-volteado-5'>
                         <img className='icon-user-message'
@@ -54,20 +56,20 @@ const Message = (props) => {
                 </Link>
             </div>
             <div className='col-7'>
-                <p style={{ marginLeft: '1%', marginTop: '25px' }}>
-                    <label style={{ fontSize: '20px' }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
+                <p style={{ marginLeft: '1%', marginTop: '25px', color:theme.userName2 }}>
+                    <label style={{ fontSize: '20px', color:theme.userName }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
                     <br />
                     {userInfoPerfil.uid_user === chat.uid_user ? 'Tú: ' + chat.message : chat.message}
                     <div>{ formatDate() }</div>
                 </p>
             </div>
-            <div className='linea-acostada' />
+            <div style={{background:theme.linea}} className='linea-acostada' />
         </div>
             : !input &&
-            <div className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : '' }`}>
+            <div  className={`row ${ chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : '' }`}>
                 
                 <Outlet />
-                <div className='col-3'>
+                <div style={{color:theme.userName}} className='col-3'>
                     <Link to={`/perfil/${userInfoPerfil.uid_user === chat.uid_user ? userChat.uid_user : userPefil.uid_user}`}>
                         <div className='boton-circular-volteado-5'>
                             <img className='icon-user-message'
@@ -81,16 +83,16 @@ const Message = (props) => {
                     <Link to={`/chats/${ userInfoPerfil.uid_user }/to/${ userInfoPerfil.uid_user !== chat.uid_user ? chat.uid_user : chat.uid_userChat  }`} 
                     state={{ background: location }}
                     onClick={ seenHandle } 
-                    style={{ textDecoration: 'none', color: 'black' }}>
-                    <p style={{ marginLeft: '1%', marginTop: '25px' }}>
-                        <label style={{ fontSize: '20px' }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
+                    style={{ textDecoration: 'none'}}>
+                    <p style={{ marginLeft: '1%', marginTop: '25px', color:theme.userName2 }}>
+                        <label style={{ fontSize: '20px',color:theme.userName }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
                         <br />
                         {userInfoPerfil.uid_user === chat.uid_user ? 'Tú: ' + chat.message : chat.message}
                         <div className='format-hours-list'>{ formatDate() }</div>
                     </p>
                     </Link>
                 </div>
-                <div className='linea-acostada' />
+                <div style={{background:theme.linea}} className='linea-acostada' />
             </div>
     )
 }

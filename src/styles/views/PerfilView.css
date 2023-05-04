@@ -52,6 +52,7 @@ input[type="file"]::-webkit-file-upload-button {
 .upload-btn-wrapper {
   position: relative;
   display: inline-block;
+  background-color: #1492e6;
 }
 /* ESTILO DEL INPUT*/
 .upload-btn-wrapper input[type="file"] {
@@ -60,17 +61,43 @@ input[type="file"]::-webkit-file-upload-button {
   left: 0;
   top: 0;
   opacity: 0;
+  background-color: #000000;
+}
+.upload-btn-wrapper2 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper2 input[type="file"] {
+  font-size: 100px;
+  position: relative;
+  left: -200px;
+  top: 18px;
+  width: 150px;
+  opacity: 0;
 }
 /* ESTILO DEL BOTÓN */
 .boton-standar-rw {
   margin: 5px;
-  background-color: #FFEDF8;
+  background-color: #ffffff;
   color: rgb(139, 139, 139);
   border-radius: 20px;
   font-weight: bold;
   letter-spacing: 1px;
   line-height: 15px;
-  border: 1px solid #fbcae8;
+  transition: all 0.3s ease 0s;
+  width: 12em;
+  padding: 10px;
+}
+.boton-standar-rw2 {
+  margin: 5px;
+  color: white;
+  background-color: #FF0096;
+  border-radius: 20px;
+  font-weight: bold;
+  border:none;
+  letter-spacing: 1px;
+  line-height: 15px;
   transition: all 0.3s ease 0s;
   width: 12em;
   padding: 10px;
@@ -84,12 +111,32 @@ input[type="file"]::-webkit-file-upload-button {
 .title-course {
   width: 65vh;
 }
+.title-course2 {
+  width: 10vh;
+}
+.linea-acostada-cursoN{
+  width: 100%;
+  position: relative;
+  background-color: #d4d4d4;
+  height: 1px;
+  top:7rem;
+}
+.linea-acostada-cursoN2{
+  width: 100%;
+  position: relative;
+  background-color: #d4d4d4;
+  height: 1px;
+  top:.7rem;
+}
 .title-course-3 {
   width: 50vh;
 }
 
 .site-course {
   width: 37vh;
+}
+.site-course2 {
+  width: 17vh;
 }
 
 .visible-course {
@@ -110,12 +157,22 @@ input[type="file"]::-webkit-file-upload-button {
   left: 56vh;
   position: absolute;
 }
+.upload-course2 {
+  bottom: 25vh;
+  left: 18vh;
+  position: absolute;
+}
 
 .upload-image-course {
   height: 240px;
   position: relative;
   border: 3px dotted #ff009530;
   z-index: -1;
+}
+.upload-image-course-2 {
+  height: 590px;
+  position: relative;
+  top:-25px;
 }
 
 .image-course {
@@ -129,6 +186,12 @@ input[type="file"]::-webkit-file-upload-button {
   bottom: 1vh;
   right: 1vh;
   position: absolute;
+}
+.send-course2 {
+  width: 25px;
+  right: 4vh;
+  position: absolute;
+  bottom:2rem;
 }
 
 .input-course {

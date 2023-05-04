@@ -115,6 +115,47 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
     !fetchingCareersList && dataCareersList.length > 0 && setCareerList(dataCareersList);
     // eslint-disable-next-line
   }, [dataCareersList]);
+  const customStyles = {
+    singleValue: (base, state) => ({
+      ...base,
+      color: theme.userName,
+    }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isFocused ? '#ededed' : '',
+    }),
+    control: (base, state) => ({
+      ...base,
+      
+      background:theme.header,
+      height: '50px',
+      // match with the menu
+      marginTop:'5px',
+      borderRadius:  "10px",
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ?  theme.userName : theme.userName,
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? theme.userName : theme.userName
+      }
+    }),
+    menu: (base) => ({
+      ...base,
+      
+      // override border radius to match the box
+      borderRadius: 0,
+      // kill the gap
+      marginTop: 0
+    }),
+    menuList: (base) => ({
+      ...base,
+      // kill the white space on first and last option
+      padding: 0
+    })
+  }
+  const userInfoPerfil = useSelector(state => state.user);
 
   return (
     <div>
@@ -140,13 +181,25 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
 
       <PublicationModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
         <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color:theme.userName }}>Crear publicacion</h2>
+        <div style={{background:'orange'}} className='row'>
+          <div className='icon-name-nn'>
+          <img className='icon-user-nn'
+                  src={userInfoPerfil.imgName ? userInfoPerfil.imgUrl : user}
+                  alt={userInfoPerfil.username} />
+            <h4 style={{color:theme.userName, position:'relative', top:'-70px', paddingLeft: '60px', fontSize: '18px'}}>
+              {userInfoPerfil.name}
+            </h4>
+            
+          </div>
+          <textarea className='inp' style={{fontSize: '16px', border:'none' ,position:'relative', top:'-60px', paddingLeft:'10px', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente,  ${userInfo.name}?`} name='description' value={newPost.description} onChange={handleChange}></textarea>
+        </div>
         <div className='row'>
           <div className='col-6'>
             <input style={{background:theme.header, color: theme.userName}} className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
           </div>
           <div className='col-4'>
             <Select 
-              style={{background:theme.header, color: theme.userName}}
+              styles={customStyles}
               className='select-career' 
               placeholder='carrera'
               name="career"
@@ -157,7 +210,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
           </div>
         </div>
         <br />
-        <textarea className='inp' style={{borderRadius:'7px', paddingLeft:'10px', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={newPost.description} onChange={handleChange}></textarea>
+        
         <div className='upload-post'>
           <div className="upload-btn-wrapper" onChange={handleChange}>
             <button style={{backgroundColor:'pink'}} className="boton-standar-rw">

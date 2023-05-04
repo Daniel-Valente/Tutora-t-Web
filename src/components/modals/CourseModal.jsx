@@ -23,7 +23,7 @@ const CourseModal = (props) => {
       position: "relative",
       background: theme.header,
       borderRadius: 10,
-      padding: 15,
+      padding: 0,
       boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
       zIndex: 10,
       top: "14vh",

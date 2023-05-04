@@ -12,7 +12,7 @@ import {
   usePostsByUser, usePostsList, useSavePostList
 } from '../hooks';
 import { useUserById } from '../hooks/users/userUserById';
-import { allPosts, fondo, save, send, user, perfilUsuarioGrande, addTuto } from '../images';
+import { allPosts, fondo,fondo2Claro, fondo2, save, send, user, perfilUsuarioGrande, addTuto, fondoD } from '../images';
 import CourseModal from '../components/modals/CourseModal';
 import { alertState } from '../reducers';
 import Notification from '../components/notification/Notification';
@@ -93,6 +93,38 @@ const PerfilView = () => {
     textDecoration: 'none',
     transition: 'all 0.10s ease',
   };
+  const [isHoverBR, setIsHoverBR] = useState(false);
+
+   const handleMouseEnterBR = () => {
+      setIsHoverBR(true);
+   };
+   const handleMouseLeaveBR = () => {
+      setIsHoverBR(false);
+   };
+
+   const boxStyleBR = {
+     backgroundColor: isHoverBR ? theme.linkColor : theme.background,
+     color: isHoverBR ? '#fff' : '#2bc6ff',
+     transition: 'all 0.10s ease',
+   };
+   const [isHoverBE, setIsHoverBE] = useState(false);
+
+   const handleMouseEnterBE = () => {
+      setIsHoverBE(true);
+   };
+   const handleMouseLeaveBE = () => {
+      setIsHoverBE(false);
+   };
+
+   const boxStyleBE = {
+     backgroundColor: isHoverBE ? theme.rosaHover : theme.background,
+     transition: 'all 0.10s ease',
+   };
+   const boxStyleBE2 = {
+    color:   isHoverBE ? '#fff' : 'pink',
+    transition: 'all 0.10s ease',
+    textDecoration:'none'
+  };
   const { uid_user } = useParams();
   const location = useLocation();
   const { layout: { loading: globalLoader } } = store.getState();
@@ -170,6 +202,61 @@ const PerfilView = () => {
       setNewCourse({ ...newCourse, "career": e.value });
     }
   }
+  const customStyles = {
+    singleValue: (base, state) => ({
+      ...base,
+      color: state.isFocused ? '#000' : theme.userName,
+    }),
+    option: (base, state) => ({
+      ...base,
+      color: state.isFocused ? '#000' : theme.userName, 
+      background: state.isFocused ? '#ededed' : '',
+    }),
+    control: (base, state) => ({
+      ...base,
+      
+      background:theme.header, position:'relative', top:'-7rem', width:'17rem',
+      border:'none',
+      height: '50px',
+      color: state.isFocused ? '#000' : theme.userName,
+      // match with the menu
+      left: '1.5rem',
+      paddingLeft:'1.5rem',
+      borderRadius:  "10px",
+      
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ?  theme.userName : theme.userName,
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? theme.userName : theme.userName
+      }
+    }),
+    menu: (base,state) => ({
+      ...base,
+      
+      // override border radius to match the box
+      borderRadius: 0,
+      color: state.isFocused ? '#000' : theme.userName,
+      // kill the gap
+      marginTop: 0,
+      height:'0px',
+    }),
+    menuList: (base,state) => ({
+      ...base,
+      // kill the white space on first and last option
+      padding: 0,
+      color: state.isFocused ? '#000' : theme.userName,
+      borderRadius:'5px',
+      width:'17rem',
+      height:'17rem',
+      background:theme.header,
+      position:'relative',
+      top:'-7rem'
+    })
+  }
+
 
   const followHandle = () => {
     const follow = {
@@ -311,7 +398,7 @@ const PerfilView = () => {
       </div>
       <div className='row'>
         <img className="fondo"
-          src={userPerfil.imgPortadaUrl ? userPerfil.imgPortadaUrl : fondo}
+          src={userPerfil.imgPortadaUrl ? userPerfil.imgPortadaUrl : theme.status === 'dark' ? fondo2Claro : fondo}
           alt={'user-portada'} />
         <img className='boton-circular-perfil icon-perfil'
           src={userPerfil.imgUrl ? userPerfil.imgUrl : perfilUsuarioGrande}
@@ -333,18 +420,20 @@ const PerfilView = () => {
               :
               <div>
                 <div className='row'>
-                  <button className='button-follow' onClick={followHandle}>
+                  <button onMouseEnter={handleMouseEnterBR}
+            onMouseLeave={handleMouseLeaveBR} style={boxStyleBR} className='button-follow' onClick={followHandle}>
                     {
                       followers.includes(userInfoPerfil.uid_user) ? 'Dejar de seguir' : 'Seguir'
                     }
                   </button>
                 </div>
                 <div className='row'>
-                  <button className='button-message'>
+                  <button onMouseEnter={handleMouseEnterBE}
+            onMouseLeave={handleMouseLeaveBE} style={boxStyleBE} className='button-message'>
                     <Link
                       to={`${location.pathname.split('/', 2)[0]}/${userInfoPerfil.uid_user}/to/${uid_user !== userInfoPerfil.uid_user ? uid_user : ''}`}
                       state={{ background: location, prevPath: location.pathname }}
-                      className="mensaje-enviar" style={{ textDecoration: 'none' }}>
+                      className="mensaje-enviar" style={boxStyleBE2}>
                       Enviar mensaje
                     </Link>
                   </button>
@@ -484,41 +573,62 @@ const PerfilView = () => {
         </div>
       </div>
       <CourseModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center', fontSize: '147%', fontFamily: 'sans-serif', color: theme.userName }}>Crea tu curso</h2>
-        <input style={{ background: theme.header, color: theme.userName }} className='title-course' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
-        <input style={{ background: theme.header, color: theme.userName }} className='site-course' type="text" name="site" placeholder='Lugar' value={newCourse.site} onChange={handleChange} />
-        <br /><br />
-        <textarea style={{ borderRadius: '8px', marginLeft: '30px', width: '1060px', background: theme.header, color: theme.userName, paddingLeft: '15px', paddingTop: '15px' }} className='inp' placeholder={`¿Que tienes en mente  ${userInfoPerfil.name}?...`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
-        <div style={{ marginBottom: '70px' }}>
-          <div style={{ float: 'left' }}>
-            <input style={{ background: theme.header, color: theme.userName }} type="text" placeholder='Días' name='dates' value={newCourse.dates} onChange={handleChange} />
-          </div>
-          <div style={{ float: 'left' }}>
-            <input style={{ background: theme.header, color: theme.userName }} type="text" placeholder='Horario' name='hours' value={newCourse.hours} onChange={handleChange} />
-          </div>
-          <div style={{ float: 'left' }}>
-            <Select
-              style={{ background: theme.header, color: theme.userName }}
-              placeholder='carrera'
-              name="career"
-              options={career}
-              onChange={handleChange}
-              className="input-course-2" />
-          </div>
+        <h2 style={{ textAlign: 'center', fontSize: '147%', fontFamily: 'sans-serif', color: theme.userName }}>Crea un nuevo curso</h2>
+        <div style={{display: 'flex', alignItems:'flex-end'}}>
+        <div className='upload-image-course-2' style={{ width: '500px' }}>
+                    <img src={imagePreview ? imagePreview :  theme.status === 'dark' ? fondoD : fondo2} alt="img-course" className='image-course' onChange={handleChange} />
+                  </div>
+                <div style={{float:'left'}}>
+                  <div className='upload-course2'>
+                    <div className="upload-btn-wrapper2" onChange={handleChange}>
+                      <button className="boton-standar-rw2">
+                        Carga un archivo
+                      </button>
+                      <input style={{background:'red'}} className="upload-file-buton" name="imgCourse" type="file" accept="image/*" />
+                    </div>
+                  </div>
+                  
+                </div>
+                <div style={{float:'left'}}>
+                <div style={{backgroundColor:theme.linea}} className='linea-acostada-cursoN2' />
+                    <div className='icon-name-nn'>
+                    <img className='icon-user-nn'
+                            src={userInfoPerfil.imgName ? userInfoPerfil.imgUrl : user}
+                            alt={userInfoPerfil.username} />
+                      <h4 style={{color:theme.userName, position:'relative', left: '20px', top:'-1rem', paddingLeft: '60px', fontSize: '18px'}}>
+                        {userInfoPerfil.name}
+                      </h4>
+                      
+                    </div>
+                    <div style={{backgroundColor:theme.linea}} className='linea-acostada-cursoN' />
+                    <textarea className='inp' style={{fontSize: '16px', marginLeft: '30px', border:'none', width: '300px' ,position:'relative', top:'-2rem', paddingLeft:'10px', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente,  ${userInfoPerfil.name}?`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
+                    <br/>
+                    <input style={{ border:'none',background: theme.header, color: theme.userName, position:'relative', top:'-2.7rem', width:'15rem' }} className='title-course2' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
+                    <br/>
+                    <div style={{backgroundColor:theme.linea, top:'-3rem'}} className='linea-acostada-cursoN' />
+                    <input style={{ border:'none',background: theme.header, color: theme.userName, position:'relative', top:'-4rem', width:'15rem' }} className='site-course2' type="text" name="site" placeholder='Lugar' value={newCourse.site} onChange={handleChange} />
+                    <br/>
+                    <div style={{backgroundColor:theme.linea, top:'-4rem'}} className='linea-acostada-cursoN' />
+                    <div style={{ marginBottom: '70px' }}>
+                    <input style={{border:'none', background: theme.header, color: theme.userName, position:'relative', top:'-5rem', width:'15rem' }} type="text" placeholder='Días' name='dates' value={newCourse.dates} onChange={handleChange} />
+                    <br/>
+                    <div style={{backgroundColor:theme.linea, top:'-5.2rem'}} className='linea-acostada-cursoN' />
+                    <input style={{ border:'none', background: theme.header, color: theme.userName, position:'relative', top:'-6.1rem', width:'15rem' }} type="text" placeholder='Horario' name='hours' value={newCourse.hours} onChange={handleChange} />
+                    <br/>
+                    <div style={{backgroundColor:theme.linea, top:'-6.2rem'}} className='linea-acostada-cursoN' />
+                     <Select
+                          styles={customStyles}
+                          placeholder='carrera'
+                          name="career"
+                          options={career}
+                          onChange={handleChange}
+                          className="input-course-2" />
+                    <div style={{backgroundColor:theme.linea, top:'-7.2rem'}} className='linea-acostada-cursoN' />
+ 
+                    </div>
+                </div>
         </div>
-        <br />
-        <div className='upload-course'>
-          <div className="upload-btn-wrapper" onChange={handleChange}>
-            <button className="boton-standar-rw">
-              Carga un archivo
-            </button>
-            <input className="upload-file-buton" name="imgCourse" type="file" accept="image/*" />
-          </div>
-        </div>
-        <div className='upload-image-course' style={{ marginLeft: '30px', width: '1100px' }}>
-          <img src={imagePreview ? imagePreview : fondo} alt="img-course" className='image-course' onChange={handleChange} />
-        </div>
-        <img className='send-course' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
+        <img className='send-course2' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
       </CourseModal>
       <Notification />
     </div>

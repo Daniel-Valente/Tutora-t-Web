@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { isNotificationModal, timeSince } from '../../helpers/utils';
 import { useCourseById, useLikesList, usePostById, useUserById } from '../../hooks';
+import { useTheme } from 'styled-components';
 import { user } from '../../images';
 
 const CardNotification = ({ notification = [], notificationModal = false }) => {
@@ -56,114 +57,70 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
         !fetchingCourse && dataCourse && course.length > -1 && setCourse(dataCourse);
         // eslint-disable-next-line
     }, [dataCourse]);
-
-    if ( loadingPost ) {
-        return (
-            <div className='spinner-container'>
-                <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
-    if( dataPost.length !== 0 ) {
-        return (
-            <div>
-                <div className='linea-acostada' />
-                <div className='row card-notification'>
-                    <Link to={`/perfil/${notification.uid_user}`} style={{ textDecoration: 'none' }}>
-                        <div style={{ float: 'left' }}>
-                            <img className='icon-user-3'
-                                src={userReaction.imgName ? userReaction.imgUrl : user }
-                                alt={userReaction.username} />
-                        </div>
-                        <div style={{ float: 'left', color: '#000' }}>
-                            <b>{userReaction.username}</b>
-                        </div>
-                    </Link>
-                    <br />
-                    {` ${notification.type === 'follower' ? notification.action : notification.action + ':'} `}
-                    {
-                        notification.type === 'course' &&
-                        <Link to={`/course/${notification.id_action}`}
-                            style={{ textDecoration: 'none' }}
-                            onClick={closeModal}>
-                            {
-                                course.title
-                            }
-                        </Link>
-                    }
-                    {
-                        notification.type === 'inscription' &&
-                        <Link to={`/course/${notification.id_action}`}
-                            style={{ textDecoration: 'none' }}
-                            onClick={closeModal}>
-                            {
-                                course.title
-                            }
-                        </Link>
-                    }
-                    {
-                        notification.type === 'comment' &&
-                        <Link to={`${location.pathname + "/" + notification.id_action}`}
-                            style={{ textDecoration: 'none' }}
-                            onClick={closeModal}
-                            state={{ background: location, commentModal: true, post, userPost, likes, prevPath: location.pathname }}>
-                            {
-                                post.title
-                            }
-                        </Link>
-                    }
-                    {
-                        notification.type === 'like' &&
-                        <Link to={`${location.pathname + "/" + notification.id_action}`}
-                            style={{ textDecoration: 'none' }}
-                            onClick={closeModal}
-                            state={{ background: location, commentModal: true, post, userPost, likes, prevPath: location.pathname }}>
-                            {
-                                post.title
-                            }
-                        </Link>
-                    }
-                    <br />
-                    <span className='format-time'>hace { timeSince( formatDate() ) }</span>
+    const theme = useTheme();
+    return (
+        <div>
+             <div style={{background:theme.linea}} className='linea-acostada' />
+            <div style={{color:theme.userName2}} className='row card-notification'>
+                <Link to={`/perfil/${notification.uid_user}`} style={{ textDecoration: 'none' }}> 
+                <div style={{ float:'left'}}>
+                <img className='icon-user-3'
+                  src={userReaction.imgName ? userReaction.imgUrl : userReaction.username}
+                  alt={userReaction.username} /> 
                 </div>
-            </div>
-        )
-    }
-    else {
-        return (
-            <div>
-                <div className='linea-acostada' />
-                <div className='row card-notification'>
-                    <Link to={`/perfil/${notification.uid_user}`} style={{ textDecoration: 'none' }}>
-                        <div style={{ float: 'left' }}>
-                            <img className='icon-user-3'
-                                src={userReaction.imgName ? userReaction.imgUrl : user }
-                                alt={userReaction.username} />
-                        </div>
-                        <div style={{ float: 'left', color: '#000' }}>
-                            <b>{userReaction.username}</b>
-                        </div>
-                    </Link>
-                    <br />
-                    {` ${notification.type === 'follower' ? notification.action : notification.action + ':'} `}
-                    {
-                        notification.type === 'course' && <span className='format-delete'>curso eliminada</span>
-                    }
-                    {
-                        notification.type === 'inscription' && <span className='format-delete'>curso eliminada</span>
-                    }
-                    {
-                        notification.type === 'comment' && <span className='format-delete'>publicación eliminada</span>
-                    }
-                    {
-                        notification.type === 'like' && <span className='format-delete'>publicación eliminada</span>
-                    }
-                    <br />
-                    <span className='format-time'>hace { timeSince( formatDate() ) }</span>
+                <div style={{ float:'left', color:theme.userName}}>
+                <b>{userReaction.username}</b>
                 </div>
+                </Link>
+                  <br/>
+                {` ${ notification.type === 'follower' ? notification.action : notification.action + ':' } `}
+                {
+                    notification.type === 'course' &&
+                    <Link to={`/course/${notification.id_action}`}
+                        style={{ textDecoration: 'none' }}
+                        onClick={closeModal}>
+                        {
+                            course.title
+                        }
+                    </Link>
+                }
+                {
+                    notification.type === 'inscription' &&
+                    <Link to={`/course/${notification.id_action}`}
+                        style={{ textDecoration: 'none' }}
+                        onClick={closeModal}>
+                        {
+                            course.title
+                        }
+                    </Link>
+                }
+                {
+                    notification.type === 'comment' &&
+                    <Link to={`${location.pathname + "/" + notification.id_action}`}
+                        style={{ textDecoration: 'none' }}
+                        onClick={closeModal}
+                        state={{ background: location, commentModal: true, post, userPost, likes, prevPath: location.pathname }}>
+                        {
+                            post.title
+                        }
+                    </Link>
+                }
+                {
+                    notification.type === 'like' &&
+                    <Link to={`${location.pathname + "/" + notification.id_action}`}
+                        style={{ textDecoration: 'none' }}
+                        onClick={closeModal}
+                        state={{ background: location, commentModal: true, post, userPost, likes, prevPath: location.pathname }}>
+                        {
+                            post.title
+                        }
+                    </Link>
+                }
+            </div>
             </div>
         )
-    }
+        
+    
 }
 
 export default CardNotification;

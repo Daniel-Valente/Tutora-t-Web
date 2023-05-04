@@ -5,6 +5,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { useAddChatToUser, useChatsListToUser, useUserById } from "../hooks";
 
 import ChatMessage from "../components/chats/ChatMessage";
+import { useTheme } from "styled-components";
 
 const ChatView = () => {
   const { uid_user, uid_userChat } = useParams();
@@ -52,22 +53,23 @@ const ChatView = () => {
   useEffect(() => {
     scrollRef.current && scrollRef.current.scrollToBottom();
   },[dataChat]);
+  const theme = useTheme();
 
   return (
     <div className="modalDiv-chat">
-      <div className="modal-chat">
-        <div className="header-chat">
-          <button className="close-panel">
+      <div style={{background:theme.header}} className="modal-chat">
+        <div style={{background:theme.header}} className="header-chat">
+          <button style={{background:theme.header}} className="close-panel">
             <Link  to={prevPath} style={{ textDecoration: 'none'}} >X</Link>
           </button>
-          <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>{userChat.name}</h2>
+          <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color: theme.userName, background:theme.header }}>{userChat.name}</h2>
         </div>
         <br /><br />
-        <div className="linea-acostada"/>
+        <div style={{background:theme.linea}} className="linea-acostada"/>
         <br />
-        <div className="section-message-chat">
+        <div  className="section-message-chat">
           <div className="sidebar-messages-chat main-message-chat">
-            <Scrollbars autoHeight autoHeightMax={ '42vh' }  style={{ width: '44.5vh' }} ref={scrollRef}>
+            <Scrollbars autoHeight autoHeightMax={ '42vh' }  style={{ width: '44.5vh'}} ref={scrollRef}>
               {
                 chatMessages && chatMessages.map((chat, index) => <ChatMessage key={index} chat={chat} userChat={userChat} />)
               }
@@ -76,6 +78,7 @@ const ChatView = () => {
 
           <div className="form-chats">
             <input
+              style={{background:theme.background, color: theme.userName}}
               className="input-message-chat"
               value={formValue}
               onKeyUp={ submitHandler }

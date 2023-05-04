@@ -42,7 +42,7 @@ const ChatsList = ({ openHandle }) => {
                 <input
                     style={{color:theme.userName,}}
                     className="search-input-chats"
-                    placeholder="Buscar por usuario u mensaje"
+                    placeholder="Busca por mesaje o usuario"
                     type="text"
                     onChange={ changeHandle }
                     value={ searchText }
