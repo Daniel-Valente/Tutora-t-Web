@@ -28,6 +28,8 @@ const Register = () => {
   const boxStyleB = {
    background: isHoverB ? theme.bH  : theme.linkColor,
    color:theme.header,
+   position: 'relative',
+   top:'-20px',
     transition: 'all 0.10s ease',
   };
   const { mutate: addUser } = useAddUser();
@@ -131,14 +133,8 @@ const Register = () => {
       >
         <h1 style={{ textAlign: "center", color: theme.userName  }}>Registrate</h1>
         <h5 style={{ textAlign: "center", color: theme.userName2 }}>
-          Crea una cuenta con tu correo electrónico o con Google.
+          Crea una cuenta con tu correo electrónico.
         </h5>
-        <button className="boton-correoGoogle buttonGoogle">
-          Registrate con Google
-        </button>
-        <div>
-          <img className="google-icon" src={googleIcon} />
-        </div>
         <button
        style={boxStyleB} onMouseEnter={handleMouseEnterB}
        onMouseLeave={handleMouseLeaveB} 

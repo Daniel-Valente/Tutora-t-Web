@@ -235,15 +235,8 @@ const Login = () => {
       <Modal active={loginModal} toggle={isLoginModal} dispatch={dispatch}>
         <h1 style={{ textAlign: "center", color:theme.userName }}>Bienvenido de vuelta!</h1>
         <h5 style={{ textAlign: "center", color: theme.userName2 }}>
-          Inicia sesion con tu correo electrónico o con Google.
+          Inicia sesion con tu correo electrónico.
         </h5>
-        <button className="boton-correoGoogle buttonGoogle">
-          Ingresa con Google
-        </button>
-        <div>
-          <img className="google-icon" src={googleIcon} />
-        </div>
-        <br/>
         <button style={boxStyleB} onMouseEnter={handleMouseEnterB}
        onMouseLeave={handleMouseLeaveB}  className="boton-correoLogin button1" onClick={() => isLoginWithEmail(dispatch, loginWitnEmail)}>
           Ingresa con correo electronico
