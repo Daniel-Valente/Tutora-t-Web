@@ -78,6 +78,7 @@ const Register = () => {
             type: "success",
           })
         );
+        
         dispatch(userInfo(data));
         dispatch(isRegisterState(true));
         isLogIn(dispatch);

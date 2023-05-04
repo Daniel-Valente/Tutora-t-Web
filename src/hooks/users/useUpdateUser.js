@@ -13,11 +13,14 @@ const updateUser = async (user) => {
     formData.append('username',username);
     formData.append('carrera',carrera);
 
-    return await httpClient.put(`/users/${ uid_user }`, formData, {
+    const { data } = await httpClient.put(`/users/${ uid_user }`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }
     });
+
+    const node = { uid_user: data._id, ...data };
+    return node;
 }
 
 export const useUpdateUser = () => {
