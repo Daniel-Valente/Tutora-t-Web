@@ -29,7 +29,7 @@ const CardUsers = ({ user, searchText = '', action }) => {
                         src={`${user.imgUrl ? user.imgUrl : userImg}`}
                         alt={user.username} /> 
                     </div>
-                    <div style={{background:theme.header, float:'left', color:'#000', paddingTop:'20px', paddingBottom:'5px'}}>
+                    <div style={{background:theme.header, float:'left', color:'#000', paddingTop:'20px', paddingBottom:'5px', color: theme.userName}}>
                         <b>{user.name}</b>
                     </div>
                     
