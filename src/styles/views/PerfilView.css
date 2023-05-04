@@ -326,8 +326,9 @@ input[type="file"]::-webkit-file-upload-button {
   left: 56vh;
   position: absolute;
 }
+
 .upload-course2 {
-  bottom: 25vh;
+  bottom: 20vh;
   left: 18vh;
   position: absolute;
 }

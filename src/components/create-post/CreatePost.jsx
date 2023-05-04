@@ -128,7 +128,7 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
     control: (base, state) => ({
       ...base,
       
-      background:theme.header, position:'relative', top:'-6rem', width:'17rem',
+      background:theme.header, position:'relative', top:'-5.5rem', width:'17rem',
       border:'none',
       height: '50px',
       color: state.isFocused ? '#000' : theme.userName,
