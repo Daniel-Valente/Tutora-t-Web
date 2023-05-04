@@ -218,6 +218,20 @@ const CourseView = () => {
       padding: 0
     })
   }
+  const [isHoverBR, setIsHoverBR] = useState(false);
+
+   const handleMouseEnterBR = () => {
+      setIsHoverBR(true);
+   };
+   const handleMouseLeaveBR = () => {
+      setIsHoverBR(false);
+   };
+
+   const boxStyleBR = {
+     backgroundColor: isHoverBR ? theme.linkColor : theme.background,
+     color: isHoverBR ? '#fff' : '#2bc6ff',
+     transition: 'all 0.10s ease',
+   };
 
 
   return (
@@ -226,7 +240,7 @@ const CourseView = () => {
         <img className="fondo"
           src={course.imgUrl}
           alt={'user-portada'} />
-        <label style={{ textAlign: 'left', marginTop: '5%', marginLeft: '27%', fontSize: '300%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+        <label style={{ textAlign: 'left', position:'absolute', top: '500px', marginLeft: '38%', fontSize: '300%', fontFamily:'sans-serif', color: theme.userName }}>
           {course.title}
         </label>
         <br />
@@ -235,7 +249,8 @@ const CourseView = () => {
           <div className='col-2' style={{ marginLeft: '3%' }}>
             {
               userInfo.uid_user !== course.uid_user &&
-              <button className={`${dataUserRegister ? 'button-left' : 'button-join'}`} onClick={handleRegister}>
+              <button onMouseEnter={handleMouseEnterBR}
+              onMouseLeave={handleMouseLeaveBR} style={boxStyleBR} className={`${dataUserRegister ? 'button-left' : 'button-join'}`} onClick={handleRegister}>
                 {dataUserRegister ? 'Salirse' : 'Unirse'}
               </button>
             }
@@ -251,8 +266,8 @@ const CourseView = () => {
         </div>
       </div>
       <div className='row'>
-        <div className='col-2'>
-          <label style={{ textAlign: 'left', marginLeft: '1%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+        <div style={{color:theme.userName2}} className='col-2'>
+          <label style={{ textAlign: 'left', marginLeft: '1%', fontSize: '150%', fontFamily:'sans-serif', color:theme.userName }}>
             <b>Información</b>
           </label>
           <br />
@@ -275,7 +290,7 @@ const CourseView = () => {
           }
         </div>
         <div className='col-2'>
-          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>
+          <label style={{ textAlign: 'left', marginLeft: '3%', fontSize: '150%', fontFamily:'sans-serif', color: theme.userName }}>
             <b>Participantes</b>
           </label>
           <div className='row'>

@@ -48,36 +48,36 @@ export const ValidateData = (target, value) => {
                 const regexUsername = new RegExp('^[A-Za-z0-9]{3,16}$');
                 return {
                     confirm: regexUsername.test(target.value),
-                    errorMessage: `Username should be 3-16 characters and shouldn't include any special character!`
+                    errorMessage: `El nombre de usuario debe de ser de 3-16 caracteres  y no debe de contener ningun caracter especial!`
                 }
             case 'nombre':
                 const regexName = new RegExp('^[A-Za-z]');
                 return {
                     confirm: regexName.test(target.value),
-                    errorMessage: `Name shouldn't include any special character and number!`
+                    errorMessage: `El nombre no debe de incluir ningun caracter especial o numero!`
                 }
             case 'email':
                 const regexEmail = new RegExp(`^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`);
                 return {
                     confirm: regexEmail.test(target.value),
-                    errorMessage: `It should be a valid email address!`
+                    errorMessage: `Debe de ser un email valido!`
                 }
             case 'telefono':
                 const regexPhone = new RegExp('^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$');
                 return {
                     confirm: regexPhone.test(target.value),
-                    errorMessage: `Phone number should be 10 number and area code ('+'), shouldn't include any other special character and normal character!`
+                    errorMessage: `El numero de celular debe de ser de 10 numeros y el codigo de area ('+'), no debe de incluir ningun otro caracter especial!`
                 }
             case 'password':
                 const regexPassword = new RegExp('^[a-zA-Z0-9!@#$%^&*]');
                 return {
                     confirm: regexPassword.test(target.value),
-                    errorMessage: `Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!`
+                    errorMessage: `La contraseña debe de contener 8-20 caracteres e incluir al menos 1 letra, 1 numero y 1 caracter especial!`
                 }
             case 'confirmPassword':
                 return {
                     confirm: value.password === value.confirmPassword,
-                    errorMessage: `Passwords don't match!`
+                    errorMessage: `Las contraseñas no coinciden!`
                 }
             default:
                 return {
