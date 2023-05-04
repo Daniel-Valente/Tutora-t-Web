@@ -110,6 +110,25 @@
   cursor: not-allowed;
 }
 
+.format-time-chat {
+  font-size: 10px;
+}
+
+.format-hours-list {
+  font-size: 13px;
+  position: absolute;
+  left: 80%;
+  top: 35%;
+}
+
+.format-hours {
+  font-size: 13px;
+  position: absolute;
+  left: 75%;
+  top: 35%;
+
+}
+
 .parrafo-message {
   max-width: 500px;
   margin-bottom: 12px;

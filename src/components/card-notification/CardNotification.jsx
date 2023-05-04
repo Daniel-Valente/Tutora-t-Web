@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-import { isNotificationModal } from '../../helpers/utils';
+import { isNotificationModal, timeSince } from '../../helpers/utils';
 import { useCourseById, useLikesList, usePostById, useUserById } from '../../hooks';
 import { useTheme } from 'styled-components';
+import { user } from '../../images';
 
 const CardNotification = ({ notification = [], notificationModal = false }) => {
     const location = useLocation();
@@ -15,17 +16,18 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
     const [userReaction, setUserReaction] = useState(dataUserReaction);
 
 
-    const { data: dataPost = [], isFetching: fetchingPost } = usePostById(notification.type === 'like' || notification.type === 'comment' ? notification.id_action : null);
+    const { data: dataPost = [], isFetching: fetchingPost, isLoading: loadingPost } = usePostById(notification.type === 'like' || notification.type === 'comment' ? notification.id_action : null);
     const [post, setPost] = useState(dataPost);
 
     const { data: dataUserPost = [], isFetching: fetchingUserPost } = useUserById(post.uid_user);
     const [userPost, setUserPost] = useState(dataUserPost);
 
-    const { data: dataLikeList = [], isFetching: fetchingLike  } = useLikesList(post._id);
+    const { data: dataLikeList = [], isFetching: fetchingLike } = useLikesList(post._id);
     const [likes, setLikes] = useState(dataLikeList);
 
     const { data: dataCourse = [], isFetching: fetchingCourse } = useCourseById(notification.type === 'course' || notification.type === 'inscription' ? notification.id_action : null);
     const [course, setCourse] = useState(dataCourse);
+    const formatDate = () => new Date(notification.createdAt);
 
     const closeModal = () => {
         isNotificationModal(dispatch, notificationModal);
@@ -115,9 +117,10 @@ const CardNotification = ({ notification = [], notificationModal = false }) => {
                     </Link>
                 }
             </div>
-           
-        </div>
-    )
+            </div>
+        )
+        
+    
 }
 
 export default CardNotification;

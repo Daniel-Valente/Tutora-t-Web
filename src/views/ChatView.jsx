@@ -23,7 +23,7 @@ const ChatView = () => {
 
   const [formValue, setFormValue] = useState("");
 
-  const submitHandle = () => {
+  const sendMessageHandler = () => {
     const messages = {
       uid_user,
       uid_userChat,
@@ -32,10 +32,13 @@ const ChatView = () => {
     sendMessage(messages, {
       onSuccess: (response) => {
         console.log(response);
+        setFormValue("");
       }
     });
-    setFormValue("");
   }
+
+  const submitHandler = ( event ) => 
+    event.code === 'Enter' && sendMessageHandler()
 
   useEffect(() => {
     setChatMessage(dataChat);
@@ -78,6 +81,7 @@ const ChatView = () => {
               style={{background:theme.background, color: theme.userName}}
               className="input-message-chat"
               value={formValue}
+              onKeyUp={ submitHandler }
               onChange={(e) => setFormValue(e.target.value)}
               placeholder="treat people with kindness"
             />
@@ -85,7 +89,7 @@ const ChatView = () => {
             <button
               className="form-button-message-chat send-button-message-chat"
               type="submit"
-              onClick={submitHandle}
+              onClick={sendMessageHandler}
               disabled={!formValue}
             >
               🕊️

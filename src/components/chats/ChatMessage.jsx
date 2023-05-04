@@ -7,11 +7,14 @@ import { useTheme } from 'styled-components';
 
 const ChatMessage = (props) => {
     const { userChat, chat } = props;
-    const { message, uid_user } = chat;
+    const { message, uid_user, createdAt } = chat;
     
     const userInfo = useSelector(state => state.user);
     const messageClass = uid_user === userInfo.uid_user ? 'sent' : 'received';
     const theme = useTheme();
+
+    const formatDate = () => new Date(createdAt).toLocaleTimeString();
+
     return (
         <div className={`message ${messageClass}`}>
             <Link to={`/perfil/${ uid_user === userInfo.uid_user ? uid_user : userChat.uid_user }`} style={{ textDecoration: 'none' }}>
@@ -24,7 +27,7 @@ const ChatMessage = (props) => {
                 alt={'user-chat'}/>
               </div>
             </Link>
-            <p style={{color:theme.userName}} className='parrafo-message'>{message}</p>
+            <p style={{color:theme.userName}} className='parrafo-message'>{message}<span className='format-time-chat'> { formatDate() }</span></p>
         </div>
     )
 }
