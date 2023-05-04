@@ -7,7 +7,8 @@ const addUser = async (user) => {
         'Content-Type': 'application/json'
     });
 
-    const node = { user_uid: data._id, ...data };
+    const { newUser } = data;
+    const node = { uid_user: newUser._id, ...newUser };
 
     return node;
 }

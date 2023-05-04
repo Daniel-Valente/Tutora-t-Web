@@ -26,6 +26,10 @@ const SettingsView = () => {
     username: userInfoPerfil.username,
     carrera: userInfoPerfil.career
   });
+
+  const [imagePerfilPreview, setImagePerfilPreview] = useState('');
+  const [imagePortadaPreview, setImagePortadaPreview] = useState('');
+
   const [images, setImages] = useState({ imgName: '', imgPortadaName: '' });
   const [ disableSave, setDisableSave ] = useState(true);
   const [options, setOptions] = useState('Cuenta');
@@ -37,6 +41,9 @@ const SettingsView = () => {
 
   const onChange = (e) => {
     if (e.target.files) {
+      e.target.name === 'imgName' && setImagePerfilPreview(URL.createObjectURL(e.target.files[0]));
+      e.target.name === 'imgPortadaName' && setImagePortadaPreview(URL.createObjectURL(e.target.files[0]));
+
       setImages({ ...images, [e.target.name]: e.target.files[0].name });
       setConfigValue({ ...configValue, [e.target.name]: e.target.files[0] });
     }
@@ -94,7 +101,11 @@ const SettingsView = () => {
 
     updateUser(configValue, {
       onSuccess: (data) => {
+        setImagePerfilPreview('');
+        setImagePortadaPreview('');
+
         dispatch(userInfo(data));
+        
         window.location.href = "/home";
       },
       onError: (response) => {
@@ -142,13 +153,13 @@ const SettingsView = () => {
                   <b>Imagen de perfil</b>
                 </p>
                 <img className="icon-perfil-setting"
-                  src={`${userInfoPerfil.imgUrl ? userInfoPerfil.imgUrl : perfilUsuarioGrande}`}
+                  src={`${ imagePerfilPreview ? imagePerfilPreview : userInfoPerfil.imgUrl ? userInfoPerfil.imgUrl : perfilUsuarioGrande}`}
                   alt={userInfoPerfil.username} />
                 <p>
                   <b>Imagen de portada</b>
                 </p>
                 <img className="circular-portada"
-                  src={`${userInfoPerfil.imgPortadaUrl ? userInfoPerfil.imgPortadaUrl : fondo}`}
+                  src={`${ imagePortadaPreview ? imagePortadaPreview : userInfoPerfil.imgPortadaUrl ? userInfoPerfil.imgPortadaUrl : fondo}`}
                   alt={userInfoPerfil.username} />
               </div>
               <div className="col-4">
