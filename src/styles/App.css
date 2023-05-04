@@ -98,6 +98,15 @@ textarea:focus {
   left:20px;
   top:2rem;
 }
+.icon-user-nn-2 {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  border-radius: 50%;
+  position: relative;
+  left:20px;
+  top:-.5rem;
+}
 
 .icon-user-3 {
   width: 30px;
