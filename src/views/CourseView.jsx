@@ -181,10 +181,11 @@ const CourseView = () => {
   const customStyles = {
     singleValue: (base, state) => ({
       ...base,
-      color: theme.userName,
+      color: state.isFocused ? '#000' : theme.userName,
     }),
     option: (base, state) => ({
       ...base,
+      color: state.isFocused ? '#000' : theme.userName, 
       background: state.isFocused ? '#ededed' : '',
     }),
     control: (base, state) => ({
@@ -192,9 +193,10 @@ const CourseView = () => {
       
       background:theme.header,
       height: '50px',
+      color: state.isFocused ? '#000' : theme.userName,
       // match with the menu
-      marginTop:'5px',
       borderRadius:  "10px",
+      
       // Overwrittes the different states of border
       borderColor: state.isFocused ?  theme.userName : theme.userName,
       // Removes weird border around container
@@ -204,18 +206,22 @@ const CourseView = () => {
         borderColor: state.isFocused ? theme.userName : theme.userName
       }
     }),
-    menu: (base) => ({
+    menu: (base,state) => ({
       ...base,
       
       // override border radius to match the box
       borderRadius: 0,
+      color: state.isFocused ? '#000' : theme.userName,
       // kill the gap
-      marginTop: 0
+      marginTop: 0,
     }),
-    menuList: (base) => ({
+    menuList: (base,state) => ({
       ...base,
       // kill the white space on first and last option
-      padding: 0
+      padding: 0,
+      color: state.isFocused ? '#000' : theme.userName,
+      borderRadius:'5px',
+      background:theme.header,
     })
   }
   const [isHoverBR, setIsHoverBR] = useState(false);
@@ -330,9 +336,9 @@ const CourseView = () => {
       </div>
 
       <CourseModal active={editPublicationModal} toggle={isEditPublicationModal} dispatch={dispatch} toggleLock={toggle}>
-        <h2 style={{ textAlign: 'center', fontSize: '150%', fontFamily:'sans-serif', color: '#6b6b6b' }}>Editar curso</h2>
-        <input className='title-course-3' type="text" placeholder='Titulo' name='title' value={editCourse.title} onChange={handleChange} />
-        <input className='site-course' type="text" name="site" placeholder='Lugar' value={editCourse.site} onChange={handleChange} />
+        <h2 style={{ textAlign: 'center', fontSize: '150%', fontFamily:'sans-serif', color:theme.userName }}>Editar curso</h2>
+        <input style={{background:theme.header, color:theme.userName}} className='title-course-3' type="text" placeholder='Titulo' name='title' value={editCourse.title} onChange={handleChange} />
+        <input style={{background:theme.header, color:theme.userName}} className='site-course' type="text" name="site" placeholder='Lugar' value={editCourse.site} onChange={handleChange} />
         <Select 
         styles={customStyles}
         className='visible-course'
@@ -342,13 +348,13 @@ const CourseView = () => {
           options={privacidad}
           onChange={handleChange}
         />
-        <textarea className='inp' style={{borderRadius:'20px', width:'1200px', marginLeft:'20px'}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={editCourse.description} onChange={handleChange}></textarea>
+        <textarea className='inp' style={{ background:theme.header, color:theme.userName, padding: '15px',borderRadius:'20px', width:'1200px', marginLeft:'20px', marginRight:'20px'}} placeholder={`¿Que tienes en mente  ${userInfo.name}?...`} name='description' value={editCourse.description} onChange={handleChange}></textarea>
         <div className='row'>
           <div className='col-4'>
-            <input type="text" placeholder='Días' name='dates' value={editCourse.dates} onChange={handleChange} />
+            <input style={{background:theme.header, color:theme.userName}} type="text" placeholder='Días' name='dates' value={editCourse.dates} onChange={handleChange} />
           </div>
           <div className='col-4'>
-            <input type="text" placeholder='Horario' name='hours' value={editCourse.hours} onChange={handleChange} />
+            <input style={{background:theme.header, color:theme.userName}} type="text" placeholder='Horario' name='hours' value={editCourse.hours} onChange={handleChange} />
           </div>
           <div className='col-2'>
             <Select
@@ -362,7 +368,7 @@ const CourseView = () => {
           </div>
         </div>
         <div className='upload-course'>
-          <div className="upload-btn-wrapper" onChange={handleChange}>
+          <div className="upload-btn-wrapper-gogo" onChange={handleChange}>
             <button className="boton-standar-rw">
               Carga un archivo
             </button>

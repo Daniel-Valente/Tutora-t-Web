@@ -31,6 +31,11 @@
     border: 3px dotted #a2a2a2;
     z-index: -1;
 }
+.upload-image-post-n {
+    height: 240px;
+    position: relative;
+    top: -6.5rem;
+}
 
 .image-post {
     height: 100%;
@@ -46,7 +51,7 @@
 }
 .send-post2 {
     width: 25px;
-    top: 1vh;
-    left: 71vh;
+    top: -8.5vh;
+    left: 70vh;
     position: relative;
 }
