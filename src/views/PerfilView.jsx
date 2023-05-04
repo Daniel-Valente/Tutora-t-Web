@@ -595,7 +595,7 @@ const PerfilView = () => {
                     <img className='icon-user-nn'
                             src={userInfoPerfil.imgName ? userInfoPerfil.imgUrl : user}
                             alt={userInfoPerfil.username} />
-                      <h4 style={{color:theme.userName, position:'relative', left: '20px', top:'-1rem', paddingLeft: '60px', fontSize: '18px'}}>
+                      <h4 style={{color:theme.userName, position:'relative', left: '20px', top:'-2rem', paddingLeft: '60px', fontSize: '18px'}}>
                         {userInfoPerfil.name}
                       </h4>
                       
