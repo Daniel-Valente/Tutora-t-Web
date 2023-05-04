@@ -250,7 +250,7 @@ const PerfilView = () => {
       color: state.isFocused ? '#000' : theme.userName,
       borderRadius:'5px',
       width:'17rem',
-      height:'17rem',
+      height:'14rem',
       background:theme.header,
       position:'relative',
       top:'-7rem'
@@ -601,7 +601,7 @@ const PerfilView = () => {
                       
                     </div>
                     <div style={{backgroundColor:theme.linea}} className='linea-acostada-cursoN' />
-                    <textarea className='inp' style={{fontSize: '16px', marginLeft: '30px', border:'none', width: '300px' ,position:'relative', top:'-2rem', paddingLeft:'10px', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente,  ${userInfoPerfil.name}?`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
+                    <textarea className='inp' style={{fontSize: '16px', marginLeft: '30px', border:'none', width: '300px' ,position:'relative', top:'-2rem', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente,  ${userInfoPerfil.name}?`} name='description' value={newCourse.description} onChange={handleChange}></textarea>
                     <br/>
                     <input style={{ border:'none',background: theme.header, color: theme.userName, position:'relative', top:'-2.7rem', width:'15rem' }} className='title-course2' type="text" placeholder='Titulo' name='title' value={newCourse.title} onChange={handleChange} />
                     <br/>

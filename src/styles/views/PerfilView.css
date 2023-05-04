@@ -52,7 +52,6 @@ input[type="file"]::-webkit-file-upload-button {
 .upload-btn-wrapper {
   position: relative;
   display: inline-block;
-  background-color: #1492e6;
 }
 /* ESTILO DEL INPUT*/
 .upload-btn-wrapper input[type="file"] {
@@ -60,8 +59,88 @@ input[type="file"]::-webkit-file-upload-button {
   position: absolute;
   left: 0;
   top: 0;
+  opacity: 1;
+  background-color: #000000;
+}
+.upload-btn-wrapper3 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper3 input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  background-color: #000000;
+}
+.boton-standar-rw3-1:hover{
+  color:#1492e6;
+}
+.boton-standar-rw3-4:hover{
+  color:#1492e6;
+}
+.upload-btn-wrapper3-1 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper3-1 input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  width: 8rem;
+  height:2rem;
+  left: -24.5rem;
+  top: 8rem;
   opacity: 0;
   background-color: #000000;
+}
+.upload-btn-wrapper3-4 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper3-4 input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  width: 9rem;
+  height:2rem;
+  left: -25rem;
+  top: 3rem;
+  opacity: 0;
+  background-color: #000000;
+}
+.upload-btn-wrapper4 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper4 input[type="file"] {
+  font-size: 100px;
+  height: 180px;
+  width: 180px;
+  border-radius: 90px;
+  position: absolute;
+  left: -25.7rem;
+  background-color: #FF0096;
+  top: -12.3rem;
+  opacity: 0;
+}
+.upload-btn-wrapper4-1 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper4-1 input[type="file"] {
+  font-size: 100px;
+  height: 144px;
+  width: 265px;
+  position: absolute;
+  left: -28.8rem;
+  background-color: #FF0096;
+  top: -14.8rem;
+  opacity: 0;
 }
 .upload-btn-wrapper2 {
   position: relative;
@@ -87,6 +166,53 @@ input[type="file"]::-webkit-file-upload-button {
   line-height: 15px;
   transition: all 0.3s ease 0s;
   width: 12em;
+  padding: 10px;
+}
+.boton-standar-rw3 {
+  margin: 5px;
+  background-color: #ffffff;
+  color: rgb(139, 139, 139);
+  border-radius: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 15px;
+  border:none;
+  transition: all 0.3s ease 0s;
+  width: 20em;
+  padding: 10px;
+}
+.boton-standar-rw3-1 {
+  margin: 5px;
+  background-color: #ffffff00;
+  color: #FF0096;
+  border-radius: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 15px;
+  border:none;
+  top:8.5rem;
+  left:-28rem;
+  position: relative;
+
+  transition: all 0.3s ease 0s;
+  width: 20em;
+  padding: 10px;
+}
+.boton-standar-rw3-4 {
+  margin: 5px;
+  background-color: #ffffff00;
+  color: #FF0096;
+  border-radius: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 15px;
+  border:none;
+  top:4rem;
+  left:-28rem;
+  position: relative;
+
+  transition: all 0.3s ease 0s;
+  width: 20em;
   padding: 10px;
 }
 .boton-standar-rw2 {
@@ -119,7 +245,7 @@ input[type="file"]::-webkit-file-upload-button {
   position: relative;
   background-color: #d4d4d4;
   height: 1px;
-  top:7rem;
+  top:8rem;
 }
 .linea-acostada-cursoN2{
   width: 100%;
@@ -170,9 +296,9 @@ input[type="file"]::-webkit-file-upload-button {
   z-index: -1;
 }
 .upload-image-course-2 {
-  height: 590px;
+  height: 597px;
   position: relative;
-  top:-25px;
+  top:-40px;
 }
 
 .image-course {

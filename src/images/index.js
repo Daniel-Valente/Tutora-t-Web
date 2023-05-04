@@ -16,6 +16,8 @@ export { default as user } from './user.png';
 export { default as userB } from './userBlanco.png';
 export { default as fondo } from './fondo.png';
 export { default as fondo2 } from './fondo-2.png';
+export { default as fondo2C } from './fondo2-claro.png';
+export { default as fondo2B } from './fondo2-obscuro.png';
 export { default as fondo2Claro } from './fondo2.png';
 export { default as fondoD } from './fondoD.png';
 export { default as imagen1 } from './Imagen1.png';

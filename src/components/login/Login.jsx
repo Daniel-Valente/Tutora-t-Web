@@ -242,6 +242,7 @@ const Login = () => {
           Ingresa con correo electronico
         </button>
         <br />
+        <br/>
         <p  style={{ textAlign: "center", color: theme.userName2 }} className="aviso-privacidad">
           Al continuar, tu estas aceptas los términos y condiciones
           <br />y el aviso de privacidad.
