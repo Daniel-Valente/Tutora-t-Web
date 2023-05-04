@@ -9,7 +9,7 @@ import { alertState, userInfo } from "../reducers";
 import { Loader } from "../components/loader/Loader";
 import { store } from "../store";
 import { useTheme } from "styled-components";
-import { fondoD } from "../images";
+import { fondoD, fondo2B, fondo2C } from "../images";
 
 const SettingsView = () => {
   const { mutate: updateUser } = useUpdateUser();
@@ -27,6 +27,10 @@ const SettingsView = () => {
     username: userInfoPerfil.username,
     carrera: userInfoPerfil.career
   });
+
+  const [imagePerfilPreview, setImagePerfilPreview] = useState('');
+  const [imagePortadaPreview, setImagePortadaPreview] = useState('');
+
   const [images, setImages] = useState({ imgName: '', imgPortadaName: '' });
   const [ disableSave, setDisableSave ] = useState(true);
   const [options, setOptions] = useState('Cuenta');
@@ -38,6 +42,9 @@ const SettingsView = () => {
 
   const onChange = (e) => {
     if (e.target.files) {
+      e.target.name === 'imgName' && setImagePerfilPreview(URL.createObjectURL(e.target.files[0]));
+      e.target.name === 'imgPortadaName' && setImagePortadaPreview(URL.createObjectURL(e.target.files[0]));
+
       setImages({ ...images, [e.target.name]: e.target.files[0].name });
       setConfigValue({ ...configValue, [e.target.name]: e.target.files[0] });
     }
@@ -57,7 +64,7 @@ const SettingsView = () => {
     control: (base, state) => ({
       ...base,
       
-      background:theme.header,
+      background:theme.background,
       height: '50px',
       // match with the menu
       marginTop:'5px',
@@ -95,7 +102,11 @@ const SettingsView = () => {
 
     updateUser(configValue, {
       onSuccess: (data) => {
+        setImagePerfilPreview('');
+        setImagePortadaPreview('');
+
         dispatch(userInfo(data));
+        
         window.location.href = "/home";
       },
       onError: (response) => {
@@ -139,31 +150,29 @@ const SettingsView = () => {
             <div className="row">
               <div style={{color:theme.userName}} className="col-3">
                 <img className="icon-perfil-setting"
-                  src={`${userInfoPerfil.imgUrl ? userInfoPerfil.imgUrl : perfilUsuarioGrande}`}
+                  src={`${ imagePerfilPreview ? imagePerfilPreview : userInfoPerfil.imgUrl ? userInfoPerfil.imgUrl : perfilUsuarioGrande}`}
                   alt={userInfoPerfil.username} />
-                <p style={{marginLeft:'60px'}}>
-                  <b>Foto de perfil</b>
-                </p>
+                <br/>
+                <br/>
+                <br/>
                 <br/>
                 <img style={{marginLeft:'-50px'}} className="circular-portada"
-                  src={`${userInfoPerfil.imgPortadaUrl ? userInfoPerfil.imgPortadaUrl : fondoD}`}
+                  src={`${ imagePortadaPreview ? imagePortadaPreview : userInfoPerfil.imgPortadaUrl ? userInfoPerfil.imgPortadaUrl : theme.status === 'dark' ? fondo2B :fondo2C}`}
                   alt={userInfoPerfil.username} />
-                  <p style={{marginLeft:'60px'}}>
-                  <b>Portada</b>
-                </p>
+                  
               </div>
               <div className="col-4">
                 <br /><br /><br />
                 <div 
-                  className="upload-btn-wrapper3 "
+                  className="upload-btn-wrapper3-1 "
                   onChange={onChange} 
                   onFocus={ () => setDisableSave(false) }>
-                  <button className="boton-standar-rw3" style={{ marginLeft: "7%" }}>
+                  <button className="boton-standar-rw3-1" style={{ marginLeft: "7%" }}>
                     Cambiar foto de perfil
                   </button>
                   <br />
                   <br />
-                  <input type="text" readOnly value={images.imgName} />
+                  <input style={{opacity:0}} type="text" readOnly value={images.imgName} />
                   <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
                 </div>
                 <div 
@@ -174,18 +183,25 @@ const SettingsView = () => {
                   <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
                 </div>
                 <div
-                  className="upload-btn-wrapper3 "
+                  className="upload-btn-wrapper3-4 "
                   onChange={onChange}
                   onFocus={ () => setDisableSave(false) }
                   style={{ marginTop: "24%" }}
                 >
-                  <button className="boton-standar-rw3" style={{ marginLeft: "7%" }}>
+                  <button className="boton-standar-rw3-4" style={{ marginLeft: "7%" }}>
                     Cambiar foto de portada
                   </button>
                   <br />
                   <br />
-                  <input  type="text" readOnly value={images.imgPortadaName} />
+                  <input style={{opacity:0}}  type="text" readOnly value={images.imgPortadaName} />
                   <input className="upload-file-buton" name="imgPortadaName" type="file" accept="image/*" />
+                </div>
+                <div 
+                  className="upload-btn-wrapper4-1 "
+                  onChange={onChange} 
+                  onFocus={ () => setDisableSave(false) }>
+                  <input style={{opacity: 0}} type="text" readOnly value={images.imgName} />
+                  <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
                 </div>
 
               </div>
@@ -203,7 +219,7 @@ const SettingsView = () => {
                 </div>
                 <div className="col-1">
                 <input
-                  style={{background:theme.header, color: theme.userName}}
+                  style={{background:theme.background, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="text"
@@ -212,7 +228,7 @@ const SettingsView = () => {
                   value={configValue.nombre}
                 />
                 <input
-                  style={{background:theme.header, color: theme.userName}}
+                  style={{background:theme.background, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="text"
@@ -221,7 +237,7 @@ const SettingsView = () => {
                   value={configValue.username}
                 />
                 <input
-                  style={{background:theme.header, color: theme.userName}}
+                  style={{background:theme.background, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="text"
@@ -258,7 +274,7 @@ const SettingsView = () => {
               </div>
               <div className="col-1">
               <input
-                  style={{ borderRadius:'5px', background:theme.header, color: theme.userName}}
+                  style={{ borderRadius:'5px', background:theme.background, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="password"
@@ -267,7 +283,7 @@ const SettingsView = () => {
                   value={configValue.passwordA}
                 />
                 <input
-                  style={{ borderRadius:'5px',background:theme.header, color: theme.userName}}
+                  style={{ borderRadius:'5px',background:theme.background, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="password"
