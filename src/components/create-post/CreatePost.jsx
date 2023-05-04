@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
-import { fondo, send, user } from '../../images';
+import { fondo, fondo2, fondo2B, fondo2C, fondoD, send, user } from '../../images';
 import { handleMouseEnter, isPublicationModal } from '../../helpers/utils';
 import PublicationModal from '../modals/PublicationModal';
 import { useAddPost, useBodyScrollLock, useCareerList } from '../../hooks';
@@ -118,20 +118,25 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
   const customStyles = {
     singleValue: (base, state) => ({
       ...base,
-      color: theme.userName,
+      color: state.isFocused ? '#000' : theme.userName,
     }),
     option: (base, state) => ({
       ...base,
+      color: state.isFocused ? '#000' : theme.userName, 
       background: state.isFocused ? '#ededed' : '',
     }),
     control: (base, state) => ({
       ...base,
       
-      background:theme.header,
+      background:theme.header, position:'relative', top:'-6rem', width:'17rem',
+      border:'none',
       height: '50px',
+      color: state.isFocused ? '#000' : theme.userName,
       // match with the menu
-      marginTop:'5px',
+      left: '1.5rem',
+      paddingLeft:'1.5rem',
       borderRadius:  "10px",
+      
       // Overwrittes the different states of border
       borderColor: state.isFocused ?  theme.userName : theme.userName,
       // Removes weird border around container
@@ -141,18 +146,27 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
         borderColor: state.isFocused ? theme.userName : theme.userName
       }
     }),
-    menu: (base) => ({
+    menu: (base,state) => ({
       ...base,
       
       // override border radius to match the box
       borderRadius: 0,
+      color: state.isFocused ? '#000' : theme.userName,
       // kill the gap
-      marginTop: 0
+      marginTop: 0,
+      height:'0px',
     }),
-    menuList: (base) => ({
+    menuList: (base,state) => ({
       ...base,
       // kill the white space on first and last option
-      padding: 0
+      padding: 0,
+      color: state.isFocused ? '#000' : theme.userName,
+      borderRadius:'5px',
+      width:'17rem',
+      height:'14rem',
+      background:theme.header,
+      position:'relative',
+      top:'-7rem'
     })
   }
   const userInfoPerfil = useSelector(state => state.user);
@@ -181,22 +195,24 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
 
       <PublicationModal active={publicationModal} toggle={isPublicationModal} dispatch={dispatch} toggleLock={toggle}>
         <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color:theme.userName }}>Crear publicacion</h2>
-        <div style={{background:'orange'}} className='row'>
+        <div className='row'>
           <div className='icon-name-nn'>
-          <img className='icon-user-nn'
+          <img className='icon-user-nn-2'
                   src={userInfoPerfil.imgName ? userInfoPerfil.imgUrl : user}
                   alt={userInfoPerfil.username} />
-            <h4 style={{color:theme.userName, position:'relative', top:'-70px', paddingLeft: '60px', fontSize: '18px'}}>
+            <h4 style={{color:theme.userName, position:'relative', top:'-70px', paddingLeft: '70px', fontSize: '18px'}}>
               {userInfoPerfil.name}
             </h4>
             
           </div>
           <textarea className='inp' style={{fontSize: '16px', border:'none' ,position:'relative', top:'-60px', paddingLeft:'10px', paddingTop:'10px', background:theme.header, color: theme.userName}} placeholder={`¿Que tienes en mente,  ${userInfo.name}?`} name='description' value={newPost.description} onChange={handleChange}></textarea>
+          <div style={{backgroundColor:theme.linea, top:'-4rem'}} className='linea-acostada-cursoN' />
         </div>
         <div className='row'>
           <div className='col-6'>
-            <input style={{background:theme.header, color: theme.userName}} className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
+            <input style={{border:'none',background: theme.header, color: theme.userName, position:'relative',left:'-3rem', top:'-5.5rem', width:'20rem'}} className='title-post' type="text" placeholder='Titulo' name='title' value={newPost.title} onChange={handleChange} />
           </div>
+          <br/>
           <div className='col-4'>
             <Select 
               styles={customStyles}
@@ -209,19 +225,21 @@ const CreatePost = ({ isDisabled = false, value = '' }) => {
               onChange={handleChange}/>
           </div>
         </div>
+        <div style={{backgroundColor:theme.linea, top:'-6.5rem'}} className='linea-acostada-cursoN' />
         <br />
+        <div className='upload-image-post-n'>
+          <img src={imagePreview ? imagePreview : theme.status === 'dark' ? fondo2B :fondo2C} alt="" className='image-post' onChange={handleChange} />
+        </div>
         
-        <div className='upload-post'>
-          <div className="upload-btn-wrapper" onChange={handleChange}>
-            <button style={{backgroundColor:'pink'}} className="boton-standar-rw">
+        <div className='upload-course2'>
+          <div className="upload-btn-wrapper3-n" onChange={handleChange}>
+            <button  className="boton-standar-rw2-n">
               Carga un archivo
             </button>
             <input className="upload-file-buton" name="imgPost" type="file" accept="image/*" />
           </div>
         </div>
-        <div className='upload-image-post'>
-          <img src={imagePreview ? imagePreview : fondo} alt="" className='image-post' onChange={handleChange} />
-        </div>
+        
         <img className='send-post2' src={send} alt='send' onClick={handleSubmit} onMouseEnter={() => handleMouseEnter(dispatch)} />
       </PublicationModal>
       <Notification />
