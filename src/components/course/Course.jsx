@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePostsWithLimit, useUserById } from '../../hooks';
+import { useTheme } from 'styled-components';
 
 const Course = (props) => {
     const { course } = props;
@@ -21,6 +22,8 @@ const Course = (props) => {
         // eslint-disable-next-line
     }, [dataUserPost]);
 
+    const theme = useTheme();
+
     if ( loadingPostsWithLimit ) {
         return (
             <div className='spinner-container'>
@@ -36,8 +39,8 @@ const Course = (props) => {
         <>
             <div className='card'>
                 <img src={post.imgUrl} alt={dataUserPost.username} style={{ width: '100%' }} />
-                <div className='container'>
-                    <h4>Autor: <b>{dataUserPost.username}</b></h4>
+                <div className='container' style={{fontFamily:'sans-serif', fontSize:'16px', color:theme.userName2}}>
+                    <h4 >Autor: <b>{dataUserPost.username}</b></h4>
                     <p>
                         Tutoria: <br />
                         <Link to={`/course/${course._id}`}
