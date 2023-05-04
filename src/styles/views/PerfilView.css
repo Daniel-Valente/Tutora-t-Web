@@ -151,7 +151,7 @@ input[type="file"]::-webkit-file-upload-button {
   font-size: 100px;
   position: relative;
   left: -200px;
-  top: 18px;
+  top: 80px;
   width: 150px;
   opacity: 0;
 }
