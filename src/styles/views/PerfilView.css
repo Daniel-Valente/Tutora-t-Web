@@ -52,7 +52,6 @@ input[type="file"]::-webkit-file-upload-button {
 .upload-btn-wrapper {
   position: relative;
   display: inline-block;
-  background-color: #1492e6;
 }
 /* ESTILO DEL INPUT*/
 .upload-btn-wrapper input[type="file"] {
@@ -60,8 +59,37 @@ input[type="file"]::-webkit-file-upload-button {
   position: absolute;
   left: 0;
   top: 0;
-  opacity: 0;
+  opacity: 1;
   background-color: #000000;
+}
+.upload-btn-wrapper3 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper3 input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  background-color: #000000;
+}
+.upload-btn-wrapper4 {
+  position: relative;
+  display: inline-block;
+}
+/* ESTILO DEL INPUT*/
+.upload-btn-wrapper4 input[type="file"] {
+  font-size: 100px;
+  height: 180px;
+  width: 180px;
+  border-radius: 90px;
+  position: absolute;
+  left: -25.7rem;
+  background-color: #FF0096;
+  top: -12.3rem;
+  opacity: 0;
 }
 .upload-btn-wrapper2 {
   position: relative;
@@ -87,6 +115,19 @@ input[type="file"]::-webkit-file-upload-button {
   line-height: 15px;
   transition: all 0.3s ease 0s;
   width: 12em;
+  padding: 10px;
+}
+.boton-standar-rw3 {
+  margin: 5px;
+  background-color: #ffffff;
+  color: rgb(139, 139, 139);
+  border-radius: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 15px;
+  border:none;
+  transition: all 0.3s ease 0s;
+  width: 20em;
   padding: 10px;
 }
 .boton-standar-rw2 {

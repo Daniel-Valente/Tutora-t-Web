@@ -9,6 +9,7 @@ import { alertState, userInfo } from "../reducers";
 import { Loader } from "../components/loader/Loader";
 import { store } from "../store";
 import { useTheme } from "styled-components";
+import { fondoD } from "../images";
 
 const SettingsView = () => {
   const { mutate: updateUser } = useUpdateUser();
@@ -117,11 +118,10 @@ const SettingsView = () => {
     !fetchingCareersList && dataCareersList.length > 0 && setCareerList(dataCareersList);
     // eslint-disable-next-line
   }, [dataCareersList]);
-
   return (
     <div>
       <div style={{background:theme.linea}} className="linea-acostadaConfiguracion" />
-      <h1 style={{ marginLeft: "35%", color:theme.userName }}>Configuracion de la cuenta</h1>
+      <h1 style={{ textAlign:'center', color:theme.userName }}>{` ${options === 'Cuenta' ? 'Editar Perfil' : 'Configuracion de la cuenta'}`} </h1>
       <div className="row">
         <div className="col-1" />
         <div className="col-9 row">
@@ -138,41 +138,49 @@ const SettingsView = () => {
           <div className="col-9">
             <div className="row">
               <div style={{color:theme.userName}} className="col-3">
-                <p>
-                  <b>Imagen de perfil</b>
-                </p>
                 <img className="icon-perfil-setting"
                   src={`${userInfoPerfil.imgUrl ? userInfoPerfil.imgUrl : perfilUsuarioGrande}`}
                   alt={userInfoPerfil.username} />
-                <p>
-                  <b>Imagen de portada</b>
+                <p style={{marginLeft:'60px'}}>
+                  <b>Foto de perfil</b>
                 </p>
-                <img className="circular-portada"
-                  src={`${userInfoPerfil.imgPortadaUrl ? userInfoPerfil.imgPortadaUrl : fondo}`}
+                <br/>
+                <img style={{marginLeft:'-50px'}} className="circular-portada"
+                  src={`${userInfoPerfil.imgPortadaUrl ? userInfoPerfil.imgPortadaUrl : fondoD}`}
                   alt={userInfoPerfil.username} />
+                  <p style={{marginLeft:'60px'}}>
+                  <b>Portada</b>
+                </p>
               </div>
               <div className="col-4">
                 <br /><br /><br />
                 <div 
-                  className="upload-btn-wrapper "
+                  className="upload-btn-wrapper3 "
                   onChange={onChange} 
                   onFocus={ () => setDisableSave(false) }>
-                  <button className="boton-standar-rw" style={{ marginLeft: "7%" }}>
-                    Carga un archivo
+                  <button className="boton-standar-rw3" style={{ marginLeft: "7%" }}>
+                    Cambiar foto de perfil
                   </button>
                   <br />
                   <br />
                   <input type="text" readOnly value={images.imgName} />
                   <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
                 </div>
+                <div 
+                  className="upload-btn-wrapper4 "
+                  onChange={onChange} 
+                  onFocus={ () => setDisableSave(false) }>
+                  <input style={{opacity: 0}} type="text" readOnly value={images.imgName} />
+                  <input className="upload-file-buton" name="imgName" type="file" accept="image/*" />
+                </div>
                 <div
-                  className="upload-btn-wrapper "
+                  className="upload-btn-wrapper3 "
                   onChange={onChange}
                   onFocus={ () => setDisableSave(false) }
                   style={{ marginTop: "24%" }}
                 >
-                  <button className="boton-standar-rw" style={{ marginLeft: "7%" }}>
-                    Carga un archivo
+                  <button className="boton-standar-rw3" style={{ marginLeft: "7%" }}>
+                    Cambiar foto de portada
                   </button>
                   <br />
                   <br />
@@ -242,7 +250,7 @@ const SettingsView = () => {
           <div className="col-9">
             <div className="row">
               <div className="col-2">
-                <p>
+                <p style={{color:theme.userName}}>
                   <b>Contraseña anterior</b>
                   <br /><br /><br />
                   <b>Nueva contraseña</b>
@@ -250,6 +258,7 @@ const SettingsView = () => {
               </div>
               <div className="col-1">
               <input
+                  style={{ borderRadius:'5px', background:theme.header, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="password"
@@ -258,6 +267,7 @@ const SettingsView = () => {
                   value={configValue.passwordA}
                 />
                 <input
+                  style={{ borderRadius:'5px',background:theme.header, color: theme.userName}}
                   onFocus={ () => setDisableSave(false) }
                   onChange={onChange}
                   type="password"
