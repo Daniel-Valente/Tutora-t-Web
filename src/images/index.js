@@ -1,4 +1,5 @@
 export { default as CUCEI } from './CUCEI.png';
+export { default as CUCEIDARKS } from './CUCEIDARKS.png';
 export { default as exit } from './exit.png';
 export { default as exitBlack } from './exitBlack.png';
 export { default as eye } from './eye.png';
@@ -12,10 +13,28 @@ export { default as settings } from './settings.png';
 export { default as settingsBlack } from './settingsBlack.png';
 export { default as star } from './star.png';
 export { default as user } from './user.png';
+export { default as userB } from './userBlanco.png';
 export { default as fondo } from './fondo.png';
+export { default as fondo2 } from './fondo-2.png';
+export { default as fondo2C } from './fondo2-claro.png';
+export { default as fondo2B } from './fondo2-obscuro.png';
+export { default as fondo2Claro } from './fondo2.png';
+export { default as fondoD } from './fondoD.png';
 export { default as imagen1 } from './Imagen1.png';
 export { default as starSinF } from './starSinF.png';
-export { default as newButtton } from './new.png'
-export { default as newFocus } from './new-focus.png'
-export { default as allPosts } from './allPosts.png'
-export { default as save } from './save.png'
+export { default as newButtton } from './new.png';
+export { default as newFocus } from './new-focus.png';
+export { default as allPosts } from './allPosts.png';
+export { default as save } from './save.png';
+export { default as apple } from './apple.png';
+export {default as appleBlanca } from './apple-blanca.png';
+export {default as ingenierias} from './ingenierias.png';
+export {default as ingenieriasBlanca} from './ingenierias-blanco.png';
+export {default as compu} from './computer.png';
+export {default as compuBlanca} from './computer-blanco.png';
+export {default as mensaje} from './mensaje.png';
+export {default as perfilUsuarioGrande} from './user-perfil-grande.png';
+export {default as addTuto} from './add.png';
+export {default as appleNegra} from './appleNegra.png';
+export {default as computerNegra} from './computerNegra.png';
+export {default as ingenieriasNegra} from './ingenieriasNegra.png';

@@ -5,6 +5,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { useAddChatToUser, useChatsListToUser, useUserById } from "../hooks";
 
 import ChatMessage from "../components/chats/ChatMessage";
+import { useTheme } from "styled-components";
 
 const ChatView = () => {
   const { uid_user, uid_userChat } = useParams();
@@ -22,7 +23,7 @@ const ChatView = () => {
 
   const [formValue, setFormValue] = useState("");
 
-  const submitHandle = () => {
+  const sendMessageHandler = () => {
     const messages = {
       uid_user,
       uid_userChat,
@@ -31,10 +32,13 @@ const ChatView = () => {
     sendMessage(messages, {
       onSuccess: (response) => {
         console.log(response);
+        setFormValue("");
       }
     });
-    setFormValue("");
   }
+
+  const submitHandler = ( event ) => 
+    event.code === 'Enter' && sendMessageHandler()
 
   useEffect(() => {
     setChatMessage(dataChat);
@@ -49,22 +53,23 @@ const ChatView = () => {
   useEffect(() => {
     scrollRef.current && scrollRef.current.scrollToBottom();
   },[dataChat]);
+  const theme = useTheme();
 
   return (
     <div className="modalDiv-chat">
-      <div className="modal-chat">
-        <div className="header-chat">
-          <button className="close-panel">
+      <div style={{background:theme.header}} className="modal-chat">
+        <div style={{background:theme.header}} className="header-chat">
+          <button style={{background:theme.header}} className="close-panel">
             <Link  to={prevPath} style={{ textDecoration: 'none'}} >X</Link>
           </button>
-          <div className="name-user-header-chat">{userChat.name}</div>
+          <h2 style={{ textAlign: 'center',fontSize: '150%', fontFamily:'sans-serif', color: theme.userName, background:theme.header }}>{userChat.name}</h2>
         </div>
         <br /><br />
-        <div className="linea-acostada"/>
+        <div style={{background:theme.linea}} className="linea-acostada"/>
         <br />
-        <div className="section-message-chat">
+        <div  className="section-message-chat">
           <div className="sidebar-messages-chat main-message-chat">
-            <Scrollbars autoHeight autoHeightMax={ '42vh' }  style={{ width: '42.5vh' }} ref={scrollRef}>
+            <Scrollbars autoHeight autoHeightMax={ '42vh' }  style={{ width: '44.5vh'}} ref={scrollRef}>
               {
                 chatMessages && chatMessages.map((chat, index) => <ChatMessage key={index} chat={chat} userChat={userChat} />)
               }
@@ -73,16 +78,18 @@ const ChatView = () => {
 
           <div className="form-chats">
             <input
+              style={{background:theme.background, color: theme.userName}}
               className="input-message-chat"
               value={formValue}
+              onKeyUp={ submitHandler }
               onChange={(e) => setFormValue(e.target.value)}
-              placeholder="say something nice"
+              placeholder="treat people with kindness"
             />
 
             <button
               className="form-button-message-chat send-button-message-chat"
               type="submit"
-              onClick={submitHandle}
+              onClick={sendMessageHandler}
               disabled={!formValue}
             >
               🕊️

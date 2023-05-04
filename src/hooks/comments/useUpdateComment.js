@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const updateComment = async (comments) => {
     const { uid_user, id_Post, id_comment } = comments;

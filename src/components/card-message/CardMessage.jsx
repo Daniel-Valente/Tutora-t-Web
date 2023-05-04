@@ -5,6 +5,7 @@ import { isChatModal } from '../../helpers/utils';
 
 import { useUpdateChatToUser, useUserById } from '../../hooks';
 import { user } from '../../images';
+import { useTheme } from 'styled-components';
 
 const CardMessage = (props) => {
     const location = useLocation();
@@ -15,10 +16,10 @@ const CardMessage = (props) => {
 
     const { mutate: updateSeen } = useUpdateChatToUser(chat.uid_user, chat.uid_userChat);
 
-    const { data: dataUserChat = [], isFetching: fetchingUserChat, isLoading: loadingUserChat } = useUserById(chat.uid_userChat);
+    const { data: dataUserChat = [], isFetching: fetchingUserChat } = useUserById(chat.uid_userChat);
     const [userChat, setUserChat] = useState(dataUserChat);
 
-    const { data: dataUser = [], isFetching: fetchingUser, isLoading: loadingUser } = useUserById(chat.uid_user);
+    const { data: dataUser = [], isFetching: fetchingUser } = useUserById(chat.uid_user);
     const [userPefil, setUserPerfil] = useState(dataUser);
 
     const seenHandle = () => {
@@ -30,6 +31,8 @@ const CardMessage = (props) => {
         });
     }
 
+    const formatDate = () => new Date(chat.createdAt).toLocaleTimeString();
+
     useEffect(() => {
         !fetchingUserChat && dataUserChat && userChat.length > -1 && setUserChat(dataUserChat);
         // eslint-disable-next-line
@@ -39,14 +42,7 @@ const CardMessage = (props) => {
         !fetchingUser && dataUser && userPefil.length > -1 && setUserPerfil(userPefil);
         // eslint-disable-next-line
     }, [dataUser]);
-
-    if (loadingUserChat || loadingUser) {
-        return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
-        )
-    }
+    const theme = useTheme();
 
     return (
         <div className={`row ${chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : ''} card-message`}>
@@ -67,14 +63,15 @@ const CardMessage = (props) => {
                     state={{ background: location, prevPath: location.pathname }}
                     onClick={seenHandle}
                     style={{ textDecoration: 'none', color: 'black' }}>
-                    <p style={{ marginLeft: '1%', marginTop: '25px' }}>
-                        <label style={{ fontSize: '20px' }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
+                    <p style={{ marginLeft: '1%', marginTop: '25px', color:theme.userName2 }}>
+                        <label style={{ fontSize: '20px',color:theme.userName }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
                         <br />
                         {userInfoPerfil.uid_user === chat.uid_user ? 'Tú: ' + chat.message : chat.message}
+                        <div className='format-hours'>{ formatDate() }</div>
                     </p>
                 </Link>
             </div>
-            <div className='linea-acostada' />
+            <div style={{background:theme.linea}} className='linea-acostada' />
         </div>
     )
 }

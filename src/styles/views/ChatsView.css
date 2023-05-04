@@ -27,7 +27,7 @@
 }
 
 .header-chat {
-  background-color: #f0f2f5;
+  background-color: #ffffff;
   border-radius: 30px;
   height: 5.8vh;
   width: 100%;
@@ -110,9 +110,29 @@
   cursor: not-allowed;
 }
 
+.format-time-chat {
+  font-size: 10px;
+}
+
+.format-hours-list {
+  font-size: 13px;
+  position: absolute;
+  left: 80%;
+  top: 35%;
+}
+
+.format-hours {
+  font-size: 13px;
+  position: absolute;
+  left: 75%;
+  top: 35%;
+
+}
+
 .parrafo-message {
   max-width: 500px;
   margin-bottom: 12px;
+  margin-left: 10px;
   line-height: 24px;
   padding: 10px 20px;
   border-radius: 25px;

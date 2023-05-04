@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 const MenuComment = ({ x, y, showMenu, userComment, userPost, handleEdit, handleDelete }) => {
@@ -9,7 +9,6 @@ const MenuComment = ({ x, y, showMenu, userComment, userPost, handleEdit, handle
             width: 150,
             borderRadius: 10,
             background: "#fff",
-            display: 'flex',
             flexDirection: 'column',
             padding: 10,
             top: y,

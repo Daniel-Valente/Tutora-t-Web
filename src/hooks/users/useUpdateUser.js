@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const updateUser = async (user) => {
     const { uid_user, imgName, imgPortadaName, nombre, telefono, password, username, carrera } = user;
@@ -13,11 +13,14 @@ const updateUser = async (user) => {
     formData.append('username',username);
     formData.append('carrera',carrera);
 
-    return await httpClient.put(`/users/${ uid_user }`, formData, {
+    const { data } = await httpClient.put(`/users/${ uid_user }`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         }
     });
+
+    const node = { uid_user: data._id, ...data };
+    return node;
 }
 
 export const useUpdateUser = () => {

@@ -1,6 +1,5 @@
 export { resetPasswordModalState } from "./auth/resetPasswordModalSlice";
 export { searchModalState } from "./search/searchModalSlice";
-export { userLogInState } from "./users/userLogInSlice";
 export { sessionState } from "./auth/isLogInSlice";
 export { userModalState } from "./users/userModalSlice";
 export { userInfo } from "./users/userSlice";
@@ -15,3 +14,6 @@ export { registerWithEmailState } from "./auth/registerWithEmailSlice";
 export { registerModalState } from "./auth/registerModalSlice";
 export { loginWithEmailState } from "./auth/loginWithEmailSlice";
 export { logInModalState } from "./auth/logInModalSlice";
+export { validateCodeModalState } from "./auth/validateCodeModalSlice";
+export { newPasswordModalState } from "./auth/newPasswordModalSlice";
+export { isRegisterState } from "./auth/isRegisterSlice";

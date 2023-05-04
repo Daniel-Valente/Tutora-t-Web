@@ -12,8 +12,10 @@ export { useUserById } from "./users/userUserById";
 export { useUpdateUser } from "./users/useUpdateUser";
 export { useUserByUsername } from "./users/useUserByUsername";
 export { useUsersList } from "./users/useUsersList";
-export { useResetPassword } from "./users/useResetPassword";
-export { useSendEmailValidation } from "./users/useSendEmailValidation";
+export { useResetPassword } from "./emails/useResetPassword";
+export { useNewPassword } from "./emails/useNewPassword";
+export { useVerifyEmailAddress } from "./emails/useVerifyEmailAddress";
+export { useSendEmailVerify } from "./emails/useSendEmailVerify";
 
 export { useHidePost } from "./interaction/useHidePost";
 export { useHidePostList } from "./interaction/useHidePostList";
@@ -51,10 +53,11 @@ export { useUpdateCourse } from "./courses/useUpdateCourse";
 export { useRegistrationByUser } from "./courses/useRegistrationByUser";
 
 export { useAddComment } from "./comments/useAddComment";
-export { useCommentList } from "./comments/useCommentList";
 export { useCommentListWithLimit } from "./comments/useCommentListWithLimit";
 export { useDeleteComment } from "./comments/useDeleteComment";
 export { useUpdateComment } from "./comments/useUpdateComment";
+export { useCommentsTotal } from "./comments/useCommentsTotal";
+export { useCommentsList } from "./comments/useCommentsList";
 
 export { useAddChatToUser } from "./chats/useAddChatToUser";
 export { useChatsList } from "./chats/useChatsList";

@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { useBodyScrollLock } from '../../hooks';
 
 const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSave, post, hide, save, prevUrl }) => {
     const userInfoPerfil = useSelector(state => state.user);
     const location = useLocation();
-    const [, toggle] = useBodyScrollLock();
 
     const style = () => {
         return {
             width: 150,
             borderRadius: 10,
             background: "#fff",
-            display: 'flex',
             flexDirection: 'column',
             padding: 10,
             top: y,
@@ -25,18 +22,22 @@ const MenuPost = ({ x, y, showMenu, userPost, handleDelete, handleHide, handleSa
     };
 
     return (
-        <div style={style()}>
+        <>
+        <div  style={style()}>
             {userInfoPerfil.uid_user === userPost.uid_user && 
             <Link to={`${prevUrl}/edit/${post._id}`} 
                 style={{ textDecoration: 'none' }}
                 state={{ background: location, editPublicationModal: true, post: post, prevPath: location.pathname }}>
-                <button style={ styles.div }>Editar</button>
+                <button className="boton-Ocultar" style={ styles.div }>Editar</button>
             </Link>
             }
-            <button style={styles.div} onClick={ handleHide } >{ !hide ? 'Ocultar' : 'Mostrar'  }</button>
-            <button style={styles.div} onClick={ handleSave } >{ !save ? 'Guardar' : 'Quitar'  }</button>
-            {userInfoPerfil.uid_user === userPost.uid_user && <button style={styles.div} onClick={handleDelete}>Eliminar</button>}
+            <button style={styles.div} className="boton-Ocultar" onClick={ handleHide } >{ !hide ? 'Ocultar' : 'Mostrar'  }</button>
+            <button style={styles.div} className="boton-Ocultar" onClick={ handleSave } >{ !save ? 'Guardar' : 'Quitar'  }</button>
+            {userInfoPerfil.uid_user === userPost.uid_user && <button className="boton-Ocultar" style={styles.div} onClick={handleDelete}>Eliminar</button>}
         </div>
+       
+        </>
+        
     );
 };
 

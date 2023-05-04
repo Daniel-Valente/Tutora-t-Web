@@ -1,10 +1,10 @@
 import {
     chatModalState, commentModalState, editPublicationState, hoveringState,
-    logInModalState, loginWithEmailState, notificationModalState,
+    logInModalState, loginWithEmailState, newPasswordModalState, notificationModalState,
     publicationState, registerModalState, registerWithEmailState,
     resetPasswordModalState,
     searchModalState,
-    sessionState, userModalState
+    sessionState, userModalState, validateCodeModalState
 } from "../reducers";
 
 
@@ -20,6 +20,16 @@ export const isLoginWithEmail = (dispatch, loginModal) => {
 export const isResetPassword = (dispatch, resetModal) => {
     dispatch(loginWithEmailState(false));
     dispatch(resetPasswordModalState(!resetModal));
+}
+
+export const isValidateCode = (dispatch, codeModal) => {
+    dispatch(loginWithEmailState(false));
+    dispatch(validateCodeModalState(!codeModal));
+}
+
+export const isNewPassword = (dispatch, passwordModal) => {
+    dispatch(loginWithEmailState(false));
+    dispatch(newPasswordModalState(!passwordModal));
 }
 
 export const isRegisterModal = (dispatch, registerModal) => {
@@ -38,36 +48,36 @@ export const ValidateData = (target, value) => {
                 const regexUsername = new RegExp('^[A-Za-z0-9]{3,16}$');
                 return {
                     confirm: regexUsername.test(target.value),
-                    errorMessage: `Username should be 3-16 characters and shouldn't include any special character!`
+                    errorMessage: `El nombre de usuario debe de ser de 3-16 caracteres  y no debe de contener ningun caracter especial!`
                 }
             case 'nombre':
                 const regexName = new RegExp('^[A-Za-z]');
                 return {
                     confirm: regexName.test(target.value),
-                    errorMessage: `Name shouldn't include any special character and number!`
+                    errorMessage: `El nombre no debe de incluir ningun caracter especial o numero!`
                 }
             case 'email':
                 const regexEmail = new RegExp(`^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`);
                 return {
                     confirm: regexEmail.test(target.value),
-                    errorMessage: `It should be a valid email address!`
+                    errorMessage: `Debe de ser un email valido!`
                 }
             case 'telefono':
                 const regexPhone = new RegExp('^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$');
                 return {
                     confirm: regexPhone.test(target.value),
-                    errorMessage: `Phone number should be 10 number and area code ('+'), shouldn't include any other special character and normal character!`
+                    errorMessage: `El numero de celular debe de ser de 10 numeros y el codigo de area ('+'), no debe de incluir ningun otro caracter especial!`
                 }
             case 'password':
                 const regexPassword = new RegExp('^[a-zA-Z0-9!@#$%^&*]');
                 return {
                     confirm: regexPassword.test(target.value),
-                    errorMessage: `Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!`
+                    errorMessage: `La contraseña debe de contener 8-20 caracteres e incluir al menos 1 letra, 1 numero y 1 caracter especial!`
                 }
             case 'confirmPassword':
                 return {
                     confirm: value.password === value.confirmPassword,
-                    errorMessage: `Passwords don't match!`
+                    errorMessage: `Las contraseñas no coinciden!`
                 }
             default:
                 return {
@@ -119,7 +129,7 @@ export const isEditPublicationModal = (dispatch, activePublications) => {
     dispatch(editPublicationState(!activePublications));
 }
 
-export const isSearchModal = ( dispatch, activeSearch ) => {
+export const isSearchModal = (dispatch, activeSearch) => {
     dispatch(searchModalState(!activeSearch));
 }
 
@@ -131,7 +141,7 @@ export const isLogIn = (dispatch) => {
 }
 
 export const isOut = (dispatch) => {
-    userModalState(dispatch, true);
+    userModalState(dispatch, false);
     dispatch(sessionState(false));
     window.location.href = "/";
 }
@@ -140,35 +150,65 @@ export const handleMouseEnter = (dispatch) => {
     dispatch(hoveringState(true));
 }
 
-export const tree = (career, likes, posts, followed, comments, saves, courses, inscriptions ) => {
-    let allData = [ { total: 1, career }, ...likes, ...posts, ...followed, ...comments, ...saves, ...courses, ...inscriptions ];
-    
-    return getReference( allData );
+export const tree = (career, likes, posts, followed, comments, saves, courses, inscriptions) => {
+    let allData = [{ total: 1, career }, ...likes, ...posts, ...followed, ...comments, ...saves, ...courses, ...inscriptions];
+
+    return getReference(allData);
 }
 
-const getReference = ( data ) => {
+const getReference = (data) => {
     let newData = [];
     let validation = [];
     let size = 0;
 
-    data.forEach(( value, index, arr ) => {
-        if( size === data.length ) arr.length = index;
-        
-        if( !validation.includes( value.career )) {
-            const filterData = data.filter( data => data.career === value.career );
-            
-            newData.push({ career: value.career, total: filterData.reduce(( previous, current ) => previous + current.total, 0 )});
-            
-            size += data.filter( data => data.career === value.career ).length;
-            validation.push( value.career );
+    data.forEach((value, index, arr) => {
+        if (size === data.length) arr.length = index;
+
+        if (!validation.includes(value.career)) {
+            const filterData = data.filter(data => data.career === value.career);
+
+            newData.push({ career: value.career, total: filterData.reduce((previous, current) => previous + current.total, 0) });
+
+            size += data.filter(data => data.career === value.career).length;
+            validation.push(value.career);
         }
     });
 
-    return { ...newData.reduce(( previous, current ) => previous.total > current.total ? previous : current )};
+    return { ...newData.reduce((previous, current) => previous.total > current.total ? previous : current) };
 }
 
 export const filterContent = (data, reference) => {
-    if( !data ) return [];
+    if (!data) return [];
+
+    return [...data.filter(data => data.career === reference.career), ...data.filter(data => data.career !== reference.career)];
+}
+
+export const timeSince = (date) => {
+    let seconds = Math.floor((new Date() - date) / 1000);
+    let intervalo = seconds / 31536000;
     
-    return [ ...data.filter( data => data.career === reference.career ), ...data.filter( data => data.career !== reference.career )]; 
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' años';
+
+    intervalo = seconds / 2592000;
+
+    if ( intervalo > 1 ) 
+        return Math.floor(intervalo) + ' meses';
+    
+    intervalo = seconds / 86400;
+
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' dias';
+
+    intervalo = seconds / 3600;
+
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' horas';
+    
+        intervalo = seconds / 60;
+    
+    if(intervalo > 1)
+        return Math.floor(intervalo) + ' minutos';
+
+    return Math.floor(seconds) + ' segundos';
 }

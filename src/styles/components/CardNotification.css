@@ -4,6 +4,18 @@
 }
 
 .card-notification:hover, .card-message:hover {
-    background-color: rgba(183, 255, 255, 0.427);
+    filter: opacity(0.7);
+    background-color: #e0e0e0;
     cursor: pointer;
+}
+
+.format-time {
+    font-size: 12px;
+    color: darkgrey;
+}
+
+.format-delete {
+    font-style: italic;
+    font-size: 14px;
+    color: darkgrey;
 }

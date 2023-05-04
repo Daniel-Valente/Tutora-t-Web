@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
 
 const updateLike = async (likes) => {
     const { uid_user, id_Post, uid_creator, action, type, starActive, career } = likes;
@@ -13,7 +13,9 @@ const updateLike = async (likes) => {
     
     !starActive && uid_user !== uid_creator && await httpClient.post(`/users/notification/${ uid_user }`, notification);
     !starActive && await httpClient.patch(`/users/arbol/${ uid_user }/like`, { career });
-    return await httpClient.patch(`/likes/${uid_user}/${ id_Post }`);
+    const data = await httpClient.patch(`/likes/${uid_user}/${ id_Post }`);
+    console.log(data);
+    return data;
 }
 
 export const useUpdateLike = ( id_Post ) => {

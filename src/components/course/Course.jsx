@@ -20,11 +20,11 @@ const Course = (props) => {
         !fetchingUserPost && dataUserPost && userPost.length > -1 && setUserPost(dataUserPost);
         // eslint-disable-next-line
     }, [dataUserPost]);
-    
-    if (loadingPostsWithLimit) {
+
+    if ( loadingPostsWithLimit ) {
         return (
-            <div className='parent'>
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+            <div className='spinner-container'>
+                <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
             </div>
         )
     }

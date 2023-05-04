@@ -18,9 +18,12 @@ import publicationModalReducer from '../reducers/publications/publicationModalSl
 import editPublicationModalReducer from '../reducers/publications/editPublicationModalSlice';
 import userModalReducer from '../reducers/users/userModalSlice';
 import userReducer from '../reducers/users/userSlice';
-import userLogInReducer from '../reducers/users/userLogInSlice';
 import searchModalReducer from '../reducers/search/searchModalSlice';
 import resetPasswordModalReducer from '../reducers/auth/resetPasswordModalSlice';
+import validateCodeModalReducer from '../reducers/auth/validateCodeModalSlice';
+import newPasswordModalReducer from '../reducers/auth/newPasswordModalSlice';
+import isRegisterReducer from '../reducers/auth/isRegisterSlice';
+import { layoutReducer } from '../reducers/layoutReducer';
 
 const reducers = combineReducers({
     sessionActive: isLoginReducer,
@@ -36,22 +39,25 @@ const reducers = combineReducers({
     editPublicationModal: editPublicationModalReducer,
     userModal: userModalReducer,
     user: userReducer,
-    userLogIn: userLogInReducer,
     commentModal: commentModalReducer,
     searchModal: searchModalReducer,
     resetPasswordModal: resetPasswordModalReducer,
+    validateCodeModal: validateCodeModalReducer,
+    newPasswordModal: newPasswordModalReducer,
+    isRegister: isRegisterReducer,
+    layout: layoutReducer,
 });
 
 const persistConfig = {
     key: 'redux',
     storage,
-    whilelist: ['sessionActive', 'isHovering', 'user', 'userLogIn'],
+    whilelist: ['sessionActive', 'isHovering', 'user', 'isRegister', 'layout'],
     blacklist: [
         'loginModal', 'loginWitnEmail', 'registerModal',
         'registerWithEmail', 'commentModal', 'chatModal',
         'notificationModal', 'alert', 'publicationModal',
         'userModal', 'editPublicationModal, searchModal',
-        'resetPasswordModal']
+        'resetPasswordModal', 'validateCodeModal', 'newPasswordModal']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

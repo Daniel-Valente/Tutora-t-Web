@@ -1,8 +1,10 @@
 import React from "react";
 import PublicationPortal from "../portals/PublicationPortal";
+import { useTheme } from "styled-components";
 
 const CourseModal = (props) => {
   const { children, toggle, active, dispatch, toggleLock } = props;
+  const theme = useTheme();
 
   const styles = {
     wrapper: {
@@ -19,9 +21,9 @@ const CourseModal = (props) => {
     },
     window: {
       position: "relative",
-      background: "#fff",
+      background: theme.header,
       borderRadius: 10,
-      padding: 15,
+      padding: 0,
       boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
       zIndex: 10,
       top: "14vh",
@@ -32,6 +34,7 @@ const CourseModal = (props) => {
       position: "absolute",
       top: 10,
       right: 10,
+      color: theme.userName,
       background: "none",
       border: "none",
     },

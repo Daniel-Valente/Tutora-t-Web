@@ -32,6 +32,7 @@
   flex-direction: column;
   justify-content: center;
   min-height: 69vh;
+  padding-right: 0%;
 }
 
 .main-message-chat {
@@ -41,11 +42,10 @@
 
 .sidebar-messages-chat {
   position: fixed;
-  width: 42vh;
+  width: 42.5vh;
   height: 73%;
   display: flex;
   flex-direction: column;
-  padding: 0 5px 0 20px;
 }
 
 .form-chats {
@@ -109,13 +109,10 @@
   width: 45vh;
   height: 60vh;
   background-color: rgb(255, 255, 255);
-  border-radius: 5px;
+  border-radius: 10px;
   bottom: 0vh;
   right: 2vh;
   position: absolute;
-  border-top: solid 1px rgb(0, 0, 0);
-  border-left: solid 1px rgb(0, 0, 0);
-  border-right: solid 1px rgb(0, 0, 0);
 }
 
 .close-panel {

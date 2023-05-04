@@ -1,17 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
 .button-options {
     position: absolute;
     left: 96%;
     top: 1.5%;
     border: 0;
     font-size: 2vh;
-    background: #fff;
     transform: rotate(90deg);
+}
+.button-options:hover{
+    filter: opacity(0.3);
 }
 
 .button-comments-options {
     transform: rotate(90deg);
     font-size: 2vh;
-    background: #fff;
+    background: #ffffff;
     border: 0;
 }
 

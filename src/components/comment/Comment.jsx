@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useDeleteComment, useUpdateComment, useUserById } from '../../hooks';
 import { send, user } from '../../images';
 import MenuComment from '../menu-comment/MenuComment';
+import { timeSince } from '../../helpers/utils';
+import { useTheme } from 'styled-components';
 
 const Comment = (props) => {
     const { userInfoPerfil, comment, userPost } = props;
@@ -18,6 +20,7 @@ const Comment = (props) => {
     const [ x, setX ] = useState('');
     const [ y, setY ] = useState('');
     const [ menu, setMenu ] = useState(false);
+    const formatDate = () => new Date(comment.createdAt);
 
     const buttonMenuRef = useRef();
 
@@ -72,7 +75,7 @@ const Comment = (props) => {
         !fetchingUserComment && dataUserComment && userComment.length > -1 && setUserComment(dataUserComment);
         // eslint-disable-next-line
     }, [dataUserComment]);
-
+    const theme = useTheme();
     return (
         <div className='row'>
             <div className='col-1'>
@@ -87,9 +90,10 @@ const Comment = (props) => {
             </div>
             <div className='col-8'>
                 <p>
-                    <label style={{ fontSize: '15px' }}> <b>{ userComment.name }</b> </label>
+                    <label style={{ fontSize: '15px', color:theme.userName }}> <b>{ userComment.name }</b> </label>
                     <br />
                     <textarea 
+                    style={{background:theme.header, color:theme.userName2}}
                         type="text" 
                         value={ commentValue } 
                         className={`${ edit ? 'textarea-comment-disabled' : 'textarea-comment' }`} 
@@ -100,11 +104,12 @@ const Comment = (props) => {
                     {
                         !edit && <img className='send-comment' src={send} alt="send" onClick={ handleSubmitEdit } />
                     }
+                    <span className='format-time'> hace { timeSince( formatDate() ) } </span>
                 </p>
             </div>
             <div className='col-1'>
                 { userInfoPerfil.uid_user === userComment.uid_user 
-                ? <button className='button-comments-options' ref={buttonMenuRef} onClick={ handleMenu } >...</button>
+                ? <button style={{background:theme.header}} className='button-comments-options' ref={buttonMenuRef} onClick={ handleMenu } >...</button>
                 : userInfoPerfil.uid_user === userPost.uid_user && <button className='button-comments-options' ref={buttonMenuRef} onClick={ handleMenu } >...</button> }
                 <MenuComment x={x} y={y} showMenu={menu} userComment={userComment} userPost={userPost} handleEdit={handleEdit} handleDelete={handleDelete}/>
             </div>

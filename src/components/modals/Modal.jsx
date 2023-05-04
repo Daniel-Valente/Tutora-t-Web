@@ -1,9 +1,10 @@
 import React from "react";
 import Portal from "../portals/Portal";
+import { useTheme } from "styled-components";
 
 const Modal = (props) => {
   const { children, toggle, active, dispatch } = props;
-
+  const theme = useTheme();
   const styles = {
     wrapper: {
       position: "absolute",
@@ -19,7 +20,7 @@ const Modal = (props) => {
     },
     window: {
       position: "relative",
-      background: "#fff",
+      background: theme.header,
       borderRadius: 10,
       padding: 15,
       boxShadow: "2px 2px 10px  rgba(0,0,0,0.3)",
@@ -32,7 +33,8 @@ const Modal = (props) => {
       position: "absolute",
       top: 10,
       right: 10,
-      background: "none",
+      background:'none',
+      color: theme.userName,
       border: "none",
     },
   };

@@ -1,9 +1,22 @@
 .header {
-  background-color: #ffffff;
   width: 100%;
   height: 40px;
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+.main {
+  height: 88.5vh;
+}
+a{
+  color: #1492e6;
+}
+a:hover {
+  color: #ff0096;
+}
+.react-switch{
+  position: absolute;
+  top:-50px;
+  left: 70%;
 }
 
 .logo-link {
@@ -18,6 +31,7 @@
 a:hover {
   color: #ff0096;
 }
+
 .button-shape {
   background-color: #1492e6;
   border-radius: 10px;
@@ -32,7 +46,6 @@ a:hover {
 }
 
 .button-without-background {
-  background-color: #ffffff;
   border-radius: 10px;
   height: 40px;
   border: none;
@@ -46,7 +59,6 @@ a:hover {
 }
 
 .boton-sin-fondo {
-  background-color: #ffffff;
   border-radius: 10px;
   height: 40px;
   border: none;
@@ -86,7 +98,7 @@ a:hover {
   margin-left: 100px;
   position: absolute;
   left: 0;
-  top: 65%;
+  top: 70%;
 }
 
 .button-HOY:hover {
@@ -102,12 +114,41 @@ a:hover {
 .linea {
   width: 1px;
   float: right;
-  background-color: #d4d4d4;
   height: 40px;
   margin-right: 2rem;
 }
 
 .linea-acostada {
+  width: 100%;
+  float: right;
+  background-color: #d4d4d4;
+  height: 1px;
+}
+.linea-acostadaConfiguracion{
+  width: 100%;
+  float: right;
+  height: 1px;
+  margin-top: -22px;
+}
+.linea-acostadaLogin{
+  width: 100%;
+  float: right;
+  background-color: #d4d4d4;
+  height: 1px;
+  position: absolute;
+  top:72px;
+}
+
+.linea-acostadaHome {
+  width: 100%;
+  float: right;
+  height: 1px;
+  position: absolute;
+  top:71px;
+ 
+}
+
+.linea-acostada-new {
   width: 100%;
   float: right;
   background-color: #d4d4d4;
@@ -138,14 +179,32 @@ a:hover {
 
 .eye-icon-2 {
   position: absolute;
-  width: 25px;
-  left: 345px;
-  top: 285px;
+  width: 35px;
+  left: 340px;
+  top: 280px;
   background: none;
   border: none;
   color: #6b6b6b;
 }
 
+.eye-icon-4 {
+  position: absolute;
+  width: 35px;
+  left: 410px;
+  top: 175px;
+  background: none;
+  border: none;
+  color: #434343;
+}
+.eye-icon-5 {
+  position: absolute;
+  width: 35px;
+  left: 410px;
+  top: 235px;
+  background: none;
+  border: none;
+  color: #6b6b6b;
+}
 input:invalid[focused="true"] {
   border: 1px solid red;
 }
@@ -156,9 +215,9 @@ input:invalid[focused="true"] ~ span {
 
 .eye-icon-3 {
   position: absolute;
-  width: 25px;
-  left: 735px;
-  top: 285px;
+  width: 35px;
+  left: 730px;
+  top: 280px;
   background: none;
   border: none;
   color: #6b6b6b;
@@ -166,9 +225,9 @@ input:invalid[focused="true"] ~ span {
 
 .eye-icon {
   position: absolute;
-  width: 25px;
-  left: 320px;
-  top: 230px;
+  width: 35px;
+  left: 330px;
+  top: 220px;
   background: none;
   border: none;
   color: #6b6b6b;
@@ -189,9 +248,8 @@ input:invalid[focused="true"] ~ span {
   margin-right: 1.5rem;
   margin-top: 1.5rem;
 }
- 
-.boton-crea {
-  background-color: #ff0096;
+.boton-correoLogin {
+  background-color: #1492e6;
   border-radius: 15px;
   height: 50px;
   border: none;
@@ -203,6 +261,83 @@ input:invalid[focused="true"] ~ span {
   text-align: center;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
+  margin-top: 0rem;
+}
+
+.boton-correoGoogle {
+  background-color: #e2e2e2;
+  border-radius: 15px;
+  height: 50px;
+  border: none;
+  width: 350px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 0rem;
+}
+
+.boton-correo2 {
+  background-color: #ff0096;
+  border-radius: 15px;
+  height: 50px;
+  border: none;
+  width: 350px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  margin-left: 6.5rem;
+  margin-right: 6.5rem;
+  margin-top: 1.5rem;
+}
+.boton-correo3 {
+  background-color: #ff0096;
+  border-radius: 15px;
+  height: 50px;
+  border: none;
+  width: 350px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  margin-left: 5.5rem;
+  margin-right: 5.5rem;
+  margin-top: 1.5rem;
+}
+.button1:hover {
+  background-color: #2a81bb;
+  color: #f0f2f5;
+}
+
+.buttonGoogle:hover {
+  background-color: #d0d0d0;
+  color: #000000;
+}
+
+.button2:hover {
+  background-color: #db188a;
+  color: #f0f2f5;
+}
+
+.boton-crea {
+  background-color: #ff0096;
+  border-radius: 15px;
+  height: 50px;
+  border: none;
+  width: 500px;
+  font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  margin-left: 9rem;
+  margin-right: 9rem;
 }
 
 .aviso-privacidad {
@@ -230,12 +365,21 @@ input {
 
 .input-type {
   border-color: #e7e7e7;
-  border-radius: 15px;
-  width: 370px;
+  width: 735px;
   font-family: "Segoe UI Emoji", Tahoma, Geneva, Verdana, sans-serif;
   color: #000000;
   font-size: 15px;
   font-weight: bolder;
-  padding-left: 30px;
+  margin-left: 24px;
   margin-top: 1rem;
+}
+.validateInput{
+  margin-left: 6.5rem;
+  margin-right: 6.5rem;
+  
+}
+.pass{
+  margin-left: 5.5rem;
+  margin-right: 5.5rem;
+  
 }

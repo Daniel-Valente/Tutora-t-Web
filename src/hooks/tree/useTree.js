@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { tree } from "../../helpers/utils";
 
-import httpClient from "../../https/httpClient";
+import httpClient from "../../http/httpClient";
+import { store } from "../../store";
+import { hideGlobalLoader, showGlobalLoader } from "../../actions/layout";
 
 const getTree = async ({ queryKey }) => {
     const [ , uid_user, career ] = queryKey;
 
     if(!uid_user) return [];
+    //store.dispatch( showGlobalLoader() );
     
     const { data: likes = [] } = await httpClient.get(`/users/arbol/${ uid_user }/like`);
     const { data: posts = [] } = await httpClient.get(`/users/arbol/${ uid_user }/post`);
@@ -16,6 +19,7 @@ const getTree = async ({ queryKey }) => {
     const { data: courses = [] } = await httpClient.get(`/users/arbol/${ uid_user }/course`);
     const { data: inscriptions = [] } = await httpClient.get(`/users/arbol/${ uid_user }/course/inscripto`);
 
+    //store.dispatch( hideGlobalLoader() );
     return tree(career, likes, posts, followed, comments, saves, courses, inscriptions);
 }
 
