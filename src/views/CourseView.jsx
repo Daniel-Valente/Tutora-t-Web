@@ -232,6 +232,20 @@ const CourseView = () => {
      color: isHoverBR ? '#fff' : '#2bc6ff',
      transition: 'all 0.10s ease',
    };
+   const [isHoverBR2, setIsHoverBR2] = useState(false);
+
+   const handleMouseEnterBR2 = () => {
+      setIsHoverBR2(true);
+   };
+   const handleMouseLeaveBR2 = () => {
+      setIsHoverBR2(false);
+   };
+
+   const boxStyleBR2 = {
+     backgroundColor: isHoverBR2 ? theme.linkColor : theme.background,
+     color: isHoverBR2 ? '#fff' : '#2bc6ff',
+     transition: 'all 0.10s ease',
+   };
 
 
   return (
@@ -240,7 +254,7 @@ const CourseView = () => {
         <img className="fondo"
           src={course.imgUrl}
           alt={'user-portada'} />
-        <label style={{ textAlign: 'left', position:'absolute', top: '500px', marginLeft: '38%', fontSize: '300%', fontFamily:'sans-serif', color: theme.userName }}>
+        <label style={{ width:'950px', textAlign: 'center', position:'absolute', top: '500px', marginLeft: '23%', fontSize: '300%', fontFamily:'sans-serif', color: theme.userName }}>
           {course.title}
         </label>
         <br />
@@ -257,8 +271,9 @@ const CourseView = () => {
             {
               userInfo.uid_user === course.uid_user &&
               <div>
-                <button className='button-join' onClick={createCourseHandler}>Editar</button>
-                <button className='button-option-course' ref={buttonMenuRef} onClick={handleMenu}>{'>'}</button>
+                <button onMouseEnter={handleMouseEnterBR2}
+            onMouseLeave={handleMouseLeaveBR2} style={boxStyleBR2} className='button-join' onClick={createCourseHandler}>Editar</button>
+                <button style={{background:theme.background, color: theme.userName}} className='button-option-course' ref={buttonMenuRef} onClick={handleMenu}>{'>'}</button>
                 <MenuCourse x={x} y={y} showMenu={menu} handleDelete={handleDelete}/>
               </div>
             }
