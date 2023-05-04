@@ -44,6 +44,46 @@ const SettingsView = () => {
       setConfigValue({ ...configValue, [e.target.name]: e.target.value });
     }
   };
+  const customStyles = {
+    singleValue: (base, state) => ({
+      ...base,
+      color: theme.userName,
+    }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isFocused ? '#ededed' : '',
+    }),
+    control: (base, state) => ({
+      ...base,
+      
+      background:theme.header,
+      height: '50px',
+      // match with the menu
+      marginTop:'5px',
+      borderRadius:  "10px",
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ?  theme.userName : theme.userName,
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? theme.userName : theme.userName
+      }
+    }),
+    menu: (base) => ({
+      ...base,
+      
+      // override border radius to match the box
+      borderRadius: 0,
+      // kill the gap
+      marginTop: 0
+    }),
+    menuList: (base) => ({
+      ...base,
+      // kill the white space on first and last option
+      padding: 0
+    })
+  }
 
   const handleSubmit = () => {
     if (configValue.nombre === userInfoPerfil.name) configValue.nombre = '';
@@ -182,7 +222,7 @@ const SettingsView = () => {
                   value={configValue.telefono}
                 />
                 <Select
-                  style={{background:theme.header, color: theme.userName}}
+                  styles={customStyles}
                   onFocus={ () => setDisableSave(false) }
                   placeholder='carrera'
                   name="carrera" 

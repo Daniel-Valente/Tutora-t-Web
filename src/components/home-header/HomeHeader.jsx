@@ -96,11 +96,11 @@ const HomeHeader = () => {
    const boxStyleB4 = {
     filter: isHoverB4 ? theme.hover  : '',
     backgroundColor: isHoverB4 ? '#e2e2e2' : theme.header,
-    color:theme === 'dark' ||    isHoverB4 ? '#000000' : theme.userName,
+    color:theme.status === 'dark' &&    isHoverB4 ? '#000000' : theme.userName,
     transition: 'all 0.10s ease',
    };
    const boxStyleE = {
-    filter:theme === 'dark' ||    isHoverB4 ? 'invert(0)' : theme.eye,
+    filter:theme.status === 'dark' &&    isHoverB4 ? 'invert(0)' : theme.eye,
     transition: 'all 0.10s ease',
    };
    const [isHoverB5, setIsHoverB5] = useState(false);
@@ -114,11 +114,11 @@ const HomeHeader = () => {
    const boxStyleB5 = {
     filter: isHoverB5 ? theme.hover  : '',
     backgroundColor: isHoverB5 ? '#e2e2e2' : theme.header,
-    color:theme === 'dark' ||    isHoverB5 ? '#000000' : theme.userName,
+    color:theme.status === 'dark' &&    isHoverB5 ? '#000000' : theme.userName,
     transition: 'all 0.10s ease',
    };
    const boxStyleE2 = {
-    filter:theme === 'dark' ||    isHoverB5 ? 'invert(0)' : theme.eye,
+    filter:theme.status === 'dark' &&    isHoverB5 ? 'invert(0)' : theme.eye,
     transition: 'all 0.10s ease',
    };
    const [isHoverB6, setIsHoverB6] = useState(false);
@@ -132,12 +132,12 @@ const HomeHeader = () => {
    const boxStyleB6 = {
     filter: isHoverB5 ? theme.hover  : '',
     backgroundColor: isHoverB6 ? '#e2e2e2' : theme.header,
-    color:theme === 'dark' ||    isHoverB6 ? '#000000' : theme.userName,
+    color:theme.status === 'dark' &&    isHoverB6 ? '#000000' : theme.userName,
     transition: 'all 0.10s ease',
     fontSize: '14px',
    };
    const boxStyleE3 = {
-    filter:theme === 'dark' ||    isHoverB6 ? 'invert(0)' : theme.eye,
+    filter:theme.status === 'dark' &&    isHoverB6 ? 'invert(0)' : theme.eye,
     transition: 'all 0.10s ease',
     marginRight:'20px', top:'5px', position:'relative'
    };

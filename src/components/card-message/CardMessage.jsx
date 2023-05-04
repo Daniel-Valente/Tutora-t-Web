@@ -5,6 +5,7 @@ import { isChatModal } from '../../helpers/utils';
 
 import { useUpdateChatToUser, useUserById } from '../../hooks';
 import { user } from '../../images';
+import { useTheme } from 'styled-components';
 
 const CardMessage = (props) => {
     const location = useLocation();
@@ -41,6 +42,7 @@ const CardMessage = (props) => {
         !fetchingUser && dataUser && userPefil.length > -1 && setUserPerfil(userPefil);
         // eslint-disable-next-line
     }, [dataUser]);
+    const theme = useTheme();
 
     return (
         <div className={`row ${chat.seen === false && chat.uid_user !== userInfoPerfil.uid_user ? 'message-not-view' : ''} card-message`}>
@@ -61,15 +63,15 @@ const CardMessage = (props) => {
                     state={{ background: location, prevPath: location.pathname }}
                     onClick={seenHandle}
                     style={{ textDecoration: 'none', color: 'black' }}>
-                    <p style={{ marginLeft: '1%', marginTop: '25px' }}>
-                        <label style={{ fontSize: '20px' }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
+                    <p style={{ marginLeft: '1%', marginTop: '25px', color:theme.userName2 }}>
+                        <label style={{ fontSize: '20px',color:theme.userName }}> <b>{userInfoPerfil.uid_user === chat.uid_user ? userChat.username : userPefil.username}</b> </label>
                         <br />
                         {userInfoPerfil.uid_user === chat.uid_user ? 'Tú: ' + chat.message : chat.message}
                         <div className='format-hours'>{ formatDate() }</div>
                     </p>
                 </Link>
             </div>
-            <div className='linea-acostada' />
+            <div style={{background:theme.linea}} className='linea-acostada' />
         </div>
     )
 }

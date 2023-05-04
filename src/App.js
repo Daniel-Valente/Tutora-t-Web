@@ -41,7 +41,6 @@ const darkTheme ={
   hover: 'opacity(.6)',
   status: 'dark',
   selected:'#2a2a2b'
-  
 
 };
 const lightTheme ={
